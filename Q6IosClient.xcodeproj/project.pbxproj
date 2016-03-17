@@ -13,6 +13,7 @@
 		19FD132D1C9A134800E5C445 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 19FD132B1C9A134800E5C445 /* Main.storyboard */; };
 		19FD132F1C9A134800E5C445 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 19FD132E1C9A134800E5C445 /* Assets.xcassets */; };
 		19FD13321C9A134800E5C445 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 19FD13301C9A134800E5C445 /* LaunchScreen.storyboard */; };
+		19FD133B1C9A186300E5C445 /* Q6Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19FD133A1C9A186300E5C445 /* Q6Login.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		19FD132E1C9A134800E5C445 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		19FD13311C9A134800E5C445 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		19FD13331C9A134800E5C445 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		19FD133A1C9A186300E5C445 /* Q6Login.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Q6Login.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +58,7 @@
 		19FD13241C9A134800E5C445 /* Q6IosClient */ = {
 			isa = PBXGroup;
 			children = (
+				19FD13391C9A184400E5C445 /* Common */,
 				19FD13251C9A134800E5C445 /* AppDelegate.swift */,
 				19FD13271C9A134800E5C445 /* MasterViewController.swift */,
 				19FD13291C9A134800E5C445 /* DetailViewController.swift */,
@@ -65,6 +68,14 @@
 				19FD13331C9A134800E5C445 /* Info.plist */,
 			);
 			path = Q6IosClient;
+			sourceTree = "<group>";
+		};
+		19FD13391C9A184400E5C445 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				19FD133A1C9A186300E5C445 /* Q6Login.swift */,
+			);
+			name = Common;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -139,6 +150,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				19FD132A1C9A134800E5C445 /* DetailViewController.swift in Sources */,
+				19FD133B1C9A186300E5C445 /* Q6Login.swift in Sources */,
 				19FD13281C9A134800E5C445 /* MasterViewController.swift in Sources */,
 				19FD13261C9A134800E5C445 /* AppDelegate.swift in Sources */,
 			);
@@ -290,6 +302,7 @@
 				19FD13381C9A134800E5C445 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

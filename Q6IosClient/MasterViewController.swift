@@ -34,8 +34,8 @@ class MasterViewController: UITableViewController {
         self.clearsSelectionOnViewWillAppear = self.splitViewController!.collapsed
         super.viewWillAppear(animated)
         
-    var q6Login = Q6Login()
-   var ifTouchIDExist = q6Login.validateIfPassCodeExist()
+    var q6Login = Q6CommonLib()
+   q6Login.Q6Login()
 //    var message =  q6Login.testTouchID()
 //    notifyUser(message.msg, err: message.err)
       // testTouchID()

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		19691E8F1C9F8AE200E009A7 /* Q6Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19691E8E1C9F8AE200E009A7 /* Q6Protocol.swift */; };
 		19FD13261C9A134800E5C445 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19FD13251C9A134800E5C445 /* AppDelegate.swift */; };
 		19FD13281C9A134800E5C445 /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19FD13271C9A134800E5C445 /* MasterViewController.swift */; };
 		19FD132A1C9A134800E5C445 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19FD13291C9A134800E5C445 /* DetailViewController.swift */; };
@@ -18,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		19691E8E1C9F8AE200E009A7 /* Q6Protocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Q6Protocol.swift; sourceTree = "<group>"; };
 		19FD13221C9A134800E5C445 /* Q6IosClient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Q6IosClient.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		19FD13251C9A134800E5C445 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		19FD13271C9A134800E5C445 /* MasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
@@ -77,6 +79,7 @@
 			isa = PBXGroup;
 			children = (
 				19FD133A1C9A186300E5C445 /* Q6CommonLib.swift */,
+				19691E8E1C9F8AE200E009A7 /* Q6Protocol.swift */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -162,6 +165,7 @@
 			files = (
 				19FD132A1C9A134800E5C445 /* DetailViewController.swift in Sources */,
 				19FD133B1C9A186300E5C445 /* Q6CommonLib.swift in Sources */,
+				19691E8F1C9F8AE200E009A7 /* Q6Protocol.swift in Sources */,
 				19FD133E1C9A4D0A00E5C445 /* InternalUserLoginParameter.swift in Sources */,
 				19FD13281C9A134800E5C445 /* MasterViewController.swift in Sources */,
 				19FD13261C9A134800E5C445 /* AppDelegate.swift in Sources */,

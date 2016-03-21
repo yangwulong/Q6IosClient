@@ -12,6 +12,14 @@ import UIKit
 
 public class Q6CommonLib{
     
+     let q6WebApiUrl = "http://api.q6.com.au/api/Q6/"
+     weak var delegate : Q6WebApiProtocol?
+    init(){}
+    
+    init(myObject: MasterViewController){
+      
+        self.delegate = myObject
+    }
     
     func validateIfTouchIDExist()->Bool{
         
@@ -43,8 +51,110 @@ public class Q6CommonLib{
         
         return false
     }
+    func convertJSONToDictionary(text: String?) -> [String:AnyObject]? {
+        if let data = text!.dataUsingEncoding(NSUTF8StringEncoding) {
+            do {
+                let json = try NSJSONSerialization.JSONObjectWithData(data, options: .MutableContainers) as? [String:AnyObject]
+                return json
+            } catch {
+                print("Something went wrong")
+            }
+        }
+        return nil
+    }
     
+    func convertDictionaryToJSONData(dicData:[String:AnyObject])-> String
+    {
+        var returnString = ""
+        
+        do{
+            
+            let jsonData = try NSJSONSerialization.dataWithJSONObject(dicData, options: [])
+            
+            let  jsonString = NSString(data: jsonData, encoding: NSUTF8StringEncoding)! as String
+            returnString = jsonString
+            print(jsonString)
+        }catch{
+            
+        }
+        
+        
+        return returnString
+    }
+
     
+    func Q6IosClientPostAPI(ActionName: String, dicData:[String:AnyObject]){
+        
+        var UrlString = q6WebApiUrl  + ActionName;
+        
+        
+        // create the request & response
+        var request = NSMutableURLRequest(URL: NSURL(string: UrlString)!, cachePolicy: NSURLRequestCachePolicy.ReloadIgnoringLocalCacheData, timeoutInterval: 5)
+        var response: NSURLResponse?
+        
+        
+        
+        // create some JSON data and configure the request
+        let jsonString = convertDictionaryToJSONData(dicData)
+        
+        request.HTTPBody = jsonString.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)
+        request.HTTPMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        
+        
+
+        do {
+            // let jsonPost = try NSJSONSerialization.dataWithJSONObject(newPost, options: [])
+            // postsUrlRequest.HTTPBody = jsonString.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)//jsonPost
+            
+            let config = NSURLSessionConfiguration.defaultSessionConfiguration()
+            let session = NSURLSession(configuration: config)
+         
+  
+            
+            
+            let task = session.dataTaskWithRequest(request, completionHandler: {
+                (data, response, error)  in
+                guard let responseData = data else {
+                    print("Error: did not receive data")
+                    return
+                }
+                guard error == nil else {
+                    print("error calling GET on /posts/1")
+                    print(error)
+                    return
+                }
+                guard let myResponse = response else {
+                    print("error calling response")
+                    print(error)
+                    return
+                }
+           
+       
+                self.completion(data, response: response, error: error)
+                // parse the result as JSON, since that's what the API provides
+       
+             
+
+            })
+            
+            
+            task.resume()
+//
+            
+           
+        }
+    
+    }
+
+ 
+   public func completion(data:NSData?, response:NSURLResponse?, error:NSError?) {
+        
+        self.delegate?.dataLoadCompletion(data, response: response, error: error)
+     
+        
+    }
 //    func Q6IOSClientPost(ActionName: String ,Paramter:String) -> AnyObject
 //    {
 //        
@@ -65,36 +175,6 @@ public class Q6CommonLib{
 //        return decoded!
 //    }
     
-    func convertJSONToDictionary(text: String?) -> [String:AnyObject]? {
-        if let data = text!.dataUsingEncoding(NSUTF8StringEncoding) {
-            do {
-                let json = try NSJSONSerialization.JSONObjectWithData(data, options: .MutableContainers) as? [String:AnyObject]
-                return json
-            } catch {
-                print("Something went wrong")
-            }
-        }
-        return nil
-    }
-    
-    func ConvertDictionaryToJSONData(dicData:[String:String])-> String
-    {
-        var returnString = ""
-        
-        do{
-    
-      let jsonData = try NSJSONSerialization.dataWithJSONObject(dicData, options: [])
-        
-       let  jsonString = NSString(data: jsonData, encoding: NSUTF8StringEncoding)! as String
-            returnString = jsonString
-            print(jsonString)
-        }catch{
-            
-        }
-        
-        
-        return returnString
-    }
         
         
   
@@ -106,11 +186,13 @@ public class Q6CommonLib{
           dicData["Password"]="richman58."
           dicData["ClientIP"]="127.0.0.1"
         
+     
         
+       var ddddd =  Q6IosClientPostAPI("InternalUserLogin", dicData:dicData)
         var error: NSError?
         var jsonData: String?
       
-       jsonData = ConvertDictionaryToJSONData(dicData)
+       jsonData = convertDictionaryToJSONData(dicData)
         
      var dd = convertJSONToDictionary(jsonData)
         

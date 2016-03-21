@@ -10,7 +10,33 @@ import UIKit
 import LocalAuthentication
 
 
-class MasterViewController: UITableViewController {
+//protocol testProtocol : class {    // 'class' means only class types can implement it
+//    func searchQueryData() -> String
+//}
+
+//public class TestMasterClass: testProtocol{
+//    
+//    func searchQueryData() -> String {
+//        
+//        
+//        return "Master"
+//    }
+//}
+//
+//public class TestDetailClass{
+//     weak var delegate : testProtocol?
+//    
+//    init(parentClass: MasterViewController)
+//    {
+//       self.delegate = parentClass
+//    }
+//    func doSomethingWhenTapped() {
+//        
+//       var parentSearchData = delegate?.searchQueryData()
+//    }
+//    
+//}
+class MasterViewController: UITableViewController, Q6WebApiProtocol{
 
     var detailViewController: DetailViewController? = nil
     var objects = [AnyObject]()
@@ -18,6 +44,19 @@ class MasterViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        var dd = Q6CommonLib(myObject: self)
+        
+        
+        var dicData=[String:String]()
+        dicData["WebApiTOKEN"]="91561308-B547-4B4E-8289-D5F0B23F0037"
+        dicData["LoginUserName"]="yange@uniware.com.au"
+        dicData["Password"]="richman58."
+        dicData["ClientIP"]="127.0.0.1"
+        
+        dd.Q6IosClientPostAPI("InternalUserLogin", dicData:dicData)
+        
+
         
                // Do any additional setup after loading the view, typically from a nib.
         self.navigationItem.leftBarButtonItem = self.editButtonItem()
@@ -30,6 +69,31 @@ class MasterViewController: UITableViewController {
         }
     }
 
+
+    func dataLoadCompletion(data:NSData?, response:NSURLResponse?, error:NSError?) -> AnyObject
+    {
+        
+
+     var postDicData :[String:AnyObject]
+     var IsLoginSuccessed : Bool
+        do {
+         postDicData = try  NSJSONSerialization.JSONObjectWithData(data!, options: []) as! [String:AnyObject]
+          
+ 
+       IsLoginSuccessed = postDicData["IsSuccessed"] as! Bool
+       
+  
+         
+            
+        } catch  {
+            print("error parsing response from POST on /posts")
+            
+            return ""
+        }
+        
+        
+        return ""
+    }
     override func viewWillAppear(animated: Bool) {
         self.clearsSelectionOnViewWillAppear = self.splitViewController!.collapsed
         super.viewWillAppear(animated)

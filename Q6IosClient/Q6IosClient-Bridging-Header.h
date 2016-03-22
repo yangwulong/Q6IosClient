@@ -1,10 +1,6 @@
 //
-//  Use this file to import your target's public headers that you would like to expose to Swift.
+//  this is for import ifaddrs.h and func getIPAddresses()
 //
 
 #include <ifaddrs.h>
 #include <arpa/inet.h>
-//@interface IPAddress
-//
-//
-//@end

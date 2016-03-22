@@ -9,7 +9,7 @@
 import Foundation
 import LocalAuthentication
 import UIKit
-
+import SystemConfiguration
 
 public class Q6CommonLib{
     
@@ -217,6 +217,28 @@ public class Q6CommonLib{
         return addresses[0]   //return public IP ,addresses[1] return private ip
     }
     
+    
+    public static func isConnectedToNetwork() -> Bool {
+        
+        var zeroAddress = sockaddr_in(sin_len: 0, sin_family: 0, sin_port: 0, sin_addr: in_addr(s_addr: 0), sin_zero: (0, 0, 0, 0, 0, 0, 0, 0))
+        zeroAddress.sin_len = UInt8(sizeofValue(zeroAddress))
+        zeroAddress.sin_family = sa_family_t(AF_INET)
+        
+        let defaultRouteReachability = withUnsafePointer(&zeroAddress) {
+            SCNetworkReachabilityCreateWithAddress(kCFAllocatorDefault, UnsafePointer($0))
+        }
+        
+        var flags: SCNetworkReachabilityFlags = SCNetworkReachabilityFlags(rawValue: 0)
+        if SCNetworkReachabilityGetFlags(defaultRouteReachability!, &flags) == false {
+            return false
+        }
+        
+        let isReachable = flags == .Reachable
+        let needsConnection = flags == .ConnectionRequired
+        
+        return isReachable && !needsConnection
+        
+    }
 //    func Q6IOSClientPost(ActionName: String ,Paramter:String) -> AnyObject
 //    {
 //        

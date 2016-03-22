@@ -19,7 +19,7 @@ setControlAppear()
         
         var IP = Q6CommonLib.getIPAddresses()
         // Do any additional setup after loading the view.
-        var dd = IP
+        var dd = Q6CommonLib.isConnectedToNetwork()
     }
 
  

@@ -12,21 +12,28 @@ class LoginViewController: UIViewController, Q6WebApiProtocol {
 
     @IBOutlet weak var txtLoginEmail: UITextField!
     @IBOutlet weak var txtLoginPassword: UITextField!
+  
     @IBOutlet weak var btnSignIn: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
 setControlAppear()
         
-        var IP = Q6CommonLib.getIPAddresses()
-        // Do any additional setup after loading the view.
-        var dd = Q6CommonLib.isConnectedToNetwork()
+//        var IP = Q6CommonLib.getIPAddresses()
+//        // Do any additional setup after loading the view.
+//        var dd = Q6CommonLib.isConnectedToNetwork()
     }
 
  
+
     @IBAction func SignIn(sender: AnyObject) {
         
+        let isInputValid = validaUserInput()
         
-        var dd = Q6CommonLib(myObject: self)
+        if isInputValid == true {
+            
+        let isConnectedToNetwork = Q6CommonLib.isConnectedToNetwork()
+            if isConnectedToNetwork == true {
+        let q6CommonLib = Q6CommonLib(myObject: self)
         
         
         var dicData=[String:String]()
@@ -35,8 +42,15 @@ setControlAppear()
         dicData["Password"]=txtLoginPassword.text
         dicData["ClientIP"]=Q6CommonLib.getIPAddresses()
         
-        dd.Q6IosClientPostAPI("InternalUserLogin", dicData:dicData)
-        
+        q6CommonLib.Q6IosClientPostAPI("InternalUserLogin", dicData:dicData)
+            }
+            else{
+                
+            }
+        }
+        else{
+            
+        }
     }
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         txtLoginEmail.resignFirstResponder()
@@ -50,13 +64,15 @@ setControlAppear()
    validaUserInput()
     }
     
-    func validaUserInput()
+    func validaUserInput() -> Bool
     {
         let isEmailAddressValid = Q6CommonLib.isEmailAddressValid(txtLoginEmail.text!)
         
         if isEmailAddressValid == false {
             Q6CommonLib.q6UIAlertPopupController("Login Error", message: "Your email address is not valid!", viewController: self)
         }
+        
+        return isEmailAddressValid
     }
 func setControlAppear()
 {

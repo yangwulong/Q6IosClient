@@ -87,7 +87,7 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="A26-jm-DYW">
                                 <rect key="frame" x="25" y="268" width="550" height="60"/>
                                 <subviews>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email:" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="e0S-xk-vZZ">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="yange@uniware.com.au" borderStyle="roundedRect" placeholder="Email:" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="e0S-xk-vZZ">
                                         <rect key="frame" x="0.0" y="0.0" width="550" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
@@ -95,7 +95,7 @@
                                             <action selector="txtLoginEmailExit:" destination="1dE-fY-gch" eventType="editingDidEndOnExit" id="tVe-EI-p5Z"/>
                                         </connections>
                                     </textField>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password:" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Orf-BE-T6W">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="richman58." borderStyle="roundedRect" placeholder="Password:" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Orf-BE-T6W">
                                         <rect key="frame" x="0.0" y="30" width="550" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
@@ -136,6 +136,9 @@
                                         <exclude reference="zgp-Kh-GgT"/>
                                     </mask>
                                 </variation>
+                                <connections>
+                                    <action selector="SignIn:" destination="1dE-fY-gch" eventType="touchUpInside" id="s75-fD-LTw"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -154,7 +157,7 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="btnSignIn" destination="zqb-dW-pFF" id="l6V-f8-lEX"/>
+                        <outlet property="btnSignIn" destination="zqb-dW-pFF" id="Jgv-Ry-Es0"/>
                         <outlet property="txtLoginEmail" destination="e0S-xk-vZZ" id="6hy-9y-huV"/>
                         <outlet property="txtLoginPassword" destination="Orf-BE-T6W" id="ipZ-SN-2X4"/>
                     </connections>
@@ -162,6 +165,62 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Kvd-Ud-iSr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1020" y="382"/>
+        </scene>
+        <!--Item 2-->
+        <scene sceneID="XEw-Yh-FNB">
+            <objects>
+                <viewController id="cRJ-7n-L9F" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="UIg-OG-xfF"/>
+                        <viewControllerLayoutGuide type="bottom" id="0IE-IN-vSE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="gTS-Mb-C9a">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Item 2" id="kFO-xv-Spx"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1bN-Sw-goC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="195" y="1043"/>
+        </scene>
+        <!--Item 1-->
+        <scene sceneID="STx-4A-TL5">
+            <objects>
+                <viewController id="uFJ-kD-Jy2" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="DCX-Jo-Aw3"/>
+                        <viewControllerLayoutGuide type="bottom" id="TlH-SL-BeW"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="iHe-JH-Hlb">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Item 1" id="ANy-BH-7hl"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1oT-pw-8AA" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="195" y="382"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="Dp5-2g-jpG">
+            <objects>
+                <tabBarController storyboardIdentifier="Q6TabViewController" id="4XK-6P-HzL" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="ego-fA-7dG">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="uFJ-kD-Jy2" kind="relationship" relationship="viewControllers" id="6qk-k5-70w"/>
+                        <segue destination="cRJ-7n-L9F" kind="relationship" relationship="viewControllers" id="zF7-Oe-h0D"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="eem-it-xwb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-410" y="725"/>
         </scene>
         <!--Master-->
         <scene sceneID="smW-Zh-WAh">

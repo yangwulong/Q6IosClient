@@ -13,12 +13,17 @@ import SystemConfiguration
 
 public class Q6CommonLib{
     
-     let q6WebApiUrl = "http://api.q6.com.au/api/Q6/"
+     let q6WebApiUrl = "https://api.q6.com.au/api/Q6/"
      weak var delegate : Q6WebApiProtocol?
     init(){}
     
-    init(myObject: MasterViewController){
+    init(myObject: LoginViewController){
       
+        self.delegate = myObject
+    }
+    
+    init(myObject: MasterViewController){
+        
         self.delegate = myObject
     }
     

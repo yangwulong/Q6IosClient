@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LoginViewController: UIViewController {
+class LoginViewController: UIViewController, Q6WebApiProtocol {
 
     @IBOutlet weak var txtLoginEmail: UITextField!
     @IBOutlet weak var txtLoginPassword: UITextField!
@@ -23,6 +23,21 @@ setControlAppear()
     }
 
  
+    @IBAction func SignIn(sender: AnyObject) {
+        
+        
+        var dd = Q6CommonLib(myObject: self)
+        
+        
+        var dicData=[String:String]()
+        dicData["WebApiTOKEN"]="91561308-B547-4B4E-8289-D5F0B23F0037"
+        dicData["LoginUserName"]=txtLoginEmail.text
+        dicData["Password"]=txtLoginPassword.text
+        dicData["ClientIP"]=Q6CommonLib.getIPAddresses()
+        
+        dd.Q6IosClientPostAPI("InternalUserLogin", dicData:dicData)
+        
+    }
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         txtLoginEmail.resignFirstResponder()
         txtLoginPassword.resignFirstResponder()
@@ -63,7 +78,38 @@ func setControlAppear()
         // Dispose of any resources that can be recreated.
     }
     
-
+    func dataLoadCompletion(data:NSData?, response:NSURLResponse?, error:NSError?) -> AnyObject
+    {
+        
+        
+        var postDicData :[String:AnyObject]
+        var IsLoginSuccessed : Bool
+        do {
+            postDicData = try  NSJSONSerialization.JSONObjectWithData(data!, options: []) as! [String:AnyObject]
+            
+            
+            IsLoginSuccessed = postDicData["IsSuccessed"] as! Bool
+            
+            if IsLoginSuccessed == true {
+           
+                
+                //Set any attributes of the view controller before it is displayed, this is where you would set the category text in your code.
+                
+                if let tabViewController = storyboard!.instantiateViewControllerWithIdentifier("Q6TabViewController") as? UITabBarController {
+                    presentViewController(tabViewController, animated: true, completion: nil)
+                }
+            }
+            
+            
+        } catch  {
+            print("error parsing response from POST on /posts")
+            
+            return ""
+        }
+        
+        
+        return ""
+    }
     /*
     // MARK: - Navigation
 

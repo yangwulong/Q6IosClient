@@ -37,7 +37,7 @@ setControlAppear()
         
         
         var dicData=[String:String]()
-        dicData["WebApiTOKEN"]="91561308-B547-4B4E-8289-D5F0B23F0037"
+        dicData["WebApiTOKEN"]=Q6CommonLib.getQ6WebAPIToken()
         dicData["LoginUserName"]=txtLoginEmail.text
         dicData["Password"]=txtLoginPassword.text
         dicData["ClientIP"]=Q6CommonLib.getIPAddresses()

@@ -166,7 +166,7 @@
             </objects>
             <point key="canvasLocation" x="-1020" y="382"/>
         </scene>
-        <!--Item 2-->
+        <!--Sale-->
         <scene sceneID="XEw-Yh-FNB">
             <objects>
                 <viewController id="cRJ-7n-L9F" sceneMemberID="viewController">
@@ -177,15 +177,27 @@
                     <view key="view" contentMode="scaleToFill" id="gTS-Mb-C9a">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="sale" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9c6-QY-eNd">
+                                <rect key="frame" x="284.5" y="289" width="31" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="9c6-QY-eNd" firstAttribute="centerY" secondItem="gTS-Mb-C9a" secondAttribute="centerY" id="bbP-Fc-hfK"/>
+                            <constraint firstItem="9c6-QY-eNd" firstAttribute="centerX" secondItem="gTS-Mb-C9a" secondAttribute="centerX" id="rdY-GP-bOy"/>
+                        </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item 2" id="kFO-xv-Spx"/>
+                    <tabBarItem key="tabBarItem" title="Sale" image="Sell-25" id="kFO-xv-Spx"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1bN-Sw-goC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="195" y="1043"/>
+            <point key="canvasLocation" x="224" y="1064"/>
         </scene>
-        <!--Item 1-->
+        <!--Purchase-->
         <scene sceneID="STx-4A-TL5">
             <objects>
                 <viewController id="uFJ-kD-Jy2" sceneMemberID="viewController">
@@ -196,9 +208,21 @@
                     <view key="view" contentMode="scaleToFill" id="iHe-JH-Hlb">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="purchase" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6fe-Ka-1GF">
+                                <rect key="frame" x="265" y="289" width="71" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="6fe-Ka-1GF" firstAttribute="centerY" secondItem="iHe-JH-Hlb" secondAttribute="centerY" id="aP2-Vm-E9l"/>
+                            <constraint firstItem="6fe-Ka-1GF" firstAttribute="centerX" secondItem="iHe-JH-Hlb" secondAttribute="centerX" id="cwf-Rn-pwn"/>
+                        </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item 1" id="ANy-BH-7hl"/>
+                    <tabBarItem key="tabBarItem" title="Purchase" image="Bill-25" id="ANy-BH-7hl"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1oT-pw-8AA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -282,7 +306,9 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Bill-25" width="25" height="25"/>
         <image name="Q6Logo" width="575" height="236"/>
+        <image name="Sell-25" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="Tll-UG-LXB"/>

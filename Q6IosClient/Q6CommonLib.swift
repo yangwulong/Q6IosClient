@@ -14,6 +14,7 @@ import SystemConfiguration
 public class Q6CommonLib{
     
      let q6WebApiUrl = "https://api.q6.com.au/api/Q6/"
+  static let q6WebApiTOKEN = "91561308-B547-4B4E-8289-D5F0B23F0037"
      weak var delegate : Q6WebApiProtocol?
     init(){}
     
@@ -26,6 +27,7 @@ public class Q6CommonLib{
         
         self.delegate = myObject
     }
+    
     
     func validateIfTouchIDExist()->Bool{
         
@@ -91,11 +93,11 @@ public class Q6CommonLib{
     
     func Q6IosClientPostAPI(ActionName: String, dicData:[String:AnyObject]){
         
-        var UrlString = q6WebApiUrl  + ActionName;
+        let UrlString = q6WebApiUrl  + ActionName;
         
         
         // create the request & response
-        var request = NSMutableURLRequest(URL: NSURL(string: UrlString)!, cachePolicy: NSURLRequestCachePolicy.ReloadIgnoringLocalCacheData, timeoutInterval: 5)
+        let request = NSMutableURLRequest(URL: NSURL(string: UrlString)!, cachePolicy: NSURLRequestCachePolicy.ReloadIgnoringLocalCacheData, timeoutInterval: 5)
         var response: NSURLResponse?
         
         
@@ -243,6 +245,11 @@ public class Q6CommonLib{
         
         return isReachable && !needsConnection
         
+    }
+    
+    public static func getQ6WebAPIToken() -> String
+    {
+        return q6WebApiTOKEN
     }
 //    func Q6IOSClientPost(ActionName: String ,Paramter:String) -> AnyObject
 //    {

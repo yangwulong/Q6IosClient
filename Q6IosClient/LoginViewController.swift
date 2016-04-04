@@ -14,10 +14,21 @@ class LoginViewController: UIViewController, Q6WebApiProtocol {
     @IBOutlet weak var txtLoginPassword: UITextField!
   
     @IBOutlet weak var btnSignIn: UIButton!
+    
+    override func viewWillAppear(animated: Bool) {
+        var q6CommonLib = Q6CommonLib()
+        q6CommonLib.testTouchID()
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
 setControlAppear()
         
+        
+        let q6IodClientDB = Q6DBLib()
+        
+         q6IodClientDB.createDB()
+        
+      var userInfos =  q6IodClientDB.getUserInfos()
 //        var IP = Q6CommonLib.getIPAddresses()
 //        // Do any additional setup after loading the view.
 //        var dd = Q6CommonLib.isConnectedToNetwork()
@@ -108,7 +119,9 @@ func setControlAppear()
             
             if IsLoginSuccessed == true {
            
+                var q6DBLib = Q6DBLib()
                 
+               q6DBLib.addUserInfos(txtLoginEmail.text!, PassWord: txtLoginPassword.text!, CompanyID: "")
                 //Set any attributes of the view controller before it is displayed, this is where you would set the category text in your code.
                 
                 if let tabViewController = storyboard!.instantiateViewControllerWithIdentifier("Q6TabViewController") as? UITabBarController {

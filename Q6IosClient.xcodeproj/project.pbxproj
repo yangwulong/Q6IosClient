@@ -10,6 +10,16 @@
 		19691E8F1C9F8AE200E009A7 /* Q6Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19691E8E1C9F8AE200E009A7 /* Q6Protocol.swift */; };
 		199F0CD31CA0BE0C00301EC4 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 199F0CD21CA0BE0C00301EC4 /* LoginViewController.swift */; };
 		19C977371CAA4197004F6D39 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 19C977351CAA4197004F6D39 /* Main.storyboard */; };
+		19F9B5341CB1DC3400571B9D /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F9B5331CB1DC3400571B9D /* libsqlite3.tbd */; };
+		19F9B5651CB1DF0700571B9D /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F9B55B1CB1DF0700571B9D /* FMDatabase.m */; };
+		19F9B5661CB1DF0700571B9D /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F9B55D1CB1DF0700571B9D /* FMResultSet.m */; };
+		19F9B5671CB1DF0700571B9D /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F9B55F1CB1DF0700571B9D /* FMDatabaseQueue.m */; };
+		19F9B5681CB1DF0700571B9D /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F9B5611CB1DF0700571B9D /* FMDatabaseAdditions.m */; };
+		19F9B5691CB1DF0700571B9D /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F9B5631CB1DF0700571B9D /* FMDatabasePool.m */; };
+		19F9B56A1CB1DF0700571B9D /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 19F9B5641CB1DF0700571B9D /* Info.plist */; };
+		19F9B56C1CB1E08500571B9D /* Q6DBLib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19F9B56B1CB1E08500571B9D /* Q6DBLib.swift */; };
+		19F9B5741CB21D7600571B9D /* PassCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19F9B5731CB21D7600571B9D /* PassCodeViewController.swift */; };
+		19F9B5761CB227FF00571B9D /* Q6Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19F9B5751CB227FF00571B9D /* Q6Extension.swift */; };
 		19FD13261C9A134800E5C445 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19FD13251C9A134800E5C445 /* AppDelegate.swift */; };
 		19FD13281C9A134800E5C445 /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19FD13271C9A134800E5C445 /* MasterViewController.swift */; };
 		19FD132A1C9A134800E5C445 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19FD13291C9A134800E5C445 /* DetailViewController.swift */; };
@@ -24,6 +34,22 @@
 		197398171CA1004D0079332D /* Q6IosClient-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Q6IosClient-Bridging-Header.h"; sourceTree = "<group>"; };
 		199F0CD21CA0BE0C00301EC4 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		19C977361CAA4197004F6D39 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		19F9B5331CB1DC3400571B9D /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		19F9B5591CB1DF0700571B9D /* FMDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDB.h; sourceTree = "<group>"; };
+		19F9B55A1CB1DF0700571B9D /* FMDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabase.h; sourceTree = "<group>"; };
+		19F9B55B1CB1DF0700571B9D /* FMDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabase.m; sourceTree = "<group>"; };
+		19F9B55C1CB1DF0700571B9D /* FMResultSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMResultSet.h; sourceTree = "<group>"; };
+		19F9B55D1CB1DF0700571B9D /* FMResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMResultSet.m; sourceTree = "<group>"; };
+		19F9B55E1CB1DF0700571B9D /* FMDatabaseQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseQueue.h; sourceTree = "<group>"; };
+		19F9B55F1CB1DF0700571B9D /* FMDatabaseQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabaseQueue.m; sourceTree = "<group>"; };
+		19F9B5601CB1DF0700571B9D /* FMDatabaseAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseAdditions.h; sourceTree = "<group>"; };
+		19F9B5611CB1DF0700571B9D /* FMDatabaseAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabaseAdditions.m; sourceTree = "<group>"; };
+		19F9B5621CB1DF0700571B9D /* FMDatabasePool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabasePool.h; sourceTree = "<group>"; };
+		19F9B5631CB1DF0700571B9D /* FMDatabasePool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabasePool.m; sourceTree = "<group>"; };
+		19F9B5641CB1DF0700571B9D /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		19F9B56B1CB1E08500571B9D /* Q6DBLib.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Q6DBLib.swift; sourceTree = "<group>"; };
+		19F9B5731CB21D7600571B9D /* PassCodeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PassCodeViewController.swift; path = ../PassCodeViewController.swift; sourceTree = "<group>"; };
+		19F9B5751CB227FF00571B9D /* Q6Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Q6Extension.swift; sourceTree = "<group>"; };
 		19FD13221C9A134800E5C445 /* Q6IosClient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Q6IosClient.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		19FD13251C9A134800E5C445 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		19FD13271C9A134800E5C445 /* MasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
@@ -40,6 +66,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				19F9B5341CB1DC3400571B9D /* libsqlite3.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -49,8 +76,21 @@
 		19FD13191C9A134800E5C445 = {
 			isa = PBXGroup;
 			children = (
+				19F9B5331CB1DC3400571B9D /* libsqlite3.tbd */,
 				19FD13241C9A134800E5C445 /* Q6IosClient */,
 				19FD13231C9A134800E5C445 /* Products */,
+				19F9B5591CB1DF0700571B9D /* FMDB.h */,
+				19F9B55A1CB1DF0700571B9D /* FMDatabase.h */,
+				19F9B55B1CB1DF0700571B9D /* FMDatabase.m */,
+				19F9B55C1CB1DF0700571B9D /* FMResultSet.h */,
+				19F9B55D1CB1DF0700571B9D /* FMResultSet.m */,
+				19F9B55E1CB1DF0700571B9D /* FMDatabaseQueue.h */,
+				19F9B55F1CB1DF0700571B9D /* FMDatabaseQueue.m */,
+				19F9B5601CB1DF0700571B9D /* FMDatabaseAdditions.h */,
+				19F9B5611CB1DF0700571B9D /* FMDatabaseAdditions.m */,
+				19F9B5621CB1DF0700571B9D /* FMDatabasePool.h */,
+				19F9B5631CB1DF0700571B9D /* FMDatabasePool.m */,
+				19F9B5641CB1DF0700571B9D /* Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -71,6 +111,7 @@
 				19FD13271C9A134800E5C445 /* MasterViewController.swift */,
 				19FD13291C9A134800E5C445 /* DetailViewController.swift */,
 				19C977351CAA4197004F6D39 /* Main.storyboard */,
+				19F9B5731CB21D7600571B9D /* PassCodeViewController.swift */,
 				199F0CD21CA0BE0C00301EC4 /* LoginViewController.swift */,
 				19FD132E1C9A134800E5C445 /* Assets.xcassets */,
 				19FD13301C9A134800E5C445 /* LaunchScreen.storyboard */,
@@ -85,6 +126,8 @@
 				19FD133A1C9A186300E5C445 /* Q6CommonLib.swift */,
 				19691E8E1C9F8AE200E009A7 /* Q6Protocol.swift */,
 				197398171CA1004D0079332D /* Q6IosClient-Bridging-Header.h */,
+				19F9B56B1CB1E08500571B9D /* Q6DBLib.swift */,
+				19F9B5751CB227FF00571B9D /* Q6Extension.swift */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -156,6 +199,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				19F9B56A1CB1DF0700571B9D /* Info.plist in Resources */,
 				19FD13321C9A134800E5C445 /* LaunchScreen.storyboard in Resources */,
 				19FD132F1C9A134800E5C445 /* Assets.xcassets in Resources */,
 				19C977371CAA4197004F6D39 /* Main.storyboard in Resources */,
@@ -170,12 +214,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				199F0CD31CA0BE0C00301EC4 /* LoginViewController.swift in Sources */,
+				19F9B5691CB1DF0700571B9D /* FMDatabasePool.m in Sources */,
+				19F9B5741CB21D7600571B9D /* PassCodeViewController.swift in Sources */,
 				19FD132A1C9A134800E5C445 /* DetailViewController.swift in Sources */,
 				19FD133B1C9A186300E5C445 /* Q6CommonLib.swift in Sources */,
 				19691E8F1C9F8AE200E009A7 /* Q6Protocol.swift in Sources */,
 				19FD133E1C9A4D0A00E5C445 /* InternalUserLoginParameter.swift in Sources */,
+				19F9B5671CB1DF0700571B9D /* FMDatabaseQueue.m in Sources */,
 				19FD13281C9A134800E5C445 /* MasterViewController.swift in Sources */,
+				19F9B5681CB1DF0700571B9D /* FMDatabaseAdditions.m in Sources */,
+				19F9B5661CB1DF0700571B9D /* FMResultSet.m in Sources */,
+				19F9B56C1CB1E08500571B9D /* Q6DBLib.swift in Sources */,
 				19FD13261C9A134800E5C445 /* AppDelegate.swift in Sources */,
+				19F9B5761CB227FF00571B9D /* Q6Extension.swift in Sources */,
+				19F9B5651CB1DF0700571B9D /* FMDatabase.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

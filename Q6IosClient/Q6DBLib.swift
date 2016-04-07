@@ -37,7 +37,7 @@ public class Q6DBLib{
                  {
                     
                     //LoginStatus has two valude Login ,Logout
-                    let sql_stmt = "CREATE TABLE IF NOT EXISTS UserInfos (ID INTEGER  PRIMARY  KEY AUTOINCREMENT, LogInEmail,PassWord, LoginStatus)"
+                    let sql_stmt = "CREATE TABLE IF NOT EXISTS UserInfos (ID INTEGER  PRIMARY  KEY AUTOINCREMENT, LogInEmail,PassWord, LoginStatus,PassCode)"
                     if !q6IosClientDB.executeStatements(sql_stmt)
                     {
                        print("Error:\(q6IosClientDB.lastErrorMessage())")
@@ -178,16 +178,112 @@ public class Q6DBLib{
     let q6IosClientDB = FMDatabase(path: databasePath as String)
         
         if q6IosClientDB.open() {
-            let querySQL = "SELECT LoginEmail , PassWord FROM UserInfos"
+            let querySQL = "SELECT LoginEmail , PassWord ,PassCode FROM UserInfos"
             let results : FMResultSet? = q6IosClientDB.executeQuery(querySQL, withArgumentsInArray: nil)
             
             if results?.next() == true {
                 
              userLoginData["LoginEmail"] = results?.stringForColumn("LoginEmail")
                 userLoginData["passWord"] = results?.stringForColumn("PassWord")
-                
+                  userLoginData["passCode"] = results?.stringForColumn("PassCode")
             }
         }
         return userLoginData
     }
+    
+    public  func validateLoginStatus() ->Bool
+    {
+        var userLoginData = [String:String]()
+        let filemgr = NSFileManager.defaultManager()
+        let dirPaths = filemgr.URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
+        
+        var loginStatus: Bool = false
+        
+        databasePath = dirPaths[0].URLByAppendingPathComponent("Q6IosClientDB.db").path!
+        
+        var dd = databasePath as String
+        let q6IosClientDB = FMDatabase(path: databasePath as String)
+        
+        if q6IosClientDB.open() {
+            let querySQL = "SELECT LoginStatus FROM UserInfos"
+            let results : FMResultSet? = q6IosClientDB.executeQuery(querySQL, withArgumentsInArray: nil)
+            
+            if results?.next() == true {
+                
+                if results?.stringForColumn("LoginStatus") == "Login" {
+                    loginStatus = true
+                }
+            
+                
+            }
+        }
+        return loginStatus
+    }
+    
+    public  func getUserPassCode() ->String?
+    {
+        var userPassCode: String? = ""
+        let filemgr = NSFileManager.defaultManager()
+        let dirPaths = filemgr.URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
+        
+        databasePath = dirPaths[0].URLByAppendingPathComponent("Q6IosClientDB.db").path!
+        
+        
+        let q6IosClientDB = FMDatabase(path: databasePath as String)
+        
+        if q6IosClientDB.open() {
+            let querySQL = "SELECT PassCode FROM UserInfos"
+            let results : FMResultSet? = q6IosClientDB.executeQuery(querySQL, withArgumentsInArray: nil)
+            
+            if results?.next() == true {
+                
+                userPassCode = results?.stringForColumn("PassCode")
+            
+                
+            }
+        }
+        return userPassCode
+    }
+    
+    
+  public func editPassCode(PassCode: String) -> Bool {
+    
+    var isUpdated : Bool = false
+    let filemgr = NSFileManager.defaultManager()
+    let dirPaths = filemgr.URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
+    
+    databasePath = dirPaths[0].URLByAppendingPathComponent("Q6IosClientDB.db").path!
+    
+    
+    let q6IosClientDB = FMDatabase(path: databasePath as String)
+    
+    if q6IosClientDB.open() {1
+        
+        if validateIfTableIsEmpty("UserInfos", Q6IosClientDB: q6IosClientDB) == false {
+            
+            
+            let updateSQL = "UPDATE UserInfos SET PassCode ='\(PassCode)' where ID = 1"
+            
+            let result = q6IosClientDB.executeUpdate(updateSQL, withArgumentsInArray: nil)
+            
+            if !result {
+                print ("Error: \(q6IosClientDB.lastErrorMessage())")
+            } else{
+                print ("Sucess: update PassCode")
+                isUpdated = true
+            }
+        }
+    }
+    else{
+        print ("Error: \(q6IosClientDB.lastErrorMessage())")
+    }
+    q6IosClientDB.close()
+    
+    
+
+        return isUpdated
+    }
+
+
+    
 }

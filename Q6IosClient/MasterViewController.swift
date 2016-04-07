@@ -98,8 +98,7 @@ class MasterViewController: UITableViewController, Q6WebApiProtocol{
         self.clearsSelectionOnViewWillAppear = self.splitViewController!.collapsed
         super.viewWillAppear(animated)
         
-    var q6Login = Q6CommonLib()
-   q6Login.Q6Login()
+  
 //    var message =  q6Login.testTouchID()
 //    notifyUser(message.msg, err: message.err)
       // testTouchID()

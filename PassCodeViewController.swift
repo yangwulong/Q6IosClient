@@ -31,6 +31,8 @@ class PassCodeViewController: UIViewController , UITextFieldDelegate{
       var userInputPasscodeValue2 : String? = nil
       var userInputPasscodeValue3 : String? = nil
       var userInputPasscodeValue4 : String? = nil
+    
+    var pressKey : String = ""
     override func viewDidLoad() {
         super.viewDidLoad()
 setControlAppear()
@@ -69,9 +71,17 @@ public func setControlAppear()
     
     }
     
-    
+
     
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+        
+        
+        //Detect Delete key press
+        if (range.length == 1 && string.isEmpty){
+            print("Press delete key")
+            pressKey = "Delete"
+
+        }
         //An expression works with Swift 2
         return (textField.text?.utf16.count ?? 0) + string.utf16.count - range.length <= TEXT_FIELD_LIMIT
     }
@@ -197,6 +207,31 @@ public func setControlAppear()
             
             
         }
+        
+        if pressKey == "Delete" {
+            
+                        if sender.tag == 0 {
+            
+                            //txtPassCode1.text = ""
+                        }
+                        if sender.tag == 1 {
+            
+                            txtPassCode1.becomeFirstResponder()
+                            //txtPassCode2.text = ""
+            
+                        }
+                        if sender.tag == 2 {
+                            txtPassCode2.becomeFirstResponder()
+                            //txtPassCode3.text = ""
+            
+                        }
+                        if sender.tag == 3 {
+                            txtPassCode3.becomeFirstResponder()
+                           // txtPassCode4.text = ""
+            }
+            pressKey = ""
+            
+        }
     }
 
     public func setToCofirmationScreen(){
@@ -224,6 +259,5 @@ public func setControlAppear()
     }
     */
     
- 
 
 }

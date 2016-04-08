@@ -128,8 +128,26 @@ public func setControlAppear()
                             presentViewController(tabViewController, animated: true, completion: nil)
                         }
                     }
-                    
+                    else {
+                        txtPassCode1.becomeFirstResponder()
+                        Q6CommonLib.q6UIAlertPopupController("Error message", message: "Your PassCode is not right,please reenter again", viewController: self)
+                        txtPassCode1.text = ""
+                        txtPassCode2.text = ""
+                        txtPassCode3.text = ""
+                        txtPassCode4.text = ""
+                        
+                        userInputPasscodeValue1 = ""
+                        userInputPasscodeValue2 = ""
+                        userInputPasscodeValue3 = ""
+                        userInputPasscodeValue4 = ""
+                        
+                        
+                        
+                    }
                 }
+           
+                
+                
             }
        
             
@@ -155,6 +173,7 @@ public func setControlAppear()
                 setToCofirmationScreen()
                 Q6CommonLib.q6UIAlertPopupController("Error Message", message: "Your PassCode is different to your first input, please input again", viewController: self)
                 
+             
                 
             }
     

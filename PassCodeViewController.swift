@@ -137,6 +137,9 @@ public func setControlAppear()
                         if let tabViewController = storyboard!.instantiateViewControllerWithIdentifier("Q6TabViewController") as? UITabBarController {
                             presentViewController(tabViewController, animated: true, completion: nil)
                         }
+                        
+                   
+                        
                     }
                     else {
                         txtPassCode1.becomeFirstResponder()
@@ -248,6 +251,16 @@ public func setControlAppear()
         userInputPasscodeValue4 = ""
         ScreenMode = "ConfirmPassCode"
         txtPassCode1.becomeFirstResponder()
+    }
+    @IBAction func goBackToSignInScreen(sender: AnyObject) {
+        
+        if let loginViewController = storyboard!.instantiateViewControllerWithIdentifier("Q6LoginViewController") as? LoginViewController {
+            
+            loginViewController.ScreenMode = "GoBackFromPassCodeScreen"
+            presentViewController(loginViewController, animated: true, completion: nil)
+        }
+        
+
     }
     /*
     // MARK: - Navigation

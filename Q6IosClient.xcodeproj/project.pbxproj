@@ -11,7 +11,7 @@
 		195AD4AA1CB35DE4002F2DD7 /* PurchaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 195AD4A91CB35DE4002F2DD7 /* PurchaseViewController.swift */; };
 		19691E8F1C9F8AE200E009A7 /* Q6Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19691E8E1C9F8AE200E009A7 /* Q6Protocol.swift */; };
 		199F0CD31CA0BE0C00301EC4 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 199F0CD21CA0BE0C00301EC4 /* LoginViewController.swift */; };
-		19C977371CAA4197004F6D39 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 19C977351CAA4197004F6D39 /* Main.storyboard */; };
+		19DDD7B31CB7701900FC32A5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 19DDD7B11CB7701900FC32A5 /* Main.storyboard */; };
 		19F9B5341CB1DC3400571B9D /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F9B5331CB1DC3400571B9D /* libsqlite3.tbd */; };
 		19F9B5651CB1DF0700571B9D /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F9B55B1CB1DF0700571B9D /* FMDatabase.m */; };
 		19F9B5661CB1DF0700571B9D /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F9B55D1CB1DF0700571B9D /* FMResultSet.m */; };
@@ -37,7 +37,7 @@
 		19691E8E1C9F8AE200E009A7 /* Q6Protocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Q6Protocol.swift; sourceTree = "<group>"; };
 		197398171CA1004D0079332D /* Q6IosClient-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Q6IosClient-Bridging-Header.h"; sourceTree = "<group>"; };
 		199F0CD21CA0BE0C00301EC4 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
-		19C977361CAA4197004F6D39 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		19DDD7B21CB7701900FC32A5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		19F9B5331CB1DC3400571B9D /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		19F9B5591CB1DF0700571B9D /* FMDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDB.h; sourceTree = "<group>"; };
 		19F9B55A1CB1DF0700571B9D /* FMDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabase.h; sourceTree = "<group>"; };
@@ -112,9 +112,9 @@
 				19FD133C1C9A4CDE00E5C445 /* Model */,
 				19FD13391C9A184400E5C445 /* Common */,
 				19FD13251C9A134800E5C445 /* AppDelegate.swift */,
+				19DDD7B11CB7701900FC32A5 /* Main.storyboard */,
 				19FD13271C9A134800E5C445 /* MasterViewController.swift */,
 				19FD13291C9A134800E5C445 /* DetailViewController.swift */,
-				19C977351CAA4197004F6D39 /* Main.storyboard */,
 				195AD4A91CB35DE4002F2DD7 /* PurchaseViewController.swift */,
 				195AD4A71CB35DAF002F2DD7 /* TabBarViewController.swift */,
 				19F9B5731CB21D7600571B9D /* PassCodeViewController.swift */,
@@ -207,8 +207,8 @@
 			files = (
 				19F9B56A1CB1DF0700571B9D /* Info.plist in Resources */,
 				19FD13321C9A134800E5C445 /* LaunchScreen.storyboard in Resources */,
+				19DDD7B31CB7701900FC32A5 /* Main.storyboard in Resources */,
 				19FD132F1C9A134800E5C445 /* Assets.xcassets in Resources */,
-				19C977371CAA4197004F6D39 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -242,10 +242,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		19C977351CAA4197004F6D39 /* Main.storyboard */ = {
+		19DDD7B11CB7701900FC32A5 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				19C977361CAA4197004F6D39 /* Base */,
+				19DDD7B21CB7701900FC32A5 /* Base */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";

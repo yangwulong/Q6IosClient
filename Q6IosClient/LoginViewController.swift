@@ -15,7 +15,7 @@ class LoginViewController: UIViewController, Q6WebApiProtocol {
     @IBOutlet weak var imgQ6Logo: UIImageView!
     @IBOutlet weak var btnSignIn: UIButton!
     
-    
+    var ScreenMode : String = ""
     
     override func viewWillAppear(animated: Bool) {
         //        var q6CommonLib = Q6CommonLib()
@@ -29,7 +29,7 @@ class LoginViewController: UIViewController, Q6WebApiProtocol {
         
         var loginStatus = q6IosClientDB.validateLoginStatus()
         
-        if loginStatus == true {
+        if loginStatus == true && ScreenMode == "" {
             imgQ6Logo.hidden = true
             txtLoginEmail.hidden = true
             txtLoginPassword.hidden = true
@@ -40,6 +40,8 @@ class LoginViewController: UIViewController, Q6WebApiProtocol {
             txtLoginPassword.hidden = false
             btnSignIn.hidden = false
         }
+        
+     
         
     }
     override func viewDidLoad() {
@@ -76,7 +78,7 @@ class LoginViewController: UIViewController, Q6WebApiProtocol {
         
         var loginStatus = q6IosClientDB.validateLoginStatus()
         
-        if loginStatus == true {
+        if loginStatus == true && ScreenMode == "" {
             
             
             
@@ -87,18 +89,48 @@ class LoginViewController: UIViewController, Q6WebApiProtocol {
              
                 presentViewController(passCodeViewController, animated: true, completion: nil)
             }
+            ScreenMode = ""
             
-//            if let tabViewController = storyboard!.instantiateViewControllerWithIdentifier("Q6TabViewController") as? TabBarViewController {
-//                
-//                tabViewController.toPass = "FFF"
-//                
-//                presentViewController(tabViewController, animated: true, completion: nil)
-//            }
+
         }
         
     }
     
+    override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
+        
+        let isInputValid = validaUserInput()
+        
+        if isInputValid == true {
+            
+            let isConnectedToNetwork = Q6CommonLib.isConnectedToNetwork()
+            
+            if isConnectedToNetwork == true {
+                let q6CommonLib = Q6CommonLib(myObject: self)
+                
+                
+                var dicData=[String:String]()
+                dicData["WebApiTOKEN"]=Q6CommonLib.getQ6WebAPIToken()
+                dicData["LoginUserName"]=txtLoginEmail.text
+                dicData["Password"]=txtLoginPassword.text
+                dicData["ClientIP"]=Q6CommonLib.getIPAddresses()
+                
+                q6CommonLib.Q6IosClientPostAPI("InternalUserLogin", dicData:dicData)
+                
+                Q6CommonLib.popUpLoadingSign(self)
+            }
+            else{
+                
+            }
+        }
+        else{
+            
+        }
+        return true
+    }
     @IBAction func SignIn(sender: AnyObject) {
+        
+        
+     
         
         let isInputValid = validaUserInput()
         
@@ -173,7 +205,9 @@ class LoginViewController: UIViewController, Q6WebApiProtocol {
     func dataLoadCompletion(data:NSData?, response:NSURLResponse?, error:NSError?) -> AnyObject
     {
         
+
         
+
         var postDicData :[String:AnyObject]
         var IsLoginSuccessed : Bool
         do {
@@ -215,7 +249,7 @@ class LoginViewController: UIViewController, Q6WebApiProtocol {
             return ""
         }
         
-        
-        return ""
+//
+      return ""
     }
 }

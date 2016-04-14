@@ -23,8 +23,6 @@
 		19F9B5741CB21D7600571B9D /* PassCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19F9B5731CB21D7600571B9D /* PassCodeViewController.swift */; };
 		19F9B5761CB227FF00571B9D /* Q6Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19F9B5751CB227FF00571B9D /* Q6Extension.swift */; };
 		19FD13261C9A134800E5C445 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19FD13251C9A134800E5C445 /* AppDelegate.swift */; };
-		19FD13281C9A134800E5C445 /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19FD13271C9A134800E5C445 /* MasterViewController.swift */; };
-		19FD132A1C9A134800E5C445 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19FD13291C9A134800E5C445 /* DetailViewController.swift */; };
 		19FD132F1C9A134800E5C445 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 19FD132E1C9A134800E5C445 /* Assets.xcassets */; };
 		19FD13321C9A134800E5C445 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 19FD13301C9A134800E5C445 /* LaunchScreen.storyboard */; };
 		19FD133B1C9A186300E5C445 /* Q6CommonLib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19FD133A1C9A186300E5C445 /* Q6CommonLib.swift */; };
@@ -56,8 +54,6 @@
 		19F9B5751CB227FF00571B9D /* Q6Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Q6Extension.swift; sourceTree = "<group>"; };
 		19FD13221C9A134800E5C445 /* Q6IosClient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Q6IosClient.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		19FD13251C9A134800E5C445 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		19FD13271C9A134800E5C445 /* MasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
-		19FD13291C9A134800E5C445 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		19FD132E1C9A134800E5C445 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		19FD13311C9A134800E5C445 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		19FD13331C9A134800E5C445 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -113,8 +109,6 @@
 				19FD13391C9A184400E5C445 /* Common */,
 				19FD13251C9A134800E5C445 /* AppDelegate.swift */,
 				19DDD7B11CB7701900FC32A5 /* Main.storyboard */,
-				19FD13271C9A134800E5C445 /* MasterViewController.swift */,
-				19FD13291C9A134800E5C445 /* DetailViewController.swift */,
 				195AD4A91CB35DE4002F2DD7 /* PurchaseViewController.swift */,
 				195AD4A71CB35DAF002F2DD7 /* TabBarViewController.swift */,
 				19F9B5731CB21D7600571B9D /* PassCodeViewController.swift */,
@@ -224,12 +218,10 @@
 				19F9B5691CB1DF0700571B9D /* FMDatabasePool.m in Sources */,
 				195AD4AA1CB35DE4002F2DD7 /* PurchaseViewController.swift in Sources */,
 				19F9B5741CB21D7600571B9D /* PassCodeViewController.swift in Sources */,
-				19FD132A1C9A134800E5C445 /* DetailViewController.swift in Sources */,
 				19FD133B1C9A186300E5C445 /* Q6CommonLib.swift in Sources */,
 				19691E8F1C9F8AE200E009A7 /* Q6Protocol.swift in Sources */,
 				19FD133E1C9A4D0A00E5C445 /* InternalUserLoginParameter.swift in Sources */,
 				19F9B5671CB1DF0700571B9D /* FMDatabaseQueue.m in Sources */,
-				19FD13281C9A134800E5C445 /* MasterViewController.swift in Sources */,
 				19F9B5681CB1DF0700571B9D /* FMDatabaseAdditions.m in Sources */,
 				19F9B5661CB1DF0700571B9D /* FMResultSet.m in Sources */,
 				19F9B56C1CB1E08500571B9D /* Q6DBLib.swift in Sources */,

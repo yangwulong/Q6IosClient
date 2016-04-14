@@ -55,3 +55,11 @@ extension String {
         }
     }
 }
+
+extension NSDate {
+    var formatted:String {
+        let formatter = NSDateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        return formatter.stringFromDate(self)
+}
+}

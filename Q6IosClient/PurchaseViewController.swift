@@ -20,7 +20,9 @@ class PurchaseViewController: UIViewController, Q6WebApiProtocol {
       
         q6CommonLib.Q6IosClientGetApi("Purchase", ActionName: "GetPurchasesTransactionsList", attachedURL: attachedURL)
         
-     
+   var now = NSDate()
+     var ddd = now.formatted
+        print(ddd)
      
         // Do any additional setup after loading the view.
     }
@@ -48,7 +50,26 @@ class PurchaseViewController: UIViewController, Q6WebApiProtocol {
     */
     func dataLoadCompletion(data:NSData?, response:NSURLResponse?, error:NSError?) -> AnyObject
     {
-        var yy = 6
+        var postDicData :[String:AnyObject]
+    
+        do {
+            postDicData = try  NSJSONSerialization.JSONObjectWithData(data!, options: []) as! [String:AnyObject]
+            
+            var dddd = postDicData["PurchasesTransactionsHeaderList"] as! [[String : AnyObject]]
+            
+            var sss = dddd[1] as [String: AnyObject]
+            
+            var fff = 6
+//        var dd = try  NSJSONSerialization.JSONObjectWithData(postDicData["PurchasesTransactionsHeaderList"]! as! NSData, options: []) as! [AnyObject]
+            //let dataDict = try  NSJSONSerialization.JSONObjectWithData(postDicData["PurchasesTransactionsHeaderList"]! as! NSData, options: NSJSONReadingOptions.MutableContainers) as! [[String:String]]
+
+            
+        } catch  {
+            print("error parsing response from POST on /posts")
+            
+            return ""
+        }
+
         return ""
     }
 

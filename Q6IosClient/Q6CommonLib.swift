@@ -23,10 +23,7 @@ public class Q6CommonLib{
         self.delegate = myObject
     }
     
-    init(myObject: MasterViewController){
-        
-        self.delegate = myObject
-    }
+
     init(myObject: PurchaseViewController){
         
         self.delegate = myObject

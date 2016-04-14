@@ -54,7 +54,7 @@ class MasterViewController: UITableViewController, Q6WebApiProtocol{
         dicData["Password"]="richman58."
         dicData["ClientIP"]="127.0.0.1"
         
-        dd.Q6IosClientPostAPI("InternalUserLogin", dicData:dicData)
+        dd.Q6IosClientPostAPI("Q6",ActionName: "InternalUserLogin", dicData:dicData)
         
 
         

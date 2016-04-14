@@ -96,37 +96,7 @@ class LoginViewController: UIViewController, Q6WebApiProtocol {
         
     }
     
-    override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
-        
-        let isInputValid = validaUserInput()
-        
-        if isInputValid == true {
-            
-            let isConnectedToNetwork = Q6CommonLib.isConnectedToNetwork()
-            
-            if isConnectedToNetwork == true {
-                let q6CommonLib = Q6CommonLib(myObject: self)
-                
-                
-                var dicData=[String:String]()
-                dicData["WebApiTOKEN"]=Q6CommonLib.getQ6WebAPIToken()
-                dicData["LoginUserName"]=txtLoginEmail.text
-                dicData["Password"]=txtLoginPassword.text
-                dicData["ClientIP"]=Q6CommonLib.getIPAddresses()
-                
-                q6CommonLib.Q6IosClientPostAPI("InternalUserLogin", dicData:dicData)
-                
-                Q6CommonLib.popUpLoadingSign(self)
-            }
-            else{
-                
-            }
-        }
-        else{
-            
-        }
-        return true
-    }
+
     @IBAction func SignIn(sender: AnyObject) {
         
         
@@ -148,7 +118,7 @@ class LoginViewController: UIViewController, Q6WebApiProtocol {
                 dicData["Password"]=txtLoginPassword.text
                 dicData["ClientIP"]=Q6CommonLib.getIPAddresses()
                 
-                q6CommonLib.Q6IosClientPostAPI("InternalUserLogin", dicData:dicData)
+                q6CommonLib.Q6IosClientPostAPI("Q6",ActionName: "InternalUserLogin", dicData:dicData)
                 
                Q6CommonLib.popUpLoadingSign(self)
             }
@@ -216,12 +186,20 @@ class LoginViewController: UIViewController, Q6WebApiProtocol {
             
             IsLoginSuccessed = postDicData["IsSuccessed"] as! Bool
             
+           
             if IsLoginSuccessed == true {
                 
-                var q6DBLib = Q6DBLib()
+                var q6CommonLib = Q6CommonLib()
+                 var returnValue = postDicData["ReturnValue"]! as! Dictionary<String, AnyObject>
+                
+                var companyID = returnValue["CompanyID"] as! String
+   
+//var json = try  NSJSONSerialization.JSONObjectWithData(dd as! NSData, options: NSJSONReadingOptions.MutableContainers) as! Dictionary<String, String>
+                
+                let q6DBLib = Q6DBLib()
                 
               
-                q6DBLib.addUserInfos(txtLoginEmail.text!, PassWord: txtLoginPassword.text!, LoginStatus: "Login")
+                q6DBLib.addUserInfos(txtLoginEmail.text!, PassWord: txtLoginPassword.text!, LoginStatus: "Login",CompanyID: companyID)
                 //Set any attributes of the view controller before it is displayed, this is where you would set the category text in your code.
                 
                 var passCode = q6DBLib.getUserPassCode()

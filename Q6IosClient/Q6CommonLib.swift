@@ -13,7 +13,7 @@ import SystemConfiguration
 
 public class Q6CommonLib{
     
-     let q6WebApiUrl = "https://api.q6.com.au/api/Q6/"
+     let q6WebApiUrl = "https://api.q6.com.au/api/"
   static let q6WebApiTOKEN = "91561308-B547-4B4E-8289-D5F0B23F0037"
      weak var delegate : Q6WebApiProtocol?
     init(){}
@@ -24,6 +24,10 @@ public class Q6CommonLib{
     }
     
     init(myObject: MasterViewController){
+        
+        self.delegate = myObject
+    }
+    init(myObject: PurchaseViewController){
         
         self.delegate = myObject
     }
@@ -79,10 +83,14 @@ public class Q6CommonLib{
             
             let jsonData = try NSJSONSerialization.dataWithJSONObject(dicData, options: [])
             
-            let  jsonString = NSString(data: jsonData, encoding: NSUTF8StringEncoding)! as String
+            var jsonString = NSString(data: jsonData, encoding: NSUTF8StringEncoding)! as String
             returnString = jsonString
-            print(jsonString)
-        }catch{
+            
+//      print(jsonString)
+//          returnString = jsonString.stringByReplacingOccurrencesOfString("\\",  withString:"")
+//                
+//        print(returnString)
+       }catch{
             
         }
         
@@ -90,10 +98,107 @@ public class Q6CommonLib{
         return returnString
     }
 
-    
-    func Q6IosClientPostAPI(ActionName: String, dicData:[String:AnyObject]){
+    func Q6IosClientGetApi(ModelName: String ,ActionName: String ,attachedURL: String)
+    {
         
-        let UrlString = q6WebApiUrl  + ActionName;
+        var q6DBLib =  Q6DBLib()
+        var userInfos = q6DBLib.getUserInfos()
+        
+       
+        var loginDetail = [String:String]()
+        loginDetail["CompanyID"] = userInfos["CompanyID"]
+        loginDetail["Email"] = userInfos["LoginEmail"]
+        loginDetail["Password"] = userInfos["PassWord"]
+        loginDetail["WebApiTOKEN"] = "91561308-B547-4B4E-8289-D5F0B23F0037"
+        
+        var jasonLoginDeail = convertDictionaryToJSONData(loginDetail)
+        
+        var url : String = q6WebApiUrl + ModelName + "/" + ActionName + "?Jsonlogin=" + jasonLoginDeail + attachedURL
+        let configuration = NSURLSessionConfiguration .defaultSessionConfiguration()
+        let session = NSURLSession(configuration: configuration)
+        
+        
+        var urlString : String = url.stringByReplacingOccurrencesOfString("\\", withString: "") as String
+        
+        urlString = urlString.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!
+        print("get url is \(urlString)")
+
+        
+        //let url = NSURL(string: urlString as String)
+        let request : NSMutableURLRequest = NSMutableURLRequest(URL: NSURL(string: urlString )!)
+       // request.URL = NSURL(string:urlString ) //NSURL(string: NSString(format: "%@", urlString) as String)
+        
+    
+        request.HTTPMethod = "GET"
+        request.timeoutInterval = 30
+        
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        
+        let dataTask = session.dataTaskWithRequest(request) {
+            (let data: NSData?, let response: NSURLResponse?, let error: NSError?) -> Void in
+            
+            
+            guard let responseData = data else {
+                print("Error: did not receive data")
+                return
+            }
+            guard error == nil else {
+                print("error calling GET on /posts/1")
+                print(error)
+                return
+            }
+            guard let myResponse = response else {
+                print("error calling response")
+                print(error)
+                return
+            }
+            
+            // 1: Check HTTP Response for successful GET request
+            guard let httpResponse = response as? NSHTTPURLResponse, receivedData = data
+                else {
+                    print("error: not a valid http response")
+                    return
+            }
+            
+            guard case let httpResponse.statusCode = 200 else {
+                
+                print("error: status is not 200")
+                return
+            }
+            
+            self.completion(data, response: response, error: error)
+//            switch (httpResponse.statusCode)
+//            {
+//            case 200:
+//                
+//                let response = NSString (data: receivedData, encoding: NSUTF8StringEncoding)
+//                print("response is \(response)")
+//                
+//                
+//                do {
+//                    let getResponse = try NSJSONSerialization.JSONObjectWithData(receivedData, options: .AllowFragments)
+//                    
+//                  //  EZLoadingActivity .hide()
+//                    
+//                    // }
+//                } catch {
+//                    print("error serializing JSON: \(error)")
+//                }
+//                
+//                break
+//            case 400:
+//                
+//                break
+//            default:
+//                print("wallet GET request got response \(httpResponse.statusCode)")
+           // }
+        }
+        dataTask.resume()
+    }
+    func Q6IosClientPostAPI(ModeName: String ,ActionName: String, dicData:[String:AnyObject]){
+        
+        let UrlString = q6WebApiUrl + ModeName + "/"  + ActionName;
         
         
         // create the request & response

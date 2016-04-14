@@ -37,7 +37,7 @@ public class Q6DBLib{
                  {
                     
                     //LoginStatus has two valude Login ,Logout
-                    let sql_stmt = "CREATE TABLE IF NOT EXISTS UserInfos (ID INTEGER  PRIMARY  KEY AUTOINCREMENT, LogInEmail,PassWord, LoginStatus,PassCode)"
+                    let sql_stmt = "CREATE TABLE IF NOT EXISTS UserInfos (ID INTEGER  PRIMARY  KEY AUTOINCREMENT, LogInEmail,PassWord, LoginStatus,PassCode,CompanyID)"
                     if !q6IosClientDB.executeStatements(sql_stmt)
                     {
                        print("Error:\(q6IosClientDB.lastErrorMessage())")
@@ -66,7 +66,7 @@ public class Q6DBLib{
         }
         
     }
-    public func addUserInfos(LoginEmail : String,PassWord: String,LoginStatus: String)
+    public func addUserInfos(LoginEmail : String,PassWord: String,LoginStatus: String,CompanyID: String)
     {
         
         let filemgr = NSFileManager.defaultManager()
@@ -82,7 +82,7 @@ public class Q6DBLib{
             if validateIfTableIsEmpty("UserInfos", Q6IosClientDB: q6IosClientDB) == true {
                 
             
-            let insertSQL = "INSERT INTO UserInfos (LoginEmail,PassWord,LoginStatus) VALUES ('\(LoginEmail)' ,'\(PassWord)','Login')"
+            let insertSQL = "INSERT INTO UserInfos (LoginEmail,PassWord,LoginStatus,CompanyID) VALUES ('\(LoginEmail)' ,'\(PassWord)','Login','\(CompanyID)')"
             
             let result = q6IosClientDB.executeUpdate(insertSQL, withArgumentsInArray: nil)
             
@@ -178,14 +178,15 @@ public class Q6DBLib{
     let q6IosClientDB = FMDatabase(path: databasePath as String)
         
         if q6IosClientDB.open() {
-            let querySQL = "SELECT LoginEmail , PassWord ,PassCode FROM UserInfos"
+            let querySQL = "SELECT LoginEmail , PassWord ,PassCode ,CompanyID FROM UserInfos"
             let results : FMResultSet? = q6IosClientDB.executeQuery(querySQL, withArgumentsInArray: nil)
             
             if results?.next() == true {
                 
              userLoginData["LoginEmail"] = results?.stringForColumn("LoginEmail")
-                userLoginData["passWord"] = results?.stringForColumn("PassWord")
+                userLoginData["PassWord"] = results?.stringForColumn("PassWord")
                   userLoginData["passCode"] = results?.stringForColumn("PassCode")
+                userLoginData["CompanyID"] = results?.stringForColumn("CompanyID")
             }
         }
         return userLoginData

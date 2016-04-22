@@ -8,9 +8,10 @@
 
 import UIKit
 
-class PurchaseViewController: UIViewController, Q6WebApiProtocol {
+class PurchaseViewController: UIViewController, Q6WebApiProtocol,UITableViewDelegate ,UITableViewDataSource{
 
-    var attachedURL: String = "&Type=AllPurchases&ReferenceNo=&StartDate=2016-03-15&EndDate=2016-04-14&PageSize=20&PageIndex=1"
+    @IBOutlet weak var purchaseTableView: PurchaseTableView!
+    var attachedURL: String = "&Type=AllPurchases&SearchText=&StartDate=2016-03-15&EndDate=2016-04-14&PageSize=20&PageIndex=1"
     @IBOutlet weak var PurchaseSearchBox: UISearchBar!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,6 +26,11 @@ class PurchaseViewController: UIViewController, Q6WebApiProtocol {
         print(ddd)
      
         // Do any additional setup after loading the view.
+        
+        purchaseTableView.delegate = self
+        purchaseTableView.dataSource = self
+     
+//        purchaseTableView.registerClass(cellClass:PurchaseTableViewCell.self, forCellWithReuseIdentifier: "PurchasePototypeCELL")
     }
     func setControlAppear()
     {
@@ -59,7 +65,7 @@ class PurchaseViewController: UIViewController, Q6WebApiProtocol {
             
             var sss = dddd[1] as [String: AnyObject]
             
-            var fff = 6
+           print(sss["Memo"]!)
 //        var dd = try  NSJSONSerialization.JSONObjectWithData(postDicData["PurchasesTransactionsHeaderList"]! as! NSData, options: []) as! [AnyObject]
             //let dataDict = try  NSJSONSerialization.JSONObjectWithData(postDicData["PurchasesTransactionsHeaderList"]! as! NSData, options: NSJSONReadingOptions.MutableContainers) as! [[String:String]]
 
@@ -72,5 +78,28 @@ class PurchaseViewController: UIViewController, Q6WebApiProtocol {
 
         return ""
     }
+    
+        func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+            // #warning Incomplete implementation, return the number of sections
+            return 1
+        }
+    
+         func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+            return 1
+        }
+    
+         func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+            var  cell = tableView.dequeueReusableCellWithIdentifier("PurchasePototypeCELL", forIndexPath: indexPath) as! PurchaseTableViewCell
+            
+            cell.lblMemo.text = "purchase memo"
+            cell.lblTotalAmount.text = "$500.00"
+            cell.lblSupplierName.text =  "testSupplier1"
+            cell.lblTransactionDate.text = "20/4/2016"
+            
+            // Configure the cell...
+            
+            return cell
+        }
+   
 
 }

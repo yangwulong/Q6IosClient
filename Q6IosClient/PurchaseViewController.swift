@@ -11,8 +11,10 @@ import UIKit
 class PurchaseViewController: UIViewController, Q6WebApiProtocol,UITableViewDelegate ,UITableViewDataSource{
 
     @IBOutlet weak var purchaseTableView: PurchaseTableView!
-    var attachedURL: String = "&Type=AllPurchases&SearchText=&StartDate=2016-03-15&EndDate=2016-04-14&PageSize=20&PageIndex=1"
+    var attachedURL: String = "&Type=AllPurchases&SearchText=&StartDate=2016-03-15&EndDate=2016-04-14&PageSize=200&PageIndex=1"
     @IBOutlet weak var PurchaseSearchBox: UISearchBar!
+    
+    var purchaseTransactionListData = [PurchasesTransactionsListView]()
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -61,11 +63,76 @@ class PurchaseViewController: UIViewController, Q6WebApiProtocol,UITableViewDele
         do {
             postDicData = try  NSJSONSerialization.JSONObjectWithData(data!, options: []) as! [String:AnyObject]
             
-            var dddd = postDicData["PurchasesTransactionsHeaderList"] as! [[String : AnyObject]]
+           var returnData = postDicData["PurchasesTransactionsHeaderList"] as! [[String : AnyObject]]
             
-            var sss = dddd[1] as [String: AnyObject]
+            for i in 0  ..< returnData.count {
+                var dataItem = returnData[i]
+                var purchasesTransactionListViewDataItem =  PurchasesTransactionsListView()
+                
+                purchasesTransactionListViewDataItem.PurchasesTransactionsHeaderID = dataItem["PurchasesTransactionsHeaderID"] as! String
+                purchasesTransactionListViewDataItem.Overdueby = dataItem["Overdueby"] as? String
+                
+                purchasesTransactionListViewDataItem.SupplierID = dataItem["SupplierID"] as! String
+                
+                purchasesTransactionListViewDataItem.SupplierName = dataItem["SupplierName"] as! String
+                
+                purchasesTransactionListViewDataItem.ReferenceNo = dataItem["ReferenceNo"] as! String
+                
+                if(purchasesTransactionListViewDataItem.ReferenceNo == "PBN00007026")
+                {
+                    var r = 5
+                }
+                purchasesTransactionListViewDataItem.PurchasesType = dataItem["PurchasesType"] as! String
+                purchasesTransactionListViewDataItem.PurchasesStatus = dataItem["PurchasesStatus"] as! String
+                
+                purchasesTransactionListViewDataItem.PurchasesStatusString = dataItem["PurchasesStatusString"] as! String
+                purchasesTransactionListViewDataItem.Memo = dataItem["Memo"] as! String
+                
+              var dueDate = dataItem["DueDate"] as? String
+//                var convertDueDate = NSDate?()
+//                if dueDate != nil {
+//                print("dueDate sss" + dueDate!)
+//                    
+//                    convertDueDate = dueDate?.toDateTime()
+//                
+//                }
+                purchasesTransactionListViewDataItem.DueDate = dueDate?.toDateTime()
+               
+               // purchasesTransactionListViewDataItem.TransactionDate = dataItem["TransactionDate"] as! NSDate
+                
+                //print("Transaction Date" + dataItem["TransactionDate"])
+                purchaseTransactionListData.append(purchasesTransactionListViewDataItem)
+                print("PurchasesTransactionsHeaderID" + purchasesTransactionListViewDataItem.PurchasesTransactionsHeaderID)
+                
+                if let Overdueby = purchasesTransactionListViewDataItem.Overdueby {
+                    print("Overdueby " + Overdueby)
+                } else {
+                print("Overdueby nil")
+                }
+                
+                print("SupplierID " + purchasesTransactionListViewDataItem.SupplierID)
+                
+                print("SupplierName " + purchasesTransactionListViewDataItem.SupplierName)
+                print("ReferenceNO" + purchasesTransactionListViewDataItem.ReferenceNo)
+                print("PurchasesType " + purchasesTransactionListViewDataItem.PurchasesType)
+                print("PurchasesStatus"  + purchasesTransactionListViewDataItem.PurchasesStatus)
+                print("PurchasesStatusString" + purchasesTransactionListViewDataItem.PurchasesStatusString)
+                print("Memo"  + purchasesTransactionListViewDataItem.Memo)
+                
+                guard let dueDates = purchasesTransactionListViewDataItem.DueDate else {
+                    print("DueDate nil")
+                   break
+                }
+                  print("DueDate " + dueDates.formatted)
+                
+//                print("TransactionDate " + (purchasesTransactionListViewDataItem.TransactionDate).formatted)
+            }
             
-           print(sss["Memo"]!)
+          //  self.purchaseTableView.reloadData()
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                self.purchaseTableView.reloadData()
+            })
+         var eee = 5
 //        var dd = try  NSJSONSerialization.JSONObjectWithData(postDicData["PurchasesTransactionsHeaderList"]! as! NSData, options: []) as! [AnyObject]
             //let dataDict = try  NSJSONSerialization.JSONObjectWithData(postDicData["PurchasesTransactionsHeaderList"]! as! NSData, options: NSJSONReadingOptions.MutableContainers) as! [[String:String]]
 
@@ -85,13 +152,15 @@ class PurchaseViewController: UIViewController, Q6WebApiProtocol,UITableViewDele
         }
     
          func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-            return 1
+            return purchaseTransactionListData.count
         }
     
          func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
             var  cell = tableView.dequeueReusableCellWithIdentifier("PurchasePototypeCELL", forIndexPath: indexPath) as! PurchaseTableViewCell
-            
-            cell.lblMemo.text = "purchase memo"
+                let bus = ["name" , "image", "avgSpeed"]
+           
+            cell.lblMemo.text = purchaseTransactionListData[indexPath.row].Memo
+           
             cell.lblTotalAmount.text = "$500.00"
             cell.lblSupplierName.text =  "testSupplier1"
             cell.lblTransactionDate.text = "20/4/2016"
@@ -101,5 +170,5 @@ class PurchaseViewController: UIViewController, Q6WebApiProtocol,UITableViewDele
             return cell
         }
    
-
+   
 }

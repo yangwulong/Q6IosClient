@@ -9,17 +9,17 @@
 import Foundation
 public class InternalUserLoginParameter
 {
-    public var ClientIP : String
-    public var LoginUserName: String
-    public var Password: String
-    public var WebApiTOKEN: String
-    init(){
-        ClientIP = ""
-        LoginUserName = ""
-        Password = ""
-        WebApiTOKEN = "91561308-B547-4B4E-8289-D5F0B23F0037"
-        
-    }
+    public var ClientIP = String()
+    public var LoginUserName = String()
+    public var Password = String()
+    public var WebApiTOKEN = String("91561308-B547-4B4E-8289-D5F0B23F0037")
+//    init(){
+//        ClientIP = ""
+//        LoginUserName = ""
+//        Password = ""
+//        WebApiTOKEN = "91561308-B547-4B4E-8289-D5F0B23F0037"
+//        
+//    }
     
 
 }

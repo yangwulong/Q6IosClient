@@ -54,12 +54,38 @@ extension String {
             return false
         }
     }
+    
+    
+    func toDateTime() -> NSDate?
+    {
+        //Create Date Formatter
+        let dateFormatter = NSDateFormatter()
+        
+        //Specify Format of String to Parse
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+        
+        //Parse into NSDate
+        
+       var str = self
+       var seperateStr = str.componentsSeparatedByString(".")
+        if let dateFromString : NSDate = dateFormatter.dateFromString(seperateStr[0]){
+            
+            return dateFromString
+        }
+        else {
+            return nil
+        }
+     
+      
+        
+
+    }
 }
 
 extension NSDate {
     var formatted:String {
         let formatter = NSDateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd"
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
         return formatter.stringFromDate(self)
 }
 }

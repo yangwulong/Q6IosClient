@@ -10,12 +10,18 @@ import UIKit
 
 class PurchaseViewController: UIViewController, Q6WebApiProtocol,UITableViewDelegate ,UITableViewDataSource{
 
+    @IBOutlet weak var Q6ActivityIndicatorView: UIActivityIndicatorView!
     @IBOutlet weak var purchaseTableView: PurchaseTableView!
     //var attachedURL: String = "&Type=AllPurchases&SearchText=&PageSize=200&PageIndex=1"
         var attachedURL: String = "&Type=AllPurchases&SearchText=&StartDate=2016-03-15&EndDate=2016-04-14&PageSize=200&PageIndex=1"
     @IBOutlet weak var PurchaseSearchBox: UISearchBar!
     
     var purchaseTransactionListData = [PurchasesTransactionsListView]()
+    
+    override func viewWillAppear(animated: Bool) {
+    //    Q6ActivityIndicatorView.center = purchaseTableView.center
+        Q6ActivityIndicatorView.startAnimating()
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -116,6 +122,9 @@ class PurchaseViewController: UIViewController, Q6WebApiProtocol,UITableViewDele
           //  self.purchaseTableView.reloadData()
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                 self.purchaseTableView.reloadData()
+                 self.Q6ActivityIndicatorView.hidesWhenStopped = true
+                self.Q6ActivityIndicatorView.stopAnimating()
+               
             })
        
 //        var dd = try  NSJSONSerialization.JSONObjectWithData(postDicData["PurchasesTransactionsHeaderList"]! as! NSData, options: []) as! [AnyObject]
@@ -191,7 +200,7 @@ class PurchaseViewController: UIViewController, Q6WebApiProtocol,UITableViewDele
             cell.lblMemo.text = purchaseTransactionListData[indexPath.row].Memo
            
              let TotalAmount = purchaseTransactionListData[indexPath.row].TotalAmount
-            cell.lblTotalAmount.text = TotalAmount.description
+            cell.lblTotalAmount.text = String(format: "%.2f", TotalAmount)
             cell.lblSupplierName.text =  purchaseTransactionListData[indexPath.row].SupplierName
             
             let TransactionDate = purchaseTransactionListData[indexPath.row].TransactionDate

@@ -62,12 +62,12 @@ extension String {
         let dateFormatter = NSDateFormatter()
         
         //Specify Format of String to Parse
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+        dateFormatter.dateFormat = "yyyy-MM-dd"
         
         //Parse into NSDate
         
        var str = self
-       var seperateStr = str.componentsSeparatedByString(".")
+      var seperateStr = str.componentsSeparatedByString("T")
         if let dateFromString : NSDate = dateFormatter.dateFromString(seperateStr[0]){
             
             return dateFromString
@@ -85,7 +85,7 @@ extension String {
 extension NSDate {
     var formatted:String {
         let formatter = NSDateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+        formatter.dateFormat = "yyyy-MM-dd"
         return formatter.stringFromDate(self)
 }
 }

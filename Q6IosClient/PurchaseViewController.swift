@@ -11,7 +11,8 @@ import UIKit
 class PurchaseViewController: UIViewController, Q6WebApiProtocol,UITableViewDelegate ,UITableViewDataSource{
 
     @IBOutlet weak var purchaseTableView: PurchaseTableView!
-    var attachedURL: String = "&Type=AllPurchases&SearchText=&StartDate=2016-03-15&EndDate=2016-04-14&PageSize=200&PageIndex=1"
+    //var attachedURL: String = "&Type=AllPurchases&SearchText=&PageSize=200&PageIndex=1"
+        var attachedURL: String = "&Type=AllPurchases&SearchText=&StartDate=2016-03-15&EndDate=2016-04-14&PageSize=200&PageIndex=1"
     @IBOutlet weak var PurchaseSearchBox: UISearchBar!
     
     var purchaseTransactionListData = [PurchasesTransactionsListView]()
@@ -23,9 +24,7 @@ class PurchaseViewController: UIViewController, Q6WebApiProtocol,UITableViewDele
       
         q6CommonLib.Q6IosClientGetApi("Purchase", ActionName: "GetPurchasesTransactionsList", attachedURL: attachedURL)
         
-   var now = NSDate()
-     var ddd = now.formatted
-        print(ddd)
+
      
         // Do any additional setup after loading the view.
         
@@ -78,17 +77,17 @@ class PurchaseViewController: UIViewController, Q6WebApiProtocol,UITableViewDele
                 
                 purchasesTransactionListViewDataItem.ReferenceNo = dataItem["ReferenceNo"] as! String
                 
-                if(purchasesTransactionListViewDataItem.ReferenceNo == "PBN00007026")
-                {
-                    var r = 5
-                }
+           
                 purchasesTransactionListViewDataItem.PurchasesType = dataItem["PurchasesType"] as! String
                 purchasesTransactionListViewDataItem.PurchasesStatus = dataItem["PurchasesStatus"] as! String
                 
                 purchasesTransactionListViewDataItem.PurchasesStatusString = dataItem["PurchasesStatusString"] as! String
                 purchasesTransactionListViewDataItem.Memo = dataItem["Memo"] as! String
                 
-              var dueDate = dataItem["DueDate"] as? String
+                
+               
+                
+              var DueDate = dataItem["DueDate"] as? String
 //                var convertDueDate = NSDate?()
 //                if dueDate != nil {
 //                print("dueDate sss" + dueDate!)
@@ -96,43 +95,29 @@ class PurchaseViewController: UIViewController, Q6WebApiProtocol,UITableViewDele
 //                    convertDueDate = dueDate?.toDateTime()
 //                
 //                }
-                purchasesTransactionListViewDataItem.DueDate = dueDate?.toDateTime()
-               
+                purchasesTransactionListViewDataItem.DueDate = DueDate?.toDateTime()
+                
+                var TransactionDate = dataItem["TransactionDate"] as! String
+                
+                purchasesTransactionListViewDataItem.TransactionDate = TransactionDate.toDateTime()!
+                purchasesTransactionListViewDataItem.TotalAmount = dataItem["TotalAmount"] as! Double
+//                  purchasesTransactionListViewDataItem.DebitAmount = dataItem["DebitAmount"] as! Double
+               purchasesTransactionListViewDataItem.HasLinkedDoc = dataItem["HasLinkedDoc"] as! Bool
                // purchasesTransactionListViewDataItem.TransactionDate = dataItem["TransactionDate"] as! NSDate
                 
+                var ClosedDate = dataItem["ClosedDate"] as? String
+                purchasesTransactionListViewDataItem.ClosedDate = ClosedDate?.toDateTime()
                 //print("Transaction Date" + dataItem["TransactionDate"])
                 purchaseTransactionListData.append(purchasesTransactionListViewDataItem)
-                print("PurchasesTransactionsHeaderID" + purchasesTransactionListViewDataItem.PurchasesTransactionsHeaderID)
-                
-                if let Overdueby = purchasesTransactionListViewDataItem.Overdueby {
-                    print("Overdueby " + Overdueby)
-                } else {
-                print("Overdueby nil")
-                }
-                
-                print("SupplierID " + purchasesTransactionListViewDataItem.SupplierID)
-                
-                print("SupplierName " + purchasesTransactionListViewDataItem.SupplierName)
-                print("ReferenceNO" + purchasesTransactionListViewDataItem.ReferenceNo)
-                print("PurchasesType " + purchasesTransactionListViewDataItem.PurchasesType)
-                print("PurchasesStatus"  + purchasesTransactionListViewDataItem.PurchasesStatus)
-                print("PurchasesStatusString" + purchasesTransactionListViewDataItem.PurchasesStatusString)
-                print("Memo"  + purchasesTransactionListViewDataItem.Memo)
-                
-                guard let dueDates = purchasesTransactionListViewDataItem.DueDate else {
-                    print("DueDate nil")
-                   break
-                }
-                  print("DueDate " + dueDates.formatted)
-                
-//                print("TransactionDate " + (purchasesTransactionListViewDataItem.TransactionDate).formatted)
+            
+                printFields(purchasesTransactionListViewDataItem)
             }
             
           //  self.purchaseTableView.reloadData()
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                 self.purchaseTableView.reloadData()
             })
-         var eee = 5
+       
 //        var dd = try  NSJSONSerialization.JSONObjectWithData(postDicData["PurchasesTransactionsHeaderList"]! as! NSData, options: []) as! [AnyObject]
             //let dataDict = try  NSJSONSerialization.JSONObjectWithData(postDicData["PurchasesTransactionsHeaderList"]! as! NSData, options: NSJSONReadingOptions.MutableContainers) as! [[String:String]]
 
@@ -146,6 +131,50 @@ class PurchaseViewController: UIViewController, Q6WebApiProtocol,UITableViewDele
         return ""
     }
     
+    func printFields(purchasesTransactionListViewDataItem : PurchasesTransactionsListView)
+    {
+        print("PurchasesTransactionsHeaderID" + purchasesTransactionListViewDataItem.PurchasesTransactionsHeaderID)
+        
+        if let Overdueby = purchasesTransactionListViewDataItem.Overdueby {
+            print("Overdueby " + Overdueby)
+        } else {
+            print("Overdueby nil")
+        }
+        
+        print("SupplierID " + purchasesTransactionListViewDataItem.SupplierID)
+        
+        print("SupplierName " + purchasesTransactionListViewDataItem.SupplierName)
+        print("ReferenceNO" + purchasesTransactionListViewDataItem.ReferenceNo)
+        print("PurchasesType " + purchasesTransactionListViewDataItem.PurchasesType)
+        print("PurchasesStatus"  + purchasesTransactionListViewDataItem.PurchasesStatus)
+        print("PurchasesStatusString" + purchasesTransactionListViewDataItem.PurchasesStatusString)
+        print("Memo"  + purchasesTransactionListViewDataItem.Memo)
+        
+        
+      
+        
+        if let dueDates = purchasesTransactionListViewDataItem.DueDate  {
+            
+            print("DueDate " + dueDates.formatted)
+        }
+        else {
+            print("DueDate nil")
+        }
+     
+        print("TransactionDate"  + purchasesTransactionListViewDataItem.TransactionDate.formatted)
+        print("TotalAmount" + purchasesTransactionListViewDataItem.TotalAmount.description)
+        //                     print("DebitAmount" + purchasesTransactionListViewDataItem.DebitAmount.description)
+        //                print("TransactionDate " + (purchasesTransactionListViewDataItem.TransactionDate).formatted)
+        print("HasLinkedDoc" + purchasesTransactionListViewDataItem.HasLinkedDoc.description)
+        
+        if let closedDates = purchasesTransactionListViewDataItem.ClosedDate  {
+            
+            print("ClosedDate " + closedDates.formatted)
+        }
+        else {
+            print("ClosedDate nil")
+        }
+    }
         func numberOfSectionsInTableView(tableView: UITableView) -> Int {
             // #warning Incomplete implementation, return the number of sections
             return 1
@@ -156,14 +185,17 @@ class PurchaseViewController: UIViewController, Q6WebApiProtocol,UITableViewDele
         }
     
          func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-            var  cell = tableView.dequeueReusableCellWithIdentifier("PurchasePototypeCELL", forIndexPath: indexPath) as! PurchaseTableViewCell
-                let bus = ["name" , "image", "avgSpeed"]
+            let  cell = tableView.dequeueReusableCellWithIdentifier("PurchasePototypeCELL", forIndexPath: indexPath) as! PurchaseTableViewCell
+            
            
             cell.lblMemo.text = purchaseTransactionListData[indexPath.row].Memo
            
-            cell.lblTotalAmount.text = "$500.00"
-            cell.lblSupplierName.text =  "testSupplier1"
-            cell.lblTransactionDate.text = "20/4/2016"
+             let TotalAmount = purchaseTransactionListData[indexPath.row].TotalAmount
+            cell.lblTotalAmount.text = TotalAmount.description
+            cell.lblSupplierName.text =  purchaseTransactionListData[indexPath.row].SupplierName
+            
+            let TransactionDate = purchaseTransactionListData[indexPath.row].TransactionDate
+            cell.lblTransactionDate.text = TransactionDate.formatted
             
             // Configure the cell...
             

@@ -22,7 +22,7 @@ public class PurchasesTransactionsListView
     var DueDate = NSDate?()
     var TransactionDate = NSDate()
     var TotalAmount = Double()
-    var DebitAmount = Double()
+    var AmountDue = Double()
     var HasLinkedDoc = Bool()
     var ClosedDate = NSDate?()
     

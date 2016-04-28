@@ -171,6 +171,7 @@ public func setControlAppear()
             
         if secondTimeInputPassCode.length == 4 {
             
+            print(secondTimeInputPassCode)
             
             if firstTimeInputPassCode == secondTimeInputPassCode{
             
@@ -255,9 +256,12 @@ public func setControlAppear()
     @IBAction func goBackToSignInScreen(sender: AnyObject) {
         
         if let loginViewController = storyboard!.instantiateViewControllerWithIdentifier("Q6LoginViewController") as? LoginViewController {
-            
+              var q6DBLib = Q6DBLib()
+             q6DBLib.deleteUserInfos()
             loginViewController.ScreenMode = "GoBackFromPassCodeScreen"
             presentViewController(loginViewController, animated: true, completion: nil)
+          
+            
         }
         
 

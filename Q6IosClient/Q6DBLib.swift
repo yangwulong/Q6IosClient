@@ -37,7 +37,7 @@ public class Q6DBLib{
                  {
                     
                     //LoginStatus has two valude Login ,Logout
-                    let sql_stmt = "CREATE TABLE IF NOT EXISTS UserInfos (ID INTEGER  PRIMARY  KEY AUTOINCREMENT, LogInEmail,PassWord, LoginStatus,PassCode,CompanyID)"
+                    let sql_stmt = "CREATE TABLE IF NOT EXISTS UserInfos (ID INTEGER  PRIMARY  KEY , LogInEmail,PassWord, LoginStatus,PassCode,CompanyID)"
                     if !q6IosClientDB.executeStatements(sql_stmt)
                     {
                        print("Error:\(q6IosClientDB.lastErrorMessage())")
@@ -82,7 +82,7 @@ public class Q6DBLib{
             if validateIfTableIsEmpty("UserInfos", Q6IosClientDB: q6IosClientDB) == true {
                 
             
-            let insertSQL = "INSERT INTO UserInfos (LoginEmail,PassWord,LoginStatus,CompanyID) VALUES ('\(LoginEmail)' ,'\(PassWord)','Login','\(CompanyID)')"
+            let insertSQL = "INSERT INTO UserInfos (ID,LoginEmail,PassWord,LoginStatus,CompanyID) VALUES (1,'\(LoginEmail)' ,'\(PassWord)','Login','\(CompanyID)')"
             
             let result = q6IosClientDB.executeUpdate(insertSQL, withArgumentsInArray: nil)
             
@@ -255,10 +255,9 @@ public class Q6DBLib{
     
     databasePath = dirPaths[0].URLByAppendingPathComponent("Q6IosClientDB.db").path!
     
-    
     let q6IosClientDB = FMDatabase(path: databasePath as String)
     
-    if q6IosClientDB.open() {1
+    if q6IosClientDB.open() {
         
         if validateIfTableIsEmpty("UserInfos", Q6IosClientDB: q6IosClientDB) == false {
             
@@ -285,6 +284,45 @@ public class Q6DBLib{
         return isUpdated
     }
 
-
+public func deleteUserInfos() -> Bool
+{
+    var isUpdateSuccessed: Bool = false
+        let filemgr = NSFileManager.defaultManager()
+        let dirPaths = filemgr.URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
+        
+        databasePath = dirPaths[0].URLByAppendingPathComponent("Q6IosClientDB.db").path!
+    
+    var dbpathstr = databasePath as String
+    print(dbpathstr)
+        
+        let q6IosClientDB = FMDatabase(path: databasePath as String)
+        
+        if q6IosClientDB.open() {
+            
+            if validateIfTableIsEmpty("UserInfos", Q6IosClientDB: q6IosClientDB) == false {
+                
+                
+                let updateSQL = "delete from UserInfos "
+                
+                let result = q6IosClientDB.executeUpdate(updateSQL, withArgumentsInArray: nil)
+                
+                if !result {
+                    print ("Error: \(q6IosClientDB.lastErrorMessage())")
+                } else{
+                    print ("Sucess: delete PassCode")
+                    isUpdateSuccessed = true
+                }
+            }
+        }
+        else{
+            print ("Error: \(q6IosClientDB.lastErrorMessage())")
+        }
+        q6IosClientDB.close()
+        
+        
+        
+        return isUpdateSuccessed
+    
+    }
     
 }

@@ -26,11 +26,11 @@ class PurchaseViewController: UIViewController, Q6WebApiProtocol,UITableViewDele
     
     override func viewWillAppear(animated: Bool) {
     //    Q6ActivityIndicatorView.center = purchaseTableView.center
-        Q6ActivityIndicatorView.startAnimating()
+       
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-
+ Q6ActivityIndicatorView.startAnimating()
         setControlAppear()
   let q6CommonLib = Q6CommonLib(myObject: self)
        // var attachedURL: String = "&Type=AllPurchases&SearchText=&StartDate=&EndDate=&PageSize=20&PageIndex=" + String(pageIndex)
@@ -257,6 +257,7 @@ class PurchaseViewController: UIViewController, Q6WebApiProtocol,UITableViewDele
              let TotalAmount = purchaseTransactionListData[indexPath.row].TotalAmount
             cell.lblTotalAmount.text = String(format: "%.2f", TotalAmount)
             cell.lblSupplierName.text =  purchaseTransactionListData[indexPath.row].SupplierName
+            cell.lblSupplierName.font =  UIFont.boldSystemFontOfSize(18.0)
             
             let TransactionDate = purchaseTransactionListData[indexPath.row].TransactionDate
             cell.lblTransactionDate.text = TransactionDate.formatted

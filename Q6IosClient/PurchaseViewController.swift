@@ -8,12 +8,18 @@
 
 import UIKit
 
-class PurchaseViewController: UIViewController, Q6WebApiProtocol,UITableViewDelegate ,UITableViewDataSource{
+class PurchaseViewController: UIViewController, Q6WebApiProtocol,UITableViewDelegate ,UITableViewDataSource,UISearchBarDelegate{
 
+    @IBOutlet weak var SearchBar: UISearchBar!
+    var pageIndex: Int = 1
+    var pageSize: Int = 20
+    var searchText: String = ""
+    var dataRequestSource = ""
+    var attachedURL = String()
     @IBOutlet weak var Q6ActivityIndicatorView: UIActivityIndicatorView!
     @IBOutlet weak var purchaseTableView: PurchaseTableView!
     //var attachedURL: String = "&Type=AllPurchases&SearchText=&PageSize=200&PageIndex=1"
-        var attachedURL: String = "&Type=AllPurchases&SearchText=&StartDate=2016-03-15&EndDate=2016-04-14&PageSize=200&PageIndex=1"
+    
     @IBOutlet weak var PurchaseSearchBox: UISearchBar!
     
     var purchaseTransactionListData = [PurchasesTransactionsListView]()
@@ -27,7 +33,9 @@ class PurchaseViewController: UIViewController, Q6WebApiProtocol,UITableViewDele
 
         setControlAppear()
   let q6CommonLib = Q6CommonLib(myObject: self)
-      
+       // var attachedURL: String = "&Type=AllPurchases&SearchText=&StartDate=&EndDate=&PageSize=20&PageIndex=" + String(pageIndex)
+        
+        setAttachedURL(searchText, PageSize: pageSize, PageIndex: pageIndex)
         q6CommonLib.Q6IosClientGetApi("Purchase", ActionName: "GetPurchasesTransactionsList", attachedURL: attachedURL)
         
 
@@ -36,6 +44,7 @@ class PurchaseViewController: UIViewController, Q6WebApiProtocol,UITableViewDele
         
         purchaseTableView.delegate = self
         purchaseTableView.dataSource = self
+        SearchBar.delegate = self
      
 //        purchaseTableView.registerClass(cellClass:PurchaseTableViewCell.self, forCellWithReuseIdentifier: "PurchasePototypeCELL")
     }
@@ -66,11 +75,17 @@ class PurchaseViewController: UIViewController, Q6WebApiProtocol,UITableViewDele
         var postDicData :[String:AnyObject]
     
         do {
+            if dataRequestSource == "Search" {
+                purchaseTransactionListData.removeAll()
+            }
             postDicData = try  NSJSONSerialization.JSONObjectWithData(data!, options: []) as! [String:AnyObject]
             
            var returnData = postDicData["PurchasesTransactionsHeaderList"] as! [[String : AnyObject]]
-            
+            print("returnDate Count" + returnData.count.description)
             for i in 0  ..< returnData.count {
+                
+            
+                print("no i =" + i.description)
                 var dataItem = returnData[i]
                 var purchasesTransactionListViewDataItem =  PurchasesTransactionsListView()
                 
@@ -116,14 +131,15 @@ class PurchaseViewController: UIViewController, Q6WebApiProtocol,UITableViewDele
                 //print("Transaction Date" + dataItem["TransactionDate"])
                 purchaseTransactionListData.append(purchasesTransactionListViewDataItem)
             
-                printFields(purchasesTransactionListViewDataItem)
+               printFields(purchasesTransactionListViewDataItem)
             }
-            
+            print("purchaseTransactionListdata count" + purchaseTransactionListData.count.description)
           //  self.purchaseTableView.reloadData()
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                 self.purchaseTableView.reloadData()
                  self.Q6ActivityIndicatorView.hidesWhenStopped = true
                 self.Q6ActivityIndicatorView.stopAnimating()
+                self.SearchBar.resignFirstResponder()
                
             })
        
@@ -140,6 +156,45 @@ class PurchaseViewController: UIViewController, Q6WebApiProtocol,UITableViewDele
         return ""
     }
     
+    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+       print("indexpath" + indexPath.row.description)
+        if indexPath.row == pageIndex*(pageSize - 5 )
+       {
+        let q6CommonLib = Q6CommonLib(myObject: self)
+        pageIndex++
+       setAttachedURL(searchText, PageSize: 20, PageIndex: pageIndex)
+        dataRequestSource = ""
+        q6CommonLib.Q6IosClientGetApi("Purchase", ActionName: "GetPurchasesTransactionsList", attachedURL: attachedURL)
+        }
+        
+    }
+    
+    func setAttachedURL(SearchText: String , PageSize: Int,PageIndex: Int )
+    {
+        attachedURL = "&Type=AllPurchases&SearchText=" + SearchText + "&StartDate=&EndDate=&PageSize=" + String(pageSize) + "&PageIndex=" + String(pageIndex)
+    }
+    
+    
+    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+        
+        self.searchText = searchText
+        
+        if searchText.length == 0 {
+           
+
+        
+        let q6CommonLib = Q6CommonLib(myObject: self)
+       pageSize = 20
+        pageIndex = 1
+        purchaseTransactionListData.removeAll()
+        
+        dataRequestSource = "Search"
+        print("purchaseTransactionListdata count" + purchaseTransactionListData.count.description)
+        setAttachedURL(searchText, PageSize: 20, PageIndex: pageIndex)
+        q6CommonLib.Q6IosClientGetApi("Purchase", ActionName: "GetPurchasesTransactionsList", attachedURL: attachedURL)
+        
+        }
+    }
     func printFields(purchasesTransactionListViewDataItem : PurchasesTransactionsListView)
     {
         print("PurchasesTransactionsHeaderID" + purchasesTransactionListViewDataItem.PurchasesTransactionsHeaderID)
@@ -211,5 +266,27 @@ class PurchaseViewController: UIViewController, Q6WebApiProtocol,UITableViewDele
             return cell
         }
    
+    
+    
+  
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
    
+        SearchBar.resignFirstResponder()
+    }
+    
+    func searchBarSearchButtonClicked( searchBar: UISearchBar!)
+    {
+        let q6CommonLib = Q6CommonLib(myObject: self)
+        pageSize = 20
+        pageIndex = 1
+        purchaseTransactionListData.removeAll()
+        
+        dataRequestSource = "Search"
+        print("purchaseTransactionListdata count" + purchaseTransactionListData.count.description)
+        setAttachedURL(searchText, PageSize: 20, PageIndex: pageIndex)
+        q6CommonLib.Q6IosClientGetApi("Purchase", ActionName: "GetPurchasesTransactionsList", attachedURL: attachedURL)
+        
+        searchBar.resignFirstResponder()
+        
+    }
 }

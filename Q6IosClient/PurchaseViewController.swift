@@ -17,7 +17,8 @@ class PurchaseViewController: UIViewController, Q6WebApiProtocol,UITableViewDele
     var dataRequestSource = ""
     var attachedURL = String()
     @IBOutlet weak var Q6ActivityIndicatorView: UIActivityIndicatorView!
-    @IBOutlet weak var purchaseTableView: PurchaseTableView!
+   
+    @IBOutlet weak var purchaseTableView: UITableView!
     //var attachedURL: String = "&Type=AllPurchases&SearchText=&PageSize=200&PageIndex=1"
     
     @IBOutlet weak var PurchaseSearchBox: UISearchBar!

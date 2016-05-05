@@ -8,8 +8,14 @@
 
 import UIKit
 
-class ContactSearchViewController: UIViewController ,UITableViewDelegate ,UITableViewDataSource,UISearchBarDelegate{
+class ContactSearchViewController: UIViewController , Q6WebApiProtocol,UITableViewDelegate ,UITableViewDataSource,UISearchBarDelegate{
 
+    var pageIndex: Int = 1
+    var pageSize: Int = 20
+    var searchText: String = ""
+    var dataRequestSource = ""
+    var attachedURL = String()
+    
     @IBOutlet weak var ContactTableView: UITableView!
     @IBOutlet weak var ContactSearchBox: UISearchBar!
     override func viewDidLoad() {
@@ -18,6 +24,11 @@ setControlAppear()
         ContactSearchBox.delegate = self
         ContactTableView.delegate = self
         ContactTableView.dataSource = self
+        
+        let q6CommonLib = Q6CommonLib(myObject: self)
+        
+        setAttachedURL(searchText, IsLoadInactive:false,PageSize: pageSize,PageIndex: pageIndex)
+        q6CommonLib.Q6IosClientGetApi("Purchase", ActionName: "GetPurchasesTransactionsList", attachedURL: attachedURL)
         // Do any additional setup after loading the view.
     }
     func setControlAppear()
@@ -70,6 +81,16 @@ setControlAppear()
         // Configure the cell...
         
         return cell
+    }
+    
+    func setAttachedURL(SearchText: String , IsLoadInactive:Bool,PageSize: Int,PageIndex: Int )
+    {
+        attachedURL = "&Search=" + SearchText + "&IsLoadInactive=" + String(IsLoadInactive) + "&PageSize=" + String(PageSize) + "&PageIndex=" + String(pageIndex)
+    }
+    
+    func dataLoadCompletion(data:NSData?, response:NSURLResponse?, error:NSError?) -> AnyObject
+    {
+        return ""
     }
     /*
     // MARK: - Navigation

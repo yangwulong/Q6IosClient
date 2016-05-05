@@ -14,7 +14,7 @@ import SystemConfiguration
 public class Q6CommonLib{
     
      let q6WebApiUrl = "https://api.q6.com.au/api/"
-  static let q6WebApiTOKEN = "91561308-B547-4B4E-8289-D5F0B23F0037"
+ static let q6WebApiTOKEN = "91561308-B547-4B4E-8289-D5F0B23F0037"
      weak var delegate : Q6WebApiProtocol?
     init(){}
     
@@ -29,7 +29,11 @@ public class Q6CommonLib{
         self.delegate = myObject
     }
     
-    
+    init(myObject: ContactSearchViewController){
+        
+        self.delegate = myObject
+    }
+
     func validateIfTouchIDExist()->Bool{
         
         let context = LAContext()

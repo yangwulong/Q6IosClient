@@ -1,18 +1,18 @@
 //
-//  PurchaseDetailTableViewCell.swift
+//  ContactSearchTableViewCell.swift
 //  Q6IosClient
 //
-//  Created by yang wulong on 3/05/2016.
+//  Created by yang wulong on 5/05/2016.
 //  Copyright © 2016 q6. All rights reserved.
 //
 
 import UIKit
 
-class PurchaseDetailTableViewCell: UITableViewCell {
+class ContactSearchTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var lblPurchasesType: UILabel!
-    @IBOutlet weak var lblTotalAmountLabel: UILabel!
-    @IBOutlet weak var lblTotalAmount: UILabel!
+ 
+    @IBOutlet weak var lblSupplierName: UILabel!
+    @IBOutlet weak var lblSupplierID: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

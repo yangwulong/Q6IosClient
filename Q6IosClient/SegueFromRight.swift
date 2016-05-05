@@ -12,21 +12,19 @@ class SegueFromRight: UIStoryboardSegue
 {
     override func perform()
     {
-        let src = self.sourceViewController
-        let dst = self.destinationViewController
+     
+            var src: UIViewController = self.sourceViewController as! UIViewController
+            var dst: UIViewController = self.destinationViewController as! UIViewController
+            var transition: CATransition = CATransition()
+            var timeFunc : CAMediaTimingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+            transition.duration = 0.25
+            transition.timingFunction = timeFunc
+            transition.type = kCATransitionFromRight
+            transition.subtype = kCATransitionFromLeft
+            src.navigationController!.view.layer.addAnimation(transition, forKey: kCATransition)
+            src.navigationController!.presentViewController(dst, animated: true, completion: nil)
+        //popToViewController(dst, animated: false)
+        //pushViewController(dst, animated: false)
         
-        src.view.superview?.insertSubview(dst.view, aboveSubview: src.view)
-        dst.view.transform = CGAffineTransformMakeTranslation(-src.view.frame.size.width, 0)
-////        //src.presentViewController(dst, animated: true, completion: nil)
-////        UIView.animateWithDuration(0.25,
-////                                   delay: 0.0,
-////                                   options: UIViewAnimationOptions.CurveEaseInOut,
-////                                   animations: {
-////                                    dst.view.transform = CGAffineTransformMakeTranslation(0, 0)
-////            },
-////                                   completion: { finished in
-////                                    src.presentViewController(dst, animated: false, completion: nil)
-////            }
-////      )
     }
 }

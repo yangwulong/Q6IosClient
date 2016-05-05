@@ -13,7 +13,7 @@ public class PurchasesTransactionsHeader
     
     var PurchasesTransactionsHeaderID = String()
     var ReferenceNo = String()
-    var PurchasesType = String()
+    var PurchasesType: String = "BILL"
     var PurchasesStatus = String()
     var TransactionDate = NSDate()
     var CreateTime = NSDate()

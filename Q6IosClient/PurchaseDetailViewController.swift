@@ -8,9 +8,10 @@
 
 import UIKit
 
-class PurchaseDetailViewController: UITableViewController {
+class PurchaseDetailViewController: UITableViewController,Q6GoBackFromView {
 
 
+    @IBOutlet weak var lblPurchasesType: UILabel!
     @IBOutlet var purchaseDetailTableView: UITableView!
     //@IBOutlet weak var lblTotalAmount: UILabel!
     //@IBOutlet weak var lblTotalLabel: UILabel!
@@ -19,6 +20,16 @@ class PurchaseDetailViewController: UITableViewController {
     
     var originalRowsDic: [Int: String] = [0: "PurchasesTypecell", 1: "SupplierCell",2: "DueDateCell",3: "AddanItemCell",4: "SubtotalCell",5: "TotalCell",6: "TransactionDateCell",7: "MemoCell",8: "AddanImageCell"]
     var addItemsDic = [Int:String]()
+    
+    var backFrom = String()
+    
+    var purchasesTransactionHeader = PurchasesTransactionsHeader()
+   
+    override func viewWillAppear(animated: Bool) {
+        
+       
+        
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -117,7 +128,16 @@ class PurchaseDetailViewController: UITableViewController {
         
         resuseIdentifier = screenSortLinesDetail.PrototypeCellID
         let cell = tableView.dequeueReusableCellWithIdentifier(resuseIdentifier, forIndexPath: indexPath) as! PurchaseDetailTableViewCell
+        
+        
+        if resuseIdentifier == "PurchasesTypecell" {
             
+       cell.lblPurchasesType.text = purchasesTransactionHeader.PurchasesType
+            
+            
+            // lblTotalLabel.font = UIFont.boldSystemFontOfSize(17.0)
+            //lblTotalAmount.font = UIFont.boldSystemFontOfSize(17.0)
+        }
             if resuseIdentifier == "TotalCell" {
                 
                 cell.lblTotalAmountLabel.font = UIFont.boldSystemFontOfSize(17.0)
@@ -144,21 +164,17 @@ class PurchaseDetailViewController: UITableViewController {
         print("screenSortLinesDetail.PrototypeCellID" + screenSortLinesDetail.PrototypeCellID)
         if screenSortLinesDetail.PrototypeCellID == "PurchasesTypecell" {
             
-            if let pickerViewController = storyboard!.instantiateViewControllerWithIdentifier("Q6PickerViewController") as? PickerViewViewController {
-//
-                let storyboard = UIStoryboard(name: "Main", bundle: nil)
-               // let mainVC = storyboard.instantiateViewControllerWithIdentifier("secondVC") as! UIViewController
-                let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-                
-                UIView.transitionWithView(appDelegate.window!, duration: 0.5, options: .CurveEaseInOut , animations: { () -> Void in
-                    appDelegate.window!.rootViewController = pickerViewController
-                    },  completion: { finished in
-                     pickerViewController.presentingViewController!                      
-                })
-         // presentViewController(pickerViewController, animated: true, completion: nil)
-            }
+            performSegueWithIdentifier("showPickerView", sender: "PurchasesTypecell")
+
             
         }
+        if screenSortLinesDetail.PrototypeCellID == "SupplierCell" {
+            
+            performSegueWithIdentifier("showContactSearch", sender: "SupplierCell")
+            
+            
+        }
+        
         var index = addItemsDic.count
         addItemsDic[index] = "One more Item"
        // let section = indexPath.section//3
@@ -171,27 +187,27 @@ class PurchaseDetailViewController: UITableViewController {
     
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
-        if let pickerViewController = storyboard!.instantiateViewControllerWithIdentifier("Q6PickerViewController") as? PickerViewViewController {
-//            pickerViewController.view.transform = CGAffineTransformMakeTranslation(-600, 0)
-//            
-//                    UIView.animateWithDuration(0.25,
-//                                               delay: 0.0,
-//                                               options: UIViewAnimationOptions.CurveEaseInOut,
-//                                               animations: {
-//                                                pickerViewController.view.transform = CGAffineTransformMakeTranslation(0, 0)
-//                        },
-//                                               completion: { finished in
-//                                                self.presentViewController(pickerViewController, animated: true, completion: nil)
-//                        }
-//                  )
-//            
-//
-//        if segue.identifier == "fromPurchasesTypeCell"{
-////            let vc = segue.destinationViewController as! FooTwoViewController
-////            vc.colorString = colorLabel.text
-//       
-//        }
-    }
+        
+        if sender is String {
+            
+       let fromCell = sender as! String
+//        if let fromCell = sender as? String {
+           
+            if fromCell == "PurchasesTypecell"
+            {
+                    var pickerViewController = segue.destinationViewController as! PickerViewViewController
+           pickerViewController.fromCell = "PurchasesTypecell"
+                
+                pickerViewController.delegate = self
+            }
+            if fromCell == "SupplierCell"
+            {
+                
+                var contactSearchViewController = segue.destinationViewController as! ContactSearchViewController
+                
+            }
+        }
+
     }
     
 //    func performFromRightToLeft(sourceViewController :AnyObject , destinationViewController: AnyObject)
@@ -240,6 +256,21 @@ class PurchaseDetailViewController: UITableViewController {
         }
         return false
     }
+    func sendGoBackFromView(fromView : String ,forCell: String,selectedValue : String)
+    {
+        self.backFrom = fromView
+        
+        if fromView == "fromPickerViewViewController" {
+            if forCell == "PurchasesTypecell" {
+                
+             purchasesTransactionHeader.PurchasesType = selectedValue
+                
+                purchaseDetailTableView.reloadData()
+            }
+        }
+        print("backFrom" + self.backFrom)
+    }
+    
     /*
     // Override to support conditional editing of the table view.
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {

@@ -13,3 +13,8 @@ protocol Q6WebApiProtocol : class {    // 'class' means only class types can imp
     func dataLoadCompletion(data:NSData?, response:NSURLResponse?, error:NSError?) -> AnyObject
     
 }
+
+protocol Q6GoBackFromView :class {
+    
+    func  sendGoBackFromView(fromView : String ,forCell: String,selectedValue : String)
+}

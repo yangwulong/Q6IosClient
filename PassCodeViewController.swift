@@ -61,11 +61,11 @@ setControlAppear()
 public func setControlAppear()
 {
     
- txtPassCode1.layer.addBorder(txtPassCode1.frame.width, edge: UIRectEdge.Bottom, color: UIColor.blueColor(), thickness: 0.5)
+ txtPassCode1.layer.addBorder(txtPassCode1.frame.width, edge: UIRectEdge.Bottom, color: UIColor.lightGrayColor(), thickness: 0.5)
     
-    txtPassCode2.layer.addBorder(txtPassCode2.frame.width, edge: UIRectEdge.Bottom, color: UIColor.blueColor(), thickness: 0.5)
-    txtPassCode3.layer.addBorder(txtPassCode3.frame.width, edge: UIRectEdge.Bottom, color: UIColor.blueColor(), thickness: 0.5)
-    txtPassCode4.layer.addBorder(txtPassCode4.frame.width, edge: UIRectEdge.Bottom, color: UIColor.blueColor(), thickness: 0.5)
+    txtPassCode2.layer.addBorder(txtPassCode2.frame.width, edge: UIRectEdge.Bottom, color: UIColor.lightGrayColor(), thickness: 0.5)
+    txtPassCode3.layer.addBorder(txtPassCode3.frame.width, edge: UIRectEdge.Bottom, color: UIColor.lightGrayColor(), thickness: 0.5)
+    txtPassCode4.layer.addBorder(txtPassCode4.frame.width, edge: UIRectEdge.Bottom, color: UIColor.lightGrayColor(), thickness: 0.5)
     //lblPassCode1.layer.addBorder(lblPassCode1.frame.width, edge: UIRectEdge.Bottom, color: UIColor.blueColor(), thickness: 0.5)
      // txtTest.layer.addBorder(txtTest.frame.width, edge: UIRectEdge.Bottom, color: UIColor.blueColor(), thickness: 0.5)
     

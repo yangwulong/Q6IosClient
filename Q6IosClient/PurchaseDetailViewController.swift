@@ -164,6 +164,28 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
             
    
         }
+        
+        if resuseIdentifier == "AddanItemCell" {
+            
+            if purchasesDetailScreenLinesDic[indexPath.row].isAdded == true {
+                
+                let image = UIImage(named: "Minus-25") as UIImage?
+             
+             
+                
+               // let image = UIImage(named: "name") as UIImage?
+        // cell.AddDeleteButton = UIButton(type: .System) as UIButton
+      
+                
+           cell.AddDeleteButton.setImage(image, forState: .Normal)
+           cell.LineDescription.text = "Added dataLine"
+             //   cell.AddDeleteButton.frame = CGRectMake(0, 0, 15, 15)
+              //  cell.AddDeleteButton = UIButton(type: UIButtonType.Custom)
+            }
+            
+        }
+        
+        
             if resuseIdentifier == "TotalCell" {
                 
                 cell.lblTotalAmountLabel.font = UIFont.boldSystemFontOfSize(17.0)
@@ -207,7 +229,25 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
             
         }
         
-        
+        if screenSortLinesDetail.PrototypeCellID == "AddanItemCell" {
+            
+            if purchasesDetailScreenLinesDic[indexPath.row].isAdded == false {
+            var screenSortLinesDetail = ScreenSortLinesDetail()
+            screenSortLinesDetail.ID = indexPath.row + 1
+            print("ScreenSortLinesDetailID" + screenSortLinesDetail.ID.description )
+            screenSortLinesDetail.PrototypeCellID = "AddanItemCell"
+            screenSortLinesDetail.LineDescription = "AddedLine"
+            screenSortLinesDetail.isAdded = true
+            
+            
+          purchasesDetailScreenLinesDic.insert(screenSortLinesDetail, atIndex: 4 )
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                self.purchaseDetailTableView.reloadData()
+                
+            })
+            }
+            
+        }
         var index = addItemsDic.count
         addItemsDic[index] = "One more Item"
        // let section = indexPath.section//3

@@ -8,10 +8,10 @@
 
 import UIKit
 
-class PurchaseDetailViewController: UITableViewController,Q6GoBackFromView {
+class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITableViewDataSource,Q6GoBackFromView {
 
 
-    @IBOutlet weak var lblPurchasesType: UILabel!
+   // @IBOutlet weak var lblPurchasesType: UILabel!
     @IBOutlet var purchaseDetailTableView: UITableView!
     //@IBOutlet weak var lblTotalAmount: UILabel!
     //@IBOutlet weak var lblTotalLabel: UILabel!
@@ -24,6 +24,7 @@ class PurchaseDetailViewController: UITableViewController,Q6GoBackFromView {
     var backFrom = String()
     
     var purchasesTransactionHeader = PurchasesTransactionsHeader()
+    var SupplierName: String = ""
    
     override func viewWillAppear(animated: Bool) {
         
@@ -37,6 +38,8 @@ class PurchaseDetailViewController: UITableViewController,Q6GoBackFromView {
         print("purchasesDetailScreenLinesDic" + purchasesDetailScreenLinesDic.count.description)
      setControlAppear()
         
+        purchaseDetailTableView.delegate = self
+        purchaseDetailTableView.dataSource = self
       
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -101,12 +104,12 @@ class PurchaseDetailViewController: UITableViewController,Q6GoBackFromView {
 
     // MARK: - Table view data source
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         
        // print("addItemsDic" + addItemsDic.count.description)
@@ -115,7 +118,7 @@ class PurchaseDetailViewController: UITableViewController,Q6GoBackFromView {
     }
 
    
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var resuseIdentifier = String()
         if indexPath.row <= 8 {
        resuseIdentifier = originalRowsDic[indexPath.row]!
@@ -138,6 +141,29 @@ class PurchaseDetailViewController: UITableViewController,Q6GoBackFromView {
             // lblTotalLabel.font = UIFont.boldSystemFontOfSize(17.0)
             //lblTotalAmount.font = UIFont.boldSystemFontOfSize(17.0)
         }
+        if resuseIdentifier == "SupplierCell" {
+            
+        cell.lblSupplierName.text = SupplierName
+            
+            
+            // lblTotalLabel.font = UIFont.boldSystemFontOfSize(17.0)
+            //lblTotalAmount.font = UIFont.boldSystemFontOfSize(17.0)
+        }
+        
+        if resuseIdentifier == "DueDateCell" {
+            
+            if purchasesTransactionHeader.DueDate == nil {
+                
+            
+          purchasesTransactionHeader.DueDate = NSDate()
+            }
+          
+//
+         cell.lblDueDate.text = purchasesTransactionHeader.DueDate!.formatted
+            
+            
+   
+        }
             if resuseIdentifier == "TotalCell" {
                 
                 cell.lblTotalAmountLabel.font = UIFont.boldSystemFontOfSize(17.0)
@@ -156,7 +182,7 @@ class PurchaseDetailViewController: UITableViewController,Q6GoBackFromView {
         //return cell
     }
  
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let row = indexPath.row //2
         
         print("Selected Row" + indexPath.row.description)
@@ -174,6 +200,13 @@ class PurchaseDetailViewController: UITableViewController,Q6GoBackFromView {
             
             
         }
+        if screenSortLinesDetail.PrototypeCellID == "DueDateCell" {
+            
+            performSegueWithIdentifier("showDatePicker", sender: "DueDateCell")
+            
+            
+        }
+        
         
         var index = addItemsDic.count
         addItemsDic[index] = "One more Item"
@@ -204,12 +237,32 @@ class PurchaseDetailViewController: UITableViewController,Q6GoBackFromView {
             {
                 
                 var contactSearchViewController = segue.destinationViewController as! ContactSearchViewController
+                contactSearchViewController.fromCell = "SupplierCell"
+                contactSearchViewController.delegate = self
+                
+            }
+            
+            if fromCell == "DueDateCell"
+            {
+                
+                var datePickerViewController = segue.destinationViewController as! DatePickerViewController
+                datePickerViewController.fromCell = "DueDateCell"
+                datePickerViewController.delegate = self
                 
             }
         }
 
     }
     
+    @IBAction func CancelButtonClick(sender: AnyObject) {
+       
+//        if let purchaseViewController = storyboard!.instantiateViewControllerWithIdentifier("PurchaseViewController") as? PurchaseViewController {
+//    
+//            presentViewController(purchaseViewController, animated: true, completion: nil)
+//        }
+        //navigationController?.popViewControllerAnimated(true)
+      navigationController?.popToRootViewControllerAnimated(true)
+    }
 //    func performFromRightToLeft(sourceViewController :AnyObject , destinationViewController: AnyObject)
 //    {
 //        let src = sourceViewController.sourceViewController
@@ -256,7 +309,7 @@ class PurchaseDetailViewController: UITableViewController,Q6GoBackFromView {
         }
         return false
     }
-    func sendGoBackFromView(fromView : String ,forCell: String,selectedValue : String)
+    func sendGoBackFromPickerView(fromView : String ,forCell: String,selectedValue : String)
     {
         self.backFrom = fromView
         
@@ -265,12 +318,50 @@ class PurchaseDetailViewController: UITableViewController,Q6GoBackFromView {
                 
              purchasesTransactionHeader.PurchasesType = selectedValue
                 
-                purchaseDetailTableView.reloadData()
+                
+                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+           self.purchaseDetailTableView.reloadData()
+                    
+                })
+                
             }
         }
         print("backFrom" + self.backFrom)
     }
     
+    func  sendGoBackFromContactSearchView(fromView : String ,forCell: String,ContactID : String ,ContactName: String){
+
+        if fromView == "ContactSearchViewController" {
+            if forCell == "SupplierCell" {
+                purchasesTransactionHeader.SupplierID = ContactID
+                SupplierName = ContactName
+                
+                print("purchasesTransactionHeader.SupplierID" + purchasesTransactionHeader.SupplierID)
+                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    self.purchaseDetailTableView.reloadData()
+                    
+                })
+            }
+        }
+      
+       
+}
+    func sendGoBackFromDatePickerView(fromView:String, forCell:String ,Date: NSDate)
+    {
+        if fromView == "DatePickerViewController" {
+            if forCell == "DueDateCell" {
+                purchasesTransactionHeader.DueDate = Date
+            
+                
+          
+                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    self.purchaseDetailTableView.reloadData()
+                    
+                })
+                
+    }
+        }
+    }
     /*
     // Override to support conditional editing of the table view.
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {

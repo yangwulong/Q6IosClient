@@ -10,6 +10,8 @@ import UIKit
 
 class PurchaseDetailTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var lblDueDate: UILabel!
+    @IBOutlet weak var lblSupplierName: UILabel!
     @IBOutlet weak var lblPurchasesType: UILabel!
     @IBOutlet weak var lblTotalAmountLabel: UILabel!
     @IBOutlet weak var lblTotalAmount: UILabel!

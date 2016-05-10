@@ -16,5 +16,9 @@ protocol Q6WebApiProtocol : class {    // 'class' means only class types can imp
 
 protocol Q6GoBackFromView :class {
     
-    func  sendGoBackFromView(fromView : String ,forCell: String,selectedValue : String)
+    func  sendGoBackFromPickerView(fromView : String ,forCell: String,selectedValue : String)
+   
+    func  sendGoBackFromContactSearchView(fromView : String ,forCell: String,ContactID : String ,ContactName:String)
+    
+    func sendGoBackFromDatePickerView(fromView:String, forCell:String ,Date: NSDate)
 }

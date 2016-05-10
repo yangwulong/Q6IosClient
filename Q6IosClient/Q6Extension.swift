@@ -85,7 +85,14 @@ extension String {
 extension NSDate {
     var formatted:String {
         let formatter = NSDateFormatter()
-        formatter.dateFormat = "dd/mm/yyyy"
-        return formatter.stringFromDate(self)
+        formatter.dateFormat = "dd/MM/yyyy"
+        formatter.locale = NSLocale(localeIdentifier: "en_AU")
+        
+//        var todaysDate:NSDate = NSDate()
+//        var dateFormatter:NSDateFormatter = NSDateFormatter()
+//        dateFormatter.dateFormat = "dd/MM/yyyy"
+        var convertDate = formatter.stringFromDate(self)
+        
+        return convertDate
 }
 }

@@ -40,18 +40,19 @@ class PickerViewViewController: UIViewController, UIPickerViewDataSource, UIPick
         // Do any additional setup after loading the view.
     }
     @IBAction func CancelButtonClick(sender: AnyObject) {
-       
+       self.navigationController?.popViewControllerAnimated(true)
         
-        navigationController?.popToRootViewControllerAnimated(true)
+      // navigationController?.popToRootViewControllerAnimated(true)
     }
     
  
-    @IBAction func DoneuttonClick(sender: AnyObject) {
+    @IBAction func DonebuttonClick(sender: AnyObject) {
     var selectedValue = pickerDataSource[pickerView.selectedRowInComponent(0)]
         
-        self.delegate?.sendGoBackFromView("fromPickerViewViewController" ,forCell :fromCell,selectedValue: selectedValue)
+        self.delegate?.sendGoBackFromPickerView("fromPickerViewViewController" ,forCell :fromCell,selectedValue: selectedValue)
         
-        navigationController?.popToRootViewControllerAnimated(true)
+      navigationController?.popViewControllerAnimated(true)
+       // navigationController?.popToRootViewControllerAnimated(true)
         print("PickView selected row" + selectedValue)
     }
     func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {

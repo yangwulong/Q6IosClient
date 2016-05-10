@@ -26,6 +26,7 @@ class PurchaseViewController: UIViewController, Q6WebApiProtocol,UITableViewDele
     var purchaseTransactionListData = [PurchasesTransactionsListView]()
     
     override func viewWillAppear(animated: Bool) {
+      //  self.navigationController?.navigationBar.hidden = true
     //    Q6ActivityIndicatorView.center = purchaseTableView.center
        
     }
@@ -185,13 +186,13 @@ class PurchaseViewController: UIViewController, Q6WebApiProtocol,UITableViewDele
 
         
         let q6CommonLib = Q6CommonLib(myObject: self)
-       pageSize = 20
+      
         pageIndex = 1
         purchaseTransactionListData.removeAll()
         
         dataRequestSource = "Search"
         print("purchaseTransactionListdata count" + purchaseTransactionListData.count.description)
-        setAttachedURL(searchText, PageSize: 20, PageIndex: pageIndex)
+        setAttachedURL(searchText, PageSize: pageSize, PageIndex: pageIndex)
         q6CommonLib.Q6IosClientGetApi("Purchase", ActionName: "GetPurchasesTransactionsList", attachedURL: attachedURL)
         
         }
@@ -279,7 +280,7 @@ class PurchaseViewController: UIViewController, Q6WebApiProtocol,UITableViewDele
     func searchBarSearchButtonClicked( searchBar: UISearchBar!)
     {
         let q6CommonLib = Q6CommonLib(myObject: self)
-        pageSize = 20
+      
         pageIndex = 1
         purchaseTransactionListData.removeAll()
         

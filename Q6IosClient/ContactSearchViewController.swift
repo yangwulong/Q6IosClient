@@ -16,19 +16,29 @@ class ContactSearchViewController: UIViewController , Q6WebApiProtocol,UITableVi
     var dataRequestSource = ""
     var attachedURL = String()
     
+    var SelectedSupplierName = String?()
+    var SelectedSupplierID = String?()
+  
+    @IBOutlet weak var Q6ActivityIndicatorView: UIActivityIndicatorView!
     @IBOutlet weak var ContactTableView: UITableView!
     @IBOutlet weak var ContactSearchBox: UISearchBar!
+    var supplierData = [Supplier]()
+    
+     weak var delegate : Q6GoBackFromView?
+    var fromCell = String()
     override func viewDidLoad() {
         super.viewDidLoad()
 setControlAppear()
         ContactSearchBox.delegate = self
         ContactTableView.delegate = self
         ContactTableView.dataSource = self
-        
+        Q6ActivityIndicatorView.startAnimating()
         let q6CommonLib = Q6CommonLib(myObject: self)
         
         setAttachedURL(searchText, IsLoadInactive:false,PageSize: pageSize,PageIndex: pageIndex)
-        q6CommonLib.Q6IosClientGetApi("Purchase", ActionName: "GetPurchasesTransactionsList", attachedURL: attachedURL)
+        q6CommonLib.Q6IosClientGetApi("Purchase", ActionName: "GetSupplierList", attachedURL: attachedURL)
+        
+  
         // Do any additional setup after loading the view.
     }
     func setControlAppear()
@@ -43,41 +53,26 @@ setControlAppear()
         // Dispose of any resources that can be recreated.
     }
     
-    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
-        
-//        self.searchText = searchText
-//        
-//        if searchText.length == 0 {
-//            
-//            
-//            
-//            let q6CommonLib = Q6CommonLib(myObject: self)
-//            pageSize = 20
-//            pageIndex = 1
-//            purchaseTransactionListData.removeAll()
-//            
-//            dataRequestSource = "Search"
-//            print("purchaseTransactionListdata count" + purchaseTransactionListData.count.description)
-//            setAttachedURL(searchText, PageSize: 20, PageIndex: pageIndex)
-//            q6CommonLib.Q6IosClientGetApi("Purchase", ActionName: "GetPurchasesTransactionsList", attachedURL: attachedURL)
-//            
-//        }
-    }
-    
+
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return supplierData.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let  cell = tableView.dequeueReusableCellWithIdentifier("ContactSearchPrototypeCell", forIndexPath: indexPath) as! ContactSearchTableViewCell
         
         cell.lblSupplierID.hidden = true
-  
+        
+      
+           cell.lblSupplierName.text =  supplierData[indexPath.row].SupplierName
+       
+  cell.lblSupplierID.text =  supplierData[indexPath.row].SupplierID
+      
         // Configure the cell...
         
         return cell
@@ -90,7 +85,147 @@ setControlAppear()
     
     func dataLoadCompletion(data:NSData?, response:NSURLResponse?, error:NSError?) -> AnyObject
     {
+        var postDicData :[String:AnyObject]
+        
+        do {
+            if dataRequestSource == "Search" {
+                supplierData.removeAll()
+                SelectedSupplierID = nil
+                SelectedSupplierName = nil
+            }
+            postDicData = try  NSJSONSerialization.JSONObjectWithData(data!, options: []) as! [String:AnyObject]
+            
+            var returnData = postDicData["SupplierList"] as! [[String : AnyObject]]
+            print("returnDate Count" + returnData.count.description)
+      
+            for i in 0  ..< returnData.count {
+                
+//                
+//                print("no i =" + i.description)
+           var dataItem = returnData[i]
+                
+                var supplier = Supplier()
+                supplier.SupplierID = dataItem["SupplierID"] as! String
+                
+                print("SupplierID" + supplier.SupplierID)
+                
+                supplier.SupplierName = dataItem["SupplierName"] as! String
+                 print("SupplierName" + supplier.SupplierName)
+
+                
+                supplierData.append(supplier)
+//                
+//                printFields(purchasesTransactionListViewDataItem)
+       }
+            
+            print("supplier Date Count" + supplierData.count.description)
+    
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                self.ContactTableView.reloadData()
+                self.Q6ActivityIndicatorView.hidesWhenStopped = true
+                self.Q6ActivityIndicatorView.stopAnimating()
+                self.ContactSearchBox.resignFirstResponder()
+                
+            })
+
+
+            
+        } catch  {
+            print("error parsing response from POST on /posts")
+            
+            return ""
+        }
+        
         return ""
+    }
+    func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
+          tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    }
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+       
+        print("selected indexpath" + indexPath.row.description)
+          let  cell = tableView.cellForRowAtIndexPath(indexPath) as! ContactSearchTableViewCell
+        
+        SelectedSupplierID = cell.lblSupplierID.text!
+        print(cell.lblSupplierID.text)
+        SelectedSupplierName = cell.lblSupplierName.text!
+        
+        print("SelectedSupplierID" + SelectedSupplierID! + "SelectedSupplierName" + SelectedSupplierName!)
+        ContactSearchBox.resignFirstResponder()
+    }
+    
+    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+        print("indexpath" + indexPath.row.description)
+        if indexPath.row == pageIndex*(pageSize - 5 )
+        {
+            let q6CommonLib = Q6CommonLib(myObject: self)
+            pageIndex++
+            setAttachedURL(searchText, IsLoadInactive:false,PageSize: pageSize, PageIndex: pageIndex)
+            dataRequestSource = ""
+             q6CommonLib.Q6IosClientGetApi("Purchase", ActionName: "GetSupplierList", attachedURL: attachedURL)
+        }
+        
+    }
+    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+        
+        self.searchText = searchText
+        
+        if searchText.length == 0 {
+            
+            
+            
+            let q6CommonLib = Q6CommonLib(myObject: self)
+        
+            pageIndex = 1
+            supplierData.removeAll()
+            SelectedSupplierName = nil
+            SelectedSupplierID = nil
+            
+            dataRequestSource = "Search"
+       
+           setAttachedURL(searchText, IsLoadInactive:false,PageSize: pageSize, PageIndex: pageIndex)
+          q6CommonLib.Q6IosClientGetApi("Purchase", ActionName: "GetSupplierList", attachedURL: attachedURL)
+            
+        }
+    }
+    
+    func searchBarSearchButtonClicked( searchBar: UISearchBar!)
+    {
+        let q6CommonLib = Q6CommonLib(myObject: self)
+     
+        pageIndex = 1
+        supplierData.removeAll()
+        SelectedSupplierName = nil
+        SelectedSupplierID = nil
+        
+        dataRequestSource = "Search"
+        setAttachedURL(searchText, IsLoadInactive:false,PageSize: pageSize, PageIndex: pageIndex)
+        q6CommonLib.Q6IosClientGetApi("Purchase", ActionName: "GetSupplierList", attachedURL: attachedURL)
+        
+        searchBar.resignFirstResponder()
+        
+    }
+    @IBAction func CancelButtonClick(sender: AnyObject) {
+        navigationController?.popViewControllerAnimated(true)
+        
+           // navigationController?.popToRootViewControllerAnimated(true)
+    }
+    @IBAction func DoneButtonClick(sender: AnyObject) {
+        
+        if SelectedSupplierID == nil && SelectedSupplierName == nil {
+            
+            Q6CommonLib.q6UIAlertPopupController("Error message", message: "You haven't select a supplier", viewController: self)
+        }
+        else{
+        
+        self.delegate?.sendGoBackFromContactSearchView("ContactSearchViewController" ,forCell :fromCell,ContactID:SelectedSupplierID! , ContactName: SelectedSupplierName!)
+//        
+            
+            navigationController?.popViewControllerAnimated(true)
+     // navigationController?.popToRootViewControllerAnimated(true)
+        }
+//        print("PickView selected row" + selectedValue)
+        
     }
     /*
     // MARK: - Navigation

@@ -20,6 +20,7 @@
 		19C4FC8F1CD86BD4004A1449 /* PurchaseDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C4FC8E1CD86BD4004A1449 /* PurchaseDetailTableViewCell.swift */; };
 		19D0C64A1CD7230E0055093C /* PurchasesTransactionsHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19D0C6491CD7230E0055093C /* PurchasesTransactionsHeader.swift */; };
 		19D0C64C1CD7256A0055093C /* PurchasesTransactionsDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19D0C64B1CD7256A0055093C /* PurchasesTransactionsDetail.swift */; };
+		19D2CA3F1CE16D6800A8AAE0 /* DatePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19D2CA3E1CE16D6800A8AAE0 /* DatePickerViewController.swift */; };
 		19DDD7B31CB7701900FC32A5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 19DDD7B11CB7701900FC32A5 /* Main.storyboard */; };
 		19DF32A81CD96AB800730FC5 /* ScreenSortLinesDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DF32A71CD96AB800730FC5 /* ScreenSortLinesDetail.swift */; };
 		19DF32AA1CD9806000730FC5 /* PickerViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DF32A91CD9806000730FC5 /* PickerViewViewController.swift */; };
@@ -56,6 +57,7 @@
 		19C4FC8E1CD86BD4004A1449 /* PurchaseDetailTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurchaseDetailTableViewCell.swift; sourceTree = "<group>"; };
 		19D0C6491CD7230E0055093C /* PurchasesTransactionsHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurchasesTransactionsHeader.swift; sourceTree = "<group>"; };
 		19D0C64B1CD7256A0055093C /* PurchasesTransactionsDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurchasesTransactionsDetail.swift; sourceTree = "<group>"; };
+		19D2CA3E1CE16D6800A8AAE0 /* DatePickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatePickerViewController.swift; sourceTree = "<group>"; };
 		19DDD7B21CB7701900FC32A5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		19DF32A71CD96AB800730FC5 /* ScreenSortLinesDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreenSortLinesDetail.swift; sourceTree = "<group>"; };
 		19DF32A91CD9806000730FC5 /* PickerViewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickerViewViewController.swift; sourceTree = "<group>"; };
@@ -168,6 +170,7 @@
 				19DF32AB1CD9B32B00730FC5 /* SegueFromRight.swift */,
 				19B87D581CDB02120048AAFB /* ContactSearchViewController.swift */,
 				19B87D5A1CDB0C3A0048AAFB /* ContactSearchTableViewCell.swift */,
+				19D2CA3E1CE16D6800A8AAE0 /* DatePickerViewController.swift */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -273,6 +276,7 @@
 				19F9B5741CB21D7600571B9D /* PassCodeViewController.swift in Sources */,
 				19FD133B1C9A186300E5C445 /* Q6CommonLib.swift in Sources */,
 				19691E8F1C9F8AE200E009A7 /* Q6Protocol.swift in Sources */,
+				19D2CA3F1CE16D6800A8AAE0 /* DatePickerViewController.swift in Sources */,
 				19FD133E1C9A4D0A00E5C445 /* InternalUserLoginParameter.swift in Sources */,
 				19F9B5671CB1DF0700571B9D /* FMDatabaseQueue.m in Sources */,
 				19F9B5681CB1DF0700571B9D /* FMDatabaseAdditions.m in Sources */,

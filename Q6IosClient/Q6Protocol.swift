@@ -21,4 +21,8 @@ protocol Q6GoBackFromView :class {
     func  sendGoBackFromContactSearchView(fromView : String ,forCell: String,ContactID : String ,ContactName:String)
     
     func sendGoBackFromDatePickerView(fromView:String, forCell:String ,Date: NSDate)
+    
+    func sendGoBackFromPurchaseDetailDataLineView(fromView:String,forCell:String,purchasesTransactionsDetail: PurchasesTransactionsDetail)
+    
+        func sendGoBackFromPreLoadInventoryPurchaseView(fromView:String,forCell:String,preLoadInventoryPurchase: PreLoadInventoryPurchase)
 }

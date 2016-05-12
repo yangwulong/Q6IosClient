@@ -26,6 +26,7 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
     var purchasesTransactionHeader = PurchasesTransactionsHeader()
     var SupplierName: String = ""
    
+   
     override func viewWillAppear(animated: Bool) {
         
        
@@ -231,21 +232,23 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
         
         if screenSortLinesDetail.PrototypeCellID == "AddanItemCell" {
             
-            if purchasesDetailScreenLinesDic[indexPath.row].isAdded == false {
-            var screenSortLinesDetail = ScreenSortLinesDetail()
-            screenSortLinesDetail.ID = indexPath.row + 1
-            print("ScreenSortLinesDetailID" + screenSortLinesDetail.ID.description )
-            screenSortLinesDetail.PrototypeCellID = "AddanItemCell"
-            screenSortLinesDetail.LineDescription = "AddedLine"
-            screenSortLinesDetail.isAdded = true
-            
-            
-          purchasesDetailScreenLinesDic.insert(screenSortLinesDetail, atIndex: 4 )
-            dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                self.purchaseDetailTableView.reloadData()
-                
-            })
-            }
+           
+             performSegueWithIdentifier("showItemDetail", sender: "AddanItemCell")
+//            if purchasesDetailScreenLinesDic[indexPath.row].isAdded == false {
+//            var screenSortLinesDetail = ScreenSortLinesDetail()
+//            screenSortLinesDetail.ID = indexPath.row + 1
+//            print("ScreenSortLinesDetailID" + screenSortLinesDetail.ID.description )
+//            screenSortLinesDetail.PrototypeCellID = "AddanItemCell"
+//            screenSortLinesDetail.LineDescription = "AddedLine"
+//            screenSortLinesDetail.isAdded = true
+//            
+//            
+//          purchasesDetailScreenLinesDic.insert(screenSortLinesDetail, atIndex: 4 )
+//            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+//                self.purchaseDetailTableView.reloadData()
+//                
+//            })
+//            }
             
         }
         var index = addItemsDic.count
@@ -401,6 +404,14 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
                 
     }
         }
+    }
+    
+ 
+    func sendGoBackFromPurchaseDetailDataLineView(fromView:String,forCell:String,purchasesTransactionsDetail: PurchasesTransactionsDetail){
+        
+    }
+    func sendGoBackFromPreLoadInventoryPurchaseView(fromView:String,forCell:String,preLoadInventoryPurchase: PreLoadInventoryPurchase){
+        
     }
     /*
     // Override to support conditional editing of the table view.

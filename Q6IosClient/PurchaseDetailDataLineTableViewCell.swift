@@ -10,6 +10,7 @@ import UIKit
 
 class PurchaseDetailDataLineTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var lblDescription: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

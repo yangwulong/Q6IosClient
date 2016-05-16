@@ -12,6 +12,8 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
 
     @IBOutlet weak var PurchaseDetailDataLineTableView: UITableView!
        var originalRowsDic: [Int: String] = [0: "InventoryCell", 1: "AccountCell",2: "QuantityCell",3: "UnitPriceCell",4: "TaxCell",5: "AmountCell",6: "DescriptionCell"]
+    
+    var strDescription = String()
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -55,14 +57,14 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
 //        
     
 //        
-//        if resuseIdentifier == "PurchasesTypecell" {
-//            
-//            cell.lblPurchasesType.text = purchasesTransactionHeader.PurchasesType
-//            
-//            
-//            // lblTotalLabel.font = UIFont.boldSystemFontOfSize(17.0)
-//            //lblTotalAmount.font = UIFont.boldSystemFontOfSize(17.0)
-//        }
+        if resuseIdentifier == "DescriptionCell" {
+            
+          cell.lblDescription.text = strDescription
+            
+            
+            // lblTotalLabel.font = UIFont.boldSystemFontOfSize(17.0)
+            //lblTotalAmount.font = UIFont.boldSystemFontOfSize(17.0)
+        }
 //        if resuseIdentifier == "SupplierCell" {
 //            
 //            cell.lblSupplierName.text = SupplierName
@@ -136,6 +138,13 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
             
             
         }
+        
+        if originalRowsDic[indexPath.row] == "DescriptionCell" {
+            
+            performSegueWithIdentifier("showDescription", sender: "DescriptionCell")
+            
+            
+        }
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
@@ -151,6 +160,14 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
                preLoadInventoryPurchaseViewController.fromCell = "InventoryCell"
                 
                 preLoadInventoryPurchaseViewController.delegate = self
+            }
+            if fromCell == "DescriptionCell"
+            {
+                var purchaseDetailDataLineDescription = segue.destinationViewController as! PurchaseDetailDataLineDescriptionViewController
+                
+                purchaseDetailDataLineDescription.fromCell = "DescriptionCell"
+                
+                purchaseDetailDataLineDescription.delegate = self
             }
         }
     }
@@ -173,6 +190,15 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
     
     func sendGoBackFromPreLoadInventoryPurchaseView(fromView:String,forCell:String,preLoadInventoryPurchase: PreLoadInventoryPurchase){
         
+    }
+    func  sendGoBackFromPurchaseDetailDataLineDescriptionView(fromView : String ,forCell: String,Description: String)
+    {
+        strDescription = Description
+        
+        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+          self.PurchaseDetailDataLineTableView.reloadData()
+            
+        })
     }
     /*
     // MARK: - Navigation

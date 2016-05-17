@@ -33,7 +33,13 @@ public class Q6CommonLib{
         
         self.delegate = myObject
     }
-    init(myObject: PreLoadInventoryPurchaseViewController){
+    init(myObject: PurchaseDetailDataLineInventorySearchViewController){
+        
+        self.delegate = myObject
+    }
+    
+    
+    init(myObject: PurchaseDetailDataLineTaxCodeSearchViewController){
         
         self.delegate = myObject
     }

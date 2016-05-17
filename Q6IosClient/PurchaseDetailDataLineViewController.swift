@@ -11,9 +11,10 @@ import UIKit
 class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegate ,UITableViewDataSource,Q6GoBackFromView {
 
     @IBOutlet weak var PurchaseDetailDataLineTableView: UITableView!
-       var originalRowsDic: [Int: String] = [0: "InventoryCell", 1: "AccountCell",2: "QuantityCell",3: "UnitPriceCell",4: "TaxCell",5: "AmountCell",6: "DescriptionCell"]
+       var originalRowsDic: [Int: String] = [0: "InventoryCell", 1: "AccountCell",2: "QuantityCell",3: "UnitPriceCell",4: "TaxCodeCell",5: "AmountCell",6: "DescriptionCell"]
     
     var strDescription = String()
+    var purchasesTransactionsDetailView = PurchasesTransactionsDetailView()
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -59,21 +60,21 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
 //        
         if resuseIdentifier == "DescriptionCell" {
             
-          cell.lblDescription.text = strDescription
+          cell.lblDescription.text = purchasesTransactionsDetailView.Description
             
             
             // lblTotalLabel.font = UIFont.boldSystemFontOfSize(17.0)
             //lblTotalAmount.font = UIFont.boldSystemFontOfSize(17.0)
         }
-//        if resuseIdentifier == "SupplierCell" {
-//            
-//            cell.lblSupplierName.text = SupplierName
-//            
-//            
-//            // lblTotalLabel.font = UIFont.boldSystemFontOfSize(17.0)
-//            //lblTotalAmount.font = UIFont.boldSystemFontOfSize(17.0)
-//        }
-//        
+        if resuseIdentifier == "TaxCodeCell" {
+            
+     
+            cell.lblTaxCodeName.text = purchasesTransactionsDetailView.TaxCodeName
+            
+            // lblTotalLabel.font = UIFont.boldSystemFontOfSize(17.0)
+            //lblTotalAmount.font = UIFont.boldSystemFontOfSize(17.0)
+        }
+//
 //        if resuseIdentifier == "DueDateCell" {
 //            
 //            if purchasesTransactionHeader.DueDate == nil {
@@ -139,6 +140,13 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
             
         }
         
+        
+        if originalRowsDic[indexPath.row] == "TaxCodeCell" {
+            
+            performSegueWithIdentifier("showTaxCode", sender: "TaxCodeCell")
+            
+            
+        }
         if originalRowsDic[indexPath.row] == "DescriptionCell" {
             
             performSegueWithIdentifier("showDescription", sender: "DescriptionCell")
@@ -154,12 +162,20 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
             let fromCell = sender as! String
             //        if let fromCell = sender as? String {
             
-            if fromCell == "InventoryCell"
+//            if fromCell == "InventoryCell"
+//            {
+//                var preLoadInventoryPurchaseViewController = segue.destinationViewController as! PreLoadInventoryPurchaseViewController
+//               preLoadInventoryPurchaseViewController.fromCell = "InventoryCell"
+//                
+//                preLoadInventoryPurchaseViewController.delegate = self
+//            }
+            if fromCell == "TaxCodeCell"
             {
-                var preLoadInventoryPurchaseViewController = segue.destinationViewController as! PreLoadInventoryPurchaseViewController
-               preLoadInventoryPurchaseViewController.fromCell = "InventoryCell"
+                var purchaseDetailDataLineTaxCodeSearchViewController = segue.destinationViewController as! PurchaseDetailDataLineTaxCodeSearchViewController
                 
-                preLoadInventoryPurchaseViewController.delegate = self
+                purchaseDetailDataLineTaxCodeSearchViewController.fromCell = "TaxCodeCell"
+                
+                purchaseDetailDataLineTaxCodeSearchViewController.delegate = self
             }
             if fromCell == "DescriptionCell"
             {
@@ -193,10 +209,22 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
     }
     func  sendGoBackFromPurchaseDetailDataLineDescriptionView(fromView : String ,forCell: String,Description: String)
     {
-        strDescription = Description
+        purchasesTransactionsDetailView.Description = Description
         
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
           self.PurchaseDetailDataLineTableView.reloadData()
+            
+        })
+    }
+    
+     func  sendGoBackFromPurchaseDetailDataLineTaxCodeSearchView(fromView : String ,forCell: String,taxCodeView: TaxCodeView)
+     {
+        purchasesTransactionsDetailView.TaxCodeID = taxCodeView.TaxCodeID
+        purchasesTransactionsDetailView.TaxCodeName = taxCodeView.TaxCodeName
+        purchasesTransactionsDetailView.TaxRate = taxCodeView.TaxRate
+        
+        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+            self.PurchaseDetailDataLineTableView.reloadData()
             
         })
     }

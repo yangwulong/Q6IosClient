@@ -14,7 +14,7 @@ public class TaxCodeView {
     var TaxCodeName = String()
     var TaxCodeType = String()
     var TaxDescription = String()
-    var TaxRate = String()
+    var TaxRate = Double()
     var BASItemCode = String()
     var IsBuiltIn = Bool()
     var IsCollectTax = Bool()

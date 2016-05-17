@@ -418,7 +418,10 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
      {
         
     }
-    
+     func  sendGoBackFromPurchaseDetailDataLineTaxCodeSearchView(fromView : String ,forCell: String,taxCodeView: TaxCodeView)
+     {
+        
+    }
     /*
     // Override to support conditional editing of the table view.
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {

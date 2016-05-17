@@ -1,18 +1,17 @@
 //
-//  PurchaseDetailDataLineTableViewCell.swift
+//  PurchaseDetailDataLineTaxCodeSearchTableViewCell.swift
 //  Q6IosClient
 //
-//  Created by yang wulong on 11/05/2016.
+//  Created by yang wulong on 17/05/2016.
 //  Copyright © 2016 q6. All rights reserved.
 //
 
 import UIKit
 
-class PurchaseDetailDataLineTableViewCell: UITableViewCell {
+class PurchaseDetailDataLineTaxCodeSearchTableViewCell: UITableViewCell {
 
-  
     @IBOutlet weak var lblTaxCodeName: UILabel!
-    @IBOutlet weak var lblDescription: UILabel!
+    @IBOutlet weak var lblTaxRate: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

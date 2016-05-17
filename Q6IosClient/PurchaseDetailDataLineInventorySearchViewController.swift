@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PreLoadInventoryPurchaseViewController:UIViewController ,Q6WebApiProtocol,UITableViewDelegate ,UITableViewDataSource,UISearchBarDelegate{
+class PurchaseDetailDataLineInventorySearchViewController:UIViewController ,Q6WebApiProtocol,UITableViewDelegate ,UITableViewDataSource,UISearchBarDelegate{
     
     @IBOutlet weak var InventoryListTableView: UITableView!
     @IBOutlet weak var InventorySearchBox: UISearchBar!

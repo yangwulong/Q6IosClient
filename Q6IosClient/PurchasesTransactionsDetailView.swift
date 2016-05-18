@@ -12,7 +12,7 @@ public class PurchasesTransactionsDetailView
     
     var PurchasesTransactionsDetailID = String()
     var PurchasesTransactionsHeaderID = String()
-    var Quantity = Double()
+    var Quantity:Double = 0
     var InventoryID = String?()
     var InventoryNameWithInventoryNO = String()
     var AccountID = String?()
@@ -21,9 +21,9 @@ public class PurchasesTransactionsDetailView
     var TaxCodeName = String()
     var TaxRate = Double()
     var Description = String?()
-    var UnitPrice = Double()
+    var UnitPrice:Double = 0
     var Discount = Double?()
-    var Amount = Double()
+    var Amount: Double = 0
     var IsDeleted = Bool()
     var SortNo = Int()
     

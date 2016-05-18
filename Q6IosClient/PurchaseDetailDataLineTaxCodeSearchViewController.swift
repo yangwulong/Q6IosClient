@@ -38,7 +38,7 @@ class PurchaseDetailDataLineTaxCodeSearchViewController:UIViewController, Q6WebA
         
         let q6CommonLib = Q6CommonLib(myObject: self)
         
-        setAttachedURL(searchText, TaxCodeType:"PayTax",IsLoadInactive:false,PageSize: pageSize,PageIndex: pageIndex)
+        setAttachedURL("", TaxCodeType:"PayTax",IsLoadInactive:false,PageSize: pageSize,PageIndex: pageIndex)
         q6CommonLib.Q6IosClientGetApi("Company", ActionName: "GetTaxCodeList", attachedURL: attachedURL)
         
     }
@@ -52,9 +52,9 @@ class PurchaseDetailDataLineTaxCodeSearchViewController:UIViewController, Q6WebA
     }
     
     //TaxCodeType All ,CollectTax ,PayTax
-    func setAttachedURL(SearchText: String , TaxCodeType: String ,IsLoadInactive:Bool,PageSize: Int,PageIndex: Int )
+    func setAttachedURL(TaxCodeName:String ,TaxCodeType: String ,IsLoadInactive:Bool,PageSize: Int,PageIndex: Int )
     {
-        attachedURL = "&Search=" + SearchText + "&TaxCodeType=" + TaxCodeType + "&IsLoadInactive=" + String(IsLoadInactive) + "&PageSize=" + String(PageSize) + "&PageIndex=" + String(PageIndex)
+        attachedURL =  "&TaxCodeName=" + TaxCodeName + "&TaxCodeType=" + TaxCodeType + "&IsLoadInactive=" + String(IsLoadInactive) + "&PageSize=" + String(PageSize) + "&PageIndex=" + String(PageIndex)
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -155,30 +155,37 @@ selectedTaxCodeView = taxCodeViewData[indexPath.row]
     }
     @IBAction func DoneButtonClicked(sender: AnyObject) {
         
+        if selectedTaxCodeView == nil {
+            
+            Q6CommonLib.q6UIAlertPopupController("Error message", message: "You haven't select a TaxCode", viewController: self)
+        }
+        else{
+            
         self.delegate?.sendGoBackFromPurchaseDetailDataLineTaxCodeSearchView("PurchaseDetailDataLineTaxCodeSearchViewController", forCell: "TaxCodeCell", taxCodeView: selectedTaxCodeView!)
         navigationController?.popViewControllerAnimated(true)
+        }
     }
     
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
         
         self.searchText = searchText
         
-//        if searchText.length == 0 {
-//            
-//            
-//            
-//            let q6CommonLib = Q6CommonLib(myObject: self)
-//            
-//         
-//            taxCodeViewData.removeAll()
-// selectedTaxCodeView = nil
-//            
-//            dataRequestSource = "Search"
-//            
-//            setAttachedURL(searchText, TaxCodeType:"PayTax",IsLoadInactive:false,PageSize: pageSize,PageIndex: pageIndex)
-//            q6CommonLib.Q6IosClientGetApi("Company", ActionName: "GetTaxCodeList", attachedURL: attachedURL)
-//            
-//        }
+        if searchText.length == 0 {
+            
+            
+            
+            let q6CommonLib = Q6CommonLib(myObject: self)
+            
+         
+            taxCodeViewData.removeAll()
+ selectedTaxCodeView = nil
+            
+            dataRequestSource = "Search"
+            
+            setAttachedURL(searchText, TaxCodeType:"PayTax",IsLoadInactive:false,PageSize: pageSize,PageIndex: pageIndex)
+            q6CommonLib.Q6IosClientGetApi("Company", ActionName: "GetTaxCodeList", attachedURL: attachedURL)
+            
+        }
     }
     
     func searchBarSearchButtonClicked( searchBar: UISearchBar!)

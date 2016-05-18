@@ -11,18 +11,30 @@ import UIKit
 class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegate ,UITableViewDataSource,Q6GoBackFromView {
 
     @IBOutlet weak var PurchaseDetailDataLineTableView: UITableView!
-       var originalRowsDic: [Int: String] = [0: "InventoryCell", 1: "AccountCell",2: "QuantityCell",3: "UnitPriceCell",4: "TaxCodeCell",5: "AmountCell",6: "DescriptionCell"]
+       var originalRowsDic: [Int: String] = [0: "InventoryCell", 1: "AccountCell",2: "DescriptionCell",3: "QuantityCell",4: "UnitPriceCell",5: "TaxCodeCell",6: "AmountCell"]
     
+   
     var strDescription = String()
     var purchasesTransactionsDetailView = PurchasesTransactionsDetailView()
+    
+  
     override func viewDidLoad() {
         super.viewDidLoad()
 
     PurchaseDetailDataLineTableView.delegate = self
         PurchaseDetailDataLineTableView.dataSource = self
         // Do any additional setup after loading the view.
+        setControlAppear()
     }
 
+    
+    func setControlAppear()
+    {
+        // lblTotalLabel.font = UIFont.boldSystemFontOfSize(17.0)
+        //lblTotalAmount.font = UIFont.boldSystemFontOfSize(17.0)
+        
+     PurchaseDetailDataLineTableView.tableFooterView = UIView(frame: CGRectZero)
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -74,7 +86,45 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
             // lblTotalLabel.font = UIFont.boldSystemFontOfSize(17.0)
             //lblTotalAmount.font = UIFont.boldSystemFontOfSize(17.0)
         }
+      
+        if resuseIdentifier == "AmountCell" {
+            
+            var amount = purchasesTransactionsDetailView.Amount
+            var strAmount = String(amount)
+            if amount != 0 {
+                
+                if strAmount.containsString(".") == true {
+                    //Check decimal place whether less than 4
+                    var strsplit = strAmount.characters.split(("."))
+                    let strLast = String(strsplit.last!)
+                    
+                    if strLast.length > 2 {
 //
+                    
+                        cell.lblAmount.text = String(Double(round(100 * amount)/100))
+                    }
+                    else {
+                          cell.lblAmount.text = String(format: "%.2f", amount)
+                        
+                   
+                    }
+                    
+                    
+                }
+                else {
+                    cell.lblAmount.text = String(amount)
+                }
+                
+                // lblTotalLabel.font = UIFont.boldSystemFontOfSize(17.0)
+                //lblTotalAmount.font = UIFont.boldSystemFontOfSize(17.0)
+            }
+            else
+            {
+                cell.lblAmount.text = ""
+            }
+        }
+//
+        
 //        if resuseIdentifier == "DueDateCell" {
 //            
 //            if purchasesTransactionHeader.DueDate == nil {
@@ -228,6 +278,127 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
             
         })
     }
+ 
+    @IBAction func unitPriceEditingDidEnd(sender: AnyObject) {
+        var UnitPriceTextField = sender as! UITextField
+        var StrUnitPrice = UnitPriceTextField.text as String?
+ 
+        if let UnitPrice = Double(StrUnitPrice!) {
+            
+            if UnitPrice >= 0 {
+                
+          
+            if StrUnitPrice?.containsString(".") == true {
+                //Check decimal place whether less than 4
+                var strsplit = StrUnitPrice?.characters.split(("."))
+                let strLast = String(strsplit?.last!)
+                
+                
+                if strLast.length > 4 {
+                    
+                   
+                    if UnitPrice == 0 {
+                        UnitPriceTextField.text = "0.00"
+                    } else {
+                    //round to 4 decimal place
+                    UnitPriceTextField.text = String(Double(round(10000 * UnitPrice)/10000))
+                    }
+                }
+              
+                
+            }
+               purchasesTransactionsDetailView.UnitPrice = UnitPrice
+           
+                
+            }
+            else {
+                UnitPriceTextField.becomeFirstResponder()
+                Q6CommonLib.q6UIAlertPopupController("Information message", message: "You can not input negative decimal number here!", viewController: self)
+                
+                UnitPriceTextField.text = ""
+                purchasesTransactionsDetailView.UnitPrice = 0
+            }
+            
+        }
+        else {
+            
+            if StrUnitPrice?.length > 0 {
+                 UnitPriceTextField.becomeFirstResponder()
+                Q6CommonLib.q6UIAlertPopupController("Information message", message: "You can only input decimal number here!", viewController: self)
+                
+                UnitPriceTextField.text = ""
+               
+              
+            }
+              purchasesTransactionsDetailView.UnitPrice = 0
+        }
+        calculateAmount()
+    }
+    @IBAction func quantityEditingDidEnd(sender: AnyObject) {
+        
+        var QuantityTextField = sender as! UITextField
+        var StrQuantity = QuantityTextField.text as String?
+        
+        if let Quantity = Double(StrQuantity!) {
+            
+            if Quantity != 0 {
+                
+                
+                if StrQuantity?.containsString(".") == true {
+                    //Check decimal place whether less than 4
+                    var strsplit = StrQuantity?.characters.split(("."))
+                    let strLast = String(strsplit?.last!)
+                    
+                    
+                    if strLast.length > 4 {
+                        
+                        
+                        if Quantity == 0 {
+                            QuantityTextField.text = "0.00"
+                        } else {
+                            //round to 6 decimal place
+                            QuantityTextField.text = String(Double(round(1000000 * Quantity)/1000000))
+                        }
+                    }
+                    
+                    
+                }
+                purchasesTransactionsDetailView.Quantity = Quantity
+             
+                
+            }
+            else {
+                QuantityTextField.becomeFirstResponder()
+                Q6CommonLib.q6UIAlertPopupController("Information message", message: "You can not input zero here!", viewController: self)
+                
+                 QuantityTextField.text = ""
+                purchasesTransactionsDetailView.Quantity = 0
+            }
+           
+        }
+        else {
+            
+            if StrQuantity?.length > 0 {
+                QuantityTextField.becomeFirstResponder()
+                Q6CommonLib.q6UIAlertPopupController("Information message", message: "You can only input decimal number here!", viewController: self)
+                
+                QuantityTextField.text = ""
+                
+            }
+             purchasesTransactionsDetailView.Quantity = 0
+        }
+        calculateAmount()
+    }
+    func calculateAmount()
+    {
+          purchasesTransactionsDetailView.Amount = purchasesTransactionsDetailView.UnitPrice * purchasesTransactionsDetailView.Quantity
+        
+        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+        self.PurchaseDetailDataLineTableView.reloadData()
+            
+        })
+    }
+    
     /*
     // MARK: - Navigation
 

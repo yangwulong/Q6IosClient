@@ -11,6 +11,9 @@ import UIKit
 class PurchaseDetailDataLineTableViewCell: UITableViewCell {
 
   
+    @IBOutlet weak var lblAmount: UILabel!
+    @IBOutlet weak var lblQuantity: UITextField!
+    @IBOutlet weak var lblUnitPrice: UITextField!
     @IBOutlet weak var lblTaxCodeName: UILabel!
     @IBOutlet weak var lblDescription: UILabel!
     override func awakeFromNib() {

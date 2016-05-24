@@ -70,6 +70,16 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
 //        
     
 //        
+        
+        if resuseIdentifier == "AccountCell" {
+            
+           // print("purchasesTransactionsDetailView.AccountNameWithAccountNo" + purchasesTransactionsDetailView.AccountNameWithAccountNo)
+            cell.lblAccountNameWithNo.text = purchasesTransactionsDetailView.AccountNameWithAccountNo
+            
+            // lblTotalLabel.font = UIFont.boldSystemFontOfSize(17.0)
+            //lblTotalAmount.font = UIFont.boldSystemFontOfSize(17.0)
+        }
+        
         if resuseIdentifier == "DescriptionCell" {
             
           cell.lblDescription.text = purchasesTransactionsDetailView.Description
@@ -190,6 +200,13 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
             
         }
         
+        if originalRowsDic[indexPath.row] == "AccountCell" {
+            
+            performSegueWithIdentifier("showAccount", sender: "AccountCell")
+            
+            
+        }
+        
         
         if originalRowsDic[indexPath.row] == "TaxCodeCell" {
             
@@ -219,6 +236,16 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
 //                
 //                preLoadInventoryPurchaseViewController.delegate = self
 //            }
+           
+            if fromCell == "AccountCell"
+            {
+                var purchaseDetailDataLineAccountSearchViewController = segue.destinationViewController as! PurchaseDetailDataLineAccountSearchViewController
+                
+                purchaseDetailDataLineAccountSearchViewController.fromCell = "AccountCell"
+                
+               purchaseDetailDataLineAccountSearchViewController.delegate = self
+            }
+            
             if fromCell == "TaxCodeCell"
             {
                 var purchaseDetailDataLineTaxCodeSearchViewController = segue.destinationViewController as! PurchaseDetailDataLineTaxCodeSearchViewController
@@ -234,6 +261,7 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
                 purchaseDetailDataLineDescription.fromCell = "DescriptionCell"
                 
                 purchaseDetailDataLineDescription.delegate = self
+                purchaseDetailDataLineDescription.textValue = purchasesTransactionsDetailView.Description
             }
         }
     }
@@ -261,6 +289,7 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
     {
         purchasesTransactionsDetailView.Description = Description
         
+        print("purchasesTransactionsDetailView.Description" + purchasesTransactionsDetailView.Description)
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
           self.PurchaseDetailDataLineTableView.reloadData()
             
@@ -398,7 +427,17 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
             
         })
     }
-    
+       func  sendGoBackFromPurchaseDetailDataLineAccountSearchView(fromView : String ,forCell: String,accountView: AccountView)
+       {
+        purchasesTransactionsDetailView.AccountID = accountView.AccountID
+        purchasesTransactionsDetailView.AccountNameWithAccountNo = accountView.AccountNameWithAccountNo
+        
+        
+        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+            self.PurchaseDetailDataLineTableView.reloadData()
+            
+        })
+    }
     /*
     // MARK: - Navigation
 

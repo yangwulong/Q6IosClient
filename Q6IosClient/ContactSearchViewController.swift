@@ -214,7 +214,7 @@ setControlAppear()
         
         if SelectedSupplierID == nil && SelectedSupplierName == nil {
             
-            Q6CommonLib.q6UIAlertPopupController("Error message", message: "You haven't select a supplier", viewController: self)
+            Q6CommonLib.q6UIAlertPopupController("Information message", message: "You haven't select a supplier", viewController: self)
         }
         else{
         

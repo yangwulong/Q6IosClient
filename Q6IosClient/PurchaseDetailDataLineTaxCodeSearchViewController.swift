@@ -89,7 +89,7 @@ class PurchaseDetailDataLineTaxCodeSearchViewController:UIViewController, Q6WebA
         
         return cell
     }
-    
+ 
     func dataLoadCompletion(data:NSData?, response:NSURLResponse?, error:NSError?) -> AnyObject
     {
         var postDicData :[String:AnyObject]

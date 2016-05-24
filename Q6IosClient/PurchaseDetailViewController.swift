@@ -19,6 +19,7 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
     var purchasesDetailScreenLinesDic = [ScreenSortLinesDetail]()
     
     var originalRowsDic: [Int: String] = [0: "PurchasesTypecell", 1: "SupplierCell",2: "DueDateCell",3: "AddanItemCell",4: "SubtotalCell",5: "TotalCell",6: "TransactionDateCell",7: "MemoCell",8: "AddanImageCell"]
+    
     var addItemsDic = [Int:String]()
     
     var backFrom = String()
@@ -420,6 +421,11 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
     }
      func  sendGoBackFromPurchaseDetailDataLineTaxCodeSearchView(fromView : String ,forCell: String,taxCodeView: TaxCodeView)
      {
+        
+    }
+    
+       func  sendGoBackFromPurchaseDetailDataLineAccountSearchView(fromView : String ,forCell: String,accountView: AccountView)
+       {
         
     }
     /*

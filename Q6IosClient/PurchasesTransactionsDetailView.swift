@@ -16,11 +16,11 @@ public class PurchasesTransactionsDetailView
     var InventoryID = String?()
     var InventoryNameWithInventoryNO = String()
     var AccountID = String?()
-    var AccountNameWithAccountNo = String()
+    var AccountNameWithAccountNo:String = ""
     var TaxCodeID = String?()
     var TaxCodeName = String()
     var TaxRate = Double()
-    var Description = String?()
+    var Description: String = ""
     var UnitPrice:Double = 0
     var Discount = Double?()
     var Amount: Double = 0

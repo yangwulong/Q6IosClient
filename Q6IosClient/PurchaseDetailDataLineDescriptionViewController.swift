@@ -15,6 +15,17 @@ class PurchaseDetailDataLineDescriptionViewController: UIViewController ,UITextV
     var fromCell = String()
     weak var delegate : Q6GoBackFromView?
     var strDescription = String()
+    
+    var textValue = ""
+    
+    override func viewWillAppear(animated: Bool) {
+        
+        if textValue != ""
+        {
+            descriptionTextView.text = textValue
+            descriptionTextView.textColor = UIColor.blackColor()
+        }
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         descriptionTextView.delegate = self
@@ -23,6 +34,11 @@ class PurchaseDetailDataLineDescriptionViewController: UIViewController ,UITextV
         setControlAppear()
         //descriptionTextView.becomeFirstResponder()
         // Do any additional setup after loading the view.
+        
+        if textValue != ""
+        {
+            descriptionTextView.text = textValue
+        }
        
     }
 

@@ -17,6 +17,10 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
     var strDescription = String()
     var purchasesTransactionsDetailView = PurchasesTransactionsDetailView()
     
+    
+    weak var delegate : Q6GoBackFromView?
+    var fromCell = String()
+    
   
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -270,7 +274,7 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
         
     }
     
-    func  sendGoBackFromContactSearchView(fromView : String ,forCell: String,ContactID : String ,ContactName:String){
+    func  sendGoBackFromContactSearchView(fromView : String ,forCell: String,Contact: Supplier){
         
     }
     
@@ -432,12 +436,23 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
         purchasesTransactionsDetailView.AccountID = accountView.AccountID
         purchasesTransactionsDetailView.AccountNameWithAccountNo = accountView.AccountNameWithAccountNo
         
+      //   var taxCodeView = getTaxCodeByTaxCodeID()
         
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
             self.PurchaseDetailDataLineTableView.reloadData()
             
         })
     }
+    
+//    func getTaxCodeByTaxCodeID() -> TaxCodeView {
+//       
+//        
+//            let q6CommonLib = Q6CommonLib(myObject: self)
+//        
+//        
+//        q6CommonLib.Q6IosClientGetApi("Company", ActionName: "GetTaxCodeList", attachedURL: attachedURL)
+//        
+//    }
     /*
     // MARK: - Navigation
 

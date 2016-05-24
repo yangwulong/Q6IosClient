@@ -25,9 +25,9 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
     var backFrom = String()
     
     var purchasesTransactionHeader = PurchasesTransactionsHeader()
-    var SupplierName: String = ""
+
    
-   
+   var supplier = Supplier()
     override func viewWillAppear(animated: Bool) {
         
        
@@ -145,7 +145,7 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
         }
         if resuseIdentifier == "SupplierCell" {
             
-        cell.lblSupplierName.text = SupplierName
+        cell.lblSupplierName.text = supplier.SupplierName
             
             
             // lblTotalLabel.font = UIFont.boldSystemFontOfSize(17.0)
@@ -270,6 +270,9 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
        let fromCell = sender as! String
 //        if let fromCell = sender as? String {
            
+            
+            
+            
             if fromCell == "PurchasesTypecell"
             {
                     var pickerViewController = segue.destinationViewController as! PickerViewViewController
@@ -293,6 +296,14 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
                 datePickerViewController.fromCell = "DueDateCell"
                 datePickerViewController.delegate = self
                 
+            }
+            
+            if fromCell == "AddanItemCell"
+            {
+                var purchaseDetailDataLineViewController = segue.destinationViewController as! PurchaseDetailDataLineViewController
+                purchaseDetailDataLineViewController.fromCell = "AddanItemCell"
+                
+                purchaseDetailDataLineViewController.delegate = self
             }
         }
 
@@ -373,12 +384,13 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
         print("backFrom" + self.backFrom)
     }
     
-    func  sendGoBackFromContactSearchView(fromView : String ,forCell: String,ContactID : String ,ContactName: String){
+    func  sendGoBackFromContactSearchView(fromView : String ,forCell: String,Contact:Supplier){
 
         if fromView == "ContactSearchViewController" {
             if forCell == "SupplierCell" {
-                purchasesTransactionHeader.SupplierID = ContactID
-                SupplierName = ContactName
+                purchasesTransactionHeader.SupplierID = Contact.SupplierID
+               
+                supplier = Contact
                 
                 print("purchasesTransactionHeader.SupplierID" + purchasesTransactionHeader.SupplierID)
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in

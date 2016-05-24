@@ -11,7 +11,7 @@ import Foundation
 public class Supplier {
     
     var SupplierID = String()
-    var SupplierName = String()
+    var SupplierName:String = ""
     var Title = String?()
     var FirstName = String?()
     var LastName = String?()

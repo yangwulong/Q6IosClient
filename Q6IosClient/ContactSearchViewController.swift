@@ -16,8 +16,7 @@ class ContactSearchViewController: UIViewController , Q6WebApiProtocol,UITableVi
     var dataRequestSource = ""
     var attachedURL = String()
     
-    var SelectedSupplierName = String?()
-    var SelectedSupplierID = String?()
+    var selectedSuplier = Supplier?()
   
     @IBOutlet weak var Q6ActivityIndicatorView: UIActivityIndicatorView!
     @IBOutlet weak var ContactTableView: UITableView!
@@ -90,8 +89,7 @@ setControlAppear()
         do {
             if dataRequestSource == "Search" {
                 supplierData.removeAll()
-                SelectedSupplierID = nil
-                SelectedSupplierName = nil
+               selectedSuplier = nil
             }
             postDicData = try  NSJSONSerialization.JSONObjectWithData(data!, options: []) as! [String:AnyObject]
             
@@ -113,6 +111,15 @@ setControlAppear()
                  print("SupplierName" + supplier.SupplierName)
 
                 
+                supplier.DefaultPurchasesAccountID = dataItem["DefaultPurchasesAccountID"]  as? String
+                
+                
+                 supplier.DefaultPurchasesTaxCodeID = dataItem["DefaultPurchasesTaxCodeID"]  as? String
+                
+                if supplier.DefaultPurchasesTaxCodeID != nil {
+                    
+                    print("supplier.DefaultPurchasesTaxCodeID" + supplier.DefaultPurchasesTaxCodeID!)
+                }
                 supplierData.append(supplier)
 //                
 //                printFields(purchasesTransactionListViewDataItem)
@@ -146,11 +153,7 @@ setControlAppear()
         print("selected indexpath" + indexPath.row.description)
           let  cell = tableView.cellForRowAtIndexPath(indexPath) as! ContactSearchTableViewCell
         
-        SelectedSupplierID = cell.lblSupplierID.text!
-        print(cell.lblSupplierID.text)
-        SelectedSupplierName = cell.lblSupplierName.text!
-        
-        print("SelectedSupplierID" + SelectedSupplierID! + "SelectedSupplierName" + SelectedSupplierName!)
+     selectedSuplier = supplierData[indexPath.row]
         ContactSearchBox.resignFirstResponder()
     }
     
@@ -178,8 +181,7 @@ setControlAppear()
         
             pageIndex = 1
             supplierData.removeAll()
-            SelectedSupplierName = nil
-            SelectedSupplierID = nil
+          selectedSuplier = nil
             
             dataRequestSource = "Search"
        
@@ -195,8 +197,7 @@ setControlAppear()
      
         pageIndex = 1
         supplierData.removeAll()
-        SelectedSupplierName = nil
-        SelectedSupplierID = nil
+       selectedSuplier = nil
         
         dataRequestSource = "Search"
         setAttachedURL(searchText, IsLoadInactive:false,PageSize: pageSize, PageIndex: pageIndex)
@@ -212,13 +213,13 @@ setControlAppear()
     }
     @IBAction func DoneButtonClick(sender: AnyObject) {
         
-        if SelectedSupplierID == nil && SelectedSupplierName == nil {
+        if selectedSuplier == nil {
             
             Q6CommonLib.q6UIAlertPopupController("Information message", message: "You haven't select a supplier", viewController: self)
         }
         else{
         
-        self.delegate?.sendGoBackFromContactSearchView("ContactSearchViewController" ,forCell :fromCell,ContactID:SelectedSupplierID! , ContactName: SelectedSupplierName!)
+            self.delegate?.sendGoBackFromContactSearchView("ContactSearchViewController" ,forCell :fromCell,Contact: selectedSuplier!)
 //        
             
             navigationController?.popViewControllerAnimated(true)

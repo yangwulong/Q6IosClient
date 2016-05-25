@@ -105,10 +105,10 @@ setControlAppear()
                 var supplier = Supplier()
                 supplier.SupplierID = dataItem["SupplierID"] as! String
                 
-                print("SupplierID" + supplier.SupplierID)
+               // print("SupplierID" + supplier.SupplierID)
                 
                 supplier.SupplierName = dataItem["SupplierName"] as! String
-                 print("SupplierName" + supplier.SupplierName)
+              //   print("SupplierName" + supplier.SupplierName)
 
                 
                 supplier.DefaultPurchasesAccountID = dataItem["DefaultPurchasesAccountID"]  as? String
@@ -116,9 +116,21 @@ setControlAppear()
                 
                  supplier.DefaultPurchasesTaxCodeID = dataItem["DefaultPurchasesTaxCodeID"]  as? String
                 
-                if supplier.DefaultPurchasesTaxCodeID != nil {
+                supplier.DefaultPurchasesAccountNameWithAccountNo = dataItem["DefaultPurchasesAccountNameWithAccountNo"] as? String
+                
+//                 supplier.DefaultPurchasesTaxCodeName = dataItem["DefaultPurchasesTaxCodeName"] as! String
+//                
+//                
+//                  supplier.DefaultPurchasesTaxCodeRate = dataItem["DefaultPurchasesTaxCodeRate"] as! Double
+//                
+//                supplier.DefaultPurchasesTaxCodePurpose = dataItem["DefaultPurchasesTaxCodePurpose"] as! String
+                
+       
+                
+                if  supplier.DefaultPurchasesAccountNameWithAccountNo != nil {
                     
-                    print("supplier.DefaultPurchasesTaxCodeID" + supplier.DefaultPurchasesTaxCodeID!)
+                    print(" supplier.DefaultPurchasesAccountNameWithAccountNO" +  supplier.DefaultPurchasesAccountNameWithAccountNo!)
+                    
                 }
                 supplierData.append(supplier)
 //                

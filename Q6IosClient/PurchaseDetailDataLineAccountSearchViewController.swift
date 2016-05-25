@@ -192,9 +192,9 @@ var accountView = AccountView()
                 accountView.TaxCodeID = dataItem["TaxCodeID"] as? String
                 accountView.TaxCodeName = dataItem["TaxCodeName"] as! String
                 accountView.TaxRate = dataItem["TaxRate"] as! Double
-                
-                print("Accountnamewithno" + accountView.AccountNameWithAccountNo )
-                print("AccountType" + accountView.AccountType)
+                accountView.TaxCodePurpose = dataItem["TaxCodePurpose"] as! String
+                print("accountView.TaxCodePurpose" + accountView.TaxCodePurpose )
+           
 //                if let TaxCodeName = accountView.TaxCodeName {
                
              

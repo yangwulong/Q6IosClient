@@ -20,6 +20,7 @@
 		19B87D571CDAFF580048AAFB /* Supplier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19B87D561CDAFF580048AAFB /* Supplier.swift */; };
 		19B87D591CDB02120048AAFB /* ContactSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19B87D581CDB02120048AAFB /* ContactSearchViewController.swift */; };
 		19B87D5B1CDB0C3A0048AAFB /* ContactSearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19B87D5A1CDB0C3A0048AAFB /* ContactSearchTableViewCell.swift */; };
+		19BB92F31CF538DA00633CCD /* AddImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19BB92F21CF538DA00633CCD /* AddImageViewController.swift */; };
 		19BD3B9A1CE93B9500245B85 /* PurchaseDetailDataLineDescriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19BD3B991CE93B9500245B85 /* PurchaseDetailDataLineDescriptionViewController.swift */; };
 		19C4FC8F1CD86BD4004A1449 /* PurchaseDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C4FC8E1CD86BD4004A1449 /* PurchaseDetailTableViewCell.swift */; };
 		19C9083E1CE3F6E300A828A3 /* PurchasesTransactionsDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C9083D1CE3F6E300A828A3 /* PurchasesTransactionsDetailView.swift */; };
@@ -72,6 +73,7 @@
 		19B87D561CDAFF580048AAFB /* Supplier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Supplier.swift; sourceTree = "<group>"; };
 		19B87D581CDB02120048AAFB /* ContactSearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactSearchViewController.swift; sourceTree = "<group>"; };
 		19B87D5A1CDB0C3A0048AAFB /* ContactSearchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactSearchTableViewCell.swift; sourceTree = "<group>"; };
+		19BB92F21CF538DA00633CCD /* AddImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddImageViewController.swift; sourceTree = "<group>"; };
 		19BD3B991CE93B9500245B85 /* PurchaseDetailDataLineDescriptionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurchaseDetailDataLineDescriptionViewController.swift; sourceTree = "<group>"; };
 		19C4FC8C1CD84DE1004A1449 /* PurchaseDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurchaseDetailViewController.swift; sourceTree = "<group>"; };
 		19C4FC8E1CD86BD4004A1449 /* PurchaseDetailTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurchaseDetailTableViewCell.swift; sourceTree = "<group>"; };
@@ -153,6 +155,7 @@
 				198BD7B41CC9AEAE00C81C22 /* PurchaseTableViewCell.swift */,
 				195AD4A91CB35DE4002F2DD7 /* PurchaseViewController.swift */,
 				19C908431CE4016F00A828A3 /* PreLoadInventoryPurchaseTableViewCell.swift */,
+				19BB92F21CF538DA00633CCD /* AddImageViewController.swift */,
 			);
 			name = Purchases;
 			sourceTree = "<group>";
@@ -331,6 +334,7 @@
 				19C908461CE443A400A828A3 /* InventoryView.swift in Sources */,
 				198BD7B51CC9AEAE00C81C22 /* PurchaseTableViewCell.swift in Sources */,
 				19DF1C411CE2AE2300908A32 /* PurchaseDetailViewController.swift in Sources */,
+				19BB92F31CF538DA00633CCD /* AddImageViewController.swift in Sources */,
 				19C908441CE4016F00A828A3 /* PreLoadInventoryPurchaseTableViewCell.swift in Sources */,
 				190EBFA21CE5550A00B26E00 /* TaxCodeView.swift in Sources */,
 				19B87D5B1CDB0C3A0048AAFB /* ContactSearchTableViewCell.swift in Sources */,

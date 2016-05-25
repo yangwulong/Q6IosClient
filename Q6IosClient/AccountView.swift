@@ -43,4 +43,6 @@ public class AccountView {
     var TaxCodeID = String?()
     var TaxCodeName = String()
     var TaxRate = Double()
+    var TaxCodePurpose = String()
+    var IsCreditCard = Bool()
 }

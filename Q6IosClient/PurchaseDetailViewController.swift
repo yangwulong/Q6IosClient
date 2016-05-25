@@ -28,6 +28,9 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
 
    
    var supplier = Supplier()
+    
+    var attachedimage = UIImage?()
+    
     override func viewWillAppear(animated: Bool) {
         
        
@@ -227,6 +230,15 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
         if screenSortLinesDetail.PrototypeCellID == "DueDateCell" {
             
             performSegueWithIdentifier("showDatePicker", sender: "DueDateCell")
+            
+            
+        }
+        
+        
+       
+        if screenSortLinesDetail.PrototypeCellID == "AddanImageCell" {
+            
+            performSegueWithIdentifier("showPhoto", sender: "AddanImageCell")
             
             
         }

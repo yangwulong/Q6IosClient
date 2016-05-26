@@ -14,7 +14,7 @@ public class PurchasesTransactionsDetailView
     var PurchasesTransactionsHeaderID = String()
     var Quantity:Double = 0
     var InventoryID = String?()
-    var InventoryNameWithInventoryNO = String()
+    var InventoryNameWithInventoryNO: String = ""
     var AccountID = String?()
     var AccountNameWithAccountNo:String = ""
     var TaxCodeID = String?()

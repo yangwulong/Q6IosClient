@@ -74,7 +74,14 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
 //        
     
 //        
-        
+       
+        if resuseIdentifier == "InventoryCell" {
+            
+            // print("purchasesTransactionsDetailView.AccountNameWithAccountNo" + purchasesTransactionsDetailView.AccountNameWithAccountNo)
+           cell.lblInventoryName.text = purchasesTransactionsDetailView.InventoryNameWithInventoryNO
+            // lblTotalLabel.font = UIFont.boldSystemFontOfSize(17.0)
+            //lblTotalAmount.font = UIFont.boldSystemFontOfSize(17.0)
+        }
         if resuseIdentifier == "AccountCell" {
             
            // print("purchasesTransactionsDetailView.AccountNameWithAccountNo" + purchasesTransactionsDetailView.AccountNameWithAccountNo)
@@ -233,13 +240,13 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
             let fromCell = sender as! String
             //        if let fromCell = sender as? String {
             
-//            if fromCell == "InventoryCell"
-//            {
-//                var preLoadInventoryPurchaseViewController = segue.destinationViewController as! PreLoadInventoryPurchaseViewController
-//               preLoadInventoryPurchaseViewController.fromCell = "InventoryCell"
-//                
-//                preLoadInventoryPurchaseViewController.delegate = self
-//            }
+            if fromCell == "InventoryCell"
+            {
+                var purchaseDetailDataLineInventorySearchViewController = segue.destinationViewController as! PurchaseDetailDataLineInventorySearchViewController
+               purchaseDetailDataLineInventorySearchViewController.fromCell = "InventoryCell"
+                
+                purchaseDetailDataLineInventorySearchViewController.delegate = self
+            }
            
             if fromCell == "AccountCell"
             {
@@ -286,8 +293,15 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
         
     }
     
-    func sendGoBackFromPreLoadInventoryPurchaseView(fromView:String,forCell:String,preLoadInventoryPurchase: PreLoadInventoryPurchase){
+     func sendGoBackFromPurchaseDetailDataLineInventorySearchView(fromView:String,forCell:String,inventoryView: InventoryView){
+        purchasesTransactionsDetailView.InventoryID = inventoryView.InventoryID
+        purchasesTransactionsDetailView.InventoryNameWithInventoryNO = inventoryView.InventoryName
         
+        
+        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+            self.PurchaseDetailDataLineTableView.reloadData()
+            
+        })
     }
     func  sendGoBackFromPurchaseDetailDataLineDescriptionView(fromView : String ,forCell: String,Description: String)
     {
@@ -444,6 +458,16 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
         })
     }
     
+    
+     func sendGoBackFromAddImageView(fromView: String, forCell: String, image:UIImage)
+     {
+        
+    }
+    @IBAction func CancelButtonClicked(sender: AnyObject) {
+           navigationController?.popViewControllerAnimated(true)
+    }
+    @IBAction func DoneButtonClicked(sender: AnyObject) {
+    }
 //    func getTaxCodeByTaxCodeID() -> TaxCodeView {
 //       
 //        

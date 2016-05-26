@@ -200,6 +200,19 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
                 // lblTotalLabel.font = UIFont.boldSystemFontOfSize(17.0)
                 //lblTotalAmount.font = UIFont.boldSystemFontOfSize(17.0)
             }
+        
+        if resuseIdentifier == "AddanImageCell" {
+            
+            if attachedimage != nil {
+                
+                cell.AddRemoveImageButton.setImage(UIImage(named: "Minus-25.png"), forState: UIControlState.Normal)
+                cell.lblAddImageLabel.text = "Has a linked image!"
+            }
+            
+            
+            // lblTotalLabel.font = UIFont.boldSystemFontOfSize(17.0)
+            //lblTotalAmount.font = UIFont.boldSystemFontOfSize(17.0)
+        }
             return cell
    
 
@@ -275,6 +288,22 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
     }
     
     
+     func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        
+        if purchasesDetailScreenLinesDic[indexPath.row].isAdded == true {
+            return true
+        }
+        else {
+        return false
+        }
+    }
+    
+     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if (editingStyle == UITableViewCellEditingStyle.Delete) {
+            // handle delete (by removing the data from your array and updating the tableview)
+        }
+    }
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
         
         if sender is String {
@@ -316,6 +345,14 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
                 purchaseDetailDataLineViewController.fromCell = "AddanItemCell"
                 
                 purchaseDetailDataLineViewController.delegate = self
+            }
+            
+            if fromCell == "AddanImageCell"
+            {
+                var addImageViewController = segue.destinationViewController as! AddImageViewController
+                addImageViewController.fromCell = "AddanImageCell"
+                
+                addImageViewController.delegate = self
             }
         }
 
@@ -435,7 +472,7 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
     func sendGoBackFromPurchaseDetailDataLineView(fromView:String,forCell:String,purchasesTransactionsDetail: PurchasesTransactionsDetail){
         
     }
-    func sendGoBackFromPreLoadInventoryPurchaseView(fromView:String,forCell:String,preLoadInventoryPurchase: PreLoadInventoryPurchase){
+     func sendGoBackFromPurchaseDetailDataLineInventorySearchView(fromView:String,forCell:String,inventoryView: InventoryView){
         
     }
     
@@ -451,6 +488,23 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
        func  sendGoBackFromPurchaseDetailDataLineAccountSearchView(fromView : String ,forCell: String,accountView: AccountView)
        {
         
+    }
+    
+     func sendGoBackFromAddImageView(fromView: String, forCell: String, image:UIImage)
+     {
+        if fromView == "AddImageViewController" {
+            if forCell == "AddanImageCell" {
+                attachedimage = image
+                
+                
+                
+                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    self.purchaseDetailTableView.reloadData()
+                    
+                })
+                
+            }
+        }
     }
     /*
     // Override to support conditional editing of the table view.

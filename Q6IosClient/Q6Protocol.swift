@@ -7,7 +7,7 @@
 //
 
 import Foundation
-
+import UIKit
 
 protocol Q6WebApiProtocol : class {    // 'class' means only class types can implement it
     func dataLoadCompletion(data:NSData?, response:NSURLResponse?, error:NSError?) -> AnyObject
@@ -24,11 +24,15 @@ protocol Q6GoBackFromView :class {
     
     func sendGoBackFromPurchaseDetailDataLineView(fromView:String,forCell:String,purchasesTransactionsDetail: PurchasesTransactionsDetail)
     
-        func sendGoBackFromPreLoadInventoryPurchaseView(fromView:String,forCell:String,preLoadInventoryPurchase: PreLoadInventoryPurchase)
+        func sendGoBackFromPurchaseDetailDataLineInventorySearchView(fromView:String,forCell:String,inventoryView: InventoryView)
     
        func  sendGoBackFromPurchaseDetailDataLineDescriptionView(fromView : String ,forCell: String,Description: String)
      func  sendGoBackFromPurchaseDetailDataLineTaxCodeSearchView(fromView : String ,forCell: String,taxCodeView: TaxCodeView)
     
      func  sendGoBackFromPurchaseDetailDataLineAccountSearchView(fromView : String ,forCell: String,accountView: AccountView)
+    func sendGoBackFromAddImageView(fromView: String, forCell: String, image:UIImage)
+    
+    
+
     
 }

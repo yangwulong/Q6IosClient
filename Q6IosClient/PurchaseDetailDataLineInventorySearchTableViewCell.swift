@@ -1,18 +1,17 @@
 //
-//  PreLoadInventoryPurchaseTableViewCell.swift
+//  PurchaseDetailDataLineInventorySearchTableViewCell.swift
 //  Q6IosClient
 //
-//  Created by yang wulong on 12/05/2016.
+//  Created by yang wulong on 26/05/2016.
 //  Copyright © 2016 q6. All rights reserved.
 //
 
 import UIKit
 
-class PreLoadInventoryPurchaseTableViewCell: UITableViewCell {
+class PurchaseDetailDataLineInventorySearchTableViewCell: UITableViewCell {
 
-    
-    @IBOutlet weak var lblInventoryID: UILabel!
     @IBOutlet weak var lblInventoryName: UILabel!
+    @IBOutlet weak var lblInventoryID: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

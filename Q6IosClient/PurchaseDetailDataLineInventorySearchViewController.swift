@@ -12,8 +12,9 @@ class PurchaseDetailDataLineInventorySearchViewController:UIViewController ,Q6We
     
     @IBOutlet weak var InventoryListTableView: UITableView!
     @IBOutlet weak var InventorySearchBox: UISearchBar!
-    var preLoadInventoryPurchaseData = [PreLoadInventoryPurchase]()
+   // var preLoadInventoryPurchaseData = [PreLoadInventoryPurchase]()
     
+    var inventoryViewData = [InventoryView]()
     @IBOutlet weak var Q6ActivityIndicator: UIActivityIndicatorView!
     
     var attachedStr = String()
@@ -22,9 +23,14 @@ class PurchaseDetailDataLineInventorySearchViewController:UIViewController ,Q6We
     weak var delegate : Q6GoBackFromView?
     
     var dataRequestSource = ""
-    var selectedInventoryID = String?()
-    var selectedInventoryName = String?()
+
+     var attachedURL = String()
     
+    var pageIndex: Int = 1
+    var pageSize: Int = 20
+    var searchText: String = ""
+   
+    var selectedInventoryView = InventoryView?()
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -37,12 +43,18 @@ class PurchaseDetailDataLineInventorySearchViewController:UIViewController ,Q6We
         let q6CommonLib = Q6CommonLib(myObject: self)
         
         
-        attachedStr = "&JsonPreLoad={\"PreLoadField\":{\"PreLoadActiveInventoryList\":\"\"}}"
-        q6CommonLib.Q6IosClientGetApi("Purchase", ActionName: "PreLoadFields_Purchase", attachedURL: attachedStr)
+        setAttachedURL("Buy",InventoryName: "" , IsLoadInactive:false,PageSize: pageSize,PageIndex: pageIndex )
+        q6CommonLib.Q6IosClientGetApi("Item", ActionName: "GetInventoryListView", attachedURL: attachedURL)
         
         
     }
     
+    
+    func setAttachedURL(Property:String,InventoryName: String , IsLoadInactive:Bool,PageSize: Int,PageIndex: Int )
+    {
+        attachedURL = "&Property=" + Property + "&InventoryName=" + InventoryName + "&IsIncludeInactive=" + String(IsLoadInactive) + "&PageSize=" + String(PageSize) + "&PageIndex=" + String(PageIndex)
+    }
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -54,14 +66,14 @@ class PurchaseDetailDataLineInventorySearchViewController:UIViewController ,Q6We
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return preLoadInventoryPurchaseData.count
+        return inventoryViewData.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let  cell = tableView.dequeueReusableCellWithIdentifier("InventoryCell", forIndexPath: indexPath) as! PreLoadInventoryPurchaseTableViewCell
+        let  cell = tableView.dequeueReusableCellWithIdentifier("InventoryCell", forIndexPath: indexPath) as! PurchaseDetailDataLineInventorySearchTableViewCell
         
-        cell.lblInventoryName.text = preLoadInventoryPurchaseData[indexPath.row].InventoryName
-        cell.lblInventoryID.text = preLoadInventoryPurchaseData[indexPath.row].InventoryID
+        cell.lblInventoryName.text = inventoryViewData[indexPath.row].InventoryName
+        cell.lblInventoryID.text = inventoryViewData[indexPath.row].InventoryID
         
         cell.lblInventoryID.hidden = true
         
@@ -69,20 +81,29 @@ class PurchaseDetailDataLineInventorySearchViewController:UIViewController ,Q6We
         
         return cell
     }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
+        
+        let  cell = tableView.cellForRowAtIndexPath(indexPath) as! PurchaseDetailDataLineInventorySearchTableViewCell
+        
+       selectedInventoryView = inventoryViewData[indexPath.row]
+        InventorySearchBox.resignFirstResponder()
+  
+    }
     func dataLoadCompletion(data:NSData?, response:NSURLResponse?, error:NSError?) -> AnyObject
     {
         var postDicData :[String:AnyObject]
         
         do {
             if dataRequestSource == "Search" {
-                preLoadInventoryPurchaseData.removeAll()
+                inventoryViewData.removeAll()
                 
-                selectedInventoryID = nil
-                selectedInventoryName = nil
+            selectedInventoryView = nil
             }
             postDicData = try  NSJSONSerialization.JSONObjectWithData(data!, options: []) as! [String:AnyObject]
             
-            var returnData = postDicData["PreLoadInventoryList"] as! [[String : AnyObject]]
+            var returnData = postDicData["InventoryTreeList"] as! [[String : AnyObject]]
             print("returnDate Count" + returnData.count.description)
             
             for i in 0  ..< returnData.count {
@@ -91,40 +112,34 @@ class PurchaseDetailDataLineInventorySearchViewController:UIViewController ,Q6We
                 //                //                print("no i =" + i.description)
                 var dataItem = returnData[i]
                 //
-                var preLoadInventoryPurchase = PreLoadInventoryPurchase()
-                preLoadInventoryPurchase.InventoryID = dataItem["InventoryID"] as! String
+             var inventoryView = InventoryView()
+                inventoryView.InventoryID = dataItem["InventoryID"] as! String
                 
+                inventoryView.InventoryName = dataItem["InventoryName"] as! String
                 
                 //print("preLoadInventoryPurchase.InventoryID " + preLoadInventoryPurchase.InventoryID )
                 
-                preLoadInventoryPurchase.InventoryName = dataItem["InventoryName"] as! String
-                print("preLoadInventoryPurchase.InventoryName" + preLoadInventoryPurchase.InventoryName )
-                preLoadInventoryPurchase.TaxCodeName = dataItem["TaxCodeName"] as! String
-                // print("preLoadInventoryPurchase.TaxCodeName" + preLoadInventoryPurchase.TaxCodeName )
+                inventoryView.IsBuy = dataItem["IsBuy"] as! Bool
+                inventoryView.IsSell = dataItem["IsSell"] as! Bool
+                inventoryView.IsInventory = dataItem["IsInventory"] as! Bool
+                inventoryView.IsInactive = dataItem["IsInactive"] as! Bool
+                inventoryView.SupplierPartNumber = dataItem["SupplierPartNumber"] as! String
                 
-                preLoadInventoryPurchase.TaxRate = dataItem["TaxRate"] as! Double
-                //print("preLoadInventoryPurchase.TaxRate" + preLoadInventoryPurchase.TaxRate.description )
+//                var categoryName = dataItem["CategoryName"] as? String
+//                if categoryName != nil {
+//                    
+//             
+//                inventoryView.CategoryName = dataItem["CategoryName"] as! String
+//                    print("inventoryView.CategoryName" + inventoryView.CategoryName)
+//                }
+//                else {
+//                    print("inventoryView.CategoryName nil")
+//                }
+     
                 
-                preLoadInventoryPurchase.Description = dataItem["Description"] as! String
-                // print("preLoadInventoryPurchase.Description" + preLoadInventoryPurchase.Description)
+        
                 
-                preLoadInventoryPurchase.AccountID = dataItem["AccountID"] as! String
-                //print("preLoadInventoryPurchase.AccountID" + preLoadInventoryPurchase.AccountID)
-                
-                preLoadInventoryPurchase.IsPurchasePriceTaxInclusive = dataItem["IsPurchasePriceTaxInclusive"] as! Bool
-                //   print("preLoadInventoryPurchase.ISPurchasePriceTaxInclusive" + preLoadInventoryPurchase.IsPurchasePriceTaxInclusive.description)
-                
-                preLoadInventoryPurchase.PurchasePrice = dataItem["PurchasePrice"] as! Double
-                print("preLoadInventoryPurchase.PurchasePrice " + preLoadInventoryPurchase.PurchasePrice.description)
-                //                supplier.SupplierID = dataItem["SupplierID"] as! String
-                //
-                //                print("SupplierID" + supplier.SupplierID)
-                //
-                //                supplier.SupplierName = dataItem["SupplierName"] as! String
-                //                print("SupplierName" + supplier.SupplierName)
-                //
-                //
-                preLoadInventoryPurchaseData.append(preLoadInventoryPurchase )
+                inventoryViewData.append(inventoryView )
                 //
                 //         printFields(purchasesTransactionListViewDataItem)
             }
@@ -149,23 +164,82 @@ class PurchaseDetailDataLineInventorySearchViewController:UIViewController ,Q6We
         
         return ""
     }
+    
+    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+        
+        self.searchText = searchText
+        
+        if searchText.length == 0 {
+            
+            
+            
+            let q6CommonLib = Q6CommonLib(myObject: self)
+            
+            pageIndex = 1
+           inventoryViewData.removeAll()
+          
+            
+            dataRequestSource = "Search"
+            
+            setAttachedURL("Buy",InventoryName: searchText , IsLoadInactive:false,PageSize: pageSize,PageIndex: pageIndex )
+            q6CommonLib.Q6IosClientGetApi("Item", ActionName: "GetInventoryListView", attachedURL: attachedURL)
+            
+        }
+    }
+    
     func searchBarSearchButtonClicked( searchBar: UISearchBar!)
     {
         let q6CommonLib = Q6CommonLib(myObject: self)
         
-        preLoadInventoryPurchaseData.removeAll()
+        inventoryViewData.removeAll()
         //  purchaseTransactionListData.removeAll()
         
         dataRequestSource = "Search"
         //  print("purchaseTransactionListdata count" + purchaseTransactionListData.count.description)
         if InventorySearchBox.text?.length > 0 {
             
-            self.attachedStr = "&InventoryType=IsBuy&InventoryName=" + self.InventorySearchBox.text!
-            q6CommonLib.Q6IosClientGetApi("Purchase", ActionName: "PreLoadFields_Purchase", attachedURL: attachedStr)
+            var inventoryName = self.InventorySearchBox.text!
+           
+            pageIndex = 1
+            inventoryViewData.removeAll()
+            setAttachedURL("Buy",InventoryName: inventoryName , IsLoadInactive:false,PageSize: pageSize,PageIndex: pageIndex )
+            q6CommonLib.Q6IosClientGetApi("Item", ActionName: "GetInventoryListView", attachedURL: attachedURL)
         }
         
         searchBar.resignFirstResponder()
         
+    }
+    
+    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+        print("indexpath" + indexPath.row.description)
+        if indexPath.row == pageIndex*(pageSize - 5 )
+        {
+            let q6CommonLib = Q6CommonLib(myObject: self)
+            pageIndex++
+           // setAttachedURL(searchText, PageSize: pageSize, PageIndex: pageIndex)
+            dataRequestSource = ""
+            //q6CommonLib.Q6IosClientGetApi("Purchase", ActionName: "GetPurchasesTransactionsList", attachedURL: attachedURL)
+            
+            setAttachedURL("Buy",InventoryName: searchText , IsLoadInactive:false,PageSize: pageSize,PageIndex: pageIndex )
+            q6CommonLib.Q6IosClientGetApi("Item", ActionName: "GetInventoryListView", attachedURL: attachedURL)
+        }
+        
+    }
+    
+    @IBAction func CancelButtonClicked(sender: AnyObject) {
+           navigationController?.popViewControllerAnimated(true)
+    }
+    @IBAction func DoneButtonClicked(sender: AnyObject) {
+        
+        if selectedInventoryView != nil {
+            
+           //  self.delegate?.sendGoBackFromContactSearchView("ContactSearchViewController" ,forCell :fromCell,Contact: selectedSuplier!)
+            self.delegate?.sendGoBackFromPurchaseDetailDataLineInventorySearchView("PurchaseDetailDataLineInventorySearchViewController", forCell: "InventoryCell", inventoryView: selectedInventoryView!)
+               navigationController?.popViewControllerAnimated(true)
+        }
+        else{
+              Q6CommonLib.q6UIAlertPopupController("Information message", message: "You haven't select a Inventory", viewController: self)
+        }
     }
     /*
      // MARK: - Navigation

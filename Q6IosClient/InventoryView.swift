@@ -7,7 +7,7 @@
 //
 
 import Foundation
-public class InvenoryView {
+public class InventoryView {
     
     var InventoryID = String()
     var InventoryName = String()

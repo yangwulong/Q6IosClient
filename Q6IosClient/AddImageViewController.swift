@@ -17,6 +17,8 @@ class AddImageViewController: UIViewController,UIImagePickerControllerDelegate,U
     @IBOutlet weak var UseCameraButton: UIButton!
     var newMedia: Bool?
     var attachedImage = UIImage?()
+     weak var delegate : Q6GoBackFromView?
+    var fromCell = String()
     override func viewDidLoad() {
         super.viewDidLoad()
 setControlAppear()
@@ -102,8 +104,15 @@ setControlAppear()
     }
     @IBAction func DoneButtonClicked(sender: AnyObject) {
         
-        navigationController?.popViewControllerAnimated(true)
+        if attachedImage != nil {
+            
+            self.delegate?.sendGoBackFromAddImageView("AddImageViewController", forCell: "AddanImageCell", image: attachedImage!)
         
+        navigationController?.popViewControllerAnimated(true)
+        }
+        else {
+            Q6CommonLib.q6UIAlertPopupController("Information message", message: "You haven't pick a photo", viewController: self) 
+        }
     }
     /*
     // MARK: - Navigation

@@ -164,7 +164,7 @@ class PurchaseViewController: UIViewController, Q6WebApiProtocol,UITableViewDele
        {
         let q6CommonLib = Q6CommonLib(myObject: self)
         pageIndex++
-       setAttachedURL(searchText, PageSize: 20, PageIndex: pageIndex)
+       setAttachedURL(searchText, PageSize: pageSize, PageIndex: pageIndex)
         dataRequestSource = ""
         q6CommonLib.Q6IosClientGetApi("Purchase", ActionName: "GetPurchasesTransactionsList", attachedURL: attachedURL)
         }

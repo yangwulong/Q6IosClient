@@ -292,4 +292,18 @@ class PurchaseViewController: UIViewController, Q6WebApiProtocol,UITableViewDele
         searchBar.resignFirstResponder()
         
     }
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
+        if segue.identifier == "createPurchaseDetail" {
+            
+          var operationType = OperationType()
+            
+            var purchaseDetailViewController = segue.destinationViewController as! PurchaseDetailViewController
+      purchaseDetailViewController.operationType = operationType.Create
+            
+//            purchaseDetailDataLineInventorySearchViewController.delegate = self
+            
+        }
+        
+     
+    }
 }

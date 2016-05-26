@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITableViewDataSource,Q6GoBackFromView {
+class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITableViewDataSource,Q6GoBackFromView, Q6WebApiProtocol {
 
 
    // @IBOutlet weak var lblPurchasesType: UILabel!
@@ -31,6 +31,8 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
     
     var attachedimage = UIImage?()
     
+    var webAPICallAction: String = ""
+    var operationType = String()
     override func viewWillAppear(animated: Bool) {
         
        
@@ -51,8 +53,29 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        preloadFields()
     }
 
+    func preloadFields()
+    {
+        
+       let q6DBLib = Q6DBLib()
+        
+        
+        var dicData=[String:String]()
+     var tempdicData = q6DBLib.getUserInfos()
+        
+        
+        dicData["WebApiTOKEN"]=Q6CommonLib.getQ6WebAPIToken()
+        dicData["LoginUserName"]=tempdicData["LoginEmail"]
+        dicData["Password"]=tempdicData["PassWord"]
+        dicData["ClientIP"]=Q6CommonLib.getIPAddresses()
+        
+        let q6CommonLib = Q6CommonLib(myObject: self)
+        webAPICallAction = "InternalUserLogin"
+        q6CommonLib.Q6IosClientPostAPI("Q6",ActionName: "InternalUserLogin", dicData:dicData)
+        
+    }
     func setScreenSortLines()
     {
         if ValidteWhetherHasAddedLinesInPurchasesDetailScreenLinesDic() == false
@@ -141,8 +164,10 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
         if resuseIdentifier == "PurchasesTypecell" {
             
        cell.lblPurchasesType.text = purchasesTransactionHeader.PurchasesType
-            
-            
+         
+            if operationType != "Create"{
+          cell.PurchasesTypeButton.enabled = false
+            }
             // lblTotalLabel.font = UIFont.boldSystemFontOfSize(17.0)
             //lblTotalAmount.font = UIFont.boldSystemFontOfSize(17.0)
         }
@@ -150,6 +175,10 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
             
         cell.lblSupplierName.text = supplier.SupplierName
             
+            if operationType != "Create" {
+                cell.SupplierButton.enabled = false
+                
+            }
             
             // lblTotalLabel.font = UIFont.boldSystemFontOfSize(17.0)
             //lblTotalAmount.font = UIFont.boldSystemFontOfSize(17.0)
@@ -228,21 +257,25 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
         print("Selected Row" + indexPath.row.description)
         var screenSortLinesDetail = purchasesDetailScreenLinesDic[indexPath.row]  as ScreenSortLinesDetail
         print("screenSortLinesDetail.PrototypeCellID" + screenSortLinesDetail.PrototypeCellID)
-        if screenSortLinesDetail.PrototypeCellID == "PurchasesTypecell" {
+        if screenSortLinesDetail.PrototypeCellID == "PurchasesTypecell" && operationType == "Create" {
             
             performSegueWithIdentifier("showPickerView", sender: "PurchasesTypecell")
 
             
         }
-        if screenSortLinesDetail.PrototypeCellID == "SupplierCell" {
+        if screenSortLinesDetail.PrototypeCellID == "SupplierCell" && operationType == "Create" {
             
             performSegueWithIdentifier("showContactSearch", sender: "SupplierCell")
             
             
         }
         if screenSortLinesDetail.PrototypeCellID == "DueDateCell" {
-            
+            if purchasesTransactionHeader.SupplierID.length != 0 {
             performSegueWithIdentifier("showDatePicker", sender: "DueDateCell")
+            }
+            else{
+                Q6CommonLib.q6UIAlertPopupController("Information", message: "A Supplier must be seleted!", viewController: self)
+            }
             
             
         }
@@ -251,30 +284,25 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
        
         if screenSortLinesDetail.PrototypeCellID == "AddanImageCell" {
             
+            if purchasesTransactionHeader.SupplierID.length != 0 {
             performSegueWithIdentifier("showPhoto", sender: "AddanImageCell")
-            
+            }
+            else{
+                Q6CommonLib.q6UIAlertPopupController("Information", message: "A Supplier must be seleted!", viewController: self)
+            }
             
         }
         
         if screenSortLinesDetail.PrototypeCellID == "AddanItemCell" {
             
-           
+           if purchasesTransactionHeader.SupplierID.length != 0 {
              performSegueWithIdentifier("showItemDetail", sender: "AddanItemCell")
-//            if purchasesDetailScreenLinesDic[indexPath.row].isAdded == false {
-//            var screenSortLinesDetail = ScreenSortLinesDetail()
-//            screenSortLinesDetail.ID = indexPath.row + 1
-//            print("ScreenSortLinesDetailID" + screenSortLinesDetail.ID.description )
-//            screenSortLinesDetail.PrototypeCellID = "AddanItemCell"
-//            screenSortLinesDetail.LineDescription = "AddedLine"
-//            screenSortLinesDetail.isAdded = true
-//            
-//            
-//          purchasesDetailScreenLinesDic.insert(screenSortLinesDetail, atIndex: 4 )
-//            dispatch_async(dispatch_get_main_queue(), { () -> Void in
-//                self.purchaseDetailTableView.reloadData()
-//                
-//            })
-//            }
+           }
+           else{
+            Q6CommonLib.q6UIAlertPopupController("Information", message: "A Supplier must be seleted!", viewController: self)
+            }
+            
+
             
         }
         var index = addItemsDic.count
@@ -506,6 +534,108 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
             }
         }
     }
+    
+    func dataLoadCompletion(data:NSData?, response:NSURLResponse?, error:NSError?) -> AnyObject
+    {
+        
+        
+        
+        
+        var postDicData :[String:AnyObject]
+        var IsLoginSuccessed : Bool
+        do {
+            postDicData = try  NSJSONSerialization.JSONObjectWithData(data!, options: []) as! [String:AnyObject]
+            
+            
+            IsLoginSuccessed = postDicData["IsSuccessed"] as! Bool
+            
+            
+            if IsLoginSuccessed == true {
+                
+                var q6CommonLib = Q6CommonLib()
+                var returnValue = postDicData["ReturnValue"]! as! Dictionary<String, AnyObject>
+//
+                var shippingAddress = ShippingAddress()
+            var Address = returnValue["ShippingAddress"] as? String
+                
+                if Address != nil {
+                    shippingAddress.ShippingAddress = Address!
+                }
+                var  ShippingAddressLine2 = returnValue["ShippingAddressLine2"] as? String
+                
+                if ShippingAddressLine2 != nil {
+                    shippingAddress.ShippingAddressLine2 = ShippingAddressLine2!
+                }
+                
+                 var  ShippingCity = returnValue["ShippingCity"] as? String
+                
+                if ShippingCity != nil {
+                    shippingAddress.ShippingCity = ShippingCity!
+                }
+                var ShippingCountry = returnValue["ShippingCountry"] as? String
+                
+                if ShippingCountry != nil {
+                    shippingAddress.ShippingCountry = ShippingCountry!
+                }
+                
+                var ShippingPostalCode = returnValue["ShippingPostalCode"] as? String
+                
+                if ShippingPostalCode != nil {
+                    shippingAddress.ShippingPostalCode = ShippingPostalCode!
+                }
+                
+                var ShippingState = returnValue["ShippingState"] as? String
+                
+                if ShippingState != nil {
+                    shippingAddress.ShippingState = ShippingState!
+                }
+                
+                var RealCompanyName = returnValue["RealCompanyName"] as? String
+                
+                if RealCompanyName != nil {
+                    shippingAddress.RealCompanyName = RealCompanyName!
+                }
+                purchasesTransactionHeader.ShipToAddress = shippingAddress.getShippingAddressStr()
+                
+                print("purchasesTransactionHeader.ShipToAddress" + purchasesTransactionHeader.ShipToAddress)
+//                //var json = try  NSJSONSerialization.JSONObjectWithData(dd as! NSData, options: NSJSONReadingOptions.MutableContainers) as! Dictionary<String, String>
+//                
+//                let q6DBLib = Q6DBLib()
+//                
+//                
+//                q6DBLib.addUserInfos(txtLoginEmail.text!, PassWord: txtLoginPassword.text!, LoginStatus: "Login",CompanyID: companyID)
+//                //Set any attributes of the view controller before it is displayed, this is where you would set the category text in your code.
+//                
+//                var passCode = q6DBLib.getUserPassCode()
+//                
+//                
+//                
+//                if let passCodeViewController = storyboard!.instantiateViewControllerWithIdentifier("Q6PassCodeViewController") as? PassCodeViewController {
+//                    
+//                    if passCode == nil {
+//                        
+//                        passCodeViewController.ScreenMode = "CreatePassCode"
+//                    }
+//                    else {
+//                        passCodeViewController.ScreenMode = "ValidatePassCode"
+//                    }
+//                    presentViewController(passCodeViewController, animated: true, completion: nil)
+//                }
+//                
+  }
+//            
+//            
+        } catch  {
+            print("error parsing response from POST on /posts")
+            
+            return ""
+        }
+        
+        //
+        return ""
+    }
+    
+
     /*
     // Override to support conditional editing of the table view.
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {

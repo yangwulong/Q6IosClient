@@ -11,6 +11,8 @@ import UIKit
 class PurchaseDetailTableViewCell: UITableViewCell {
 
     
+    @IBOutlet weak var lblMemo: UILabel!
+    @IBOutlet weak var lblTransactionDate: UILabel!
     @IBOutlet weak var SupplierButton: UIButton!
     @IBOutlet weak var PurchasesTypeButton: UIButton!
     @IBOutlet weak var lblAddImageLabel: UILabel!

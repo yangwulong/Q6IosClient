@@ -26,7 +26,7 @@ public class PurchasesTransactionsHeader
     var SubTotal = Double()
     var TaxTotal = Double()
     var DueDate = NSDate?()
-    var TaxInclusive = Bool()
+    var TaxInclusive: Bool = true
     var IsDeleted = Bool()
     var IsCreatedByRecurring = Bool()
     var RecurringTemplateID = String?()

@@ -33,6 +33,7 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
     
     var webAPICallAction: String = ""
     var operationType = String()
+     var hasAddedItemLine = false 
     override func viewWillAppear(animated: Bool) {
         
        
@@ -242,6 +243,30 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
             // lblTotalLabel.font = UIFont.boldSystemFontOfSize(17.0)
             //lblTotalAmount.font = UIFont.boldSystemFontOfSize(17.0)
         }
+        
+        if resuseIdentifier == "TransactionDateCell" {
+            
+//            if purchasesTransactionHeader.TransactionDate == nil {
+//                
+//                
+//                purchasesTransactionHeader.DueDate = NSDate()
+//            }
+            
+            //
+            cell.lblTransactionDate.text = purchasesTransactionHeader.TransactionDate.formatted
+            
+            
+            
+        }
+        if resuseIdentifier == "MemoCell" {
+            
+     
+            cell.lblMemo.text = purchasesTransactionHeader.Memo
+            
+            
+        }
+        
+        
             return cell
    
 
@@ -265,13 +290,29 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
         }
         if screenSortLinesDetail.PrototypeCellID == "SupplierCell" && operationType == "Create" {
             
-            performSegueWithIdentifier("showContactSearch", sender: "SupplierCell")
+           
+         for item in  purchasesDetailScreenLinesDic
+         {
+             if item.isAdded == true
+             {
+                hasAddedItemLine = true
+            }
+            }
+            
+           
+    
+            
+          
+               self.performSegueWithIdentifier("showContactSearch", sender: "SupplierCell")
+                
+      
+            
             
             
         }
         if screenSortLinesDetail.PrototypeCellID == "DueDateCell" {
             if purchasesTransactionHeader.SupplierID.length != 0 {
-            performSegueWithIdentifier("showDatePicker", sender: "DueDateCell")
+            performSegueWithIdentifier("showDueDate", sender: "DueDateCell")
             }
             else{
                 Q6CommonLib.q6UIAlertPopupController("Information", message: "A Supplier must be seleted!", viewController: self)
@@ -305,6 +346,30 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
 
             
         }
+        
+        
+        if screenSortLinesDetail.PrototypeCellID == "TransactionDateCell" {
+            if purchasesTransactionHeader.SupplierID.length != 0 {
+                performSegueWithIdentifier("showTransactionDate", sender: "TransactionDateCell")
+            }
+            else{
+                Q6CommonLib.q6UIAlertPopupController("Information", message: "A Supplier must be seleted!", viewController: self)
+            }
+            
+            
+        }
+        
+        if screenSortLinesDetail.PrototypeCellID == "MemoCell" {
+            if purchasesTransactionHeader.SupplierID.length != 0 {
+                performSegueWithIdentifier("showMemo", sender: "MemoCell")
+            }
+            else{
+                Q6CommonLib.q6UIAlertPopupController("Information", message: "A Supplier must be seleted!", viewController: self)
+            }
+            
+            
+        }
+        
         var index = addItemsDic.count
         addItemsDic[index] = "One more Item"
        // let section = indexPath.section//3
@@ -355,6 +420,7 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
                 var contactSearchViewController = segue.destinationViewController as! ContactSearchViewController
                 contactSearchViewController.fromCell = "SupplierCell"
                 contactSearchViewController.delegate = self
+                contactSearchViewController.hasAddedItemLine = hasAddedItemLine
                 
             }
             
@@ -372,6 +438,7 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
                 var purchaseDetailDataLineViewController = segue.destinationViewController as! PurchaseDetailDataLineViewController
                 purchaseDetailDataLineViewController.fromCell = "AddanItemCell"
                 
+                purchaseDetailDataLineViewController.supplier = supplier
                 purchaseDetailDataLineViewController.delegate = self
             }
             
@@ -381,6 +448,29 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
                 addImageViewController.fromCell = "AddanImageCell"
                 
                 addImageViewController.delegate = self
+            }
+            
+            if fromCell == "TransactionDateCell"
+            {
+                
+                var datePickerViewController = segue.destinationViewController as! DatePickerViewController
+                datePickerViewController.fromCell = "TransactionDateCell"
+                datePickerViewController.delegate = self
+                
+            }
+            
+            if fromCell == "MemoCell"
+            {
+                
+                var purchaseDetailMemoViewController = segue.destinationViewController as! PurchaseDetailMemoViewController
+                purchaseDetailMemoViewController.fromCell = "MemoCell"
+                
+                purchaseDetailMemoViewController.delegate = self
+                
+                if purchasesTransactionHeader.Memo != nil {
+                purchaseDetailMemoViewController.textValue = purchasesTransactionHeader.Memo!
+                }
+                
             }
         }
 
@@ -493,7 +583,21 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
                 })
                 
     }
+            
+            if forCell == "TransactionDateCell" {
+                purchasesTransactionHeader.TransactionDate = Date
+                
+                
+                
+                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    self.purchaseDetailTableView.reloadData()
+                    
+                })
+                
+            }
+            
         }
+        
     }
     
  
@@ -635,7 +739,16 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
         return ""
     }
     
-
+ func  sendGoBackFromPurchaseDetailMemoView(fromView : String ,forCell: String,Memo: String)
+ {
+    purchasesTransactionHeader.Memo = Memo
+    
+    dispatch_async(dispatch_get_main_queue(), { () -> Void in
+        self.purchaseDetailTableView.reloadData()
+        
+    })
+    
+    }
     /*
     // Override to support conditional editing of the table view.
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {

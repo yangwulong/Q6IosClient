@@ -125,19 +125,146 @@ class PurchaseDetailDataLineInventorySearchViewController:UIViewController ,Q6We
                 inventoryView.IsInactive = dataItem["IsInactive"] as! Bool
                 inventoryView.SupplierPartNumber = dataItem["SupplierPartNumber"] as! String
                 
-//                var categoryName = dataItem["CategoryName"] as? String
-//                if categoryName != nil {
-//                    
-//             
-//                inventoryView.CategoryName = dataItem["CategoryName"] as! String
-//                    print("inventoryView.CategoryName" + inventoryView.CategoryName)
-//                }
-//                else {
-//                    print("inventoryView.CategoryName nil")
-//                }
+                var categoryName = dataItem["CategoryName"] as? String
+                if categoryName != nil {
+                    
+             
+                inventoryView.CategoryName = dataItem["CategoryName"] as! String
+                    
+                }
+                else {
+                    print("inventoryView.CategoryName nil")
+                }
      
+                var AssetAccountNameWithAccountNo = dataItem["AssetAccountNameWithAccountNo"] as? String
                 
-        
+                if AssetAccountNameWithAccountNo != nil {
+                    
+                    inventoryView.AssetAccountNameWithAccountNo = AssetAccountNameWithAccountNo!
+                    
+                   
+                    
+                }
+                inventoryView.PurchaseDescription = dataItem["PurchaseDescription"] as! String
+                
+                var PurchasePrice = dataItem["PurchasePrice"] as? Double
+                
+                if PurchasePrice != nil {
+                    inventoryView.PurchasePrice = PurchasePrice!
+                   
+                }
+                
+              inventoryView.IsPurchasePriceTaxInclusive = dataItem["IsPurchasePriceTaxInclusive"] as! Bool
+           
+                
+                inventoryView.PurchaseAccountNameWithAccountNo = dataItem["PurchaseAccountNameWithAccountNo"] as! String
+                print("inventoryView.PurchaseAccountNameWithAccountNo" + inventoryView.PurchaseAccountNameWithAccountNo)
+                
+//                inventoryView.PurchaseTaxCodeName = dataItem["PurchaseTaxCodeName"] as! String
+//                print("inventoryView.PurchaseTaxCodeName" + inventoryView.PurchaseTaxCodeName)
+                
+             
+                inventoryView.PurchaseAccountNameWithAccountNo = dataItem["PurchaseAccountNameWithAccountNo"] as! String
+                print("inventoryView.PurchaseAccountNameWithAccountNo" + inventoryView.PurchaseAccountNameWithAccountNo)
+                
+                var MinQuantityForRestockingAlert = dataItem["MinQuantityForRestockingAlert"] as? Double
+                if MinQuantityForRestockingAlert != nil {
+                    inventoryView.MinQuantityForRestockingAlert = MinQuantityForRestockingAlert!
+                    
+            
+                    
+                }
+                
+                var QuantityOnHand = dataItem["QuantityOnHand"] as? Double
+                
+                if QuantityOnHand != nil {
+                    
+                    inventoryView.QuantityOnHand = QuantityOnHand!
+                 
+                }
+                
+                var CurrentValue = dataItem["CurrentValue"] as? Double
+                
+                if CurrentValue != nil {
+                    
+                    inventoryView.CurrentValue = CurrentValue!
+                    print("inventoryView.CurrentValue" + inventoryView.CurrentValue.description)
+                }
+                
+                var AverageCost = dataItem["AverageCost"] as? Double
+                
+                if AverageCost != nil {
+                    
+                    inventoryView.AverageCost = AverageCost!
+                   
+                }
+                
+                var Committed = dataItem["Committed"] as? Double
+                
+                if Committed != nil {
+                    
+                    inventoryView.Committed = Committed!
+                 
+                }
+                
+                var OnOrder = dataItem["OnOrder"] as? Double
+                
+                if OnOrder != nil {
+                    
+                    inventoryView.OnOrder = OnOrder!
+                    print("inventoryView.OnOrder" + inventoryView.OnOrder.description)
+                }
+                
+                var Available = dataItem["Available"] as? Double
+                 if Available != nil {
+                    
+                    inventoryView.Available = Available!
+                    print("inventoryView.Available" + inventoryView.Available.description)
+                }
+                
+                
+                var AssetAccountID = dataItem["AssetAccountID"] as? String
+                if AssetAccountID != nil {
+                    
+                    inventoryView.AssetAccountID = AssetAccountID!
+                    print("inventoryView.AssetAccountID " + inventoryView.AssetAccountID! )
+                }
+                
+                var PurchaseAccountID = dataItem["PurchaseAccountID"] as? String
+                if PurchaseAccountID != nil {
+                    
+                    inventoryView.PurchaseAccountID = PurchaseAccountID!
+                    print("inventoryView.PurchaseAccountID " + inventoryView.PurchaseAccountID! )
+                }
+                
+                var SaleAccountID = dataItem["SaleAccountID"] as? String
+                if SaleAccountID != nil {
+                    
+                    inventoryView.SaleAccountID = SaleAccountID!
+                    print("inventoryView.SaleAccountID " + inventoryView.SaleAccountID! )
+                }
+                
+                
+                var PurchaseTaxCodeID = dataItem["PurchaseTaxCodeID"] as? String
+                if PurchaseTaxCodeID != nil {
+                    
+                    inventoryView.PurchaseTaxCodeID = PurchaseTaxCodeID!
+                    print("inventoryView.PurchaseTaxCodeID " + inventoryView.PurchaseTaxCodeID! )
+                }
+                
+                var PurchaseTaxCodeRate = dataItem["PurchaseTaxCodeRate"] as? Double
+                if PurchaseTaxCodeRate != nil {
+                    
+                    inventoryView.PurchaseTaxCodeRate = PurchaseTaxCodeRate!
+                    print("inventoryView.PurchaseTaxCodeRate " + inventoryView.PurchaseTaxCodeRate!.description )
+                }
+                
+                var PurchaseTaxCodePurpose = dataItem["PurchaseTaxCodePurpose"] as? String
+                if PurchaseTaxCodePurpose != nil {
+                    
+                    inventoryView.PurchaseTaxCodePurpose = PurchaseTaxCodePurpose!
+                    print("inventoryView.PurchaseTaxCodePurpose " + inventoryView.PurchaseTaxCodePurpose! )
+                }
                 
                 inventoryViewData.append(inventoryView )
                 //

@@ -10,6 +10,8 @@ import UIKit
 
 class PurchaseDetailDataLineTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var taxCodeButton: UIButton!
+    @IBOutlet weak var accountButton: UIButton!
   
     @IBOutlet weak var lblInventoryName: UILabel!
     @IBOutlet weak var lblAmount: UILabel!

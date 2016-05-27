@@ -32,7 +32,7 @@ protocol Q6GoBackFromView :class {
      func  sendGoBackFromPurchaseDetailDataLineAccountSearchView(fromView : String ,forCell: String,accountView: AccountView)
     func sendGoBackFromAddImageView(fromView: String, forCell: String, image:UIImage)
     
-    
-
+     func  sendGoBackFromPurchaseDetailMemoView(fromView : String ,forCell: String,Memo: String)
+   
     
 }

@@ -317,6 +317,18 @@ public class Q6CommonLib{
         }
     }
     
+    public static func q6UIAlertPopupController(title: String?,message:String?,viewController: AnyObject? ,timeArrange: Double)
+    {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
+        viewController!.presentViewController(alert, animated: true, completion: nil)
+        
+        
+        let delayTime = dispatch_time(DISPATCH_TIME_NOW,
+                                      Int64(timeArrange * Double(NSEC_PER_SEC)))
+        dispatch_after(delayTime, dispatch_get_main_queue()) {
+            viewController!.dismissViewControllerAnimated(true, completion: nil);
+        }
+    }
     // changed return from [String] to String
      //addresses[0] return public IP ,addresses[1] return private ip
     static func getIPAddresses() -> String {

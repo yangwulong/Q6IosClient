@@ -15,7 +15,7 @@ class ContactSearchViewController: UIViewController , Q6WebApiProtocol,UITableVi
     var searchText: String = ""
     var dataRequestSource = ""
     var attachedURL = String()
-    
+     var hasAddedItemLine = false
     var selectedSuplier = Supplier?()
   
     @IBOutlet weak var Q6ActivityIndicatorView: UIActivityIndicatorView!
@@ -25,6 +25,14 @@ class ContactSearchViewController: UIViewController , Q6WebApiProtocol,UITableVi
     
      weak var delegate : Q6GoBackFromView?
     var fromCell = String()
+    
+    override func viewWillAppear(animated: Bool) {
+        
+        if hasAddedItemLine ==  true
+        {
+            Q6CommonLib.q6UIAlertPopupController("Information Message", message: "If changing the supplier, Please check the defaults are set correctly!", viewController: self ,timeArrange: 3)
+        }
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
 setControlAppear()
@@ -118,12 +126,12 @@ setControlAppear()
                 
                 supplier.DefaultPurchasesAccountNameWithAccountNo = dataItem["DefaultPurchasesAccountNameWithAccountNo"] as? String
                 
-//                 supplier.DefaultPurchasesTaxCodeName = dataItem["DefaultPurchasesTaxCodeName"] as! String
-//                
-//                
-//                  supplier.DefaultPurchasesTaxCodeRate = dataItem["DefaultPurchasesTaxCodeRate"] as! Double
-//                
-//                supplier.DefaultPurchasesTaxCodePurpose = dataItem["DefaultPurchasesTaxCodePurpose"] as! String
+                 supplier.DefaultPurchasesTaxCodeName = dataItem["DefaultPurchasesTaxCodeName"] as! String
+                
+                
+                  supplier.DefaultPurchasesTaxCodeRate = dataItem["DefaultPurchasesTaxCodeRate"] as! Double
+                
+                supplier.DefaultPurchasesTaxCodePurpose = dataItem["DefaultPurchasesTaxCodePurpose"] as! String
                 
        
                 

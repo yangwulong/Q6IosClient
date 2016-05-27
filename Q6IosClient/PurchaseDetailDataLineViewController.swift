@@ -21,7 +21,11 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
     weak var delegate : Q6GoBackFromView?
     var fromCell = String()
     
-  
+  var selectedInventoryView = InventoryView?()
+    var selectedAccountView = AccountView?()
+    var supplier = Supplier?()
+    
+    var enableTaxCodeButton = true
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -84,6 +88,30 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
         }
         if resuseIdentifier == "AccountCell" {
             
+            cell.accountButton.enabled = true
+            enableTaxCodeButton = true
+            if selectedInventoryView != nil {
+                
+                if selectedInventoryView!.IsBuy == true && selectedInventoryView!.IsInventory == false {
+                    
+                    purchasesTransactionsDetailView.AccountID = selectedInventoryView?.PurchaseAccountID
+                    purchasesTransactionsDetailView.AccountNameWithAccountNo = (selectedInventoryView?.PurchaseAccountNameWithAccountNo)!
+                    
+                    cell.accountButton.enabled = false
+                    enableTaxCodeButton = false
+                }
+                if selectedInventoryView!.IsBuy == true && selectedInventoryView!.IsInventory == true {
+                    
+                    purchasesTransactionsDetailView.AccountID = selectedInventoryView?.AssetAccountID
+                    purchasesTransactionsDetailView.AccountNameWithAccountNo = (selectedInventoryView?.AssetAccountNameWithAccountNo)!
+                    
+                    cell.accountButton.enabled = false
+                    enableTaxCodeButton = false
+                }
+                
+                
+            }
+            
            // print("purchasesTransactionsDetailView.AccountNameWithAccountNo" + purchasesTransactionsDetailView.AccountNameWithAccountNo)
             cell.lblAccountNameWithNo.text = purchasesTransactionsDetailView.AccountNameWithAccountNo
             
@@ -101,7 +129,46 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
         }
         if resuseIdentifier == "TaxCodeCell" {
             
-     
+            cell.taxCodeButton.enabled = true
+            if selectedAccountView != nil {
+               var TaxCodeID = selectedAccountView?.TaxCodeID
+                
+                if TaxCodeID != nil {
+                    
+                    if selectedAccountView?.TaxCodePurpose == "PayTax"
+                    {
+                        purchasesTransactionsDetailView.TaxCodeID = selectedAccountView?.TaxCodeID
+                        purchasesTransactionsDetailView.TaxRate = (selectedAccountView?.TaxRate)!
+                        purchasesTransactionsDetailView.TaxCodeName = (selectedAccountView?.TaxCodeName)!
+                        cell.taxCodeButton.enabled = false
+                    }
+                }
+            }
+            
+            if selectedInventoryView != nil {
+                
+                var TaxCodeID = selectedInventoryView!.PurchaseTaxCodeID
+                if TaxCodeID != nil {
+                purchasesTransactionsDetailView.TaxCodeID = selectedInventoryView?.PurchaseTaxCodeID
+                purchasesTransactionsDetailView.TaxRate = selectedInventoryView!.PurchaseTaxCodeRate!
+                purchasesTransactionsDetailView.TaxCodeName = selectedInventoryView!.PurchaseTaxCodeName
+                cell.taxCodeButton.enabled = false
+                }
+            }
+            
+            if supplier != nil {
+            
+                var defaultTaxCodeID = supplier!.DefaultPurchasesTaxCodeID
+                
+                if defaultTaxCodeID != nil {
+                purchasesTransactionsDetailView.TaxCodeID = supplier?.DefaultPurchasesTaxCodeID
+                purchasesTransactionsDetailView.TaxCodeName = (supplier?.DefaultPurchasesTaxCodeName)!
+                purchasesTransactionsDetailView.TaxRate = (supplier?.DefaultPurchasesTaxCodeRate)!
+                    cell.taxCodeButton.enabled = false
+                }
+                
+            }
+            print("purchasesTransactionsDetailView.TaxCodeName" + purchasesTransactionsDetailView.TaxCodeName)
             cell.lblTaxCodeName.text = purchasesTransactionsDetailView.TaxCodeName
             
             // lblTotalLabel.font = UIFont.boldSystemFontOfSize(17.0)
@@ -213,15 +280,19 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
         
         if originalRowsDic[indexPath.row] == "AccountCell" {
             
+            if selectedInventoryView == nil
+            {
             performSegueWithIdentifier("showAccount", sender: "AccountCell")
             
-            
+            }
         }
         
         
         if originalRowsDic[indexPath.row] == "TaxCodeCell" {
-            
+            if enableTaxCodeButton == true
+            {
             performSegueWithIdentifier("showTaxCode", sender: "TaxCodeCell")
+            }
             
             
         }
@@ -296,6 +367,7 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
      func sendGoBackFromPurchaseDetailDataLineInventorySearchView(fromView:String,forCell:String,inventoryView: InventoryView){
         purchasesTransactionsDetailView.InventoryID = inventoryView.InventoryID
         purchasesTransactionsDetailView.InventoryNameWithInventoryNO = inventoryView.InventoryName
+        selectedInventoryView = inventoryView
         
         
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
@@ -449,7 +521,7 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
        {
         purchasesTransactionsDetailView.AccountID = accountView.AccountID
         purchasesTransactionsDetailView.AccountNameWithAccountNo = accountView.AccountNameWithAccountNo
-        
+        selectedAccountView = accountView
       //   var taxCodeView = getTaxCodeByTaxCodeID()
         
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
@@ -467,6 +539,11 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
            navigationController?.popViewControllerAnimated(true)
     }
     @IBAction func DoneButtonClicked(sender: AnyObject) {
+    }
+    
+     func  sendGoBackFromPurchaseDetailMemoView(fromView : String ,forCell: String,Memo: String)
+     {
+        
     }
 //    func getTaxCodeByTaxCodeID() -> TaxCodeView {
 //       

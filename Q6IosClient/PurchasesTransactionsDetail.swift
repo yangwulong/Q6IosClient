@@ -11,8 +11,8 @@ import Foundation
 public class PurchasesTransactionsDetail
 {
 
-    var PurchasesTransactionsDetailID = String()
-    var PurchasesTransactionsHeaderID = String()
+    var PurchasesTransactionsDetailID = NSUUID()
+    var PurchasesTransactionsHeaderID = NSUUID()
     var Quantity = Double()
     var InventoryID = String?()
     var AccountID = String?()

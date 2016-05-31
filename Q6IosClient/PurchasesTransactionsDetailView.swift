@@ -10,8 +10,8 @@ import Foundation
 public class PurchasesTransactionsDetailView
 {
     
-    var PurchasesTransactionsDetailID :String =  NSUUID().UUIDString
-    var PurchasesTransactionsHeaderID = String()
+    var PurchasesTransactionsDetailID  = NSUUID() //:String =  NSUUID().UUIDString
+    var PurchasesTransactionsHeaderID = NSUUID()
     var Quantity:Double = 0
     var InventoryID = String?()
     var InventoryNameWithInventoryNO: String = ""

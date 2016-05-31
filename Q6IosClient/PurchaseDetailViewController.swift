@@ -642,6 +642,7 @@ purchasesDetailScreenLinesDic[i].PrototypeCellID)
     {
         purchasesTransactionsDetailData.removeAll()
         
+        var sortNo: Int = 0
         for i in 0..<purchasesDetailScreenLinesDic.count
         {
             var purchasesTransactionsDetailView = purchasesDetailScreenLinesDic[i].purchasesTransactionsDetailView
@@ -660,7 +661,9 @@ purchasesDetailScreenLinesDic[i].PrototypeCellID)
                  purchasesTransactionsDetail.PurchasesTransactionsHeaderID = purchasesTransactionsDetailView!.PurchasesTransactionsHeaderID
                 
                purchasesTransactionsDetail.Quantity = purchasesTransactionsDetailView!.Quantity
-                 purchasesTransactionsDetail.SortNo = purchasesTransactionsDetailView!.SortNo
+                 purchasesTransactionsDetail.SortNo = sortNo
+                sortNo = sortNo + 1
+                
                 purchasesTransactionsDetail.TaxCodeID = purchasesTransactionsDetailView!.TaxCodeID
                  purchasesTransactionsDetail.UnitPrice = purchasesTransactionsDetailView!.UnitPrice
      

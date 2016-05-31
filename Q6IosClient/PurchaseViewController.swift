@@ -299,7 +299,7 @@ class PurchaseViewController: UIViewController, Q6WebApiProtocol,UITableViewDele
             
             var purchaseDetailViewController = segue.destinationViewController as! PurchaseDetailViewController
       purchaseDetailViewController.operationType = operationType.Create
-            
+            print("purchaseDetailViewController.operationType" + purchaseDetailViewController.operationType)
 //            purchaseDetailDataLineInventorySearchViewController.delegate = self
             
         }

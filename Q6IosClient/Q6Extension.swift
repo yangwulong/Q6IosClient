@@ -95,5 +95,23 @@ extension NSDate {
         
         return convertDate
 }
+    func isLaterOrEqualThanDate(dateToCompare: NSDate) -> Bool {
+        //Declare Variables
+        var isGreaterOrEqual = false
+        
+        //Compare Values
+        if self.compare(dateToCompare) == NSComparisonResult.OrderedDescending {
+            isGreaterOrEqual = true
+        }
+        //Compare Values
+        if self.compare(dateToCompare) == NSComparisonResult.OrderedSame {
+            isGreaterOrEqual = true
+        }
+        
+        //Return Result
+        return isGreaterOrEqual
+    }
+    
+    
 }
 

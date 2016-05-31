@@ -25,7 +25,7 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
     var backFrom = String()
     
     var purchasesTransactionHeader = PurchasesTransactionsHeader()
-
+    var purchasesTransactionsDetailData = [PurchasesTransactionsDetail]()
    
    var supplier = Supplier()
     
@@ -38,7 +38,7 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
     override func viewWillAppear(animated: Bool) {
         
        
-        
+        print("PurchaseDetailViewController" + operationType)
     }
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -188,14 +188,15 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
         
         if resuseIdentifier == "DueDateCell" {
             
-            if purchasesTransactionHeader.DueDate == nil {
+            if purchasesTransactionHeader.DueDate != nil {
                 
             
-          purchasesTransactionHeader.DueDate = NSDate()
+        cell.lblDueDate.text = purchasesTransactionHeader.DueDate!.formatted
             }
+            
           
 //
-         cell.lblDueDate.text = purchasesTransactionHeader.DueDate!.formatted
+         
             
             
    
@@ -336,6 +337,8 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
 
             
         }
+        print("screenSortLinesDetail.PrototypeCellID" + screenSortLinesDetail.PrototypeCellID)
+            print("operationType" + operationType)
         if screenSortLinesDetail.PrototypeCellID == "SupplierCell" && operationType == "Create" {
             
            
@@ -561,12 +564,39 @@ purchasesDetailScreenLinesDic[i].PrototypeCellID)
     
     @IBAction func SaveButtonClick(sender: AnyObject) {
         
-        if validateQuantityValue()
+        if validateQuantityValue()&&validateDate()
         {
-            
+            copyFromPurchasesTransactionDetailViewToPurchasesTransactionDetail()
         }
     }
     
+    func validateDate()-> Bool
+    {
+         var isValid = true
+        if purchasesTransactionHeader.PurchasesType == "BILL"
+        {
+            if purchasesTransactionHeader.DueDate == nil
+            {
+                
+                Q6CommonLib.q6UIAlertPopupController("Information message", message: "Due Date can not be empty if purchase type is BILL!", viewController: self)
+                isValid = false
+            }
+        }
+        
+        if purchasesTransactionHeader.DueDate != nil {
+            
+            var DueDate = purchasesTransactionHeader.DueDate
+            var TransactionDate = purchasesTransactionHeader.TransactionDate
+            
+            var isEalierOrEqual = (DueDate?.isLaterOrEqualThanDate(TransactionDate))! as Bool
+            
+            if isEalierOrEqual == false {
+                Q6CommonLib.q6UIAlertPopupController("Information message", message: "Due Date can not be later than TransactionDate!", viewController: self)
+                isValid = false
+            }
+        }
+        return isValid
+    }
     func validateQuantityValue() -> Bool
     {
         var isValid = true
@@ -606,6 +636,40 @@ purchasesDetailScreenLinesDic[i].PrototypeCellID)
         }
         
         return isValid
+    }
+    
+    func copyFromPurchasesTransactionDetailViewToPurchasesTransactionDetail()
+    {
+        purchasesTransactionsDetailData.removeAll()
+        
+        for i in 0..<purchasesDetailScreenLinesDic.count
+        {
+            var purchasesTransactionsDetailView = purchasesDetailScreenLinesDic[i].purchasesTransactionsDetailView
+            if purchasesTransactionsDetailView != nil && purchasesDetailScreenLinesDic[i].isAdded == true
+            {
+                var purchasesTransactionsDetail = PurchasesTransactionsDetail()
+                
+                purchasesTransactionsDetail.AccountID = purchasesTransactionsDetailView!.AccountID
+                  purchasesTransactionsDetail.Amount = purchasesTransactionsDetailView!.Amount
+                  purchasesTransactionsDetail.Description = purchasesTransactionsDetailView!.Description
+                  purchasesTransactionsDetail.Discount = purchasesTransactionsDetailView!.Discount
+                  purchasesTransactionsDetail.InventoryID = purchasesTransactionsDetailView!.InventoryID
+                  purchasesTransactionsDetail.IsDeleted = purchasesTransactionsDetailView!.IsDeleted
+                purchasesTransactionsDetail.PurchasesTransactionsDetailID = purchasesTransactionsDetailView!.PurchasesTransactionsDetailID
+                
+                 purchasesTransactionsDetail.PurchasesTransactionsHeaderID = purchasesTransactionsDetailView!.PurchasesTransactionsHeaderID
+                
+               purchasesTransactionsDetail.Quantity = purchasesTransactionsDetailView!.Quantity
+                 purchasesTransactionsDetail.SortNo = purchasesTransactionsDetailView!.SortNo
+                purchasesTransactionsDetail.TaxCodeID = purchasesTransactionsDetailView!.TaxCodeID
+                 purchasesTransactionsDetail.UnitPrice = purchasesTransactionsDetailView!.UnitPrice
+     
+                purchasesTransactionsDetailData.append(purchasesTransactionsDetail)
+            }
+        }
+        
+        print("purchasesTransactionsDetailData.count" + purchasesTransactionsDetailData.count.description)
+        
     }
     @IBAction func CancelButtonClick(sender: AnyObject) {
        

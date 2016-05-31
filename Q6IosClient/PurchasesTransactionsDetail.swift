@@ -21,7 +21,7 @@ public class PurchasesTransactionsDetail
     var UnitPrice = Double()
     var Discount = Double?()
     var Amount = Double()
-    var IsDeleted = Bool()
+    var IsDeleted: Bool = false 
     var SortNo = Int()
     
 }

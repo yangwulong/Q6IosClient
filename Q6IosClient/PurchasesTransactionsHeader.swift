@@ -11,7 +11,7 @@ import Foundation
 public class PurchasesTransactionsHeader
 {
     
-    var PurchasesTransactionsHeaderID = String()
+    var PurchasesTransactionsHeaderID: String = NSUUID().UUIDString
     var ReferenceNo = String()
     var PurchasesType: String = "BILL"
     var PurchasesStatus = String()

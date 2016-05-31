@@ -10,7 +10,7 @@ import Foundation
 public class PurchasesTransactionsDetailView
 {
     
-    var PurchasesTransactionsDetailID = String()
+    var PurchasesTransactionsDetailID :String =  NSUUID().UUIDString
     var PurchasesTransactionsHeaderID = String()
     var Quantity:Double = 0
     var InventoryID = String?()
@@ -25,7 +25,7 @@ public class PurchasesTransactionsDetailView
     var Discount = Double?()
     var AmountWithoutTax: Double = 0
     var Amount: Double = 0
-    var IsDeleted = Bool()
+    var IsDeleted: Bool = false 
     var SortNo = Int()
     
 }

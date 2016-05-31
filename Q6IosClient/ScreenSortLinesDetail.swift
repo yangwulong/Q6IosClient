@@ -13,5 +13,6 @@ public class ScreenSortLinesDetail
     var ID = Int()
     var PrototypeCellID = String()
     var LineDescription = String()
-    var isAdded: Bool = false 
+    var isAdded: Bool = false
+    var purchasesTransactionsDetailView = PurchasesTransactionsDetailView?()
 }

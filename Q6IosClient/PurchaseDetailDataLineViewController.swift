@@ -6,6 +6,8 @@
 //  Copyright © 2016 q6. All rights reserved.
 //
 
+
+// default is taxinclusive = true
 import UIKit
 
 class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegate ,UITableViewDataSource,Q6GoBackFromView {
@@ -16,7 +18,7 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
    
     var strDescription = String()
     var purchasesTransactionsDetailView = PurchasesTransactionsDetailView()
-    
+    var purchasesTransactionHeader = PurchasesTransactionsHeader()
     
     weak var delegate : Q6GoBackFromView?
     var fromCell = String()
@@ -26,6 +28,10 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
     var supplier = Supplier?()
     
     var enableTaxCodeButton = true
+    var reloadFromCell = ""
+    override func viewWillAppear(animated: Bool) {
+        
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -81,8 +87,11 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
        
         if resuseIdentifier == "InventoryCell" {
             
+           
             // print("purchasesTransactionsDetailView.AccountNameWithAccountNo" + purchasesTransactionsDetailView.AccountNameWithAccountNo)
+       
            cell.lblInventoryName.text = purchasesTransactionsDetailView.InventoryNameWithInventoryNO
+          
             // lblTotalLabel.font = UIFont.boldSystemFontOfSize(17.0)
             //lblTotalAmount.font = UIFont.boldSystemFontOfSize(17.0)
         }
@@ -93,27 +102,32 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
             if selectedInventoryView != nil {
                 
                 if selectedInventoryView!.IsBuy == true && selectedInventoryView!.IsInventory == false {
-                    
+                   
+                        
                     purchasesTransactionsDetailView.AccountID = selectedInventoryView?.PurchaseAccountID
                     purchasesTransactionsDetailView.AccountNameWithAccountNo = (selectedInventoryView?.PurchaseAccountNameWithAccountNo)!
                     
                     cell.accountButton.enabled = false
-                    enableTaxCodeButton = false
+                   
+                    //enableTaxCodeButton = false
                 }
                 if selectedInventoryView!.IsBuy == true && selectedInventoryView!.IsInventory == true {
                     
+                  
                     purchasesTransactionsDetailView.AccountID = selectedInventoryView?.AssetAccountID
                     purchasesTransactionsDetailView.AccountNameWithAccountNo = (selectedInventoryView?.AssetAccountNameWithAccountNo)!
                     
                     cell.accountButton.enabled = false
-                    enableTaxCodeButton = false
+                   // enableTaxCodeButton = false
+                 
                 }
                 
                 
             }
             
-           // print("purchasesTransactionsDetailView.AccountNameWithAccountNo" + purchasesTransactionsDetailView.AccountNameWithAccountNo)
+        
             cell.lblAccountNameWithNo.text = purchasesTransactionsDetailView.AccountNameWithAccountNo
+          
             
             // lblTotalLabel.font = UIFont.boldSystemFontOfSize(17.0)
             //lblTotalAmount.font = UIFont.boldSystemFontOfSize(17.0)
@@ -121,15 +135,17 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
         
         if resuseIdentifier == "DescriptionCell" {
             
-          cell.lblDescription.text = purchasesTransactionsDetailView.Description
             
+          
+          cell.lblDescription.text = purchasesTransactionsDetailView.Description
+         
             
             // lblTotalLabel.font = UIFont.boldSystemFontOfSize(17.0)
             //lblTotalAmount.font = UIFont.boldSystemFontOfSize(17.0)
         }
         if resuseIdentifier == "TaxCodeCell" {
             
-            cell.taxCodeButton.enabled = true
+           // cell.taxCodeButton.enabled = true
             if selectedAccountView != nil {
                var TaxCodeID = selectedAccountView?.TaxCodeID
                 
@@ -137,10 +153,13 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
                     
                     if selectedAccountView?.TaxCodePurpose == "PayTax"
                     {
+                       
+                            
                         purchasesTransactionsDetailView.TaxCodeID = selectedAccountView?.TaxCodeID
                         purchasesTransactionsDetailView.TaxRate = (selectedAccountView?.TaxRate)!
                         purchasesTransactionsDetailView.TaxCodeName = (selectedAccountView?.TaxCodeName)!
-                        cell.taxCodeButton.enabled = false
+                       
+                       // cell.taxCodeButton.enabled = false
                     }
                 }
             }
@@ -149,10 +168,13 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
                 
                 var TaxCodeID = selectedInventoryView!.PurchaseTaxCodeID
                 if TaxCodeID != nil {
+                    
+                   
                 purchasesTransactionsDetailView.TaxCodeID = selectedInventoryView?.PurchaseTaxCodeID
                 purchasesTransactionsDetailView.TaxRate = selectedInventoryView!.PurchaseTaxCodeRate!
                 purchasesTransactionsDetailView.TaxCodeName = selectedInventoryView!.PurchaseTaxCodeName
-                cell.taxCodeButton.enabled = false
+                   
+               // cell.taxCodeButton.enabled = false
                 }
             }
             
@@ -161,15 +183,21 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
                 var defaultTaxCodeID = supplier!.DefaultPurchasesTaxCodeID
                 
                 if defaultTaxCodeID != nil {
+                    
+                  
                 purchasesTransactionsDetailView.TaxCodeID = supplier?.DefaultPurchasesTaxCodeID
                 purchasesTransactionsDetailView.TaxCodeName = (supplier?.DefaultPurchasesTaxCodeName)!
                 purchasesTransactionsDetailView.TaxRate = (supplier?.DefaultPurchasesTaxCodeRate)!
-                    cell.taxCodeButton.enabled = false
+                
+                    //cell.taxCodeButton.enabled = false
                 }
                 
             }
-            print("purchasesTransactionsDetailView.TaxCodeName" + purchasesTransactionsDetailView.TaxCodeName)
+      
+            
+            
             cell.lblTaxCodeName.text = purchasesTransactionsDetailView.TaxCodeName
+          
             
             // lblTotalLabel.font = UIFont.boldSystemFontOfSize(17.0)
             //lblTotalAmount.font = UIFont.boldSystemFontOfSize(17.0)
@@ -177,7 +205,9 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
       
         if resuseIdentifier == "AmountCell" {
             
+            
             var amount = purchasesTransactionsDetailView.Amount
+           
             var strAmount = String(amount)
             if amount != 0 {
                 
@@ -210,24 +240,54 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
             {
                 cell.lblAmount.text = ""
             }
+          
+        }
+
+        if resuseIdentifier == "UnitPriceCell" {
+            
+            if reloadFromCell == "InventoryCell"
+            {
+                if selectedInventoryView != nil {
+                    
+                    if  selectedInventoryView?.IsPurchasePriceTaxInclusive == true {
+                        
+                        cell.lblUnitPrice.text = String(format: "%.2f", (selectedInventoryView?.PurchasePrice)!)
+                        purchasesTransactionsDetailView.UnitPrice = (selectedInventoryView?.PurchasePrice)!
+                    }
+                    else {
+                        
+                        if selectedInventoryView?.PurchasePrice != nil {
+                        var purchasePrice = (selectedInventoryView?.PurchasePrice)! as Double
+                        
+                        var purchasePriceTaxRate = selectedInventoryView?.PurchaseTaxCodeRate
+                        purchasePrice = purchasePrice + purchasePrice * purchasePriceTaxRate! / 100
+                        cell.lblUnitPrice.text = String(format: "%.2f", purchasePrice)
+                        purchasesTransactionsDetailView.UnitPrice = purchasePrice
+                        }
+                        else {
+                            print("nil")
+                        }
+                    }
+                }
+            }
+            
+            if reloadFromCell == "" {
+                
+               cell.lblUnitPrice.text = String(format: "%.2f", purchasesTransactionsDetailView.UnitPrice)
+            }
+        }
+  
+    
+        if resuseIdentifier == "QuantityCell" {
+            
+              if reloadFromCell == "" {
+           cell.lblQuantity.text = String(format: "%.2f", purchasesTransactionsDetailView.Quantity)
+            }
+            
+            
+            
         }
 //
-        
-//        if resuseIdentifier == "DueDateCell" {
-//            
-//            if purchasesTransactionHeader.DueDate == nil {
-//                
-//                
-//                purchasesTransactionHeader.DueDate = NSDate()
-//            }
-//            
-//            //
-//            cell.lblDueDate.text = purchasesTransactionHeader.DueDate!.formatted
-//            
-//            
-//            
-//        }
-//        
 //        if resuseIdentifier == "AddanItemCell" {
 //            
 //            if purchasesDetailScreenLinesDic[indexPath.row].isAdded == true {
@@ -360,7 +420,7 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
         
     }
     
-    func sendGoBackFromPurchaseDetailDataLineView(fromView:String,forCell:String,purchasesTransactionsDetail: PurchasesTransactionsDetail){
+    func sendGoBackFromPurchaseDetailDataLineView(fromView:String,forCell:String,purchasesTransactionsDetailView: PurchasesTransactionsDetailView){
         
     }
     
@@ -369,7 +429,7 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
         purchasesTransactionsDetailView.InventoryNameWithInventoryNO = inventoryView.InventoryName
         selectedInventoryView = inventoryView
         
-        
+        reloadFromCell = "InventoryCell"
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
             self.PurchaseDetailDataLineTableView.reloadData()
             
@@ -380,6 +440,8 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
         purchasesTransactionsDetailView.Description = Description
         
         print("purchasesTransactionsDetailView.Description" + purchasesTransactionsDetailView.Description)
+        
+         reloadFromCell = "DescriptionCell"
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
           self.PurchaseDetailDataLineTableView.reloadData()
             
@@ -392,12 +454,69 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
         purchasesTransactionsDetailView.TaxCodeName = taxCodeView.TaxCodeName
         purchasesTransactionsDetailView.TaxRate = taxCodeView.TaxRate
         
+           reloadFromCell = "TaxCodeCell"
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
             self.PurchaseDetailDataLineTableView.reloadData()
             
         })
     }
  
+    @IBAction func unitPriceEditingChanged(sender: AnyObject) {
+        
+        var UnitPriceTextField = sender as! UITextField
+        var StrUnitPrice = UnitPriceTextField.text as String?
+        
+        if let UnitPrice = Double(StrUnitPrice!) {
+            
+ if UnitPrice >= 0 {
+//                
+//                
+//                if StrUnitPrice?.containsString(".") == true {
+//                    //Check decimal place whether less than 4
+//                    var strsplit = StrUnitPrice?.characters.split(("."))
+//                    let strLast = String(strsplit?.last!)
+//                    
+//                    
+//                    if strLast.length > 4 {
+//                        
+//                        
+//                        if UnitPrice == 0 {
+//                            UnitPriceTextField.text = "0.00"
+//                        } else {
+//                            //round to 4 decimal place
+//                            UnitPriceTextField.text =  String(format: "%.2f",Double(round(10000 * UnitPrice)/10000))
+//                        }
+//                    }
+//                    
+//                    
+//                }
+                purchasesTransactionsDetailView.UnitPrice = UnitPrice
+                
+                
+            }
+            else {
+                UnitPriceTextField.becomeFirstResponder()
+//                Q6CommonLib.q6UIAlertPopupController("Information message", message: "You can not input negative decimal number here!", viewController: self)
+                
+                UnitPriceTextField.text = ""
+                purchasesTransactionsDetailView.UnitPrice = 0
+            }
+        }
+    
+        else {
+            
+            if StrUnitPrice?.length > 0 {
+                UnitPriceTextField.becomeFirstResponder()
+//                Q6CommonLib.q6UIAlertPopupController("Information message", message: "You can only input decimal number here!", viewController: self)
+                
+                UnitPriceTextField.text = ""
+                
+                
+            }
+            purchasesTransactionsDetailView.UnitPrice = 0
+        }
+               purchasesTransactionsDetailView.Amount = purchasesTransactionsDetailView.UnitPrice * purchasesTransactionsDetailView.Quantity
+    }
     @IBAction func unitPriceEditingDidEnd(sender: AnyObject) {
         var UnitPriceTextField = sender as! UITextField
         var StrUnitPrice = UnitPriceTextField.text as String?
@@ -420,7 +539,7 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
                         UnitPriceTextField.text = "0.00"
                     } else {
                     //round to 4 decimal place
-                    UnitPriceTextField.text = String(Double(round(10000 * UnitPrice)/10000))
+                    UnitPriceTextField.text =  String(format: "%.2f",Double(round(10000 * UnitPrice)/10000))
                     }
                 }
               
@@ -452,6 +571,65 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
               purchasesTransactionsDetailView.UnitPrice = 0
         }
         calculateAmount()
+    }
+
+
+
+    @IBAction func quantityEditingChanged(sender: AnyObject) {
+        
+        var QuantityTextField = sender as! UITextField
+        var StrQuantity = QuantityTextField.text as String?
+        
+        if let Quantity = Double(StrQuantity!) {
+            
+            if Quantity != 0 {
+                
+                
+//                if StrQuantity?.containsString(".") == true {
+//                    //Check decimal place whether less than 4
+//                    var strsplit = StrQuantity?.characters.split(("."))
+//                    let strLast = String(strsplit?.last!)
+//                    
+//                    
+//                    if strLast.length > 4 {
+//                        
+//                        
+//                        if Quantity == 0 {
+//                            QuantityTextField.text = "0.00"
+//                        } else {
+//                            //round to 6 decimal place
+//                            QuantityTextField.text = String(Double(round(1000000 * Quantity)/1000000))
+//                        }
+//                    }
+//                    
+//                    
+//                }
+                purchasesTransactionsDetailView.Quantity = Quantity
+                
+                
+            }
+            else {
+//                QuantityTextField.becomeFirstResponder()
+//                Q6CommonLib.q6UIAlertPopupController("Information message", message: "You can not input zero here!", viewController: self)
+                
+                QuantityTextField.text = ""
+                purchasesTransactionsDetailView.Quantity = 0
+            }
+            
+        }
+        else {
+            
+//            if StrQuantity?.length > 0 {
+//                QuantityTextField.becomeFirstResponder()
+//                Q6CommonLib.q6UIAlertPopupController("Information message", message: "You can only input decimal number here!", viewController: self)
+//                
+//                QuantityTextField.text = ""
+//                
+//            }
+            purchasesTransactionsDetailView.Quantity = 0
+        }
+        purchasesTransactionsDetailView.Amount = purchasesTransactionsDetailView.UnitPrice * purchasesTransactionsDetailView.Quantity
+        
     }
     @IBAction func quantityEditingDidEnd(sender: AnyObject) {
         
@@ -512,6 +690,7 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
     {
           purchasesTransactionsDetailView.Amount = purchasesTransactionsDetailView.UnitPrice * purchasesTransactionsDetailView.Quantity
         
+        reloadFromCell = "calculateAmount"
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
         self.PurchaseDetailDataLineTableView.reloadData()
             
@@ -524,6 +703,7 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
         selectedAccountView = accountView
       //   var taxCodeView = getTaxCodeByTaxCodeID()
         
+        reloadFromCell = "AccountCell"
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
             self.PurchaseDetailDataLineTableView.reloadData()
             
@@ -539,8 +719,109 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
            navigationController?.popViewControllerAnimated(true)
     }
     @IBAction func DoneButtonClicked(sender: AnyObject) {
+        
+        if validateQuantityValue() == true
+        {
+        if validateIfPurchaseTransactionsDetailViewIsEmpty() == false {
+        calculateTaxAmount()
+            self.delegate?.sendGoBackFromPurchaseDetailDataLineView("PurchaseDetailDataLineViewController", forCell: "AddanItemCell", purchasesTransactionsDetailView: purchasesTransactionsDetailView)
+          navigationController?.popViewControllerAnimated(true)
+        }
+        else {
+              Q6CommonLib.q6UIAlertPopupController("Information message", message: "You haven't add a purchase detail data line!", viewController: self)  
+        }
+        }
+//        }
+//        else {
+//                 Q6CommonLib.q6UIAlertPopupController("Information message", message: "You haven't add a purchase detail data line!", viewController: self)
+//        }
     }
     
+    func calculateTaxAmount()
+    {
+        
+        var amount = purchasesTransactionsDetailView.Amount
+        
+        if purchasesTransactionsDetailView.TaxCodeID != nil
+        {
+        var taxRate = purchasesTransactionsDetailView.TaxRate as Double
+        
+        var amountWithOutTax = 100*amount/(100 + taxRate)
+        purchasesTransactionsDetailView.AmountWithoutTax = amountWithOutTax
+        }
+        else{
+            purchasesTransactionsDetailView.AmountWithoutTax = purchasesTransactionsDetailView.Amount
+        }
+        
+//        if purchasesTransactionsDetailView.InventoryID != nil
+//        {
+//            if selectedInventoryView != nil {
+//                if selectedInventoryView?.IsPurchasePriceTaxInclusive == true {
+//                    
+//                    var  purchasePrice = (selectedInventoryView?.PurchasePrice)! as Double
+//                    
+//                    var quantity = purchasesTransactionsDetailView.Quantity
+//                    
+//                    
+//                    //
+//                }
+//            }
+//        }
+//            if selectedInventoryView != nil {
+//                
+//                if  selectedInventoryView?.IsPurchasePriceTaxInclusive == true {
+//                    
+//                    cell.lblUnitPrice.text = String(format: "%.2f", (selectedInventoryView?.PurchasePrice)!)
+//                    purchasesTransactionsDetailView.UnitPrice = (selectedInventoryView?.PurchasePrice)!
+//                }
+//                else {
+//                    
+//                    if selectedInventoryView?.PurchasePrice != nil {
+//                        var purchasePrice = (selectedInventoryView?.PurchasePrice)! as Double
+//                        
+//                        var purchasePriceTaxRate = selectedInventoryView?.PurchaseTaxCodeRate
+//                        purchasePrice = purchasePrice + purchasePrice * purchasePriceTaxRate! / 100
+//                        cell.lblUnitPrice.text = String(format: "%.2f", purchasePrice)
+//                        purchasesTransactionsDetailView.UnitPrice = purchasePrice
+//                    }
+        
+                
+    }
+    func validateQuantityValue() -> Bool
+    {
+        if purchasesTransactionHeader.PurchasesType == "DEBIT NOTE"
+        {
+           if  purchasesTransactionsDetailView.Quantity > 0
+           {
+                 Q6CommonLib.q6UIAlertPopupController("Information message", message: "you can not input positive amount at quantity field when purchase type is DEBIT NOTE!", viewController: self)
+            return false
+            }
+        }
+        else {
+            if  purchasesTransactionsDetailView.Quantity < 0
+            {
+                    Q6CommonLib.q6UIAlertPopupController("Information message", message: "you can not input negative amount at quantity field when purchase type is QUOTE,ORDER ,BILL!", viewController: self)
+                return false
+            }
+            
+        }
+        
+        return true
+    }
+    func validateIfPurchaseTransactionsDetailViewIsEmpty() -> Bool
+    {
+        var isEmpty = false
+        if purchasesTransactionsDetailView.InventoryID == nil && purchasesTransactionsDetailView.AccountID == nil {
+            
+            isEmpty = true
+        }
+        if purchasesTransactionsDetailView.Amount == 0
+        {
+         isEmpty = true
+        }
+        
+        return isEmpty
+    }
      func  sendGoBackFromPurchaseDetailMemoView(fromView : String ,forCell: String,Memo: String)
      {
         

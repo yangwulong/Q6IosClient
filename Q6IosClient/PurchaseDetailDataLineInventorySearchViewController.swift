@@ -117,7 +117,7 @@ class PurchaseDetailDataLineInventorySearchViewController:UIViewController ,Q6We
                 
                 inventoryView.InventoryName = dataItem["InventoryName"] as! String
                 
-                //print("preLoadInventoryPurchase.InventoryID " + preLoadInventoryPurchase.InventoryID )
+               print("inventoryView.InventoryName " + inventoryView.InventoryName )
                 
                 inventoryView.IsBuy = dataItem["IsBuy"] as! Bool
                 inventoryView.IsSell = dataItem["IsSell"] as! Bool
@@ -153,6 +153,9 @@ class PurchaseDetailDataLineInventorySearchViewController:UIViewController ,Q6We
                     inventoryView.PurchasePrice = PurchasePrice!
                    
                 }
+                else{
+                    print("nil")
+                }
                 
               inventoryView.IsPurchasePriceTaxInclusive = dataItem["IsPurchasePriceTaxInclusive"] as! Bool
            
@@ -160,8 +163,8 @@ class PurchaseDetailDataLineInventorySearchViewController:UIViewController ,Q6We
                 inventoryView.PurchaseAccountNameWithAccountNo = dataItem["PurchaseAccountNameWithAccountNo"] as! String
                 print("inventoryView.PurchaseAccountNameWithAccountNo" + inventoryView.PurchaseAccountNameWithAccountNo)
                 
-//                inventoryView.PurchaseTaxCodeName = dataItem["PurchaseTaxCodeName"] as! String
-//                print("inventoryView.PurchaseTaxCodeName" + inventoryView.PurchaseTaxCodeName)
+                inventoryView.PurchaseTaxCodeName = dataItem["PurchaseTaxCodeName"] as! String
+                print("inventoryView.PurchaseTaxCodeName" + inventoryView.PurchaseTaxCodeName)
                 
              
                 inventoryView.PurchaseAccountNameWithAccountNo = dataItem["PurchaseAccountNameWithAccountNo"] as! String

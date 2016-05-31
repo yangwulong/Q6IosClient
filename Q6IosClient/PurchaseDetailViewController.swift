@@ -18,7 +18,7 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
     
     var purchasesDetailScreenLinesDic = [ScreenSortLinesDetail]()
     
-    var originalRowsDic: [Int: String] = [0: "PurchasesTypecell", 1: "SupplierCell",2: "DueDateCell",3: "AddanItemCell",4: "SubtotalCell",5: "TotalCell",6: "TransactionDateCell",7: "MemoCell",8: "AddanImageCell"]
+    var originalRowsDic: [Int: String] = [0: "PurchasesTypecell", 1: "SupplierCell",2: "DueDateCell",3: "AddanItemCell",4: "SubTotalCell",5: "TotalCell",6: "TransactionDateCell",7: "MemoCell",8: "AddanImageCell"]
     
     var addItemsDic = [Int:String]()
     
@@ -33,7 +33,8 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
     
     var webAPICallAction: String = ""
     var operationType = String()
-     var hasAddedItemLine = false 
+     var hasAddedItemLine = false
+    var addItemRowIndex: Int = 0
     override func viewWillAppear(animated: Bool) {
         
        
@@ -96,7 +97,7 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
                 case 3:
                     prototypeCell = "AddanItemCell"
                 case 4:
-                    prototypeCell = "SubtotalCell"
+                    prototypeCell = "SubTotalCell"
                 case 5:
                     prototypeCell = "TotalCell"
                 case 6:
@@ -149,12 +150,12 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
    
      func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var resuseIdentifier = String()
-        if indexPath.row <= 8 {
-       resuseIdentifier = originalRowsDic[indexPath.row]!
-        }
-        if indexPath.row > 8 {
-             resuseIdentifier = originalRowsDic[5]!
-        }
+//        if indexPath.row <= 8 {
+//       resuseIdentifier = originalRowsDic[indexPath.row]!
+//        }
+//        if indexPath.row > 8 {
+//             resuseIdentifier = originalRowsDic[5]!
+//        }
       
      var screenSortLinesDetail = purchasesDetailScreenLinesDic[indexPath.row]  as ScreenSortLinesDetail
         
@@ -208,24 +209,71 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
              
              
                 
-               // let image = UIImage(named: "name") as UIImage?
-        // cell.AddDeleteButton = UIButton(type: .System) as UIButton
+   
       
                 
            cell.AddDeleteButton.setImage(image, forState: .Normal)
-           cell.LineDescription.text = "Added dataLine"
-             //   cell.AddDeleteButton.frame = CGRectMake(0, 0, 15, 15)
-              //  cell.AddDeleteButton = UIButton(type: UIButtonType.Custom)
+           cell.LineDescription.text = purchasesDetailScreenLinesDic[indexPath.row].LineDescription
+       
+            }
+            else {
+                
+                let image = UIImage(named: "plus") as UIImage?
+                
+                
+                
+                // let image = UIImage(named: "name") as UIImage?
+                // cell.AddDeleteButton = UIButton(type: .System) as UIButton
+                
+                
+                cell.AddDeleteButton.setImage(image, forState: .Normal)
+                cell.LineDescription.text = "Add an Item"
+                
+                
             }
             
         }
         
         
+        if resuseIdentifier == "SubTotalCell" {
+            
+            var subTotalAmount: Double = 0
+            for i in 0 ..< purchasesDetailScreenLinesDic.count
+            {
+                if purchasesDetailScreenLinesDic[i].isAdded == true
+                {
+                    if purchasesDetailScreenLinesDic[i].purchasesTransactionsDetailView != nil {
+                        
+                        var purchasesTransactionsDetailView = purchasesDetailScreenLinesDic[i].purchasesTransactionsDetailView
+                        
+                        subTotalAmount = subTotalAmount + (purchasesTransactionsDetailView?.AmountWithoutTax)!
+                    }
+                }
+            }
+            
+            cell.lblSubTotalAmount.text =  String(format: "%.2f", subTotalAmount)
+            
+        }
             if resuseIdentifier == "TotalCell" {
                 
                 cell.lblTotalAmountLabel.font = UIFont.boldSystemFontOfSize(17.0)
                 cell.lblTotalAmount.font = UIFont.boldSystemFontOfSize(17.0)
                 
+                var totalAmount: Double = 0
+                for i in 0 ..< purchasesDetailScreenLinesDic.count
+                {
+                    if purchasesDetailScreenLinesDic[i].isAdded == true
+                    {
+                        if purchasesDetailScreenLinesDic[i].purchasesTransactionsDetailView != nil {
+                            
+                            var purchasesTransactionsDetailView = purchasesDetailScreenLinesDic[i].purchasesTransactionsDetailView
+                            
+                       totalAmount = totalAmount + (purchasesTransactionsDetailView?.Amount)!
+                        }
+                    }
+                }
+                
+                cell.lblTotalAmount.text =   String(format: "%.2f", totalAmount)
                 
                 // lblTotalLabel.font = UIFont.boldSystemFontOfSize(17.0)
                 //lblTotalAmount.font = UIFont.boldSystemFontOfSize(17.0)
@@ -337,6 +385,7 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
         if screenSortLinesDetail.PrototypeCellID == "AddanItemCell" {
             
            if purchasesTransactionHeader.SupplierID.length != 0 {
+            addItemRowIndex = indexPath.row
              performSegueWithIdentifier("showItemDetail", sender: "AddanItemCell")
            }
            else{
@@ -393,6 +442,34 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
     
      func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if (editingStyle == UITableViewCellEditingStyle.Delete) {
+            
+            if purchasesDetailScreenLinesDic[indexPath.row].isAdded == true
+            {
+                
+                print("indexPath.row delete" + indexPath.row.description)
+                purchasesDetailScreenLinesDic.removeAtIndex(indexPath.row)
+                
+                
+                for i in 0 ..< purchasesDetailScreenLinesDic.count
+                {
+                 print("purchasesDetailScreenLinesDic[" + i.description + "].ID" + purchasesDetailScreenLinesDic[i].ID.description)
+                    
+                    print("purchasesDetailScreenLinesDic[" + i.description  + "].isAdded" + purchasesDetailScreenLinesDic[i].isAdded.description)
+                    
+                      print("purchasesDetailScreenLinesDic[" + i.description  + "].PrototypeCellID" +
+purchasesDetailScreenLinesDic[i].PrototypeCellID)
+                    
+                 print("purchasesDetailScreenLinesDic[i].LineDescription"  + purchasesDetailScreenLinesDic[i].LineDescription)
+                    
+                }
+                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    self.purchaseDetailTableView.reloadData()
+                    
+                })
+                
+                
+                
+            }
             // handle delete (by removing the data from your array and updating the tableview)
         }
     }
@@ -440,6 +517,12 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
                 
                 purchaseDetailDataLineViewController.supplier = supplier
                 purchaseDetailDataLineViewController.delegate = self
+                purchaseDetailDataLineViewController.purchasesTransactionHeader = purchasesTransactionHeader
+                
+                if purchasesDetailScreenLinesDic[addItemRowIndex].purchasesTransactionsDetailView != nil {
+                    
+                    purchaseDetailDataLineViewController.purchasesTransactionsDetailView = purchasesDetailScreenLinesDic[addItemRowIndex].purchasesTransactionsDetailView!
+                }
             }
             
             if fromCell == "AddanImageCell"
@@ -476,6 +559,54 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
 
     }
     
+    @IBAction func SaveButtonClick(sender: AnyObject) {
+        
+        if validateQuantityValue()
+        {
+            
+        }
+    }
+    
+    func validateQuantityValue() -> Bool
+    {
+        var isValid = true
+        if purchasesTransactionHeader.PurchasesType == "DEBIT NOTE"
+        {
+            for i in 0..<purchasesDetailScreenLinesDic.count
+            {
+                var purchasesTransactionsDetailView = purchasesDetailScreenLinesDic[i].purchasesTransactionsDetailView
+                
+                if purchasesTransactionsDetailView != nil && purchasesDetailScreenLinesDic[i].isAdded == true
+                {
+                    if  purchasesTransactionsDetailView!.Quantity > 0
+                    {
+                        Q6CommonLib.q6UIAlertPopupController("Information message", message: "you can not input positive amount at quantity field when purchase type is DEBIT NOTE!", viewController: self)
+                        isValid = false
+                        
+                    }
+                }
+            }
+            
+        }
+        else {
+            for i in 0..<purchasesDetailScreenLinesDic.count
+            {
+                var purchasesTransactionsDetailView = purchasesDetailScreenLinesDic[i].purchasesTransactionsDetailView
+                
+                if purchasesTransactionsDetailView != nil && purchasesDetailScreenLinesDic[i].isAdded == true
+                {
+                    if  purchasesTransactionsDetailView!.Quantity < 0
+                    {
+                        Q6CommonLib.q6UIAlertPopupController("Information message", message: "you can not input negative amount at quantity field when purchase type is QUOTE,ORDER ,BILL!", viewController: self)
+                        isValid = false
+                    }
+                }
+            }
+            
+        }
+        
+        return isValid
+    }
     @IBAction func CancelButtonClick(sender: AnyObject) {
        
 //        if let purchaseViewController = storyboard!.instantiateViewControllerWithIdentifier("PurchaseViewController") as? PurchaseViewController {
@@ -601,8 +732,31 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
     }
     
  
-    func sendGoBackFromPurchaseDetailDataLineView(fromView:String,forCell:String,purchasesTransactionsDetail: PurchasesTransactionsDetail){
+    func sendGoBackFromPurchaseDetailDataLineView(fromView:String,forCell:String,purchasesTransactionsDetailView: PurchasesTransactionsDetailView){
         
+        if purchasesDetailScreenLinesDic[addItemRowIndex].isAdded == false{
+            
+            var screenSortLinesDetail = ScreenSortLinesDetail()
+            screenSortLinesDetail.isAdded = true
+            screenSortLinesDetail.ID = addItemRowIndex
+            screenSortLinesDetail.LineDescription = purchasesTransactionsDetailView.InventoryNameWithInventoryNO + " " + purchasesTransactionsDetailView.AccountNameWithAccountNo
+            screenSortLinesDetail.PrototypeCellID = "AddanItemCell"
+            screenSortLinesDetail.purchasesTransactionsDetailView = purchasesTransactionsDetailView
+            purchasesDetailScreenLinesDic.insert(screenSortLinesDetail, atIndex: addItemRowIndex)
+            
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                self.purchaseDetailTableView.reloadData()
+                
+            })
+        }
+        else{
+            purchasesDetailScreenLinesDic[addItemRowIndex].LineDescription = purchasesTransactionsDetailView.InventoryNameWithInventoryNO + " " + purchasesTransactionsDetailView.AccountNameWithAccountNo
+              purchasesDetailScreenLinesDic[addItemRowIndex].purchasesTransactionsDetailView = purchasesTransactionsDetailView
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                self.purchaseDetailTableView.reloadData()
+                
+            })
+        }
     }
      func sendGoBackFromPurchaseDetailDataLineInventorySearchView(fromView:String,forCell:String,inventoryView: InventoryView){
         

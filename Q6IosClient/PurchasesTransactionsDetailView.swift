@@ -23,6 +23,7 @@ public class PurchasesTransactionsDetailView
     var Description: String = ""
     var UnitPrice:Double = 0
     var Discount = Double?()
+    var AmountWithoutTax: Double = 0
     var Amount: Double = 0
     var IsDeleted = Bool()
     var SortNo = Int()

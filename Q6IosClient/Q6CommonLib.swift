@@ -231,6 +231,7 @@ public class Q6CommonLib{
         // create some JSON data and configure the request
         let jsonString = convertDictionaryToJSONData(dicData)
         
+      //  print(jsonString)
         request.HTTPBody = jsonString.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)
         request.HTTPMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -329,6 +330,21 @@ public class Q6CommonLib{
             viewController!.dismissViewControllerAnimated(true, completion: nil);
         }
     }
+    
+    public static func q6UIAlertPopupControllerThenGoBack(title: String?,message:String?,viewController: AnyObject? ,timeArrange: Double ,navigationController: UINavigationController)
+    {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
+        viewController!.presentViewController(alert, animated: true, completion: nil)
+        
+        
+        let delayTime = dispatch_time(DISPATCH_TIME_NOW,
+                                      Int64(timeArrange * Double(NSEC_PER_SEC)))
+        dispatch_after(delayTime, dispatch_get_main_queue()) {
+            viewController!.dismissViewControllerAnimated(true, completion: nil);
+             navigationController.popViewControllerAnimated(true)
+        }
+    }
+    
     // changed return from [String] to String
      //addresses[0] return public IP ,addresses[1] return private ip
     static func getIPAddresses() -> String {

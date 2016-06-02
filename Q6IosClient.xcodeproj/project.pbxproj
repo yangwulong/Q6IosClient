@@ -11,6 +11,7 @@
 		195AD4A81CB35DAF002F2DD7 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 195AD4A71CB35DAF002F2DD7 /* TabBarViewController.swift */; };
 		195AD4AA1CB35DE4002F2DD7 /* PurchaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 195AD4A91CB35DE4002F2DD7 /* PurchaseViewController.swift */; };
 		19691E8F1C9F8AE200E009A7 /* Q6Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19691E8E1C9F8AE200E009A7 /* Q6Protocol.swift */; };
+		197D2ACF1CFE9BB800E03BEB /* JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 197D2ACE1CFE9BB800E03BEB /* JSON.swift */; };
 		198BD7B51CC9AEAE00C81C22 /* PurchaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 198BD7B41CC9AEAE00C81C22 /* PurchaseTableViewCell.swift */; };
 		198BD7DB1CC9F58700C81C22 /* PurchasesTransactionsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 198BD7DA1CC9F58700C81C22 /* PurchasesTransactionsListView.swift */; };
 		199F0CD31CA0BE0C00301EC4 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 199F0CD21CA0BE0C00301EC4 /* LoginViewController.swift */; };
@@ -67,6 +68,7 @@
 		195AD4A91CB35DE4002F2DD7 /* PurchaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurchaseViewController.swift; sourceTree = "<group>"; };
 		19691E8E1C9F8AE200E009A7 /* Q6Protocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Q6Protocol.swift; sourceTree = "<group>"; };
 		197398171CA1004D0079332D /* Q6IosClient-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Q6IosClient-Bridging-Header.h"; sourceTree = "<group>"; };
+		197D2ACE1CFE9BB800E03BEB /* JSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSON.swift; sourceTree = "<group>"; };
 		198BD7B41CC9AEAE00C81C22 /* PurchaseTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurchaseTableViewCell.swift; sourceTree = "<group>"; };
 		198BD7DA1CC9F58700C81C22 /* PurchasesTransactionsListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurchasesTransactionsListView.swift; sourceTree = "<group>"; };
 		199F0CD21CA0BE0C00301EC4 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -230,6 +232,7 @@
 				19D2CA3E1CE16D6800A8AAE0 /* DatePickerViewController.swift */,
 				19DE52DC1CEC2C0B0050A62D /* ScreenSectionSortDetailForAccount.swift */,
 				19A9B7841CF6B75D00071958 /* Q6Struct.swift */,
+				197D2ACE1CFE9BB800E03BEB /* JSON.swift */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -340,6 +343,7 @@
 				19C9083E1CE3F6E300A828A3 /* PurchasesTransactionsDetailView.swift in Sources */,
 				19F9B5691CB1DF0700571B9D /* FMDatabasePool.m in Sources */,
 				19AC96101CEA909B00A9216E /* PurchaseDetailDataLineTaxCodeSearchViewController.swift in Sources */,
+				197D2ACF1CFE9BB800E03BEB /* JSON.swift in Sources */,
 				195AD4AA1CB35DE4002F2DD7 /* PurchaseViewController.swift in Sources */,
 				19DF1C401CE2AA2400908A32 /* PurchaseDetailDataLineTableViewCell.swift in Sources */,
 				19C908461CE443A400A828A3 /* InventoryView.swift in Sources */,

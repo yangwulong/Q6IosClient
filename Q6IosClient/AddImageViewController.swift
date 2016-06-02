@@ -104,14 +104,39 @@ setControlAppear()
     }
     @IBAction func DoneButtonClicked(sender: AnyObject) {
         
-        if attachedImage != nil {
+        if attachedImage != nil  {
             
+          //  if checkImageFileSize(){
             self.delegate?.sendGoBackFromAddImageView("AddImageViewController", forCell: "AddanImageCell", image: attachedImage!)
         
         navigationController?.popViewControllerAnimated(true)
+           // }
         }
         else {
             Q6CommonLib.q6UIAlertPopupController("Information message", message: "You haven't pick a photo", viewController: self) 
+        }
+    }
+    
+    func checkImageFileSize() -> Bool
+    {
+        
+        
+        var imgData: NSData = NSData(data: UIImageJPEGRepresentation((attachedImage)!, 1)!)
+        
+        // var imgData: NSData = UIImagePNGRepresentation(image)
+        // you can also replace UIImageJPEGRepresentation with UIImagePNGRepresentation.
+        var FileSize: Int = imgData.length
+        
+        
+        
+        print("File Size" + FileSize.description)
+        if FileSize > 2000000 {
+            
+                  Q6CommonLib.q6UIAlertPopupController("Information message", message: "Your Photo size can not over 2 MB !", viewController: self)
+            return false
+        }
+        else {
+            return true
         }
     }
     /*

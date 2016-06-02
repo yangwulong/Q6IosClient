@@ -22,7 +22,7 @@ class PickerViewViewController: UIViewController, UIPickerViewDataSource, UIPick
                 if( fromCell == "PurchasesTypecell")
                 {
                     lblPickerViewDescription.text = "Please select a Purchase Type!"
-                    pickerDataSource = ["QUOTE","ORDER","BILL","DEBIT NOTE"]
+                    pickerDataSource = ["Quote","Order","Bill","DebitNote"]
                 }
     }
     override func viewDidLoad() {

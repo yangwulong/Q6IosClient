@@ -13,7 +13,7 @@ public class PurchasesTransactionsHeader
     
     var PurchasesTransactionsHeaderID  = NSUUID() //: String = NSUUID().UUIDString
     var ReferenceNo = String()
-    var PurchasesType: String = "BILL"
+    var PurchasesType: String = "Bill"
     var PurchasesStatus = String()
     var TransactionDate = NSDate()
     var CreateTime = NSDate()
@@ -21,10 +21,11 @@ public class PurchasesTransactionsHeader
     var SupplierID = String()
     var ShipToAddress = String()
     var SupplierInv = String()
-    var Memo = String?()
+    var Memo :String = ""
     var ClosedDate = NSDate?()
     var SubTotal = Double()
     var TaxTotal = Double()
+    var TotalAmount = Double()
     var DueDate = NSDate?()
     var TaxInclusive: Bool = true
     var IsDeleted = Bool()

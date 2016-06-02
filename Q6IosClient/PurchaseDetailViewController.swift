@@ -35,6 +35,8 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
     var operationType = String()
      var hasAddedItemLine = false
     var addItemRowIndex: Int = 0
+    var isPreLoad = false
+    var CompanyID = String()
     override func viewWillAppear(animated: Bool) {
         
        
@@ -55,7 +57,7 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
-        preloadFields()
+      preloadFields()
     }
 
     func preloadFields()
@@ -75,6 +77,7 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
         
         let q6CommonLib = Q6CommonLib(myObject: self)
         webAPICallAction = "InternalUserLogin"
+        isPreLoad = true
         q6CommonLib.Q6IosClientPostAPI("Q6",ActionName: "InternalUserLogin", dicData:dicData)
         
     }
@@ -254,6 +257,8 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
             
             cell.lblSubTotalAmount.text =  String(format: "%.2f", subTotalAmount)
             
+            purchasesTransactionHeader.SubTotal = subTotalAmount
+            
         }
             if resuseIdentifier == "TotalCell" {
                 
@@ -276,6 +281,7 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
                 
                 cell.lblTotalAmount.text =   String(format: "%.2f", totalAmount)
                 
+                purchasesTransactionHeader.TotalAmount = totalAmount
                 // lblTotalLabel.font = UIFont.boldSystemFontOfSize(17.0)
                 //lblTotalAmount.font = UIFont.boldSystemFontOfSize(17.0)
             }
@@ -553,9 +559,9 @@ purchasesDetailScreenLinesDic[i].PrototypeCellID)
                 
                 purchaseDetailMemoViewController.delegate = self
                 
-                if purchasesTransactionHeader.Memo != nil {
-                purchaseDetailMemoViewController.textValue = purchasesTransactionHeader.Memo!
-                }
+                
+                purchaseDetailMemoViewController.textValue = purchasesTransactionHeader.Memo
+               
                 
             }
         }
@@ -564,12 +570,238 @@ purchasesDetailScreenLinesDic[i].PrototypeCellID)
     
     @IBAction func SaveButtonClick(sender: AnyObject) {
         
-        if validateQuantityValue()&&validateDate()
+        if validateQuantityValue()&&validateDate()&&validateIfPurchaseDetailIsNotEmpty()
         {
-            copyFromPurchasesTransactionDetailViewToPurchasesTransactionDetail()
+            
+        purchasesTransactionHeader.TaxTotal = purchasesTransactionHeader.TotalAmount - purchasesTransactionHeader.SubTotal
+            purchasesTransactionHeader.PurchasesStatus = "Open"
+             var dicData=[String:AnyObject]()
+            
+            
+        var q6DBLib = Q6DBLib()
+         let q6CommonLib = Q6CommonLib(myObject: self)
+           var userInfos = q6DBLib.getUserInfos()
+            
+            var LoginDetail = InternalUserLoginParameter()
+            
+            LoginDetail.LoginUserName = userInfos["LoginEmail"]!
+            LoginDetail.Password = userInfos["PassWord"]!
+            LoginDetail.ClientIP = Q6CommonLib.getIPAddresses()
+            LoginDetail.WebApiTOKEN = Q6CommonLib.getQ6WebAPIToken()
+            
+            var NeedValidate = true
+            
+//            dicData["LoginDetail"] = LoginDetail
+//            dicData["NeedValidate"] = true
+//            dicData["PurchasesTransactionsDetail"] = self.purchasesTransactionsDetailData
+//            dicData["PurchasesTransactionsHeader"] = self.purchasesTransactionHeader
+//            dicData["RecurringTemplateList"] = nil
+//            
+//            dicData["UploadedDocuments"] = nil
+            
+            var LoginDetailDicData = [String:AnyObject]()
+            
+            LoginDetailDicData["Email"] = userInfos["LoginEmail"]!
+            LoginDetailDicData["Password"] = userInfos["PassWord"]!
+            LoginDetailDicData["CompanyID"] = userInfos["CompanyID"]!
+            LoginDetailDicData["WebApiTOKEN"] = Q6CommonLib.getQ6WebAPIToken()
+         
+            dicData["LoginDetail"] = LoginDetailDicData
+            
+            if attachedimage != nil {
+                purchasesTransactionHeader.HasLinkedDoc = true
+                
+               var UploadedDocuments = getImageFileDataDic(attachedimage!)
+              
+              dicData["UploadedDocuments"] = UploadedDocuments
+            }
+            else{
+                dicData["UploadedDocuments"] = nil
+            }
+//var str = NSJSONSerialization.dataWithJSONObject(dicData, options: <#T##NSJSONWritingOptions#>)
+           
+        
+//            do {
+//                let jsonData = try NSJSONSerialization.dataWithJSONObject(dicData, options: NSJSONWritingOptions.PrettyPrinted)
+//                print("JSONDATA" + jsonData)
+//                // here "jsonData" is the dictionary encoded in JSON data
+//            } catch let error as NSError {
+//                print(error)
+//            }
+
+            
+            var purchasesTransactionsDetailDataDic = convertpurchasesTransactionsDetailDataTOArray()
+            
+         var purchasesTransactionsHeaderDic =   convertpurchasesTransactionsHeaderToArray()
+            
+            dicData["PurchasesTransactionsDetail"] = purchasesTransactionsDetailDataDic
+            dicData["PurchasesTransactionsHeader"] = purchasesTransactionsHeaderDic
+            dicData["RecurringTemplateList"] = nil
+            
+            dicData["NeedValidate"] = true
+            var purchasesTransactionsParameter = [String: AnyObject]()
+            
+            purchasesTransactionsParameter["PurchasesTransactionsParameter"] = dicData
+//            let json = JSON(purchasesTransactionsParameter)
+//            let jstr = json.toString()
+//            print("JSTR" + jstr)
+             isPreLoad = false
+           q6CommonLib.Q6IosClientPostAPI("Purchase",ActionName: "AddPurchase", dicData:dicData)
+            
+            
         }
     }
     
+    func getImageFileDataDic(image: UIImage) -> [String: AnyObject]
+    {
+        
+        var FileName = "AttachedPhoneImage"
+        //
+        var imgData: NSData = NSData(data: UIImageJPEGRepresentation((image), 1)!)
+        // var imgData: NSData = UIImagePNGRepresentation(image)
+        // you can also replace UIImageJPEGRepresentation with UIImagePNGRepresentation.
+        var FileSize: Int = imgData.length
+        print("File Size" + FileSize.description)
+        var HasLinkedTransaction = false
+        var LinkedTransactionID = String?()
+        var TransactionType = String?()
+        var UploadedBy = String?()
+        
+        var UploadedDate = NSDate().description
+        var UploadedDocumentsID = "{00000000-0000-0000-0000-000000000000}"
+        var i = CGFloat()
+       if  FileSize > 2000000 {
+            
+             i = CGFloat (2000000 / FileSize)
+            
+        }
+        else {
+             i = 1
+        }
+        var imageData = UIImageJPEGRepresentation(image, i)
+        var File = imageData!.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
+        
+       var dicData = [String: AnyObject]()
+        
+        dicData["File"] = File
+        dicData["FileName"] = FileName
+        dicData["FileSize"] = FileSize
+        dicData["HasLinkedTransaction"] = HasLinkedTransaction
+        dicData["TransactionType"] = TransactionType
+        dicData["UploadedBy"] = UploadedBy
+        dicData["UploadedDate"] = UploadedDate
+        dicData["UploadedDocumentsID"] = UploadedDocumentsID
+        
+        return dicData
+      //  print("size of image in KB: %f ", imageSize / 1024)
+    }
+    func convertpurchasesTransactionsHeaderToArray() -> [String: AnyObject]
+    {
+        var dicData = [String: AnyObject]()
+        
+        var PurchasesTransactionsHeaderID  = purchasesTransactionHeader.PurchasesTransactionsHeaderID
+        
+        if operationType == "Create" {
+            dicData["PurchasesTransactionsHeaderID"] = "{00000000-0000-0000-0000-000000000000}"
+        }
+        else {
+            dicData["PurchasesTransactionsHeaderID"] = PurchasesTransactionsHeaderID.UUIDString
+        }
+      dicData["ReferenceNo"] = purchasesTransactionHeader.ReferenceNo
+        
+        dicData["PurchasesType"] = purchasesTransactionHeader.PurchasesType
+        dicData["PurchasesStatus"] = purchasesTransactionHeader.PurchasesStatus
+        dicData["TransactionDate"] = purchasesTransactionHeader.TransactionDate.description
+        
+        print("purchasesTransactionHeader.TransactionDate.description" + purchasesTransactionHeader.TransactionDate.description)
+        dicData["CreateTime"] = purchasesTransactionHeader.CreateTime.description
+        dicData["LastModifiedTime"] = purchasesTransactionHeader.LastModifiedTime.description
+         dicData["SupplierID"] = purchasesTransactionHeader.SupplierID
+          dicData["ShipToAddress"] = purchasesTransactionHeader.ShipToAddress
+        dicData["SupplierInv"] = purchasesTransactionHeader.SupplierInv
+        dicData["Memo"] = purchasesTransactionHeader.Memo
+        
+         dicData["ClosedDate"] = purchasesTransactionHeader.ClosedDate?.description
+        dicData["SubTotal"] = purchasesTransactionHeader.SubTotal
+        dicData["TaxTotal"] = purchasesTransactionHeader.TaxTotal
+         dicData["TotalAmount"] = purchasesTransactionHeader.TotalAmount
+         dicData["DueDate"] = purchasesTransactionHeader.DueDate?.description
+        dicData["TaxInclusive"] = purchasesTransactionHeader.TaxInclusive
+        dicData["IsDeleted"] = purchasesTransactionHeader.IsDeleted
+        dicData["IsCreatedByRecurring"] = purchasesTransactionHeader.IsCreatedByRecurring
+        dicData["RecurringTemplateID"] = purchasesTransactionHeader.RecurringTemplateID
+        dicData["HasLinkedDoc"] = purchasesTransactionHeader.HasLinkedDoc
+  
+        return dicData
+        
+    }
+    
+    func convertpurchasesTransactionsDetailDataTOArray()->[[String : AnyObject]]
+    {
+        var dicData = [[String : AnyObject]]()
+        
+      if   purchasesTransactionsDetailData.count > 0
+      {
+        for i in 0..<purchasesTransactionsDetailData.count
+        {
+            
+          var data = [String : AnyObject]()
+            
+           var PurchasesTransactionsDetailID = purchasesTransactionsDetailData[i].PurchasesTransactionsDetailID
+            if operationType == "Create"{
+                 data["PurchasesTransactionsDetailID"] = "{00000000-0000-0000-0000-000000000000}"
+            }
+            else {
+                 data["PurchasesTransactionsDetailID"] = PurchasesTransactionsDetailID.UUIDString
+            }
+          
+                
+      
+          var PurchasesTransactionsHeaderID = purchasesTransactionsDetailData[i].PurchasesTransactionsHeaderID
+            
+            if operationType == "Create" {
+                  data["PurchasesTransactionsHeaderID"] = "{00000000-0000-0000-0000-000000000000}"
+            }
+            else {
+             data["PurchasesTransactionsHeaderID"] = PurchasesTransactionsHeaderID.UUIDString
+            }
+             data["Quantity"] = purchasesTransactionsDetailData[i].Quantity
+            
+             data["InventoryID"] = purchasesTransactionsDetailData[i].InventoryID
+            data["AccountID"] = purchasesTransactionsDetailData[i].AccountID
+            data["TaxCodeID"] = purchasesTransactionsDetailData[i].TaxCodeID
+             data["Description"] = purchasesTransactionsDetailData[i].Description
+            
+              data["UnitPrice"] = purchasesTransactionsDetailData[i].UnitPrice
+            data["Discount"] = purchasesTransactionsDetailData[i].Discount
+             data["Amount"] = purchasesTransactionsDetailData[i].Amount
+            
+              data["IsDeleted"] = purchasesTransactionsDetailData[i].IsDeleted
+             data["SortNo"] = purchasesTransactionsDetailData[i].SortNo
+            
+           dicData.append(data)
+      
+        }
+        }
+        
+        return dicData
+    }
+    
+    
+    func validateIfPurchaseDetailIsNotEmpty() -> Bool
+    {
+        var IsNotEmpty = true
+        copyFromPurchasesTransactionDetailViewToPurchasesTransactionDetail()
+        if purchasesTransactionsDetailData.count <= 0
+        {
+                Q6CommonLib.q6UIAlertPopupController("Information message", message: "You need to add at least one data line before you save purchase transaction !", viewController: self)
+            
+            IsNotEmpty = false
+        }
+        
+        return IsNotEmpty
+      
+    }
     func validateDate()-> Bool
     {
          var isValid = true
@@ -863,8 +1095,9 @@ purchasesDetailScreenLinesDic[i].PrototypeCellID)
     func dataLoadCompletion(data:NSData?, response:NSURLResponse?, error:NSError?) -> AnyObject
     {
         
-        
-        
+        if isPreLoad == true && operationType == "Create" {
+            
+      
         
         var postDicData :[String:AnyObject]
         var IsLoginSuccessed : Bool
@@ -883,6 +1116,7 @@ purchasesDetailScreenLinesDic[i].PrototypeCellID)
                 var shippingAddress = ShippingAddress()
             var Address = returnValue["ShippingAddress"] as? String
                 
+    
                 if Address != nil {
                     shippingAddress.ShippingAddress = Address!
                 }
@@ -955,6 +1189,49 @@ purchasesDetailScreenLinesDic[i].PrototypeCellID)
             
             return ""
         }
+        }
+    
+         if isPreLoad == false && operationType == "Create" {
+            
+            var postDicData :[String:AnyObject]
+            var IsSuccessed : Bool?
+        
+            do {
+                postDicData = try  NSJSONSerialization.JSONObjectWithData(data!, options: []) as! [String:AnyObject]
+                
+                IsSuccessed = postDicData["IsSuccessed"] as? Bool
+                if IsSuccessed != nil {
+                    IsSuccessed = postDicData["IsSuccessed"] as! Bool
+                }
+////                else{
+//                var message = postDicData["Message"] as! String
+//                print("Message" + message)
+////                }
+                if IsSuccessed == true {
+                    
+                    var nav = navigationController
+                    Q6CommonLib.q6UIAlertPopupControllerThenGoBack("Information message", message: "Save Successfully!", viewController: self,timeArrange:2,navigationController: nav!)
+                    
+//                     public static func q6UIAlertPopupControllerThenGoBack(title: String?,message:String?,viewController: AnyObject? ,timeArrange: Double ,navigationController: UINavigationController)
+//                    var q6CommonLib = Q6CommonLib()
+//                    var returnValue = postDicData["ReturnValue"]! //as! Dictionary<String, AnyObject>
+                    
+                   // navigationController?.popViewControllerAnimated(true)
+
+//               
+                }
+                else {
+                   Q6CommonLib.q6UIAlertPopupController("Information message", message: "Save Fail!", viewController: self, timeArrange:2)
+                }
+                
+            } catch  {
+                print("error parsing response from POST on /posts")
+                
+                return ""
+            }
+                
+            
+        }
         
         //
         return ""
@@ -970,6 +1247,65 @@ purchasesDetailScreenLinesDic[i].PrototypeCellID)
     })
     
     }
+    
+//    func dataLoadCompletion(data:NSData?, response:NSURLResponse?, error:NSError?) -> AnyObject
+//    {
+//        
+//        
+//        
+//        
+//        var postDicData :[String:AnyObject]
+//        var IsLoginSuccessed : Bool
+//        do {
+//            postDicData = try  NSJSONSerialization.JSONObjectWithData(data!, options: []) as! [String:AnyObject]
+//            
+////            
+////            IsLoginSuccessed = postDicData["IsSuccessed"] as! Bool
+////            
+////            
+////            if IsLoginSuccessed == true {
+////                
+////                var q6CommonLib = Q6CommonLib()
+////                var returnValue = postDicData["ReturnValue"]! as! Dictionary<String, AnyObject>
+////                
+////                var companyID = returnValue["CompanyID"] as! String
+////                
+////                //var json = try  NSJSONSerialization.JSONObjectWithData(dd as! NSData, options: NSJSONReadingOptions.MutableContainers) as! Dictionary<String, String>
+////                
+////                let q6DBLib = Q6DBLib()
+////                
+////                
+////                q6DBLib.addUserInfos(txtLoginEmail.text!, PassWord: txtLoginPassword.text!, LoginStatus: "Login",CompanyID: companyID)
+////                //Set any attributes of the view controller before it is displayed, this is where you would set the category text in your code.
+////                
+////                var passCode = q6DBLib.getUserPassCode()
+////                
+////                
+////                
+////                if let passCodeViewController = storyboard!.instantiateViewControllerWithIdentifier("Q6PassCodeViewController") as? PassCodeViewController {
+////                    
+////                    if passCode == nil {
+////                        
+////                        passCodeViewController.ScreenMode = "CreatePassCode"
+////                    }
+////                    else {
+////                        passCodeViewController.ScreenMode = "ValidatePassCode"
+////                    }
+////                    presentViewController(passCodeViewController, animated: true, completion: nil)
+////                }
+////                
+////            }
+//            
+//            
+//        } catch  {
+//            print("error parsing response from POST on /posts")
+//            
+//            return ""
+//        }
+//        
+//        //
+//        return ""
+//    }
     /*
     // Override to support conditional editing of the table view.
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {

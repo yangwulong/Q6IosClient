@@ -105,9 +105,17 @@ class PurchaseViewController: UIViewController, Q6WebApiProtocol,UITableViewDele
                 purchasesTransactionListViewDataItem.PurchasesStatus = dataItem["PurchasesStatus"] as! String
                 
                 purchasesTransactionListViewDataItem.PurchasesStatusString = dataItem["PurchasesStatusString"] as! String
+                
+                var memo = dataItem["Memo"] as? String
+                
+                if memo != nil {
+                
                 purchasesTransactionListViewDataItem.Memo = dataItem["Memo"] as! String
                 
-                
+                }
+                else{
+                    purchasesTransactionListViewDataItem.Memo = ""
+                }
                
                 
               var DueDate = dataItem["DueDate"] as? String

@@ -1,14 +1,15 @@
 //
-//  PurchasesTransactionsHeader.swift
+//  PurchasesTransactionsHeaderView.swift
 //  Q6IosClient
 //
-//  Created by yang wulong on 2/05/2016.
+//  Created by yang wulong on 2/06/2016.
 //  Copyright © 2016 q6. All rights reserved.
 //
 
 import Foundation
 
-public class PurchasesTransactionsHeader
+
+public class PurchasesTransactionsHeaderView
 {
     
     var PurchasesTransactionsHeaderID  = NSUUID().UUIDString //: String = NSUUID().UUIDString
@@ -33,5 +34,15 @@ public class PurchasesTransactionsHeader
     var RecurringTemplateID = String?()
     var HasLinkedDoc = Bool()
     
-   
+    var SupplierName = String()
+    
+
+    var UploadedDocumentsID = NSUUID().UUIDString
+    var LinkDocumentFileName = String()
+    var LinkDocumentFileSize = Double()
+    var LinkDocumentFile = String()
+    
+    
+    
+    
 }

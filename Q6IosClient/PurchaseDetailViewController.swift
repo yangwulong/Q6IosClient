@@ -45,19 +45,30 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        
         setScreenSortLines()
         print("purchasesDetailScreenLinesDic" + purchasesDetailScreenLinesDic.count.description)
      setControlAppear()
         
         purchaseDetailTableView.delegate = self
         purchaseDetailTableView.dataSource = self
-      
+        
+        if operationType == "Edit"
+        {
+             let q6CommonLib = Q6CommonLib(myObject: self)
+            
+            var attachedURL = "&PurchasesTransactionsHeaderID=" + purchasesTransactionHeader.PurchasesTransactionsHeaderID
+            isPreLoad = false
+             q6CommonLib.Q6IosClientGetApi("Purchase", ActionName: "GetPurchasesTransactionsByID", attachedURL: attachedURL)
+        }
+        else {
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
       preloadFields()
+        }
     }
 
     func preloadFields()
@@ -705,7 +716,7 @@ purchasesDetailScreenLinesDic[i].PrototypeCellID)
             dicData["PurchasesTransactionsHeaderID"] = "{00000000-0000-0000-0000-000000000000}"
         }
         else {
-            dicData["PurchasesTransactionsHeaderID"] = PurchasesTransactionsHeaderID.UUIDString
+            dicData["PurchasesTransactionsHeaderID"] = PurchasesTransactionsHeaderID
         }
       dicData["ReferenceNo"] = purchasesTransactionHeader.ReferenceNo
         
@@ -752,7 +763,7 @@ purchasesDetailScreenLinesDic[i].PrototypeCellID)
                  data["PurchasesTransactionsDetailID"] = "{00000000-0000-0000-0000-000000000000}"
             }
             else {
-                 data["PurchasesTransactionsDetailID"] = PurchasesTransactionsDetailID.UUIDString
+                 data["PurchasesTransactionsDetailID"] = PurchasesTransactionsDetailID
             }
           
                 
@@ -763,7 +774,7 @@ purchasesDetailScreenLinesDic[i].PrototypeCellID)
                   data["PurchasesTransactionsHeaderID"] = "{00000000-0000-0000-0000-000000000000}"
             }
             else {
-             data["PurchasesTransactionsHeaderID"] = PurchasesTransactionsHeaderID.UUIDString
+             data["PurchasesTransactionsHeaderID"] = PurchasesTransactionsHeaderID
             }
              data["Quantity"] = purchasesTransactionsDetailData[i].Quantity
             
@@ -1094,6 +1105,30 @@ purchasesDetailScreenLinesDic[i].PrototypeCellID)
     
     func dataLoadCompletion(data:NSData?, response:NSURLResponse?, error:NSError?) -> AnyObject
     {
+        if operationType == "Edit" && isPreLoad == false {
+            
+            var postDicData :[String:AnyObject]
+            
+            do {
+//                if dataRequestSource == "Search" {
+//                    supplierData.removeAll()
+//                    selectedSuplier = nil
+//                }
+                postDicData = try  NSJSONSerialization.JSONObjectWithData(data!, options: []) as! [String:AnyObject]
+                
+                var returnData = postDicData["ReturnValue"] as! [String:AnyObject]
+           
+            
+                var f = 4
+                
+            } catch  {
+                print("error parsing response from POST on /posts")
+                
+                return ""
+            }
+            
+            
+        }
         
         if isPreLoad == true && operationType == "Create" {
             

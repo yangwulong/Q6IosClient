@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		190EBFA21CE5550A00B26E00 /* TaxCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 190EBFA11CE5550A00B26E00 /* TaxCodeView.swift */; };
+		1918D0471CFFDAC600168AA6 /* PurchasesTransactionsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1918D0461CFFDAC600168AA6 /* PurchasesTransactionsHeaderView.swift */; };
 		195AD4A81CB35DAF002F2DD7 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 195AD4A71CB35DAF002F2DD7 /* TabBarViewController.swift */; };
 		195AD4AA1CB35DE4002F2DD7 /* PurchaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 195AD4A91CB35DE4002F2DD7 /* PurchaseViewController.swift */; };
 		19691E8F1C9F8AE200E009A7 /* Q6Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19691E8E1C9F8AE200E009A7 /* Q6Protocol.swift */; };
@@ -64,6 +65,7 @@
 
 /* Begin PBXFileReference section */
 		190EBFA11CE5550A00B26E00 /* TaxCodeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaxCodeView.swift; sourceTree = "<group>"; };
+		1918D0461CFFDAC600168AA6 /* PurchasesTransactionsHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurchasesTransactionsHeaderView.swift; sourceTree = "<group>"; };
 		195AD4A71CB35DAF002F2DD7 /* TabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		195AD4A91CB35DE4002F2DD7 /* PurchaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurchaseViewController.swift; sourceTree = "<group>"; };
 		19691E8E1C9F8AE200E009A7 /* Q6Protocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Q6Protocol.swift; sourceTree = "<group>"; };
@@ -251,6 +253,7 @@
 				19C908471CE44E0900A828A3 /* AccountView.swift */,
 				190EBFA11CE5550A00B26E00 /* TaxCodeView.swift */,
 				19A9B7821CF6B1CC00071958 /* ShippingAddress.swift */,
+				1918D0461CFFDAC600168AA6 /* PurchasesTransactionsHeaderView.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -343,6 +346,7 @@
 				19C9083E1CE3F6E300A828A3 /* PurchasesTransactionsDetailView.swift in Sources */,
 				19F9B5691CB1DF0700571B9D /* FMDatabasePool.m in Sources */,
 				19AC96101CEA909B00A9216E /* PurchaseDetailDataLineTaxCodeSearchViewController.swift in Sources */,
+				1918D0471CFFDAC600168AA6 /* PurchasesTransactionsHeaderView.swift in Sources */,
 				197D2ACF1CFE9BB800E03BEB /* JSON.swift in Sources */,
 				195AD4AA1CB35DE4002F2DD7 /* PurchaseViewController.swift in Sources */,
 				19DF1C401CE2AA2400908A32 /* PurchaseDetailDataLineTableViewCell.swift in Sources */,

@@ -25,6 +25,7 @@ class PurchaseViewController: UIViewController, Q6WebApiProtocol,UITableViewDele
     
     var purchaseTransactionListData = [PurchasesTransactionsListView]()
     
+    var selectedRowNo : Int = 0
     override func viewWillAppear(animated: Bool) {
       //  self.navigationController?.navigationBar.hidden = true
     //    Q6ActivityIndicatorView.center = purchaseTableView.center
@@ -282,6 +283,9 @@ class PurchaseViewController: UIViewController, Q6WebApiProtocol,UITableViewDele
   
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
    
+        selectedRowNo = indexPath.row
+        
+         self.performSegueWithIdentifier("editPurchaseDetail", sender: "PurchasePototypeCELL")
         SearchBar.resignFirstResponder()
     }
     
@@ -309,6 +313,18 @@ class PurchaseViewController: UIViewController, Q6WebApiProtocol,UITableViewDele
       purchaseDetailViewController.operationType = operationType.Create
             print("purchaseDetailViewController.operationType" + purchaseDetailViewController.operationType)
 //            purchaseDetailDataLineInventorySearchViewController.delegate = self
+            
+        }
+        if segue.identifier == "editPurchaseDetail" {
+            
+            var operationType = OperationType()
+            
+            var purchaseDetailViewController = segue.destinationViewController as! PurchaseDetailViewController
+            purchaseDetailViewController.operationType = operationType.Edit
+            purchaseDetailViewController.purchasesTransactionHeader.PurchasesTransactionsHeaderID = purchaseTransactionListData[selectedRowNo].PurchasesTransactionsHeaderID
+            
+            print("purchaseDetailViewController.operationType" + purchaseDetailViewController.operationType)
+            //            purchaseDetailDataLineInventorySearchViewController.delegate = self
             
         }
         

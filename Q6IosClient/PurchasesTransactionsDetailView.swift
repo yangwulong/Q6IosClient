@@ -14,12 +14,12 @@ public class PurchasesTransactionsDetailView
     var PurchasesTransactionsHeaderID = NSUUID().UUIDString
     var Quantity:Double = 0
     var InventoryID = String?()
-    var InventoryNameWithInventoryNO: String = ""
+    var InventoryName: String = ""
     var AccountID = String?()
     var AccountNameWithAccountNo:String = ""
     var TaxCodeID = String?()
     var TaxCodeName = String()
-    var TaxRate = Double()
+    var TaxCodeRate = Double()
     var Description: String = ""
     var UnitPrice:Double = 0
     var Discount = Double?()

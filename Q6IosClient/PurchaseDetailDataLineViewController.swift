@@ -90,7 +90,7 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
            
             // print("purchasesTransactionsDetailView.AccountNameWithAccountNo" + purchasesTransactionsDetailView.AccountNameWithAccountNo)
        
-           cell.lblInventoryName.text = purchasesTransactionsDetailView.InventoryNameWithInventoryNO
+           cell.lblInventoryName.text = purchasesTransactionsDetailView.InventoryName
           
             // lblTotalLabel.font = UIFont.boldSystemFontOfSize(17.0)
             //lblTotalAmount.font = UIFont.boldSystemFontOfSize(17.0)
@@ -156,7 +156,7 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
                        
                             
                         purchasesTransactionsDetailView.TaxCodeID = selectedAccountView?.TaxCodeID
-                        purchasesTransactionsDetailView.TaxRate = (selectedAccountView?.TaxRate)!
+                        purchasesTransactionsDetailView.TaxCodeRate = (selectedAccountView?.TaxRate)!
                         purchasesTransactionsDetailView.TaxCodeName = (selectedAccountView?.TaxCodeName)!
                        
                        // cell.taxCodeButton.enabled = false
@@ -171,7 +171,7 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
                     
                    
                 purchasesTransactionsDetailView.TaxCodeID = selectedInventoryView?.PurchaseTaxCodeID
-                purchasesTransactionsDetailView.TaxRate = selectedInventoryView!.PurchaseTaxCodeRate!
+                purchasesTransactionsDetailView.TaxCodeRate = selectedInventoryView!.PurchaseTaxCodeRate!
                 purchasesTransactionsDetailView.TaxCodeName = selectedInventoryView!.PurchaseTaxCodeName
                    
                // cell.taxCodeButton.enabled = false
@@ -187,7 +187,7 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
                   
                 purchasesTransactionsDetailView.TaxCodeID = supplier?.DefaultPurchasesTaxCodeID
                 purchasesTransactionsDetailView.TaxCodeName = (supplier?.DefaultPurchasesTaxCodeName)!
-                purchasesTransactionsDetailView.TaxRate = (supplier?.DefaultPurchasesTaxCodeRate)!
+                purchasesTransactionsDetailView.TaxCodeRate = (supplier?.DefaultPurchasesTaxCodeRate)!
                 
                     //cell.taxCodeButton.enabled = false
                 }
@@ -249,9 +249,13 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
             {
                 if selectedInventoryView != nil {
                     
+                    if purchasesTransactionHeader.TaxInclusive == true
+                    {
+                        
+                    
                     if  selectedInventoryView?.IsPurchasePriceTaxInclusive == true {
                         
-                        cell.lblUnitPrice.text = String(format: "%.2f", (selectedInventoryView?.PurchasePrice)!)
+                        cell.lblUnitPrice.text = String(format: "%.4f", (selectedInventoryView?.PurchasePrice)!)
                         purchasesTransactionsDetailView.UnitPrice = (selectedInventoryView?.PurchasePrice)!
                     }
                     else {
@@ -261,12 +265,36 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
                         
                         var purchasePriceTaxRate = selectedInventoryView?.PurchaseTaxCodeRate
                         purchasePrice = purchasePrice + purchasePrice * purchasePriceTaxRate! / 100
-                        cell.lblUnitPrice.text = String(format: "%.2f", purchasePrice)
+                        cell.lblUnitPrice.text = String(format: "%.4f", purchasePrice)
                         purchasesTransactionsDetailView.UnitPrice = purchasePrice
                         }
                         else {
                             print("nil")
                         }
+                    }
+                    }
+                    
+                    else {
+                        
+                        if  selectedInventoryView?.IsPurchasePriceTaxInclusive == true {
+                            
+                            var purchasePrice = (selectedInventoryView?.PurchasePrice)! as Double
+                            
+                            var purchasePriceTaxRate = selectedInventoryView?.PurchaseTaxCodeRate
+                            purchasePrice = purchasePrice + purchasePrice * purchasePriceTaxRate! / 100
+                            
+                            var purchasePriceWithoutTax = purchasePrice*(1 - purchasePriceTaxRate!/100)
+                            
+                            cell.lblUnitPrice.text = String(format: "%.4f", purchasePriceWithoutTax)
+                            purchasesTransactionsDetailView.UnitPrice = purchasePriceWithoutTax                        }
+                        else {
+                            
+                            cell.lblUnitPrice.text = String(format: "%.4f", (selectedInventoryView?.PurchasePrice)!)
+                            purchasesTransactionsDetailView.UnitPrice = (selectedInventoryView?.PurchasePrice)!
+                        }
+                      
+                                
+                        
                     }
                 }
             }
@@ -426,7 +454,7 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
     
      func sendGoBackFromPurchaseDetailDataLineInventorySearchView(fromView:String,forCell:String,inventoryView: InventoryView){
         purchasesTransactionsDetailView.InventoryID = inventoryView.InventoryID
-        purchasesTransactionsDetailView.InventoryNameWithInventoryNO = inventoryView.InventoryName
+        purchasesTransactionsDetailView.InventoryName = inventoryView.InventoryName
         selectedInventoryView = inventoryView
         
         reloadFromCell = "InventoryCell"
@@ -452,7 +480,7 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
      {
         purchasesTransactionsDetailView.TaxCodeID = taxCodeView.TaxCodeID
         purchasesTransactionsDetailView.TaxCodeName = taxCodeView.TaxCodeName
-        purchasesTransactionsDetailView.TaxRate = taxCodeView.TaxRate
+        purchasesTransactionsDetailView.TaxCodeRate = taxCodeView.TaxRate
         
            reloadFromCell = "TaxCodeCell"
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
@@ -539,7 +567,7 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
                         UnitPriceTextField.text = "0.00"
                     } else {
                     //round to 4 decimal place
-                    UnitPriceTextField.text =  String(format: "%.2f",Double(round(10000 * UnitPrice)/10000))
+                    UnitPriceTextField.text =  String(format: "%.4f",Double(round(10000 * UnitPrice)/10000))
                     }
                 }
               
@@ -744,7 +772,7 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
         
         if purchasesTransactionsDetailView.TaxCodeID != nil
         {
-        var taxRate = purchasesTransactionsDetailView.TaxRate as Double
+        var taxRate = purchasesTransactionsDetailView.TaxCodeRate as Double
         
         var amountWithOutTax = 100*amount/(100 + taxRate)
         purchasesTransactionsDetailView.AmountWithoutTax = amountWithOutTax

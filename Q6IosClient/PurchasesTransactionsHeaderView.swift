@@ -37,10 +37,10 @@ public class PurchasesTransactionsHeaderView
     var SupplierName = String()
     
 
-    var UploadedDocumentsID = NSUUID().UUIDString
-    var LinkDocumentFileName = String()
-    var LinkDocumentFileSize = Double()
-    var LinkDocumentFile = String()
+    var UploadedDocumentsID = String?()
+    var LinkDocumentFileName = String?()
+    var LinkDocumentFileSize = Double?()
+    var LinkDocumentFile = String?()
     
     
     

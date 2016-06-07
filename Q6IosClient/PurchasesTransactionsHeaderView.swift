@@ -18,7 +18,7 @@ public class PurchasesTransactionsHeaderView
     var PurchasesStatus = String()
     var TransactionDate = NSDate()
     var CreateTime = NSDate()
-    var LastModifiedTime = NSDate()
+    var LastModifiedTime = String()
     var SupplierID = String()
     var ShipToAddress = String()
     var SupplierInv = String()

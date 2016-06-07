@@ -14,10 +14,10 @@ public class PurchasesTransactionsHeader
     var PurchasesTransactionsHeaderID  = NSUUID().UUIDString //: String = NSUUID().UUIDString
     var ReferenceNo = String()
     var PurchasesType: String = "Bill"
-    var PurchasesStatus = String()
+    var PurchasesStatus :String = "Open"
     var TransactionDate = NSDate()
     var CreateTime = NSDate()
-    var LastModifiedTime = NSDate()
+    var LastModifiedTime = String()
     var SupplierID = String()
     var ShipToAddress = String()
     var SupplierInv = String()

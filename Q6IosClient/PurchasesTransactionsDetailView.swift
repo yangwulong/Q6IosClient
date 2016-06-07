@@ -19,7 +19,7 @@ public class PurchasesTransactionsDetailView
     var AccountNameWithAccountNo:String = ""
     var TaxCodeID = String?()
     var TaxCodeName = String()
-    var TaxCodeRate = Double()
+    var TaxCodeRate = Double?()
     var Description: String = ""
     var UnitPrice:Double = 0
     var Discount = Double?()

@@ -22,6 +22,10 @@ class AddImageViewController: UIViewController,UIImagePickerControllerDelegate,U
     override func viewDidLoad() {
         super.viewDidLoad()
 setControlAppear()
+        
+        if attachedImage != nil {
+            imageView.image = attachedImage
+        }
         // Do any additional setup after loading the view.
     }
     

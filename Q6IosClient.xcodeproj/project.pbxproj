@@ -34,6 +34,8 @@
 		19C908421CE4014A00A828A3 /* PurchaseDetailDataLineInventorySearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C908411CE4014A00A828A3 /* PurchaseDetailDataLineInventorySearchViewController.swift */; };
 		19C908461CE443A400A828A3 /* InventoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C908451CE443A400A828A3 /* InventoryView.swift */; };
 		19C908481CE44E0900A828A3 /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C908471CE44E0900A828A3 /* AccountView.swift */; };
+		19D009E31D07D29300217C6A /* SalesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19D009E21D07D29300217C6A /* SalesViewController.swift */; };
+		19D009E81D07D88300217C6A /* Sales.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 19D009E61D07D88300217C6A /* Sales.storyboard */; };
 		19D0C64A1CD7230E0055093C /* PurchasesTransactionsHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19D0C6491CD7230E0055093C /* PurchasesTransactionsHeader.swift */; };
 		19D0C64C1CD7256A0055093C /* PurchasesTransactionsDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19D0C64B1CD7256A0055093C /* PurchasesTransactionsDetail.swift */; };
 		19D2CA3F1CE16D6800A8AAE0 /* DatePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19D2CA3E1CE16D6800A8AAE0 /* DatePickerViewController.swift */; };
@@ -93,6 +95,8 @@
 		19C908411CE4014A00A828A3 /* PurchaseDetailDataLineInventorySearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurchaseDetailDataLineInventorySearchViewController.swift; sourceTree = "<group>"; };
 		19C908451CE443A400A828A3 /* InventoryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InventoryView.swift; sourceTree = "<group>"; };
 		19C908471CE44E0900A828A3 /* AccountView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
+		19D009E21D07D29300217C6A /* SalesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SalesViewController.swift; sourceTree = "<group>"; };
+		19D009E71D07D88300217C6A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Sales.storyboard; sourceTree = "<group>"; };
 		19D0C6491CD7230E0055093C /* PurchasesTransactionsHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurchasesTransactionsHeader.swift; sourceTree = "<group>"; };
 		19D0C64B1CD7256A0055093C /* PurchasesTransactionsDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurchasesTransactionsDetail.swift; sourceTree = "<group>"; };
 		19D2CA3E1CE16D6800A8AAE0 /* DatePickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatePickerViewController.swift; sourceTree = "<group>"; };
@@ -171,6 +175,14 @@
 			name = Purchases;
 			sourceTree = "<group>";
 		};
+		19D009E11D07D21800217C6A /* Sales */ = {
+			isa = PBXGroup;
+			children = (
+				19D009E21D07D29300217C6A /* SalesViewController.swift */,
+			);
+			name = Sales;
+			sourceTree = "<group>";
+		};
 		19FD13191C9A134800E5C445 = {
 			isa = PBXGroup;
 			children = (
@@ -208,6 +220,8 @@
 				19B87D551CDAFE220048AAFB /* Purchases */,
 				19FD13251C9A134800E5C445 /* AppDelegate.swift */,
 				19DDD7B11CB7701900FC32A5 /* Main.storyboard */,
+				19D009E61D07D88300217C6A /* Sales.storyboard */,
+				19D009E11D07D21800217C6A /* Sales */,
 				195AD4A71CB35DAF002F2DD7 /* TabBarViewController.swift */,
 				19F9B5731CB21D7600571B9D /* PassCodeViewController.swift */,
 				199F0CD21CA0BE0C00301EC4 /* LoginViewController.swift */,
@@ -321,6 +335,7 @@
 				19FD13321C9A134800E5C445 /* LaunchScreen.storyboard in Resources */,
 				19DDD7B31CB7701900FC32A5 /* Main.storyboard in Resources */,
 				19FD132F1C9A134800E5C445 /* Assets.xcassets in Resources */,
+				19D009E81D07D88300217C6A /* Sales.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -342,6 +357,7 @@
 				198BD7DB1CC9F58700C81C22 /* PurchasesTransactionsListView.swift in Sources */,
 				19DE52DD1CEC2C0B0050A62D /* ScreenSectionSortDetailForAccount.swift in Sources */,
 				19A9B7831CF6B1CC00071958 /* ShippingAddress.swift in Sources */,
+				19D009E31D07D29300217C6A /* SalesViewController.swift in Sources */,
 				199F0CD31CA0BE0C00301EC4 /* LoginViewController.swift in Sources */,
 				19C9083E1CE3F6E300A828A3 /* PurchasesTransactionsDetailView.swift in Sources */,
 				19F9B5691CB1DF0700571B9D /* FMDatabasePool.m in Sources */,
@@ -386,6 +402,14 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		19D009E61D07D88300217C6A /* Sales.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				19D009E71D07D88300217C6A /* Base */,
+			);
+			name = Sales.storyboard;
+			sourceTree = "<group>";
+		};
 		19DDD7B11CB7701900FC32A5 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (

@@ -30,16 +30,22 @@ class PurchaseViewController: UIViewController, Q6WebApiProtocol,UITableViewDele
       //  self.navigationController?.navigationBar.hidden = true
     //    Q6ActivityIndicatorView.center = purchaseTableView.center
        
+        
+        
+    }
+    override func viewDidAppear(animated: Bool) {
+        Q6ActivityIndicatorView.startAnimating()
+        setControlAppear()
+        let q6CommonLib = Q6CommonLib(myObject: self)
+        // var attachedURL: String = "&Type=AllPurchases&SearchText=&StartDate=&EndDate=&PageSize=20&PageIndex=" + String(pageIndex)
+        
+        setAttachedURL(searchText, PageSize: pageSize, PageIndex: pageIndex)
+        dataRequestSource = "Search"
+        q6CommonLib.Q6IosClientGetApi("Purchase", ActionName: "GetPurchasesTransactionsList", attachedURL: attachedURL)
     }
     override func viewDidLoad() {
         super.viewDidLoad()
- Q6ActivityIndicatorView.startAnimating()
-        setControlAppear()
-  let q6CommonLib = Q6CommonLib(myObject: self)
-       // var attachedURL: String = "&Type=AllPurchases&SearchText=&StartDate=&EndDate=&PageSize=20&PageIndex=" + String(pageIndex)
-        
-        setAttachedURL(searchText, PageSize: pageSize, PageIndex: pageIndex)
-        q6CommonLib.Q6IosClientGetApi("Purchase", ActionName: "GetPurchasesTransactionsList", attachedURL: attachedURL)
+
         
 
      

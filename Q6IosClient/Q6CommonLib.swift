@@ -231,7 +231,7 @@ public class Q6CommonLib{
         // create some JSON data and configure the request
         let jsonString = convertDictionaryToJSONData(dicData)
         
-       print(jsonString)
+      // print(jsonString)
         request.HTTPBody = jsonString.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)
         request.HTTPMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")

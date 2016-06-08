@@ -232,7 +232,7 @@ setControlAppear()
            // navigationController?.popToRootViewControllerAnimated(true)
     }
     @IBAction func DoneButtonClick(sender: AnyObject) {
-        
+     
         if selectedSuplier == nil {
             
             Q6CommonLib.q6UIAlertPopupController("Information message", message: "You haven't select a supplier", viewController: self)
@@ -243,9 +243,9 @@ setControlAppear()
 //        
             
             navigationController?.popViewControllerAnimated(true)
-     // navigationController?.popToRootViewControllerAnimated(true)
+   
         }
-//        print("PickView selected row" + selectedValue)
+
         
     }
     /*

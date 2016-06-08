@@ -65,6 +65,7 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
             q6CommonLib.Q6IosClientGetApi("Purchase", ActionName: "GetPurchasesTransactionsByID", attachedURL: attachedURL)
         }
         else {
+              Q6ActivityIndicatorView.hidden = true
             // Uncomment the following line to preserve selection between presentations
             // self.clearsSelectionOnViewWillAppear = false
             
@@ -592,21 +593,16 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
     
     @IBAction func SaveButtonClick(sender: AnyObject) {
         
+      
+        
         if validateQuantityValue()&&validateDate()&&validateIfPurchaseDetailIsNotEmpty()
         {
+            Q6ActivityIndicatorView.hidden = false 
+            Q6ActivityIndicatorView.startAnimating()
             
             purchasesTransactionHeader.TaxTotal = purchasesTransactionHeader.TotalAmount - purchasesTransactionHeader.SubTotal
             
-//            if operationType == "Edit" {
-//                var currentDate = NSDate()
-//            
-//                dateFormatter.timeZone = NSTimeZone(name: "UTC")
-//                dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SS"
-//                purchasesTransactionHeader.LastModifiedTime = NSDate.date()
-//                
-//                print("purchasesTransactionHeader.LastModifiedTime" + purchasesTransactionHeader.LastModifiedTime.description)
-//            }
-           // purchasesTransactionHeader.PurchasesStatus = "Open"
+
             var dicData=[String:AnyObject]()
             
             
@@ -623,13 +619,7 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
             
             var NeedValidate = true
             
-            //            dicData["LoginDetail"] = LoginDetail
-            //            dicData["NeedValidate"] = true
-            //            dicData["PurchasesTransactionsDetail"] = self.purchasesTransactionsDetailData
-            //            dicData["PurchasesTransactionsHeader"] = self.purchasesTransactionHeader
-            //            dicData["RecurringTemplateList"] = nil
-            //
-            //            dicData["UploadedDocuments"] = nil
+ 
             
             var LoginDetailDicData = [String:AnyObject]()
             
@@ -650,16 +640,7 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
             else{
                 dicData["UploadedDocuments"] = nil
             }
-            //var str = NSJSONSerialization.dataWithJSONObject(dicData, options: <#T##NSJSONWritingOptions#>)
-            
-            
-            //            do {
-            //                let jsonData = try NSJSONSerialization.dataWithJSONObject(dicData, options: NSJSONWritingOptions.PrettyPrinted)
-            //                print("JSONDATA" + jsonData)
-            //                // here "jsonData" is the dictionary encoded in JSON data
-            //            } catch let error as NSError {
-            //                print(error)
-            //            }
+
             
             
             var purchasesTransactionsDetailDataDic = convertpurchasesTransactionsDetailDataTOArray()
@@ -674,9 +655,7 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
             var purchasesTransactionsParameter = [String: AnyObject]()
             
             purchasesTransactionsParameter["PurchasesTransactionsParameter"] = dicData
-            //            let json = JSON(purchasesTransactionsParameter)
-            //            let jstr = json.toString()
-            //            print("JSTR" + jstr)
+     
             isPreLoad = false
             
             if operationType == "Create" {
@@ -764,7 +743,12 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
 //       var strLastModifiedTime = dateFormatter.stringFromDate(LastModifiedTime)
 //        print("strLastModifiedTime" + strLastModifiedTime)
         
+        if operationType == "Create" {
+            dicData["LastModifiedTime"] = purchasesTransactionHeader.CreateTime.description
+        }
+        else{
         dicData["LastModifiedTime"] = purchasesTransactionHeader.LastModifiedTime
+        }
 
         dicData["SupplierID"] = purchasesTransactionHeader.SupplierID
         dicData["ShipToAddress"] = purchasesTransactionHeader.ShipToAddress
@@ -1380,8 +1364,28 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
                 if IsSuccessed == true {
                     
                     var nav = navigationController
-                    Q6CommonLib.q6UIAlertPopupControllerThenGoBack("Information message", message: "Save Successfully!", viewController: self,timeArrange:2,navigationController: nav!)
+                   // Q6CommonLib.q6UIAlertPopupControllerThenGoBack("Information message", message: "Save Successfully!", viewController: self,timeArrange:3,navigationController: nav!)
                     
+                    
+                    let alert = UIAlertController(title: "Information message", message: "Save Successfully!", preferredStyle: UIAlertControllerStyle.Alert)
+                   self.presentViewController(alert, animated: true, completion: nil)
+                    
+                    
+                    let delayTime = dispatch_time(DISPATCH_TIME_NOW,
+                                                  Int64(3 * Double(NSEC_PER_SEC)))
+                    let delayTime2 = dispatch_time(DISPATCH_TIME_NOW,
+                                                  Int64(4 * Double(NSEC_PER_SEC)))
+                    dispatch_after(delayTime, dispatch_get_main_queue()) {
+                        self.dismissViewControllerAnimated(true, completion: nil);
+                      // self.navigationController!.popViewControllerAnimated(true)
+                       // self.navigationController?.popToRootViewControllerAnimated(true)
+                    }
+                    dispatch_after(delayTime2, dispatch_get_main_queue()) {
+                       // self.dismissViewControllerAnimated(true, completion: nil);
+                        self.navigationController!.popViewControllerAnimated(true)
+                        // self.navigationController?.popToRootViewControllerAnimated(true)
+                    }
+                    //self.navigationController!.popViewControllerAnimated(true)
                     //                     public static func q6UIAlertPopupControllerThenGoBack(title: String?,message:String?,viewController: AnyObject? ,timeArrange: Double ,navigationController: UINavigationController)
                     //                    var q6CommonLib = Q6CommonLib()
                     //                    var returnValue = postDicData["ReturnValue"]! //as! Dictionary<String, AnyObject>

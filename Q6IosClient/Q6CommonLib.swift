@@ -54,6 +54,16 @@ public class Q6CommonLib{
         self.delegate = myObject
     }
     
+    init(myObject: SalesViewController){
+        
+        self.delegate = myObject
+    }
+    
+    init(myObject: SaleDetailViewController){
+        
+        self.delegate = myObject
+    }
+    
     func validateIfTouchIDExist()->Bool{
         
         let context = LAContext()

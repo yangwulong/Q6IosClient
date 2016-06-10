@@ -15,4 +15,5 @@ public class ScreenSortLinesDetail
     var LineDescription = String()
     var isAdded: Bool = false
     var purchasesTransactionsDetailView = PurchasesTransactionsDetailView?()
+    var salesTransactionsDetailView = SalesTransactionsDetailView?()
 }

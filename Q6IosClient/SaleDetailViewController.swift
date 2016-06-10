@@ -1,5 +1,5 @@
 //
-//  PurchaseDetailViewController.swift
+//  saleDetailViewController.swift
 //  Q6IosClient
 //
 //  Created by yang wulong on 3/05/2016.
@@ -8,27 +8,27 @@
 
 import UIKit
 
-class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITableViewDataSource,Q6GoBackFromView, Q6WebApiProtocol {
+class SaleDetailViewController: UIViewController, UITableViewDelegate ,UITableViewDataSource,Q6GoBackFromView, Q6WebApiProtocol {
     
     
     @IBOutlet weak var Q6ActivityIndicatorView: UIActivityIndicatorView!
-    // @IBOutlet weak var lblPurchasesType: UILabel!
-    @IBOutlet var purchaseDetailTableView: UITableView!
+    // @IBOutlet weak var lblsalesType: UILabel!
+    @IBOutlet var saleDetailTableView: UITableView!
     //@IBOutlet weak var lblTotalAmount: UILabel!
     //@IBOutlet weak var lblTotalLabel: UILabel!
     
-    var purchasesDetailScreenLinesDic = [ScreenSortLinesDetail]()
+    var salesDetailScreenLinesDic = [ScreenSortLinesDetail]()
     
-    var originalRowsDic: [Int: String] = [0: "PurchasesTypecell", 1: "SupplierCell",2: "DueDateCell",3: "AddanItemCell",4: "SubTotalCell",5: "TotalCell",6: "TransactionDateCell",7: "MemoCell",8: "AddanImageCell"]
+    var originalRowsDic: [Int: String] = [0: "SalesTypecell", 1: "CustomerCell",2: "DueDateCell",3: "AddanItemCell",4: "SubTotalCell",5: "TotalCell",6: "TransactionDateCell",7: "MemoCell",8: "AddanImageCell"]
     
     var addItemsDic = [Int:String]()
     
     var backFrom = String()
     
-    var purchasesTransactionHeader = PurchasesTransactionsHeader()
-    var purchasesTransactionsDetailData = [PurchasesTransactionsDetail]()
+    var salesTransactionHeader = SalesTransactionsHeader()
+    var salesTransactionsDetailData = [SalesTransactionsDetail]()
     
-    var supplier = Supplier()
+    var customer = Customer()
     
     var attachedimage = UIImage?()
     
@@ -41,31 +41,31 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
     override func viewWillAppear(animated: Bool) {
         
         
-        print("PurchaseDetailViewController" + operationType)
+        print("SaleDetailViewController" + operationType)
     }
     override func viewDidLoad() {
         super.viewDidLoad()
         
         
         setScreenSortLines()
-        print("purchasesDetailScreenLinesDic" + purchasesDetailScreenLinesDic.count.description)
+        print("salesDetailScreenLinesDic" + salesDetailScreenLinesDic.count.description)
         setControlAppear()
         
-        purchaseDetailTableView.delegate = self
-        purchaseDetailTableView.dataSource = self
+        saleDetailTableView.delegate = self
+        saleDetailTableView.dataSource = self
         
         if operationType == "Edit"
         {
-            purchaseDetailTableView.hidden = true
+            saleDetailTableView.hidden = true
             Q6ActivityIndicatorView.startAnimating()
             let q6CommonLib = Q6CommonLib(myObject: self)
             
-            var attachedURL = "&PurchasesTransactionsHeaderID=" + purchasesTransactionHeader.PurchasesTransactionsHeaderID
+            var attachedURL = "&SalesTransactionsHeaderID=" + salesTransactionHeader.SalesTransactionsHeaderID
             isPreLoad = true
-            q6CommonLib.Q6IosClientGetApi("Purchase", ActionName: "GetPurchasesTransactionsByID", attachedURL: attachedURL)
+            q6CommonLib.Q6IosClientGetApi("Sale", ActionName: "GetSalesTransactionsByID", attachedURL: attachedURL)
         }
         else {
-              Q6ActivityIndicatorView.hidden = true
+            Q6ActivityIndicatorView.hidden = true
             // Uncomment the following line to preserve selection between presentations
             // self.clearsSelectionOnViewWillAppear = false
             
@@ -98,7 +98,7 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
     }
     func setScreenSortLines()
     {
-        if ValidteWhetherHasAddedLinesInPurchasesDetailScreenLinesDic() == false
+        if ValidteWhetherHasAddedLinesInsalesDetailScreenLinesDic() == false
         {
             for index in 0 ... 8 {
                 
@@ -107,9 +107,9 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
                 
                 switch index {
                 case 0:
-                    prototypeCell = "PurchasesTypecell"
+                    prototypeCell = "SalesTypecell"
                 case 1:
-                    prototypeCell = "SupplierCell"
+                    prototypeCell = "CustomerCell"
                 case 2:
                     prototypeCell = "DueDateCell"
                 case 3:
@@ -132,7 +132,7 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
                 screenSortLinesDetail.PrototypeCellID = prototypeCell
                 screenSortLinesDetail.LineDescription = "OriginalLine"
                 
-                purchasesDetailScreenLinesDic.append(screenSortLinesDetail)
+                salesDetailScreenLinesDic.append(screenSortLinesDetail)
                 
             }
         }
@@ -143,7 +143,7 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
         // lblTotalLabel.font = UIFont.boldSystemFontOfSize(17.0)
         //lblTotalAmount.font = UIFont.boldSystemFontOfSize(17.0)
         
-        purchaseDetailTableView.tableFooterView = UIView(frame: CGRectZero)
+        saleDetailTableView.tableFooterView = UIView(frame: CGRectZero)
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -162,7 +162,7 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
         
         // print("addItemsDic" + addItemsDic.count.description)
         // return originalRowsDic.count + addItemsDic.count
-        return purchasesDetailScreenLinesDic.count
+        return salesDetailScreenLinesDic.count
     }
     
     
@@ -175,28 +175,28 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
         //             resuseIdentifier = originalRowsDic[5]!
         //        }
         
-        var screenSortLinesDetail = purchasesDetailScreenLinesDic[indexPath.row]  as ScreenSortLinesDetail
+        var screenSortLinesDetail = salesDetailScreenLinesDic[indexPath.row]  as ScreenSortLinesDetail
         
         resuseIdentifier = screenSortLinesDetail.PrototypeCellID
-        let cell = tableView.dequeueReusableCellWithIdentifier(resuseIdentifier, forIndexPath: indexPath) as! PurchaseDetailTableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(resuseIdentifier, forIndexPath: indexPath) as! SaleDetailTableViewCell
         
         
-        if resuseIdentifier == "PurchasesTypecell" {
+        if resuseIdentifier == "SalesTypecell" {
             
-            cell.lblPurchasesType.text = purchasesTransactionHeader.PurchasesType
+            cell.lblSalesType.text = salesTransactionHeader.SalesType
             
             if operationType != "Create"{
-                cell.PurchasesTypeButton.enabled = false
+                cell.SalesTypeButton.enabled = false
             }
             // lblTotalLabel.font = UIFont.boldSystemFontOfSize(17.0)
             //lblTotalAmount.font = UIFont.boldSystemFontOfSize(17.0)
         }
-        if resuseIdentifier == "SupplierCell" {
+        if resuseIdentifier == "CustomerCell" {
             
-            cell.lblSupplierName.text = supplier.SupplierName
+            cell.lblCustomerName.text = customer.CustomerName
             
             if operationType != "Create" {
-                cell.SupplierButton.enabled = false
+                cell.CustomerButton.enabled = false
                 
             }
             
@@ -206,11 +206,11 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
         
         if resuseIdentifier == "DueDateCell" {
             
-         
-            if purchasesTransactionHeader.DueDate != nil {
+            
+            if salesTransactionHeader.DueDate != nil {
                 
                 
-                cell.lblDueDate.text = purchasesTransactionHeader.DueDate!.formatted
+                cell.lblDueDate.text = salesTransactionHeader.DueDate!.formatted
             }
             
             
@@ -223,7 +223,7 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
         
         if resuseIdentifier == "AddanItemCell" {
             
-            if purchasesDetailScreenLinesDic[indexPath.row].isAdded == true {
+            if salesDetailScreenLinesDic[indexPath.row].isAdded == true {
                 
                 let image = UIImage(named: "Minus-25") as UIImage?
                 
@@ -233,7 +233,7 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
                 
                 
                 cell.AddDeleteButton.setImage(image, forState: .Normal)
-                cell.LineDescription.text = purchasesDetailScreenLinesDic[indexPath.row].LineDescription
+                cell.LineDescription.text = salesDetailScreenLinesDic[indexPath.row].LineDescription
                 
             }
             else {
@@ -259,24 +259,24 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
             
             var subTotalAmount: Double = 0
             
-      
-            for i in 0 ..< purchasesDetailScreenLinesDic.count
+            
+            for i in 0 ..< salesDetailScreenLinesDic.count
             {
-                if purchasesDetailScreenLinesDic[i].isAdded == true
+                if salesDetailScreenLinesDic[i].isAdded == true
                 {
-                    if purchasesDetailScreenLinesDic[i].purchasesTransactionsDetailView != nil {
+                    if salesDetailScreenLinesDic[i].salesTransactionsDetailView != nil {
                         
-                        var purchasesTransactionsDetailView = purchasesDetailScreenLinesDic[i].purchasesTransactionsDetailView
+                        var salesTransactionsDetailView = salesDetailScreenLinesDic[i].salesTransactionsDetailView
                         
-                        subTotalAmount = subTotalAmount + (purchasesTransactionsDetailView?.AmountWithoutTax)!
+                        subTotalAmount = subTotalAmount + (salesTransactionsDetailView?.AmountWithoutTax)!
                     }
                 }
             }
-                
+            
             
             cell.lblSubTotalAmount.text =  String(format: "%.2f", subTotalAmount)
             
-            purchasesTransactionHeader.SubTotal = subTotalAmount
+            salesTransactionHeader.SubTotal = subTotalAmount
             
         }
         if resuseIdentifier == "TotalCell" {
@@ -285,22 +285,22 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
             cell.lblTotalAmount.font = UIFont.boldSystemFontOfSize(17.0)
             
             var totalAmount: Double = 0
-            for i in 0 ..< purchasesDetailScreenLinesDic.count
+            for i in 0 ..< salesDetailScreenLinesDic.count
             {
-                if purchasesDetailScreenLinesDic[i].isAdded == true
+                if salesDetailScreenLinesDic[i].isAdded == true
                 {
-                    if purchasesDetailScreenLinesDic[i].purchasesTransactionsDetailView != nil {
+                    if salesDetailScreenLinesDic[i].salesTransactionsDetailView != nil {
                         
-                        var purchasesTransactionsDetailView = purchasesDetailScreenLinesDic[i].purchasesTransactionsDetailView
+                        var salesTransactionsDetailView = salesDetailScreenLinesDic[i].salesTransactionsDetailView
                         
-                        totalAmount = totalAmount + (purchasesTransactionsDetailView?.Amount)!
+                        totalAmount = totalAmount + (salesTransactionsDetailView?.Amount)!
                     }
                 }
             }
             
             cell.lblTotalAmount.text =   String(format: "%.2f", totalAmount)
             
-            purchasesTransactionHeader.TotalAmount = totalAmount
+            salesTransactionHeader.TotalAmount = totalAmount
             // lblTotalLabel.font = UIFont.boldSystemFontOfSize(17.0)
             //lblTotalAmount.font = UIFont.boldSystemFontOfSize(17.0)
         }
@@ -320,14 +320,14 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
         
         if resuseIdentifier == "TransactionDateCell" {
             
-            //            if purchasesTransactionHeader.TransactionDate == nil {
+            //            if salesTransactionHeader.TransactionDate == nil {
             //
             //
-            //                purchasesTransactionHeader.DueDate = NSDate()
+            //                salesTransactionHeader.DueDate = NSDate()
             //            }
             
             //
-            cell.lblTransactionDate.text = purchasesTransactionHeader.TransactionDate.formatted
+            cell.lblTransactionDate.text = salesTransactionHeader.TransactionDate.formatted
             
             
             
@@ -335,7 +335,7 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
         if resuseIdentifier == "MemoCell" {
             
             
-            cell.lblMemo.text = purchasesTransactionHeader.Memo
+            cell.lblMemo.text = salesTransactionHeader.Memo
             
             
         }
@@ -354,20 +354,20 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
         let row = indexPath.row //2
         
         print("Selected Row" + indexPath.row.description)
-        var screenSortLinesDetail = purchasesDetailScreenLinesDic[indexPath.row]  as ScreenSortLinesDetail
+        var screenSortLinesDetail = salesDetailScreenLinesDic[indexPath.row]  as ScreenSortLinesDetail
         print("screenSortLinesDetail.PrototypeCellID" + screenSortLinesDetail.PrototypeCellID)
-        if screenSortLinesDetail.PrototypeCellID == "PurchasesTypecell" && operationType == "Create" {
+        if screenSortLinesDetail.PrototypeCellID == "SalesTypecell" && operationType == "Create" {
             
-            performSegueWithIdentifier("showPickerView", sender: "PurchasesTypecell")
+            performSegueWithIdentifier("showPickerView", sender: "SalesTypecell")
             
             
         }
         print("screenSortLinesDetail.PrototypeCellID" + screenSortLinesDetail.PrototypeCellID)
         print("operationType" + operationType)
-        if screenSortLinesDetail.PrototypeCellID == "SupplierCell" && operationType == "Create" {
+        if screenSortLinesDetail.PrototypeCellID == "CustomerCell" && operationType == "Create" {
             
             
-            for item in  purchasesDetailScreenLinesDic
+            for item in  salesDetailScreenLinesDic
             {
                 if item.isAdded == true
                 {
@@ -379,7 +379,7 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
             
             
             
-            self.performSegueWithIdentifier("showContactSearch", sender: "SupplierCell")
+            self.performSegueWithIdentifier("showContactSearch", sender: "CustomerCell")
             
             
             
@@ -387,11 +387,11 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
             
         }
         if screenSortLinesDetail.PrototypeCellID == "DueDateCell" {
-            if purchasesTransactionHeader.SupplierID.length != 0 {
+            if salesTransactionHeader.CustomerID.length != 0 {
                 performSegueWithIdentifier("showDueDate", sender: "DueDateCell")
             }
             else{
-                Q6CommonLib.q6UIAlertPopupController("Information", message: "A Supplier must be seleted!", viewController: self)
+                Q6CommonLib.q6UIAlertPopupController("Information", message: "A Customer must be seleted!", viewController: self)
             }
             
             
@@ -401,23 +401,23 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
         
         if screenSortLinesDetail.PrototypeCellID == "AddanImageCell" {
             
-            if purchasesTransactionHeader.SupplierID.length != 0 {
+            if salesTransactionHeader.CustomerID.length != 0 {
                 performSegueWithIdentifier("showPhoto", sender: "AddanImageCell")
             }
             else{
-                Q6CommonLib.q6UIAlertPopupController("Information", message: "A Supplier must be seleted!", viewController: self)
+                Q6CommonLib.q6UIAlertPopupController("Information", message: "A Customer must be seleted!", viewController: self)
             }
             
         }
         
         if screenSortLinesDetail.PrototypeCellID == "AddanItemCell" {
             
-            if purchasesTransactionHeader.SupplierID.length != 0 {
+            if salesTransactionHeader.CustomerID.length != 0 {
                 addItemRowIndex = indexPath.row
                 performSegueWithIdentifier("showItemDetail", sender: "AddanItemCell")
             }
             else{
-                Q6CommonLib.q6UIAlertPopupController("Information", message: "A Supplier must be seleted!", viewController: self)
+                Q6CommonLib.q6UIAlertPopupController("Information", message: "A Customer must be seleted!", viewController: self)
             }
             
             
@@ -426,22 +426,22 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
         
         
         if screenSortLinesDetail.PrototypeCellID == "TransactionDateCell" {
-            if purchasesTransactionHeader.SupplierID.length != 0 {
+            if salesTransactionHeader.CustomerID.length != 0 {
                 performSegueWithIdentifier("showTransactionDate", sender: "TransactionDateCell")
             }
             else{
-                Q6CommonLib.q6UIAlertPopupController("Information", message: "A Supplier must be seleted!", viewController: self)
+                Q6CommonLib.q6UIAlertPopupController("Information", message: "A Customer must be seleted!", viewController: self)
             }
             
             
         }
         
         if screenSortLinesDetail.PrototypeCellID == "MemoCell" {
-            if purchasesTransactionHeader.SupplierID.length != 0 {
+            if salesTransactionHeader.CustomerID.length != 0 {
                 performSegueWithIdentifier("showMemo", sender: "MemoCell")
             }
             else{
-                Q6CommonLib.q6UIAlertPopupController("Information", message: "A Supplier must be seleted!", viewController: self)
+                Q6CommonLib.q6UIAlertPopupController("Information", message: "A Customer must be seleted!", viewController: self)
             }
             
             
@@ -451,7 +451,7 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
         addItemsDic[index] = "One more Item"
         // let section = indexPath.section//3
         //        dispatch_async(dispatch_get_main_queue(), { () -> Void in
-        //        self.purchaseDetailTableView.reloadData()
+        //        self.saleDetailTableView.reloadData()
         //            })
         //        let order = menuItems.items[section][row] + " " + menuItems.sections[section] //4
         // navigationItem.title = order
@@ -460,7 +460,7 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
     
     func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         
-        if purchasesDetailScreenLinesDic[indexPath.row].isAdded == true {
+        if salesDetailScreenLinesDic[indexPath.row].isAdded == true {
             return true
         }
         else {
@@ -471,27 +471,27 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if (editingStyle == UITableViewCellEditingStyle.Delete) {
             
-            if purchasesDetailScreenLinesDic[indexPath.row].isAdded == true
+            if salesDetailScreenLinesDic[indexPath.row].isAdded == true
             {
                 
                 print("indexPath.row delete" + indexPath.row.description)
-                purchasesDetailScreenLinesDic.removeAtIndex(indexPath.row)
+                salesDetailScreenLinesDic.removeAtIndex(indexPath.row)
                 
                 
-                for i in 0 ..< purchasesDetailScreenLinesDic.count
+                for i in 0 ..< salesDetailScreenLinesDic.count
                 {
-                    print("purchasesDetailScreenLinesDic[" + i.description + "].ID" + purchasesDetailScreenLinesDic[i].ID.description)
+                    print("salesDetailScreenLinesDic[" + i.description + "].ID" + salesDetailScreenLinesDic[i].ID.description)
                     
-                    print("purchasesDetailScreenLinesDic[" + i.description  + "].isAdded" + purchasesDetailScreenLinesDic[i].isAdded.description)
+                    print("salesDetailScreenLinesDic[" + i.description  + "].isAdded" + salesDetailScreenLinesDic[i].isAdded.description)
                     
-                    print("purchasesDetailScreenLinesDic[" + i.description  + "].PrototypeCellID" +
-                        purchasesDetailScreenLinesDic[i].PrototypeCellID)
+                    print("salesDetailScreenLinesDic[" + i.description  + "].PrototypeCellID" +
+                        salesDetailScreenLinesDic[i].PrototypeCellID)
                     
-                    print("purchasesDetailScreenLinesDic[i].LineDescription"  + purchasesDetailScreenLinesDic[i].LineDescription)
+                    print("salesDetailScreenLinesDic[i].LineDescription"  + salesDetailScreenLinesDic[i].LineDescription)
                     
                 }
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                    self.purchaseDetailTableView.reloadData()
+                    self.saleDetailTableView.reloadData()
                     
                 })
                 
@@ -512,18 +512,18 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
             
             
             
-            if fromCell == "PurchasesTypecell"
+            if fromCell == "SalesTypecell"
             {
                 var pickerViewController = segue.destinationViewController as! PickerViewViewController
-                pickerViewController.fromCell = "PurchasesTypecell"
+                pickerViewController.fromCell = "SalesTypecell"
                 
                 pickerViewController.delegate = self
             }
-            if fromCell == "SupplierCell"
+            if fromCell == "CustomerCell"
             {
                 
                 var contactSearchViewController = segue.destinationViewController as! ContactSearchViewController
-                contactSearchViewController.fromCell = "SupplierCell"
+                contactSearchViewController.fromCell = "CustomerCell"
                 contactSearchViewController.delegate = self
                 contactSearchViewController.hasAddedItemLine = hasAddedItemLine
                 
@@ -540,16 +540,16 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
             
             if fromCell == "AddanItemCell"
             {
-                var purchaseDetailDataLineViewController = segue.destinationViewController as! PurchaseDetailDataLineViewController
-                purchaseDetailDataLineViewController.fromCell = "AddanItemCell"
+                var saleDetailDataLineViewController = segue.destinationViewController as! SaleDetailDataLineViewController
+                saleDetailDataLineViewController.fromCell = "AddanItemCell"
                 
-                purchaseDetailDataLineViewController.supplier = supplier
-                purchaseDetailDataLineViewController.delegate = self
-                purchaseDetailDataLineViewController.purchasesTransactionHeader = purchasesTransactionHeader
+                saleDetailDataLineViewController.customer = customer
+                saleDetailDataLineViewController.delegate = self
+                saleDetailDataLineViewController.salesTransactionHeader = salesTransactionHeader
                 
-                if purchasesDetailScreenLinesDic[addItemRowIndex].purchasesTransactionsDetailView != nil {
+                if salesDetailScreenLinesDic[addItemRowIndex].salesTransactionsDetailView != nil {
                     
-                    purchaseDetailDataLineViewController.purchasesTransactionsDetailView = purchasesDetailScreenLinesDic[addItemRowIndex].purchasesTransactionsDetailView!
+                    saleDetailDataLineViewController.salesTransactionsDetailView = salesDetailScreenLinesDic[addItemRowIndex].salesTransactionsDetailView!
                 }
             }
             
@@ -577,13 +577,13 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
             if fromCell == "MemoCell"
             {
                 
-                var purchaseDetailMemoViewController = segue.destinationViewController as! PurchaseDetailMemoViewController
-                purchaseDetailMemoViewController.fromCell = "MemoCell"
+                var saleDetailMemoViewController = segue.destinationViewController as! SaleDetailMemoViewController
+                saleDetailMemoViewController.fromCell = "MemoCell"
                 
-                purchaseDetailMemoViewController.delegate = self
+                saleDetailMemoViewController.delegate = self
                 
                 
-                purchaseDetailMemoViewController.textValue = purchasesTransactionHeader.Memo
+                saleDetailMemoViewController.textValue = salesTransactionHeader.Memo
                 
                 
             }
@@ -593,16 +593,16 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
     
     @IBAction func SaveButtonClick(sender: AnyObject) {
         
-      
         
-        if validateQuantityValue()&&validateDate()&&validateIfPurchaseDetailIsNotEmpty()
+        
+        if validateQuantityValue()&&validateDate()&&validateIfSaleDetailIsNotEmpty()
         {
-            Q6ActivityIndicatorView.hidden = false 
+            Q6ActivityIndicatorView.hidden = false
             Q6ActivityIndicatorView.startAnimating()
             
-            purchasesTransactionHeader.TaxTotal = purchasesTransactionHeader.TotalAmount - purchasesTransactionHeader.SubTotal
+            salesTransactionHeader.TaxTotal = salesTransactionHeader.TotalAmount - salesTransactionHeader.SubTotal
             
-
+            
             var dicData=[String:AnyObject]()
             
             
@@ -619,7 +619,7 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
             
             var NeedValidate = true
             
- 
+            
             
             var LoginDetailDicData = [String:AnyObject]()
             
@@ -630,9 +630,8 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
             
             dicData["LoginDetail"] = LoginDetailDicData
             
-            if attachedimage != nil {
-                purchasesTransactionHeader.HasLinkedDoc = true
-                
+            if salesTransactionHeader.HasLinkedDoc == true
+            {
                 var UploadedDocuments = getImageFileDataDic(attachedimage!)
                 
                 dicData["UploadedDocuments"] = UploadedDocuments
@@ -640,31 +639,31 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
             else{
                 dicData["UploadedDocuments"] = nil
             }
-
             
             
-            var purchasesTransactionsDetailDataDic = convertpurchasesTransactionsDetailDataTOArray()
             
-            var purchasesTransactionsHeaderDic =   convertpurchasesTransactionsHeaderToArray()
+            var salesTransactionsDetailDataDic = convertsalesTransactionsDetailDataTOArray()
             
-            dicData["PurchasesTransactionsDetail"] = purchasesTransactionsDetailDataDic
-            dicData["PurchasesTransactionsHeader"] = purchasesTransactionsHeaderDic
+            var salesTransactionsHeaderDic =   convertsalesTransactionsHeaderToArray()
+            
+            dicData["SalesTransactionsDetail"] = salesTransactionsDetailDataDic
+            dicData["SalesTransactionsHeader"] = salesTransactionsHeaderDic
             dicData["RecurringTemplateList"] = nil
             
             dicData["NeedValidate"] = true
-            var purchasesTransactionsParameter = [String: AnyObject]()
+            var salesTransactionsParameter = [String: AnyObject]()
             
-            purchasesTransactionsParameter["PurchasesTransactionsParameter"] = dicData
-     
+            salesTransactionsParameter["SalesTransactionsParameter"] = dicData
+            
             isPreLoad = false
             
             if operationType == "Create" {
-              q6CommonLib.Q6IosClientPostAPI("Purchase",ActionName: "AddPurchase", dicData:dicData)
+                q6CommonLib.Q6IosClientPostAPI("Sale",ActionName: "AddSale", dicData:dicData)
             }
             else if operationType == "Edit"{
-                q6CommonLib.Q6IosClientPostAPI("Purchase",ActionName: "EditPurchase", dicData:dicData)
+                q6CommonLib.Q6IosClientPostAPI("Sale",ActionName: "EditSale", dicData:dicData)
             }
-           
+            
             
             
         }
@@ -713,105 +712,105 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
         return dicData
         //  print("size of image in KB: %f ", imageSize / 1024)
     }
-    func convertpurchasesTransactionsHeaderToArray() -> [String: AnyObject]
+    func convertsalesTransactionsHeaderToArray() -> [String: AnyObject]
     {
         var dicData = [String: AnyObject]()
         
-        var PurchasesTransactionsHeaderID  = purchasesTransactionHeader.PurchasesTransactionsHeaderID
+        var SalesTransactionsHeaderID  = salesTransactionHeader.SalesTransactionsHeaderID
         
         if operationType == "Create" {
-            dicData["PurchasesTransactionsHeaderID"] = "{00000000-0000-0000-0000-000000000000}"
+            dicData["SalesTransactionsHeaderID"] = "{00000000-0000-0000-0000-000000000000}"
         }
         else {
-            dicData["PurchasesTransactionsHeaderID"] = PurchasesTransactionsHeaderID
+            dicData["SalesTransactionsHeaderID"] = SalesTransactionsHeaderID
         }
-        dicData["ReferenceNo"] = purchasesTransactionHeader.ReferenceNo
+        dicData["ReferenceNo"] = salesTransactionHeader.ReferenceNo
         
-        dicData["PurchasesType"] = purchasesTransactionHeader.PurchasesType
-        dicData["PurchasesStatus"] = purchasesTransactionHeader.PurchasesStatus
-        dicData["TransactionDate"] = purchasesTransactionHeader.TransactionDate.description
+        dicData["SalesType"] = salesTransactionHeader.SalesType
+        dicData["SalesStatus"] = salesTransactionHeader.SalesStatus
+        dicData["TransactionDate"] = salesTransactionHeader.TransactionDate.description
         
-        print("purchasesTransactionHeader.TransactionDate.description" + purchasesTransactionHeader.TransactionDate.description)
-        dicData["CreateTime"] = purchasesTransactionHeader.CreateTime.description
+        print("salesTransactionHeader.TransactionDate.description" + salesTransactionHeader.TransactionDate.description)
+        dicData["CreateTime"] = salesTransactionHeader.CreateTime.description
         
-//        var LastModifiedTime = NSDate()
-//        let dateFormatter = NSDateFormatter()
-//        //dateFormatter.dateStyle = NSDateFormatterStyle.LongStyle
-//       // dateFormatter.timeStyle =  NSDateFormatterStyle.LongStyle
-//        dateFormatter.timeZone = NSTimeZone(name: "UTC")
-//       dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-//       var strLastModifiedTime = dateFormatter.stringFromDate(LastModifiedTime)
-//        print("strLastModifiedTime" + strLastModifiedTime)
+        //        var LastModifiedTime = NSDate()
+        //        let dateFormatter = NSDateFormatter()
+        //        //dateFormatter.dateStyle = NSDateFormatterStyle.LongStyle
+        //       // dateFormatter.timeStyle =  NSDateFormatterStyle.LongStyle
+        //        dateFormatter.timeZone = NSTimeZone(name: "UTC")
+        //       dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        //       var strLastModifiedTime = dateFormatter.stringFromDate(LastModifiedTime)
+        //        print("strLastModifiedTime" + strLastModifiedTime)
         
         if operationType == "Create" {
-            dicData["LastModifiedTime"] = purchasesTransactionHeader.CreateTime.description
+            dicData["LastModifiedTime"] = salesTransactionHeader.CreateTime.description
         }
         else{
-        dicData["LastModifiedTime"] = purchasesTransactionHeader.LastModifiedTime
+            dicData["LastModifiedTime"] = salesTransactionHeader.LastModifiedTime
         }
-
-        dicData["SupplierID"] = purchasesTransactionHeader.SupplierID
-        dicData["ShipToAddress"] = purchasesTransactionHeader.ShipToAddress
-        dicData["SupplierInv"] = purchasesTransactionHeader.SupplierInv
-        dicData["Memo"] = purchasesTransactionHeader.Memo
         
-        dicData["ClosedDate"] = purchasesTransactionHeader.ClosedDate?.description
-        dicData["SubTotal"] = purchasesTransactionHeader.SubTotal
-        dicData["TaxTotal"] = purchasesTransactionHeader.TaxTotal
-        dicData["TotalAmount"] = purchasesTransactionHeader.TotalAmount
-        dicData["DueDate"] = purchasesTransactionHeader.DueDate?.description
-        dicData["TaxInclusive"] = purchasesTransactionHeader.TaxInclusive
-        dicData["IsDeleted"] = purchasesTransactionHeader.IsDeleted
-        dicData["IsCreatedByRecurring"] = purchasesTransactionHeader.IsCreatedByRecurring
-        dicData["RecurringTemplateID"] = purchasesTransactionHeader.RecurringTemplateID
-        dicData["HasLinkedDoc"] = purchasesTransactionHeader.HasLinkedDoc
+        dicData["CustomerID"] = salesTransactionHeader.CustomerID
+        dicData["ShipToAddress"] = salesTransactionHeader.ShipToAddress
+//        dicData["CustomerInv"] = salesTransactionHeader.CustomerInv
+        dicData["Memo"] = salesTransactionHeader.Memo
+        
+        dicData["ClosedDate"] = salesTransactionHeader.ClosedDate?.description
+        dicData["SubTotal"] = salesTransactionHeader.SubTotal
+        dicData["TaxTotal"] = salesTransactionHeader.TaxTotal
+        dicData["TotalAmount"] = salesTransactionHeader.TotalAmount
+        dicData["DueDate"] = salesTransactionHeader.DueDate?.description
+        dicData["TaxInclusive"] = salesTransactionHeader.TaxInclusive
+        dicData["IsDeleted"] = salesTransactionHeader.IsDeleted
+        dicData["IsCreatedByRecurring"] = salesTransactionHeader.IsCreatedByRecurring
+        dicData["RecurringTemplateID"] = salesTransactionHeader.RecurringTemplateID
+        dicData["HasLinkedDoc"] = salesTransactionHeader.HasLinkedDoc
         
         return dicData
         
     }
     
-    func convertpurchasesTransactionsDetailDataTOArray()->[[String : AnyObject]]
+    func convertsalesTransactionsDetailDataTOArray()->[[String : AnyObject]]
     {
         var dicData = [[String : AnyObject]]()
         
-        if   purchasesTransactionsDetailData.count > 0
+        if   salesTransactionsDetailData.count > 0
         {
-            for i in 0..<purchasesTransactionsDetailData.count
+            for i in 0..<salesTransactionsDetailData.count
             {
                 
                 var data = [String : AnyObject]()
                 
-                var PurchasesTransactionsDetailID = purchasesTransactionsDetailData[i].PurchasesTransactionsDetailID
+                var SalesTransactionsDetailID = salesTransactionsDetailData[i].SalesTransactionsDetailID
                 if operationType == "Create"{
-                    data["PurchasesTransactionsDetailID"] = "{00000000-0000-0000-0000-000000000000}"
+                    data["SalesTransactionsDetailID"] = "{00000000-0000-0000-0000-000000000000}"
                 }
                 else {
-                    data["PurchasesTransactionsDetailID"] = PurchasesTransactionsDetailID
+                    data["SalesTransactionsDetailID"] = SalesTransactionsDetailID
                 }
                 
                 
                 
-                var PurchasesTransactionsHeaderID = purchasesTransactionsDetailData[i].PurchasesTransactionsHeaderID
+                var SalesTransactionsHeaderID = salesTransactionsDetailData[i].SalesTransactionsHeaderID
                 
                 if operationType == "Create" {
-                    data["PurchasesTransactionsHeaderID"] = "{00000000-0000-0000-0000-000000000000}"
+                    data["SalesTransactionsHeaderID"] = "{00000000-0000-0000-0000-000000000000}"
                 }
                 else {
-                    data["PurchasesTransactionsHeaderID"] = PurchasesTransactionsHeaderID
+                    data["SalesTransactionsHeaderID"] = SalesTransactionsHeaderID
                 }
-                data["Quantity"] = purchasesTransactionsDetailData[i].Quantity
+                data["Quantity"] = salesTransactionsDetailData[i].Quantity
                 
-                data["InventoryID"] = purchasesTransactionsDetailData[i].InventoryID
-                data["AccountID"] = purchasesTransactionsDetailData[i].AccountID
-                data["TaxCodeID"] = purchasesTransactionsDetailData[i].TaxCodeID
-                data["Description"] = purchasesTransactionsDetailData[i].Description
+                data["InventoryID"] = salesTransactionsDetailData[i].InventoryID
+                data["AccountID"] = salesTransactionsDetailData[i].AccountID
+                data["TaxCodeID"] = salesTransactionsDetailData[i].TaxCodeID
+                data["Description"] = salesTransactionsDetailData[i].Description
                 
-                data["UnitPrice"] = purchasesTransactionsDetailData[i].UnitPrice
-                data["Discount"] = purchasesTransactionsDetailData[i].Discount
-                data["Amount"] = purchasesTransactionsDetailData[i].Amount
+                data["UnitPrice"] = salesTransactionsDetailData[i].UnitPrice
+                data["Discount"] = salesTransactionsDetailData[i].Discount
+                data["Amount"] = salesTransactionsDetailData[i].Amount
                 
-                data["IsDeleted"] = purchasesTransactionsDetailData[i].IsDeleted
-                data["SortNo"] = purchasesTransactionsDetailData[i].SortNo
+                data["IsDeleted"] = salesTransactionsDetailData[i].IsDeleted
+                data["SortNo"] = salesTransactionsDetailData[i].SortNo
                 
                 dicData.append(data)
                 
@@ -822,13 +821,13 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
     }
     
     
-    func validateIfPurchaseDetailIsNotEmpty() -> Bool
+    func validateIfSaleDetailIsNotEmpty() -> Bool
     {
         var IsNotEmpty = true
-        copyFromPurchasesTransactionDetailViewToPurchasesTransactionDetail()
-        if purchasesTransactionsDetailData.count <= 0
+        copyFromSalesTransactionDetailViewToSalesTransactionDetail()
+        if salesTransactionsDetailData.count <= 0
         {
-            Q6CommonLib.q6UIAlertPopupController("Information message", message: "You need to add at least one data line before you save purchase transaction !", viewController: self)
+            Q6CommonLib.q6UIAlertPopupController("Information message", message: "You need to add at least one data line before you save sale transaction !", viewController: self)
             
             IsNotEmpty = false
         }
@@ -839,20 +838,20 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
     func validateDate()-> Bool
     {
         var isValid = true
-        if purchasesTransactionHeader.PurchasesType == "BILL"
+        if salesTransactionHeader.SalesType == "INVOICE"
         {
-            if purchasesTransactionHeader.DueDate == nil
+            if salesTransactionHeader.DueDate == nil
             {
                 
-                Q6CommonLib.q6UIAlertPopupController("Information message", message: "Due Date can not be empty if purchase type is BILL!", viewController: self)
+                Q6CommonLib.q6UIAlertPopupController("Information message", message: "Due Date can not be empty if sale type is Invoice!", viewController: self)
                 isValid = false
             }
         }
         
-        if purchasesTransactionHeader.DueDate != nil {
+        if salesTransactionHeader.DueDate != nil {
             
-            var DueDate = purchasesTransactionHeader.DueDate
-            var TransactionDate = purchasesTransactionHeader.TransactionDate
+            var DueDate = salesTransactionHeader.DueDate
+            var TransactionDate = salesTransactionHeader.TransactionDate
             
             var isEalierOrEqual = (DueDate?.isLaterOrEqualThanDate(TransactionDate))! as Bool
             
@@ -866,17 +865,17 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
     func validateQuantityValue() -> Bool
     {
         var isValid = true
-        if purchasesTransactionHeader.PurchasesType == "DEBIT NOTE"
+        if salesTransactionHeader.SalesType == "CREDIT NOTE"
         {
-            for i in 0..<purchasesDetailScreenLinesDic.count
+            for i in 0..<salesDetailScreenLinesDic.count
             {
-                var purchasesTransactionsDetailView = purchasesDetailScreenLinesDic[i].purchasesTransactionsDetailView
+                var salesTransactionsDetailView = salesDetailScreenLinesDic[i].salesTransactionsDetailView
                 
-                if purchasesTransactionsDetailView != nil && purchasesDetailScreenLinesDic[i].isAdded == true
+                if salesTransactionsDetailView != nil && salesDetailScreenLinesDic[i].isAdded == true
                 {
-                    if  purchasesTransactionsDetailView!.Quantity > 0
+                    if  salesTransactionsDetailView!.Quantity > 0
                     {
-                        Q6CommonLib.q6UIAlertPopupController("Information message", message: "you can not input positive amount at quantity field when purchase type is DEBIT NOTE!", viewController: self)
+                        Q6CommonLib.q6UIAlertPopupController("Information message", message: "you can not input positive amount at quantity field when sale type is CREDIT NOTE!", viewController: self)
                         isValid = false
                         
                     }
@@ -885,15 +884,15 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
             
         }
         else {
-            for i in 0..<purchasesDetailScreenLinesDic.count
+            for i in 0..<salesDetailScreenLinesDic.count
             {
-                var purchasesTransactionsDetailView = purchasesDetailScreenLinesDic[i].purchasesTransactionsDetailView
+                var salesTransactionsDetailView = salesDetailScreenLinesDic[i].salesTransactionsDetailView
                 
-                if purchasesTransactionsDetailView != nil && purchasesDetailScreenLinesDic[i].isAdded == true
+                if salesTransactionsDetailView != nil && salesDetailScreenLinesDic[i].isAdded == true
                 {
-                    if  purchasesTransactionsDetailView!.Quantity < 0
+                    if  salesTransactionsDetailView!.Quantity < 0
                     {
-                        Q6CommonLib.q6UIAlertPopupController("Information message", message: "you can not input negative amount at quantity field when purchase type is QUOTE,ORDER ,BILL!", viewController: self)
+                        Q6CommonLib.q6UIAlertPopupController("Information message", message: "you can not input negative amount at quantity field when sale type is QUOTE,ORDER ,INVOICE!", viewController: self)
                         isValid = false
                     }
                 }
@@ -903,116 +902,116 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
         
         return isValid
     }
-    
-    func copyFromPurchasesTransactionDetailViewToPurchasesTransactionDetail()
+
+    func copyFromSalesTransactionDetailViewToSalesTransactionDetail()
     {
-        purchasesTransactionsDetailData.removeAll()
+        salesTransactionsDetailData.removeAll()
         
         var sortNo: Int = 0
-        for i in 0..<purchasesDetailScreenLinesDic.count
+        for i in 0..<salesDetailScreenLinesDic.count
         {
-            var purchasesTransactionsDetailView = purchasesDetailScreenLinesDic[i].purchasesTransactionsDetailView
-            if purchasesTransactionsDetailView != nil && purchasesDetailScreenLinesDic[i].isAdded == true
+            var salesTransactionsDetailView = salesDetailScreenLinesDic[i].salesTransactionsDetailView
+            if salesTransactionsDetailView != nil && salesDetailScreenLinesDic[i].isAdded == true
             {
-                var purchasesTransactionsDetail = PurchasesTransactionsDetail()
+                var salesTransactionsDetail = SalesTransactionsDetail()
                 
-                purchasesTransactionsDetail.AccountID = purchasesTransactionsDetailView!.AccountID
-                purchasesTransactionsDetail.Amount = purchasesTransactionsDetailView!.Amount
-                purchasesTransactionsDetail.Description = purchasesTransactionsDetailView!.Description
-                purchasesTransactionsDetail.Discount = purchasesTransactionsDetailView!.Discount
-                purchasesTransactionsDetail.InventoryID = purchasesTransactionsDetailView!.InventoryID
-                purchasesTransactionsDetail.IsDeleted = purchasesTransactionsDetailView!.IsDeleted
-                purchasesTransactionsDetail.PurchasesTransactionsDetailID = purchasesTransactionsDetailView!.PurchasesTransactionsDetailID
+                salesTransactionsDetail.AccountID = salesTransactionsDetailView!.AccountID
+                salesTransactionsDetail.Amount = salesTransactionsDetailView!.Amount
+                salesTransactionsDetail.Description = salesTransactionsDetailView!.Description
+                salesTransactionsDetail.Discount = salesTransactionsDetailView!.Discount
+                salesTransactionsDetail.InventoryID = salesTransactionsDetailView!.InventoryID
+                salesTransactionsDetail.IsDeleted = salesTransactionsDetailView!.IsDeleted
+                salesTransactionsDetail.SalesTransactionsDetailID = salesTransactionsDetailView!.SalesTransactionsDetailID
                 
-                purchasesTransactionsDetail.PurchasesTransactionsHeaderID = purchasesTransactionsDetailView!.PurchasesTransactionsHeaderID
+                salesTransactionsDetail.SalesTransactionsHeaderID = salesTransactionsDetailView!.SalesTransactionsHeaderID
                 
-                purchasesTransactionsDetail.Quantity = purchasesTransactionsDetailView!.Quantity
-                purchasesTransactionsDetail.SortNo = sortNo
+                salesTransactionsDetail.Quantity = salesTransactionsDetailView!.Quantity
+                salesTransactionsDetail.SortNo = sortNo
                 sortNo = sortNo + 1
                 
-                purchasesTransactionsDetail.TaxCodeID = purchasesTransactionsDetailView!.TaxCodeID
-                purchasesTransactionsDetail.UnitPrice = purchasesTransactionsDetailView!.UnitPrice
+                salesTransactionsDetail.TaxCodeID = salesTransactionsDetailView!.TaxCodeID
+                salesTransactionsDetail.UnitPrice = salesTransactionsDetailView!.UnitPrice
                 
-                purchasesTransactionsDetailData.append(purchasesTransactionsDetail)
+                salesTransactionsDetailData.append(salesTransactionsDetail)
             }
         }
         
-        print("purchasesTransactionsDetailData.count" + purchasesTransactionsDetailData.count.description)
+        print("salesTransactionsDetailData.count" + salesTransactionsDetailData.count.description)
         
     }
     
-    func copyFromPurchasesTransactionDetailViewToPurchasesTransactionDetailForEdit(purchasesTransactionsDetailList: [PurchasesTransactionsDetailView])
+    func copyFromSalesTransactionDetailViewToSalesTransactionDetailForEdit(salesTransactionsDetailList: [SalesTransactionsDetailView])
     {
-        purchasesTransactionsDetailData.removeAll()
+        salesTransactionsDetailData.removeAll()
         
-      for i in 0 ..< purchasesTransactionsDetailList.count
-     {
-        var purchasesTransactionDetail = PurchasesTransactionsDetail()
-           purchasesTransactionDetail.AccountID = purchasesTransactionsDetailList[i].AccountID
-        
-        purchasesTransactionDetail.Amount = purchasesTransactionsDetailList[i].Amount
-          purchasesTransactionDetail.Description = purchasesTransactionsDetailList[i].Description
-        purchasesTransactionDetail.InventoryID = purchasesTransactionsDetailList[i].InventoryID
-        purchasesTransactionDetail.PurchasesTransactionsDetailID = purchasesTransactionsDetailList[i].PurchasesTransactionsDetailID
-        purchasesTransactionDetail.PurchasesTransactionsHeaderID = purchasesTransactionsDetailList[i].PurchasesTransactionsHeaderID
-        purchasesTransactionDetail.Quantity = purchasesTransactionsDetailList[i].Quantity
-        purchasesTransactionDetail.SortNo = purchasesTransactionsDetailList[i].SortNo
-        purchasesTransactionDetail.TaxCodeID = purchasesTransactionsDetailList[i].TaxCodeID
-        purchasesTransactionDetail.UnitPrice = purchasesTransactionsDetailList[i].UnitPrice
-    
-        purchasesTransactionsDetailData.append(purchasesTransactionDetail)
-        
-        var screenSortLinesDetail = ScreenSortLinesDetail()
-        screenSortLinesDetail.ID = 3 + i
-        screenSortLinesDetail.isAdded = true
-        screenSortLinesDetail.LineDescription = purchasesTransactionsDetailList[i].InventoryName + purchasesTransactionsDetailList[i].AccountNameWithAccountNo
-        screenSortLinesDetail.purchasesTransactionsDetailView = purchasesTransactionsDetailList[i]
-        screenSortLinesDetail.PrototypeCellID = "AddanItemCell"
-        
-        purchasesDetailScreenLinesDic.insert(screenSortLinesDetail, atIndex: screenSortLinesDetail.ID)
-       
-        
+        for i in 0 ..< salesTransactionsDetailList.count
+        {
+            var salesTransactionDetail = SalesTransactionsDetail()
+            salesTransactionDetail.AccountID = salesTransactionsDetailList[i].AccountID
+            
+            salesTransactionDetail.Amount = salesTransactionsDetailList[i].Amount
+            salesTransactionDetail.Description = salesTransactionsDetailList[i].Description
+            salesTransactionDetail.InventoryID = salesTransactionsDetailList[i].InventoryID
+            salesTransactionDetail.SalesTransactionsDetailID = salesTransactionsDetailList[i].SalesTransactionsDetailID
+            salesTransactionDetail.SalesTransactionsHeaderID = salesTransactionsDetailList[i].SalesTransactionsHeaderID
+            salesTransactionDetail.Quantity = salesTransactionsDetailList[i].Quantity
+            salesTransactionDetail.SortNo = salesTransactionsDetailList[i].SortNo
+            salesTransactionDetail.TaxCodeID = salesTransactionsDetailList[i].TaxCodeID
+            salesTransactionDetail.UnitPrice = salesTransactionsDetailList[i].UnitPrice
+            
+            salesTransactionsDetailData.append(salesTransactionDetail)
+            
+            var screenSortLinesDetail = ScreenSortLinesDetail()
+            screenSortLinesDetail.ID = 3 + i
+            screenSortLinesDetail.isAdded = true
+            screenSortLinesDetail.LineDescription = salesTransactionsDetailList[i].InventoryName + salesTransactionsDetailList[i].AccountNameWithAccountNo
+            screenSortLinesDetail.salesTransactionsDetailView = salesTransactionsDetailList[i]
+            screenSortLinesDetail.PrototypeCellID = "AddanItemCell"
+            
+            salesDetailScreenLinesDic.insert(screenSortLinesDetail, atIndex: screenSortLinesDetail.ID)
+            
+            
         }
         
-        print("purchasesTransactionsDetailData" + purchasesTransactionsDetailData.count.description)
-        print("purchasesDetailScreenLinesDic" + purchasesDetailScreenLinesDic.count.description)
-//        var sortNo: Int = 0
-//        for i in 0..<purchasesDetailScreenLinesDic.count
-//        {
-//            var purchasesTransactionsDetailView = purchasesDetailScreenLinesDic[i].purchasesTransactionsDetailView
-//            if purchasesTransactionsDetailView != nil && purchasesDetailScreenLinesDic[i].isAdded == true
-//            {
-//                var purchasesTransactionsDetail = PurchasesTransactionsDetail()
-//                
-//                purchasesTransactionsDetail.AccountID = purchasesTransactionsDetailView!.AccountID
-//                purchasesTransactionsDetail.Amount = purchasesTransactionsDetailView!.Amount
-//                purchasesTransactionsDetail.Description = purchasesTransactionsDetailView!.Description
-//                purchasesTransactionsDetail.Discount = purchasesTransactionsDetailView!.Discount
-//                purchasesTransactionsDetail.InventoryID = purchasesTransactionsDetailView!.InventoryID
-//                purchasesTransactionsDetail.IsDeleted = purchasesTransactionsDetailView!.IsDeleted
-//                purchasesTransactionsDetail.PurchasesTransactionsDetailID = purchasesTransactionsDetailView!.PurchasesTransactionsDetailID
-//                
-//                purchasesTransactionsDetail.PurchasesTransactionsHeaderID = purchasesTransactionsDetailView!.PurchasesTransactionsHeaderID
-//                
-//                purchasesTransactionsDetail.Quantity = purchasesTransactionsDetailView!.Quantity
-//                purchasesTransactionsDetail.SortNo = sortNo
-//                sortNo = sortNo + 1
-//                
-//                purchasesTransactionsDetail.TaxCodeID = purchasesTransactionsDetailView!.TaxCodeID
-//                purchasesTransactionsDetail.UnitPrice = purchasesTransactionsDetailView!.UnitPrice
-//                
-//                purchasesTransactionsDetailData.append(purchasesTransactionsDetail)
-//            }
-//        }
-//        
-//        print("purchasesTransactionsDetailData.count" + purchasesTransactionsDetailData.count.description)
+        print("salesTransactionsDetailData" + salesTransactionsDetailData.count.description)
+        print("salesDetailScreenLinesDic" + salesDetailScreenLinesDic.count.description)
+        //        var sortNo: Int = 0
+        //        for i in 0..<salesDetailScreenLinesDic.count
+        //        {
+        //            var salesTransactionsDetailView = salesDetailScreenLinesDic[i].salesTransactionsDetailView
+        //            if salesTransactionsDetailView != nil && salesDetailScreenLinesDic[i].isAdded == true
+        //            {
+        //                var salesTransactionsDetail = salesTransactionsDetail()
+        //
+        //                salesTransactionsDetail.AccountID = salesTransactionsDetailView!.AccountID
+        //                salesTransactionsDetail.Amount = salesTransactionsDetailView!.Amount
+        //                salesTransactionsDetail.Description = salesTransactionsDetailView!.Description
+        //                salesTransactionsDetail.Discount = salesTransactionsDetailView!.Discount
+        //                salesTransactionsDetail.InventoryID = salesTransactionsDetailView!.InventoryID
+        //                salesTransactionsDetail.IsDeleted = salesTransactionsDetailView!.IsDeleted
+        //                salesTransactionsDetail.salesTransactionsDetailID = salesTransactionsDetailView!.salesTransactionsDetailID
+        //
+        //                salesTransactionsDetail.salesTransactionsHeaderID = salesTransactionsDetailView!.salesTransactionsHeaderID
+        //
+        //                salesTransactionsDetail.Quantity = salesTransactionsDetailView!.Quantity
+        //                salesTransactionsDetail.SortNo = sortNo
+        //                sortNo = sortNo + 1
+        //
+        //                salesTransactionsDetail.TaxCodeID = salesTransactionsDetailView!.TaxCodeID
+        //                salesTransactionsDetail.UnitPrice = salesTransactionsDetailView!.UnitPrice
+        //
+        //                salesTransactionsDetailData.append(salesTransactionsDetail)
+        //            }
+        //        }
+        //
+        //        print("salesTransactionsDetailData.count" + salesTransactionsDetailData.count.description)
         
     }
     @IBAction func CancelButtonClick(sender: AnyObject) {
         
-        //        if let purchaseViewController = storyboard!.instantiateViewControllerWithIdentifier("PurchaseViewController") as? PurchaseViewController {
+        //        if let saleViewController = storyboard!.instantiateViewControllerWithIdentifier("saleViewController") as? saleViewController {
         //
-        //            presentViewController(purchaseViewController, animated: true, completion: nil)
+        //            presentViewController(saleViewController, animated: true, completion: nil)
         //        }
         //navigationController?.popViewControllerAnimated(true)
         navigationController?.popToRootViewControllerAnimated(true)
@@ -1036,13 +1035,13 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
     //
     //
     //    }
-    func searchLastAddedIndexInPurchaseDetailScreenLinesDic() -> Int? {
+    func searchLastAddedIndexInsaleDetailScreenLinesDic() -> Int? {
         
         var indexPath = Int?()
         
         
-        for index in 0 ..< purchasesDetailScreenLinesDic.count {
-            var screenSortLinesDetail = purchasesDetailScreenLinesDic[index]  as ScreenSortLinesDetail
+        for index in 0 ..< salesDetailScreenLinesDic.count {
+            var screenSortLinesDetail = salesDetailScreenLinesDic[index]  as ScreenSortLinesDetail
             
             if screenSortLinesDetail.isAdded == true {
                 indexPath = index
@@ -1051,10 +1050,10 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
         return indexPath
     }
     
-    func ValidteWhetherHasAddedLinesInPurchasesDetailScreenLinesDic() -> Bool {
+    func ValidteWhetherHasAddedLinesInsalesDetailScreenLinesDic() -> Bool {
         
-        for index in 0 ..< purchasesDetailScreenLinesDic.count {
-            var screenSortLinesDetail = purchasesDetailScreenLinesDic[index]  as ScreenSortLinesDetail
+        for index in 0 ..< salesDetailScreenLinesDic.count {
+            var screenSortLinesDetail = salesDetailScreenLinesDic[index]  as ScreenSortLinesDetail
             
             if screenSortLinesDetail.isAdded == true {
                 return true
@@ -1068,13 +1067,13 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
         self.backFrom = fromView
         
         if fromView == "fromPickerViewViewController" {
-            if forCell == "PurchasesTypecell" {
+            if forCell == "SalesTypecell" {
                 
-                purchasesTransactionHeader.PurchasesType = selectedValue
+                salesTransactionHeader.SalesType = selectedValue
                 
                 
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                    self.purchaseDetailTableView.reloadData()
+                    self.saleDetailTableView.reloadData()
                     
                 })
                 
@@ -1083,17 +1082,19 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
         print("backFrom" + self.backFrom)
     }
     
-    func  sendGoBackFromContactSearchView(fromView : String ,forCell: String,Contact:Supplier){
+      func  sendGoBackFromContactSearchView(fromView : String ,forCell: String,Contact: Supplier)
+      {}
+    func  sendGoBackFromContactSearchView(fromView : String ,forCell: String,Contact:Customer){
         
         if fromView == "ContactSearchViewController" {
-            if forCell == "SupplierCell" {
-                purchasesTransactionHeader.SupplierID = Contact.SupplierID
-               
-                supplier = Contact
+            if forCell == "CustomerCell" {
+                salesTransactionHeader.CustomerID = Contact.CustomerID
                 
-                print("purchasesTransactionHeader.SupplierID" + purchasesTransactionHeader.SupplierID)
+                customer = Contact
+                
+                print("salesTransactionHeader.CustomerID" + salesTransactionHeader.CustomerID)
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                    self.purchaseDetailTableView.reloadData()
+                    self.saleDetailTableView.reloadData()
                     
                 })
             }
@@ -1105,24 +1106,24 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
     {
         if fromView == "DatePickerViewController" {
             if forCell == "DueDateCell" {
-                purchasesTransactionHeader.DueDate = Date
+                salesTransactionHeader.DueDate = Date
                 
                 
                 
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                    self.purchaseDetailTableView.reloadData()
+                    self.saleDetailTableView.reloadData()
                     
                 })
                 
             }
             
             if forCell == "TransactionDateCell" {
-                purchasesTransactionHeader.TransactionDate = Date
+                salesTransactionHeader.TransactionDate = Date
                 
                 
                 
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                    self.purchaseDetailTableView.reloadData()
+                    self.saleDetailTableView.reloadData()
                     
                 })
                 
@@ -1133,46 +1134,46 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
     }
     
     
-    func sendGoBackFromPurchaseDetailDataLineView(fromView:String,forCell:String,purchasesTransactionsDetailView: PurchasesTransactionsDetailView){
+    func sendGoBackFromSaleDetailDataLineView(fromView:String,forCell:String,salesTransactionsDetailView: SalesTransactionsDetailView){
         
-        if purchasesDetailScreenLinesDic[addItemRowIndex].isAdded == false{
+        if salesDetailScreenLinesDic[addItemRowIndex].isAdded == false{
             
             var screenSortLinesDetail = ScreenSortLinesDetail()
             screenSortLinesDetail.isAdded = true
             screenSortLinesDetail.ID = addItemRowIndex
-            screenSortLinesDetail.LineDescription = purchasesTransactionsDetailView.InventoryName + " " + purchasesTransactionsDetailView.AccountNameWithAccountNo
+            screenSortLinesDetail.LineDescription = salesTransactionsDetailView.InventoryName + " " + salesTransactionsDetailView.AccountNameWithAccountNo
             screenSortLinesDetail.PrototypeCellID = "AddanItemCell"
-            screenSortLinesDetail.purchasesTransactionsDetailView = purchasesTransactionsDetailView
-            purchasesDetailScreenLinesDic.insert(screenSortLinesDetail, atIndex: addItemRowIndex)
+            screenSortLinesDetail.salesTransactionsDetailView = salesTransactionsDetailView
+            salesDetailScreenLinesDic.insert(screenSortLinesDetail, atIndex: addItemRowIndex)
             
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                self.purchaseDetailTableView.reloadData()
+                self.saleDetailTableView.reloadData()
                 
             })
         }
         else{
-            purchasesDetailScreenLinesDic[addItemRowIndex].LineDescription = purchasesTransactionsDetailView.InventoryName + " " + purchasesTransactionsDetailView.AccountNameWithAccountNo
-            purchasesDetailScreenLinesDic[addItemRowIndex].purchasesTransactionsDetailView = purchasesTransactionsDetailView
+            salesDetailScreenLinesDic[addItemRowIndex].LineDescription = salesTransactionsDetailView.InventoryName + " " + salesTransactionsDetailView.AccountNameWithAccountNo
+            salesDetailScreenLinesDic[addItemRowIndex].salesTransactionsDetailView = salesTransactionsDetailView
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                self.purchaseDetailTableView.reloadData()
+                self.saleDetailTableView.reloadData()
                 
             })
         }
     }
-    func sendGoBackFromPurchaseDetailDataLineInventorySearchView(fromView:String,forCell:String,inventoryView: InventoryView){
+    func sendGoBackFromSaleDetailDataLineInventorySearchView(fromView:String,forCell:String,inventoryView: InventoryView){
         
     }
     
-    func  sendGoBackFromPurchaseDetailDataLineDescriptionView(fromView : String ,forCell: String,Description: String)
+    func  sendGoBackFromSaleDetailDataLineDescriptionView(fromView : String ,forCell: String,Description: String)
     {
         
     }
-    func  sendGoBackFromPurchaseDetailDataLineTaxCodeSearchView(fromView : String ,forCell: String,taxCodeView: TaxCodeView)
+    func  sendGoBackFromSaleDetailDataLineTaxCodeSearchView(fromView : String ,forCell: String,taxCodeView: TaxCodeView)
     {
         
     }
     
-    func  sendGoBackFromPurchaseDetailDataLineAccountSearchView(fromView : String ,forCell: String,accountView: AccountView)
+    func  sendGoBackFromSaleDetailDataLineAccountSearchView(fromView : String ,forCell: String,accountView: AccountView)
     {
         
     }
@@ -1186,7 +1187,7 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
                 
                 
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                    self.purchaseDetailTableView.reloadData()
+                    self.saleDetailTableView.reloadData()
                     
                 })
                 
@@ -1202,39 +1203,39 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
             
             do {
                 //                if dataRequestSource == "Search" {
-                //                    supplierData.removeAll()
+                //                    CustomerData.removeAll()
                 //                    selectedSuplier = nil
                 //                }
                 postDicData = try  NSJSONSerialization.JSONObjectWithData(data!, options: []) as! [String:AnyObject]
                 
-                var returnPurchasesTransactionHeaderData = postDicData["PurchasesTransactionsHeader"]  as? [String:AnyObject]
+                var returnSalesTransactionHeaderData = postDicData["SalesTransactionsHeader"]  as? [String:AnyObject]
                 
-                if returnPurchasesTransactionHeaderData != nil {
+                if returnSalesTransactionHeaderData != nil {
                     
-                    var purchasesTransactionsHeaderView =   initialPurchasepurchasesTransactionsHeaderView(returnPurchasesTransactionHeaderData!)
+                    var salesTransactionsHeaderView =   initialSalesTransactionsHeaderView(returnSalesTransactionHeaderData!)
                     
-                    copyFromPurchasesTransactionsHeaderViewToPurchasesTransactionsHeader(purchasesTransactionsHeaderView)
-                  
-                  
+                    copyFromSalesTransactionsHeaderViewToSalesTransactionsHeader(salesTransactionsHeaderView)
+                    
+                    
                 }
                 
-                var returnPurchasesTransactionsDetailListData = postDicData["PurchasesTransactionsDetailList"]  as? [[String:AnyObject]]
+                var returnSalesTransactionsDetailListData = postDicData["SalesTransactionsDetailList"]  as? [[String:AnyObject]]
                 
                 
-                if returnPurchasesTransactionsDetailListData != nil {
-                   
-             var purchasesTransactionsDetailView =    initialPurchasepurchasesTransactionsDetailListView(returnPurchasesTransactionsDetailListData!)
+                if returnSalesTransactionsDetailListData != nil {
                     
-                       copyFromPurchasesTransactionDetailViewToPurchasesTransactionDetailForEdit(purchasesTransactionsDetailView)
+                    var salesTransactionsDetailView =    initialSalesTransactionsDetailListView(returnSalesTransactionsDetailListData!)
+                    
+                    copyFromSalesTransactionDetailViewToSalesTransactionDetailForEdit(salesTransactionsDetailView)
                     
                     
                     dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                        self.purchaseDetailTableView.reloadData()
-//                        self.Q6ActivityIndicatorView.hidesWhenStopped = true
-//                        self.Q6ActivityIndicatorView.stopAnimating()
-//                        self.ContactSearchBox.resignFirstResponder()
+                        self.saleDetailTableView.reloadData()
+                        //                        self.Q6ActivityIndicatorView.hidesWhenStopped = true
+                        //                        self.Q6ActivityIndicatorView.stopAnimating()
+                        //                        self.ContactSearchBox.resignFirstResponder()
                         
-                        self.purchaseDetailTableView.hidden = false
+                        self.saleDetailTableView.hidden = false
                         self.Q6ActivityIndicatorView.hidesWhenStopped = true
                         self.Q6ActivityIndicatorView.stopAnimating()
                     })
@@ -1308,9 +1309,9 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
                     if RealCompanyName != nil {
                         shippingAddress.RealCompanyName = RealCompanyName!
                     }
-                    purchasesTransactionHeader.ShipToAddress = shippingAddress.getShippingAddressStr()
+                    salesTransactionHeader.ShipToAddress = shippingAddress.getShippingAddressStr()
                     
-                    print("purchasesTransactionHeader.ShipToAddress" + purchasesTransactionHeader.ShipToAddress)
+                    print("salesTransactionHeader.ShipToAddress" + salesTransactionHeader.ShipToAddress)
                     //                //var json = try  NSJSONSerialization.JSONObjectWithData(dd as! NSData, options: NSJSONReadingOptions.MutableContainers) as! Dictionary<String, String>
                     //
                     //                let q6DBLib = Q6DBLib()
@@ -1364,24 +1365,24 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
                 if IsSuccessed == true {
                     
                     var nav = navigationController
-                   // Q6CommonLib.q6UIAlertPopupControllerThenGoBack("Information message", message: "Save Successfully!", viewController: self,timeArrange:3,navigationController: nav!)
+                    // Q6CommonLib.q6UIAlertPopupControllerThenGoBack("Information message", message: "Save Successfully!", viewController: self,timeArrange:3,navigationController: nav!)
                     
                     
                     let alert = UIAlertController(title: "Information message", message: "Save Successfully!", preferredStyle: UIAlertControllerStyle.Alert)
-                   self.presentViewController(alert, animated: true, completion: nil)
+                    self.presentViewController(alert, animated: true, completion: nil)
                     
                     
                     let delayTime = dispatch_time(DISPATCH_TIME_NOW,
                                                   Int64(3 * Double(NSEC_PER_SEC)))
                     let delayTime2 = dispatch_time(DISPATCH_TIME_NOW,
-                                                  Int64(4 * Double(NSEC_PER_SEC)))
+                                                   Int64(4 * Double(NSEC_PER_SEC)))
                     dispatch_after(delayTime, dispatch_get_main_queue()) {
                         self.dismissViewControllerAnimated(true, completion: nil);
-                      // self.navigationController!.popViewControllerAnimated(true)
-                       // self.navigationController?.popToRootViewControllerAnimated(true)
+                        // self.navigationController!.popViewControllerAnimated(true)
+                        // self.navigationController?.popToRootViewControllerAnimated(true)
                     }
                     dispatch_after(delayTime2, dispatch_get_main_queue()) {
-                       // self.dismissViewControllerAnimated(true, completion: nil);
+                        // self.dismissViewControllerAnimated(true, completion: nil);
                         self.navigationController!.popViewControllerAnimated(true)
                         // self.navigationController?.popToRootViewControllerAnimated(true)
                     }
@@ -1411,79 +1412,79 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
         return ""
     }
     
-    func initialPurchasepurchasesTransactionsDetailListView(returnPurchasesTransactionDetailListData : [[String: AnyObject]]) ->[PurchasesTransactionsDetailView]
+    func initialSalesTransactionsDetailListView(returnSalesTransactionDetailListData : [[String: AnyObject]]) ->[SalesTransactionsDetailView]
     {
-        var purchasesTransactionsDetailViewList = [PurchasesTransactionsDetailView]()
+        var salesTransactionsDetailViewList = [SalesTransactionsDetailView]()
         
-        for i in 0..<returnPurchasesTransactionDetailListData.count
+        for i in 0..<returnSalesTransactionDetailListData.count
         {
-           var purchasesTransactionsDetailView = PurchasesTransactionsDetailView()
+            var salesTransactionsDetailView = SalesTransactionsDetailView()
             
-            purchasesTransactionsDetailView.AccountID = returnPurchasesTransactionDetailListData[i]["AccountID"] as! String
-            purchasesTransactionsDetailView.AccountNameWithAccountNo = returnPurchasesTransactionDetailListData[i]["AccountNameWithAccountNo"] as! String
-            
-            
-            purchasesTransactionsDetailView.Amount = returnPurchasesTransactionDetailListData[i]["Amount"] as! Double
+            salesTransactionsDetailView.AccountID = returnSalesTransactionDetailListData[i]["AccountID"] as! String
+            salesTransactionsDetailView.AccountNameWithAccountNo = returnSalesTransactionDetailListData[i]["AccountNameWithAccountNo"] as! String
             
             
-            purchasesTransactionsDetailView.Description = returnPurchasesTransactionDetailListData[i]["Description"] as! String
+            salesTransactionsDetailView.Amount = returnSalesTransactionDetailListData[i]["Amount"] as! Double
             
-            purchasesTransactionsDetailView.InventoryID = returnPurchasesTransactionDetailListData[i]["InventoryID"] as? String
             
-           purchasesTransactionsDetailView.InventoryName = returnPurchasesTransactionDetailListData[i]["InventoryName"] as! String
+            salesTransactionsDetailView.Description = returnSalesTransactionDetailListData[i]["Description"] as! String
             
-            purchasesTransactionsDetailView.PurchasesTransactionsDetailID = returnPurchasesTransactionDetailListData[i]["PurchasesTransactionsDetailID"] as! String
+            salesTransactionsDetailView.InventoryID = returnSalesTransactionDetailListData[i]["InventoryID"] as? String
             
-            purchasesTransactionsDetailView.PurchasesTransactionsHeaderID = returnPurchasesTransactionDetailListData[i]["PurchasesTransactionsHeaderID"] as! String
+            salesTransactionsDetailView.InventoryName = returnSalesTransactionDetailListData[i]["InventoryName"] as! String
             
-            purchasesTransactionsDetailView.Quantity = returnPurchasesTransactionDetailListData[i]["Quantity"] as! Double
-            purchasesTransactionsDetailView.SortNo = i
+            salesTransactionsDetailView.SalesTransactionsDetailID = returnSalesTransactionDetailListData[i]["SalesTransactionsDetailID"] as! String
             
-            purchasesTransactionsDetailView.TaxCodeID = returnPurchasesTransactionDetailListData[i]["TaxCodeID"] as? String
+            salesTransactionsDetailView.SalesTransactionsHeaderID = returnSalesTransactionDetailListData[i]["SalesTransactionsHeaderID"] as! String
             
-            purchasesTransactionsDetailView.TaxCodeName = returnPurchasesTransactionDetailListData[i]["TaxCodeName"] as! String
+            salesTransactionsDetailView.Quantity = returnSalesTransactionDetailListData[i]["Quantity"] as! Double
+            salesTransactionsDetailView.SortNo = i
             
-             purchasesTransactionsDetailView.TaxCodeRate = returnPurchasesTransactionDetailListData[i]["TaxCodeRate"] as? Double
+            salesTransactionsDetailView.TaxCodeID = returnSalesTransactionDetailListData[i]["TaxCodeID"] as? String
             
-            if purchasesTransactionsDetailView.TaxCodeRate != nil
+            salesTransactionsDetailView.TaxCodeName = returnSalesTransactionDetailListData[i]["TaxCodeName"] as! String
+            
+            salesTransactionsDetailView.TaxCodeRate = returnSalesTransactionDetailListData[i]["TaxCodeRate"] as? Double
+            
+            if salesTransactionsDetailView.TaxCodeRate != nil
             {
-                print("purchasesTransactionsDetailView.TaxCodeRate" + purchasesTransactionsDetailView.TaxCodeRate!.description)
+                print("salesTransactionsDetailView.TaxCodeRate" + salesTransactionsDetailView.TaxCodeRate!.description)
             }
             else{
-                 print("purchasesTransactionsDetailView.TaxCodeRate  nil")
+                print("salesTransactionsDetailView.TaxCodeRate  nil")
             }
             
-          
-            purchasesTransactionsDetailView.UnitPrice = returnPurchasesTransactionDetailListData[i]["UnitPrice"] as! Double
-
-           
-            if purchasesTransactionsDetailView.TaxCodeID != nil {
+            
+            salesTransactionsDetailView.UnitPrice = returnSalesTransactionDetailListData[i]["UnitPrice"] as! Double
+            
+            
+            if salesTransactionsDetailView.TaxCodeID != nil {
                 
-                var taxCodeRate = purchasesTransactionsDetailView.TaxCodeRate
+                var taxCodeRate = salesTransactionsDetailView.TaxCodeRate
                 
-                var amount = purchasesTransactionsDetailView.Amount
+                var amount = salesTransactionsDetailView.Amount
                 
-                purchasesTransactionsDetailView.AmountWithoutTax = amount / (1 + taxCodeRate!/100)
+                salesTransactionsDetailView.AmountWithoutTax = amount / (1 + taxCodeRate!/100)
                 
                 
             }
-    
-       purchasesTransactionsDetailViewList.append(purchasesTransactionsDetailView)
             
-           
+            salesTransactionsDetailViewList.append(salesTransactionsDetailView)
+            
+            
         }
         
-       return purchasesTransactionsDetailViewList
+        return salesTransactionsDetailViewList
     }
-    func initialPurchasepurchasesTransactionsHeaderView(returnPurchasesTransactionHeaderData : [String: AnyObject]!) -> PurchasesTransactionsHeaderView
+    func initialSalesTransactionsHeaderView(returnsalesTransactionHeaderData : [String: AnyObject]!) -> SalesTransactionsHeaderView
     {
         
-        var purchasesTransactionsHeaderView = PurchasesTransactionsHeaderView()
-        purchasesTransactionsHeaderView.ClosedDate = returnPurchasesTransactionHeaderData!["ClosedDate"] as? NSDate
+        var salesTransactionsHeaderView = SalesTransactionsHeaderView()
+        salesTransactionsHeaderView.ClosedDate = returnsalesTransactionHeaderData!["ClosedDate"] as? NSDate
         
         
         
-        var DueDate = returnPurchasesTransactionHeaderData!["DueDate"] as? String
+        var DueDate = returnsalesTransactionHeaderData!["DueDate"] as? String
         
         if DueDate != nil {
             print("DueDate" + DueDate!)
@@ -1491,154 +1492,157 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
             let dateFormatter = NSDateFormatter()
             dateFormatter.timeZone = NSTimeZone(name: "UTC")
             dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
-            purchasesTransactionsHeaderView.DueDate = dateFormatter.dateFromString(DueDate!)
+            salesTransactionsHeaderView.DueDate = dateFormatter.dateFromString(DueDate!)
         }
         else{
-        purchasesTransactionsHeaderView.DueDate = nil
+            salesTransactionsHeaderView.DueDate = nil
         }
-       // purchasesTransactionsHeaderView.DueDate = returnPurchasesTransactionHeaderData!["DueDate"] as? NSDate
+        // salesTransactionsHeaderView.DueDate = returnsalesTransactionHeaderData!["DueDate"] as? NSDate
         
-        if purchasesTransactionsHeaderView.DueDate != nil {
+        if salesTransactionsHeaderView.DueDate != nil {
             
-            print("purchasesTransactionsHeaderView.DueDate" + purchasesTransactionsHeaderView.DueDate!.description)
+            print("salesTransactionsHeaderView.DueDate" + salesTransactionsHeaderView.DueDate!.description)
         }
         else {
-            print("purchasesTransactionsHeaderView.DueDate nil")
+            print("salesTransactionsHeaderView.DueDate nil")
         }
         
-        purchasesTransactionsHeaderView.HasLinkedDoc = returnPurchasesTransactionHeaderData!["HasLinkedDoc"] as! Bool
+        salesTransactionsHeaderView.HasLinkedDoc = returnsalesTransactionHeaderData!["HasLinkedDoc"] as! Bool
         
         
         
-        var LastModifiedTime = returnPurchasesTransactionHeaderData!["LastModifiedTime"] as! String
+        var LastModifiedTime = returnsalesTransactionHeaderData!["LastModifiedTime"] as! String
         
         
-//        let dateFormatter = NSDateFormatter()
-//        dateFormatter.timeZone = NSTimeZone(name: "UTC")
-//        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SS"
-        purchasesTransactionsHeaderView.LastModifiedTime = LastModifiedTime
-        
-        
-        
-        
-        purchasesTransactionsHeaderView.LinkDocumentFile = returnPurchasesTransactionHeaderData!["LinkDocumentFile"] as? String
-        
-        
-        
-        purchasesTransactionsHeaderView.LinkDocumentFileName = returnPurchasesTransactionHeaderData!["LinkDocumentFileName"] as? String
-        
-        
-        purchasesTransactionsHeaderView.LinkDocumentFileSize = returnPurchasesTransactionHeaderData!["LinkDocumentFileSize"] as? Double
+        //        let dateFormatter = NSDateFormatter()
+        //        dateFormatter.timeZone = NSTimeZone(name: "UTC")
+        //        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SS"
+        salesTransactionsHeaderView.LastModifiedTime = LastModifiedTime
         
         
         
         
-        purchasesTransactionsHeaderView.Memo = returnPurchasesTransactionHeaderData!["Memo"] as! String
+        salesTransactionsHeaderView.LinkDocumentFile = returnsalesTransactionHeaderData!["LinkDocumentFile"] as? String
         
-        purchasesTransactionsHeaderView.PurchasesStatus = returnPurchasesTransactionHeaderData!["PurchasesStatus"] as! String
-        purchasesTransactionsHeaderView.PurchasesTransactionsHeaderID = returnPurchasesTransactionHeaderData!["PurchasesTransactionsHeaderID"] as! String
         
-        purchasesTransactionsHeaderView.PurchasesType = returnPurchasesTransactionHeaderData!["PurchasesType"] as! String
         
-        purchasesTransactionsHeaderView.ReferenceNo = returnPurchasesTransactionHeaderData!["ReferenceNo"] as! String
+        salesTransactionsHeaderView.LinkDocumentFileName = returnsalesTransactionHeaderData!["LinkDocumentFileName"] as? String
         
-        purchasesTransactionsHeaderView.ShipToAddress = returnPurchasesTransactionHeaderData!["ShipToAddress"] as! String
-        purchasesTransactionsHeaderView.SubTotal = returnPurchasesTransactionHeaderData!["SubTotal"] as! Double
         
-        purchasesTransactionsHeaderView.SupplierID = returnPurchasesTransactionHeaderData!["SupplierID"] as! String
-        
-        purchasesTransactionsHeaderView.SupplierInv = returnPurchasesTransactionHeaderData!["SupplierInv"] as! String
-        purchasesTransactionsHeaderView.SupplierName = returnPurchasesTransactionHeaderData!["SupplierName"] as! String
-        
-        supplier.SupplierID = purchasesTransactionsHeaderView.SupplierID
-        supplier.SupplierName = purchasesTransactionsHeaderView.SupplierName
-        purchasesTransactionsHeaderView.TaxInclusive = returnPurchasesTransactionHeaderData!["TaxInclusive"] as! Bool
-        
-        purchasesTransactionsHeaderView.TaxTotal = returnPurchasesTransactionHeaderData!["TaxTotal"] as! Double
-        purchasesTransactionsHeaderView.TotalAmount = returnPurchasesTransactionHeaderData!["TotalAmount"] as! Double
+        salesTransactionsHeaderView.LinkDocumentFileSize = returnsalesTransactionHeaderData!["LinkDocumentFileSize"] as? Double
         
         
         
         
-        var TransactionDate  = returnPurchasesTransactionHeaderData!["TransactionDate"] as! String
+        salesTransactionsHeaderView.Memo = returnsalesTransactionHeaderData!["Memo"] as! String
+        
+        salesTransactionsHeaderView.SalesStatus = returnsalesTransactionHeaderData!["SalesStatus"] as! String
+        salesTransactionsHeaderView.SalesTransactionsHeaderID = returnsalesTransactionHeaderData!["salesTransactionsHeaderID"] as! String
+        
+        salesTransactionsHeaderView.SalesType = returnsalesTransactionHeaderData!["SalesType"] as! String
+        
+        salesTransactionsHeaderView.ReferenceNo = returnsalesTransactionHeaderData!["ReferenceNo"] as! String
+        
+        salesTransactionsHeaderView.ShipToAddress = returnsalesTransactionHeaderData!["ShipToAddress"] as! String
+        salesTransactionsHeaderView.SubTotal = returnsalesTransactionHeaderData!["SubTotal"] as! Double
+        
+        salesTransactionsHeaderView.CustomerID = returnsalesTransactionHeaderData!["CustomerID"] as! String
+        
+//        salesTransactionsHeaderView.CustomerInv = returnsalesTransactionHeaderData!["CustomerInv"] as! String
+        salesTransactionsHeaderView.CustomerName = returnsalesTransactionHeaderData!["CustomerName"] as! String
+        
+        customer.CustomerID = salesTransactionsHeaderView.CustomerID
+        customer.CustomerName = salesTransactionsHeaderView.CustomerName
+        salesTransactionsHeaderView.TaxInclusive = returnsalesTransactionHeaderData!["TaxInclusive"] as! Bool
+        
+        salesTransactionsHeaderView.TaxTotal = returnsalesTransactionHeaderData!["TaxTotal"] as! Double
+        salesTransactionsHeaderView.TotalAmount = returnsalesTransactionHeaderData!["TotalAmount"] as! Double
+        
+        
+        
+        
+        var TransactionDate  = returnsalesTransactionHeaderData!["TransactionDate"] as! String
         
         
         let dateFormatter2 = NSDateFormatter()
         dateFormatter2.timeZone = NSTimeZone(name: "UTC")
         dateFormatter2.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
-        purchasesTransactionsHeaderView.TransactionDate = dateFormatter2.dateFromString(TransactionDate)!
+        salesTransactionsHeaderView.TransactionDate = dateFormatter2.dateFromString(TransactionDate)!
         
-        purchasesTransactionsHeaderView.UploadedDocumentsID = returnPurchasesTransactionHeaderData!["UploadedDocumentsID"] as? String
+        salesTransactionsHeaderView.UploadedDocumentsID = returnsalesTransactionHeaderData!["UploadedDocumentsID"] as? String
         
-        if purchasesTransactionsHeaderView.UploadedDocumentsID != nil {
+        if salesTransactionsHeaderView.UploadedDocumentsID != nil {
             
-            var imageDataStr = purchasesTransactionsHeaderView.LinkDocumentFile
+            var imageDataStr = salesTransactionsHeaderView.LinkDocumentFile
             
             
             let imageData = NSData(base64EncodedString: imageDataStr!, options: NSDataBase64DecodingOptions(rawValue: 0))
             attachedimage = UIImage(data: imageData!)
-            print("purchasesTransactionsHeaderView.UploadedDocumentsID" + purchasesTransactionsHeaderView.UploadedDocumentsID!)
+            print("salesTransactionsHeaderView.UploadedDocumentsID" + salesTransactionsHeaderView.UploadedDocumentsID!)
         }
         else {
-            print("purchasesTransactionsHeaderView.UploadedDocumentsID nil")
+            print("salesTransactionsHeaderView.UploadedDocumentsID nil")
         }
         
         
-        return  purchasesTransactionsHeaderView
+        return  salesTransactionsHeaderView
     }
     
-    func copyFromPurchasesTransactionsHeaderViewToPurchasesTransactionsHeader(purchasesTransactionsHeaderView:PurchasesTransactionsHeaderView)
+    func copyFromSalesTransactionsHeaderViewToSalesTransactionsHeader(salesTransactionsHeaderView:SalesTransactionsHeaderView)
     {
-        purchasesTransactionHeader.ClosedDate = purchasesTransactionsHeaderView.ClosedDate
-        purchasesTransactionHeader.CreateTime = purchasesTransactionsHeaderView.CreateTime
-        purchasesTransactionHeader.DueDate = purchasesTransactionsHeaderView.DueDate
-        purchasesTransactionHeader.HasLinkedDoc = purchasesTransactionsHeaderView.HasLinkedDoc
-        purchasesTransactionHeader.IsDeleted = purchasesTransactionsHeaderView.IsDeleted
-        purchasesTransactionHeader.LastModifiedTime = purchasesTransactionsHeaderView.LastModifiedTime
-        purchasesTransactionHeader.Memo = purchasesTransactionsHeaderView.Memo
-        purchasesTransactionHeader.PurchasesStatus = purchasesTransactionsHeaderView.PurchasesStatus
-        purchasesTransactionHeader.PurchasesTransactionsHeaderID = purchasesTransactionsHeaderView.PurchasesTransactionsHeaderID
-        purchasesTransactionHeader.PurchasesType = purchasesTransactionsHeaderView.PurchasesType
-        purchasesTransactionHeader.ReferenceNo = purchasesTransactionsHeaderView.ReferenceNo
-        purchasesTransactionHeader.ShipToAddress = purchasesTransactionsHeaderView.ShipToAddress
-        purchasesTransactionHeader.SubTotal = purchasesTransactionsHeaderView.SubTotal
-        purchasesTransactionHeader.SupplierID = purchasesTransactionsHeaderView.SupplierID
-        purchasesTransactionHeader.SupplierInv = purchasesTransactionsHeaderView.SupplierInv
-        purchasesTransactionHeader.TaxInclusive = purchasesTransactionsHeaderView.TaxInclusive
-        purchasesTransactionHeader.TaxTotal = purchasesTransactionsHeaderView.TaxTotal
-        purchasesTransactionHeader.TotalAmount = purchasesTransactionsHeaderView.TotalAmount
-        purchasesTransactionHeader.TransactionDate = purchasesTransactionsHeaderView.TransactionDate
+        salesTransactionHeader.ClosedDate = salesTransactionsHeaderView.ClosedDate
+        salesTransactionHeader.CreateTime = salesTransactionsHeaderView.CreateTime
+        salesTransactionHeader.DueDate = salesTransactionsHeaderView.DueDate
+        salesTransactionHeader.HasLinkedDoc = salesTransactionsHeaderView.HasLinkedDoc
+        salesTransactionHeader.IsDeleted = salesTransactionsHeaderView.IsDeleted
+        salesTransactionHeader.LastModifiedTime = salesTransactionsHeaderView.LastModifiedTime
+        salesTransactionHeader.Memo = salesTransactionsHeaderView.Memo
+        salesTransactionHeader.SalesStatus = salesTransactionsHeaderView.SalesStatus
+        salesTransactionHeader.SalesTransactionsHeaderID = salesTransactionsHeaderView.SalesTransactionsHeaderID
+        salesTransactionHeader.SalesType = salesTransactionsHeaderView.SalesType
+        salesTransactionHeader.ReferenceNo = salesTransactionsHeaderView.ReferenceNo
+        salesTransactionHeader.ShipToAddress = salesTransactionsHeaderView.ShipToAddress
+        salesTransactionHeader.SubTotal = salesTransactionsHeaderView.SubTotal
+        salesTransactionHeader.CustomerID = salesTransactionsHeaderView.CustomerID
+//        salesTransactionHeader.CustomerInv = salesTransactionsHeaderView.CustomerInv
+        salesTransactionHeader.TaxInclusive = salesTransactionsHeaderView.TaxInclusive
+        salesTransactionHeader.TaxTotal = salesTransactionsHeaderView.TaxTotal
+        salesTransactionHeader.TotalAmount = salesTransactionsHeaderView.TotalAmount
+        salesTransactionHeader.TransactionDate = salesTransactionsHeaderView.TransactionDate
         
-        purchasesTransactionHeader.SubTotal = purchasesTransactionHeader.TotalAmount - purchasesTransactionHeader.TaxTotal
-         }
-    func  sendGoBackFromPurchaseDetailMemoView(fromView : String ,forCell: String,Memo: String)
+        salesTransactionHeader.SubTotal = salesTransactionHeader.TotalAmount - salesTransactionHeader.TaxTotal
+    }
+    func  sendGoBackFromSaleDetailMemoView(fromView : String ,forCell: String,Memo: String)
     {
-        purchasesTransactionHeader.Memo = Memo
+        salesTransactionHeader.Memo = Memo
         
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
-            self.purchaseDetailTableView.reloadData()
+            self.saleDetailTableView.reloadData()
             
         })
         
     }
-  
-    func sendGoBackFromSaleDetailDataLineView(fromView:String,forCell:String,salesTransactionsDetailView: SalesTransactionsDetailView)
-    {}
-    func sendGoBackFromSaleDetailDataLineInventorySearchView(fromView:String,forCell:String,inventoryView: InventoryView)
-    {}
-    func  sendGoBackFromSaleDetailDataLineDescriptionView(fromView : String ,forCell: String,Description: String)
-    {}
-    func  sendGoBackFromSaleDetailDataLineTaxCodeSearchView(fromView : String ,forCell: String,taxCodeView: TaxCodeView)
-    {}
-    
-    func  sendGoBackFromSaleDetailDataLineAccountSearchView(fromView : String ,forCell: String,accountView: AccountView)
-    {}
-    
-    
-    func  sendGoBackFromSaleDetailMemoView(fromView : String ,forCell: String,Memo: String)
-    {}
-      func  sendGoBackFromContactSearchView(fromView : String ,forCell: String,Contact: Customer)
-      {}
+
+
+
+
+func sendGoBackFromPurchaseDetailDataLineView(fromView:String,forCell:String,purchasesTransactionsDetailView: PurchasesTransactionsDetailView)
+{}
+
+func sendGoBackFromPurchaseDetailDataLineInventorySearchView(fromView:String,forCell:String,inventoryView: InventoryView)
+{}
+
+func  sendGoBackFromPurchaseDetailDataLineDescriptionView(fromView : String ,forCell: String,Description: String)
+{}
+func  sendGoBackFromPurchaseDetailDataLineTaxCodeSearchView(fromView : String ,forCell: String,taxCodeView: TaxCodeView)
+{}
+
+func  sendGoBackFromPurchaseDetailDataLineAccountSearchView(fromView : String ,forCell: String,accountView: AccountView)
+{}
+
+
+func  sendGoBackFromPurchaseDetailMemoView(fromView : String ,forCell: String,Memo: String)
+{}
     //    func dataLoadCompletion(data:NSData?, response:NSURLResponse?, error:NSError?) -> AnyObject
     //    {
     //
@@ -1684,16 +1688,16 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
     ////                    }
     ////                    presentViewController(passCodeViewController, animated: true, completion: nil)
     ////                }
-    ////                
+    ////
     ////            }
-    //            
-    //            
+    //
+    //
     //        } catch  {
     //            print("error parsing response from POST on /posts")
-    //            
+    //
     //            return ""
     //        }
-    //        
+    //
     //        //
     //        return ""
     //    }
@@ -1713,7 +1717,7 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
      tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
      } else if editingStyle == .Insert {
      // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-     }    
+     }
      }
      */
     
@@ -1743,3 +1747,4 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
      */
     
 }
+

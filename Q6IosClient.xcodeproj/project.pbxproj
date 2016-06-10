@@ -28,6 +28,8 @@
 		19B87D5B1CDB0C3A0048AAFB /* ContactSearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19B87D5A1CDB0C3A0048AAFB /* ContactSearchTableViewCell.swift */; };
 		19BB92F31CF538DA00633CCD /* AddImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19BB92F21CF538DA00633CCD /* AddImageViewController.swift */; };
 		19BD3B9A1CE93B9500245B85 /* PurchaseDetailDataLineDescriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19BD3B991CE93B9500245B85 /* PurchaseDetailDataLineDescriptionViewController.swift */; };
+		19C4E00F1D08ED2D005B216C /* SalesTransactionsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C4E00E1D08ED2D005B216C /* SalesTransactionsListView.swift */; };
+		19C4E0111D08FD73005B216C /* SaleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C4E0101D08FD73005B216C /* SaleTableViewCell.swift */; };
 		19C4FC8F1CD86BD4004A1449 /* PurchaseDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C4FC8E1CD86BD4004A1449 /* PurchaseDetailTableViewCell.swift */; };
 		19C9083E1CE3F6E300A828A3 /* PurchasesTransactionsDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C9083D1CE3F6E300A828A3 /* PurchasesTransactionsDetailView.swift */; };
 		19C908401CE3FBD800A828A3 /* PreLoadInventoryPurchase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C9083F1CE3FBD800A828A3 /* PreLoadInventoryPurchase.swift */; };
@@ -39,6 +41,15 @@
 		19D0C64A1CD7230E0055093C /* PurchasesTransactionsHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19D0C6491CD7230E0055093C /* PurchasesTransactionsHeader.swift */; };
 		19D0C64C1CD7256A0055093C /* PurchasesTransactionsDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19D0C64B1CD7256A0055093C /* PurchasesTransactionsDetail.swift */; };
 		19D2CA3F1CE16D6800A8AAE0 /* DatePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19D2CA3E1CE16D6800A8AAE0 /* DatePickerViewController.swift */; };
+		19DA2C8C1D0A2D5C008AF282 /* SaleDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DA2C8B1D0A2D5C008AF282 /* SaleDetailViewController.swift */; };
+		19DA2C8E1D0A2F85008AF282 /* SalesTransactionsHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DA2C8D1D0A2F85008AF282 /* SalesTransactionsHeader.swift */; };
+		19DA2C901D0A31A0008AF282 /* SalesTransactionDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DA2C8F1D0A31A0008AF282 /* SalesTransactionDetail.swift */; };
+		19DA2C921D0A32B5008AF282 /* Customer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DA2C911D0A32B5008AF282 /* Customer.swift */; };
+		19DA2C941D0A3635008AF282 /* SalesTransactionsDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DA2C931D0A3635008AF282 /* SalesTransactionsDetailView.swift */; };
+		19DA2C961D0A37E2008AF282 /* SaleDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DA2C951D0A37E2008AF282 /* SaleDetailTableViewCell.swift */; };
+		19DA2C991D0A4E03008AF282 /* SaleDetailDataLineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DA2C981D0A4E03008AF282 /* SaleDetailDataLineViewController.swift */; };
+		19DA2C9B1D0A4E94008AF282 /* SalesTransactionsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DA2C9A1D0A4E94008AF282 /* SalesTransactionsHeaderView.swift */; };
+		19DA2C9D1D0A4FF0008AF282 /* SaleDetailMemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DA2C9C1D0A4FF0008AF282 /* SaleDetailMemoViewController.swift */; };
 		19DDD7B31CB7701900FC32A5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 19DDD7B11CB7701900FC32A5 /* Main.storyboard */; };
 		19DE52DB1CEC21170050A62D /* PurchaseDetailDataLineAccountSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DE52DA1CEC21170050A62D /* PurchaseDetailDataLineAccountSearchViewController.swift */; };
 		19DE52DD1CEC2C0B0050A62D /* ScreenSectionSortDetailForAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DE52DC1CEC2C0B0050A62D /* ScreenSectionSortDetailForAccount.swift */; };
@@ -88,6 +99,8 @@
 		19B87D5A1CDB0C3A0048AAFB /* ContactSearchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactSearchTableViewCell.swift; sourceTree = "<group>"; };
 		19BB92F21CF538DA00633CCD /* AddImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddImageViewController.swift; sourceTree = "<group>"; };
 		19BD3B991CE93B9500245B85 /* PurchaseDetailDataLineDescriptionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurchaseDetailDataLineDescriptionViewController.swift; sourceTree = "<group>"; };
+		19C4E00E1D08ED2D005B216C /* SalesTransactionsListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SalesTransactionsListView.swift; sourceTree = "<group>"; };
+		19C4E0101D08FD73005B216C /* SaleTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SaleTableViewCell.swift; sourceTree = "<group>"; };
 		19C4FC8C1CD84DE1004A1449 /* PurchaseDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurchaseDetailViewController.swift; sourceTree = "<group>"; };
 		19C4FC8E1CD86BD4004A1449 /* PurchaseDetailTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurchaseDetailTableViewCell.swift; sourceTree = "<group>"; };
 		19C9083D1CE3F6E300A828A3 /* PurchasesTransactionsDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurchasesTransactionsDetailView.swift; sourceTree = "<group>"; };
@@ -100,6 +113,15 @@
 		19D0C6491CD7230E0055093C /* PurchasesTransactionsHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurchasesTransactionsHeader.swift; sourceTree = "<group>"; };
 		19D0C64B1CD7256A0055093C /* PurchasesTransactionsDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurchasesTransactionsDetail.swift; sourceTree = "<group>"; };
 		19D2CA3E1CE16D6800A8AAE0 /* DatePickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatePickerViewController.swift; sourceTree = "<group>"; };
+		19DA2C8B1D0A2D5C008AF282 /* SaleDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SaleDetailViewController.swift; sourceTree = "<group>"; };
+		19DA2C8D1D0A2F85008AF282 /* SalesTransactionsHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SalesTransactionsHeader.swift; sourceTree = "<group>"; };
+		19DA2C8F1D0A31A0008AF282 /* SalesTransactionDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SalesTransactionDetail.swift; sourceTree = "<group>"; };
+		19DA2C911D0A32B5008AF282 /* Customer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Customer.swift; sourceTree = "<group>"; };
+		19DA2C931D0A3635008AF282 /* SalesTransactionsDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SalesTransactionsDetailView.swift; sourceTree = "<group>"; };
+		19DA2C951D0A37E2008AF282 /* SaleDetailTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SaleDetailTableViewCell.swift; sourceTree = "<group>"; };
+		19DA2C981D0A4E03008AF282 /* SaleDetailDataLineViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SaleDetailDataLineViewController.swift; sourceTree = "<group>"; };
+		19DA2C9A1D0A4E94008AF282 /* SalesTransactionsHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SalesTransactionsHeaderView.swift; sourceTree = "<group>"; };
+		19DA2C9C1D0A4FF0008AF282 /* SaleDetailMemoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SaleDetailMemoViewController.swift; sourceTree = "<group>"; };
 		19DDD7B21CB7701900FC32A5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		19DE52DA1CEC21170050A62D /* PurchaseDetailDataLineAccountSearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurchaseDetailDataLineAccountSearchViewController.swift; sourceTree = "<group>"; };
 		19DE52DC1CEC2C0B0050A62D /* ScreenSectionSortDetailForAccount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreenSectionSortDetailForAccount.swift; sourceTree = "<group>"; };
@@ -175,12 +197,51 @@
 			name = Purchases;
 			sourceTree = "<group>";
 		};
+		19C4E00C1D08DC95005B216C /* Purchases */ = {
+			isa = PBXGroup;
+			children = (
+				19B87D561CDAFF580048AAFB /* Supplier.swift */,
+				1918D0461CFFDAC600168AA6 /* PurchasesTransactionsHeaderView.swift */,
+				198BD7DA1CC9F58700C81C22 /* PurchasesTransactionsListView.swift */,
+				19D0C6491CD7230E0055093C /* PurchasesTransactionsHeader.swift */,
+				19D0C64B1CD7256A0055093C /* PurchasesTransactionsDetail.swift */,
+				19C9083D1CE3F6E300A828A3 /* PurchasesTransactionsDetailView.swift */,
+			);
+			name = Purchases;
+			sourceTree = "<group>";
+		};
+		19C4E00D1D08DCD2005B216C /* Sales */ = {
+			isa = PBXGroup;
+			children = (
+				19C4E00E1D08ED2D005B216C /* SalesTransactionsListView.swift */,
+				19DA2C8D1D0A2F85008AF282 /* SalesTransactionsHeader.swift */,
+				19DA2C8F1D0A31A0008AF282 /* SalesTransactionDetail.swift */,
+				19DA2C911D0A32B5008AF282 /* Customer.swift */,
+				19DA2C931D0A3635008AF282 /* SalesTransactionsDetailView.swift */,
+				19DA2C9A1D0A4E94008AF282 /* SalesTransactionsHeaderView.swift */,
+			);
+			name = Sales;
+			sourceTree = "<group>";
+		};
 		19D009E11D07D21800217C6A /* Sales */ = {
 			isa = PBXGroup;
 			children = (
+				19DA2C9C1D0A4FF0008AF282 /* SaleDetailMemoViewController.swift */,
+				19DA2C971D0A4DBB008AF282 /* SaleDetailDataLine */,
 				19D009E21D07D29300217C6A /* SalesViewController.swift */,
+				19C4E0101D08FD73005B216C /* SaleTableViewCell.swift */,
+				19DA2C8B1D0A2D5C008AF282 /* SaleDetailViewController.swift */,
+				19DA2C951D0A37E2008AF282 /* SaleDetailTableViewCell.swift */,
 			);
 			name = Sales;
+			sourceTree = "<group>";
+		};
+		19DA2C971D0A4DBB008AF282 /* SaleDetailDataLine */ = {
+			isa = PBXGroup;
+			children = (
+				19DA2C981D0A4E03008AF282 /* SaleDetailDataLineViewController.swift */,
+			);
+			name = SaleDetailDataLine;
 			sourceTree = "<group>";
 		};
 		19FD13191C9A134800E5C445 = {
@@ -256,18 +317,14 @@
 		19FD133C1C9A4CDE00E5C445 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				19C4E00D1D08DCD2005B216C /* Sales */,
+				19C4E00C1D08DC95005B216C /* Purchases */,
 				19FD133D1C9A4D0A00E5C445 /* InternalUserLoginParameter.swift */,
-				198BD7DA1CC9F58700C81C22 /* PurchasesTransactionsListView.swift */,
-				19D0C6491CD7230E0055093C /* PurchasesTransactionsHeader.swift */,
-				19D0C64B1CD7256A0055093C /* PurchasesTransactionsDetail.swift */,
-				19C9083D1CE3F6E300A828A3 /* PurchasesTransactionsDetailView.swift */,
-				19B87D561CDAFF580048AAFB /* Supplier.swift */,
 				19C9083F1CE3FBD800A828A3 /* PreLoadInventoryPurchase.swift */,
 				19C908451CE443A400A828A3 /* InventoryView.swift */,
 				19C908471CE44E0900A828A3 /* AccountView.swift */,
 				190EBFA11CE5550A00B26E00 /* TaxCodeView.swift */,
 				19A9B7821CF6B1CC00071958 /* ShippingAddress.swift */,
-				1918D0461CFFDAC600168AA6 /* PurchasesTransactionsHeaderView.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -357,10 +414,12 @@
 				198BD7DB1CC9F58700C81C22 /* PurchasesTransactionsListView.swift in Sources */,
 				19DE52DD1CEC2C0B0050A62D /* ScreenSectionSortDetailForAccount.swift in Sources */,
 				19A9B7831CF6B1CC00071958 /* ShippingAddress.swift in Sources */,
+				19DA2C9D1D0A4FF0008AF282 /* SaleDetailMemoViewController.swift in Sources */,
 				19D009E31D07D29300217C6A /* SalesViewController.swift in Sources */,
 				199F0CD31CA0BE0C00301EC4 /* LoginViewController.swift in Sources */,
 				19C9083E1CE3F6E300A828A3 /* PurchasesTransactionsDetailView.swift in Sources */,
 				19F9B5691CB1DF0700571B9D /* FMDatabasePool.m in Sources */,
+				19DA2C8C1D0A2D5C008AF282 /* SaleDetailViewController.swift in Sources */,
 				19AC96101CEA909B00A9216E /* PurchaseDetailDataLineTaxCodeSearchViewController.swift in Sources */,
 				1918D0471CFFDAC600168AA6 /* PurchasesTransactionsHeaderView.swift in Sources */,
 				197D2ACF1CFE9BB800E03BEB /* JSON.swift in Sources */,
@@ -368,6 +427,7 @@
 				19DF1C401CE2AA2400908A32 /* PurchaseDetailDataLineTableViewCell.swift in Sources */,
 				19C908461CE443A400A828A3 /* InventoryView.swift in Sources */,
 				198BD7B51CC9AEAE00C81C22 /* PurchaseTableViewCell.swift in Sources */,
+				19DA2C941D0A3635008AF282 /* SalesTransactionsDetailView.swift in Sources */,
 				19DF1C411CE2AE2300908A32 /* PurchaseDetailViewController.swift in Sources */,
 				19BB92F31CF538DA00633CCD /* AddImageViewController.swift in Sources */,
 				190EBFA21CE5550A00B26E00 /* TaxCodeView.swift in Sources */,
@@ -376,25 +436,33 @@
 				19D0C64A1CD7230E0055093C /* PurchasesTransactionsHeader.swift in Sources */,
 				19F9B5741CB21D7600571B9D /* PassCodeViewController.swift in Sources */,
 				19FD133B1C9A186300E5C445 /* Q6CommonLib.swift in Sources */,
+				19C4E00F1D08ED2D005B216C /* SalesTransactionsListView.swift in Sources */,
 				19691E8F1C9F8AE200E009A7 /* Q6Protocol.swift in Sources */,
 				19D2CA3F1CE16D6800A8AAE0 /* DatePickerViewController.swift in Sources */,
+				19DA2C9B1D0A4E94008AF282 /* SalesTransactionsHeaderView.swift in Sources */,
 				19FD133E1C9A4D0A00E5C445 /* InternalUserLoginParameter.swift in Sources */,
+				19C4E0111D08FD73005B216C /* SaleTableViewCell.swift in Sources */,
 				19DF1C3E1CE2A7C400908A32 /* PurchaseDetailDataLineViewController.swift in Sources */,
 				19C908481CE44E0900A828A3 /* AccountView.swift in Sources */,
 				19F9B5671CB1DF0700571B9D /* FMDatabaseQueue.m in Sources */,
 				19F9B5681CB1DF0700571B9D /* FMDatabaseAdditions.m in Sources */,
+				19DA2C991D0A4E03008AF282 /* SaleDetailDataLineViewController.swift in Sources */,
 				19B2B33D1CF7C83000BF53A9 /* PurchaseDetailMemoViewController.swift in Sources */,
 				19F9B5661CB1DF0700571B9D /* FMResultSet.m in Sources */,
 				19C908401CE3FBD800A828A3 /* PreLoadInventoryPurchase.swift in Sources */,
+				19DA2C921D0A32B5008AF282 /* Customer.swift in Sources */,
 				19B87D591CDB02120048AAFB /* ContactSearchViewController.swift in Sources */,
 				19F9B56C1CB1E08500571B9D /* Q6DBLib.swift in Sources */,
 				19AC96121CEA90C400A9216E /* PurchaseDetailDataLineTaxCodeSearchTableViewCell.swift in Sources */,
 				19AD97271CED549B0079DF52 /* PurchaseDetailDataLineAccountSearchTableViewCell.swift in Sources */,
 				19FD13261C9A134800E5C445 /* AppDelegate.swift in Sources */,
 				19F9B5761CB227FF00571B9D /* Q6Extension.swift in Sources */,
+				19DA2C961D0A37E2008AF282 /* SaleDetailTableViewCell.swift in Sources */,
 				19D0C64C1CD7256A0055093C /* PurchasesTransactionsDetail.swift in Sources */,
+				19DA2C901D0A31A0008AF282 /* SalesTransactionDetail.swift in Sources */,
 				19DF32A81CD96AB800730FC5 /* ScreenSortLinesDetail.swift in Sources */,
 				19F9B5651CB1DF0700571B9D /* FMDatabase.m in Sources */,
+				19DA2C8E1D0A2F85008AF282 /* SalesTransactionsHeader.swift in Sources */,
 				19A9B7811CF688FA00071958 /* PurchaseDetailDataLineInventorySearchTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

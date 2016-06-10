@@ -854,6 +854,22 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
     {
         
     }
+    
+    func sendGoBackFromSaleDetailDataLineView(fromView:String,forCell:String,salesTransactionsDetailView: SalesTransactionsDetailView)
+    {}
+    func sendGoBackFromSaleDetailDataLineInventorySearchView(fromView:String,forCell:String,inventoryView: InventoryView)
+    {}
+    func  sendGoBackFromSaleDetailDataLineDescriptionView(fromView : String ,forCell: String,Description: String)
+    {}
+    func  sendGoBackFromSaleDetailDataLineTaxCodeSearchView(fromView : String ,forCell: String,taxCodeView: TaxCodeView)
+    {}
+    func  sendGoBackFromSaleDetailDataLineAccountSearchView(fromView : String ,forCell: String,accountView: AccountView)
+    {}
+    
+    func  sendGoBackFromSaleDetailMemoView(fromView : String ,forCell: String,Memo: String)
+    {}
+      func  sendGoBackFromContactSearchView(fromView : String ,forCell: String,Contact: Customer)
+      {}
     //    func getTaxCodeByTaxCodeID() -> TaxCodeView {
     //       
     //        

@@ -9,15 +9,15 @@
 import UIKit
 
 class PurchaseViewController: UIViewController, Q6WebApiProtocol,UITableViewDelegate ,UITableViewDataSource,UISearchBarDelegate{
-
-    @IBOutlet weak var SearchBar: UISearchBar!
+    
+//    @IBOutlet weak var SearchBar: UISearchBar!
     var pageIndex: Int = 1
     var pageSize: Int = 20
     var searchText: String = ""
     var dataRequestSource = ""
     var attachedURL = String()
     @IBOutlet weak var Q6ActivityIndicatorView: UIActivityIndicatorView!
-   
+    
     @IBOutlet weak var purchaseTableView: UITableView!
     //var attachedURL: String = "&Type=AllPurchases&SearchText=&PageSize=200&PageIndex=1"
     
@@ -27,9 +27,9 @@ class PurchaseViewController: UIViewController, Q6WebApiProtocol,UITableViewDele
     
     var selectedRowNo : Int = 0
     override func viewWillAppear(animated: Bool) {
-      //  self.navigationController?.navigationBar.hidden = true
-    //    Q6ActivityIndicatorView.center = purchaseTableView.center
-       
+        //  self.navigationController?.navigationBar.hidden = true
+        //    Q6ActivityIndicatorView.center = purchaseTableView.center
+        
         
         
     }
@@ -45,17 +45,17 @@ class PurchaseViewController: UIViewController, Q6WebApiProtocol,UITableViewDele
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-
         
-
-     
+        
+        
+        
         // Do any additional setup after loading the view.
         
         purchaseTableView.delegate = self
         purchaseTableView.dataSource = self
-        SearchBar.delegate = self
-     
-//        purchaseTableView.registerClass(cellClass:PurchaseTableViewCell.self, forCellWithReuseIdentifier: "PurchasePototypeCELL")
+        PurchaseSearchBox.delegate = self
+        
+        //        purchaseTableView.registerClass(cellClass:PurchaseTableViewCell.self, forCellWithReuseIdentifier: "PurchasePototypeCELL")
     }
     func setControlAppear()
     {
@@ -69,31 +69,31 @@ class PurchaseViewController: UIViewController, Q6WebApiProtocol,UITableViewDele
         // Dispose of any resources that can be recreated.
     }
     
-
+    
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+     // Get the new view controller using segue.destinationViewController.
+     // Pass the selected object to the new view controller.
+     }
+     */
     func dataLoadCompletion(data:NSData?, response:NSURLResponse?, error:NSError?) -> AnyObject
     {
         var postDicData :[String:AnyObject]
-    
+        
         do {
             if dataRequestSource == "Search" {
                 purchaseTransactionListData.removeAll()
             }
             postDicData = try  NSJSONSerialization.JSONObjectWithData(data!, options: []) as! [String:AnyObject]
             
-           var returnData = postDicData["PurchasesTransactionsHeaderList"] as! [[String : AnyObject]]
+            var returnData = postDicData["PurchasesTransactionsHeaderList"] as! [[String : AnyObject]]
             print("returnDate Count" + returnData.count.description)
             for i in 0  ..< returnData.count {
                 
-            
+                
                 print("no i =" + i.description)
                 var dataItem = returnData[i]
                 var purchasesTransactionListViewDataItem =  PurchasesTransactionsListView()
@@ -107,7 +107,7 @@ class PurchaseViewController: UIViewController, Q6WebApiProtocol,UITableViewDele
                 
                 purchasesTransactionListViewDataItem.ReferenceNo = dataItem["ReferenceNo"] as! String
                 
-           
+                
                 purchasesTransactionListViewDataItem.PurchasesType = dataItem["PurchasesType"] as! String
                 purchasesTransactionListViewDataItem.PurchasesStatus = dataItem["PurchasesStatus"] as! String
                 
@@ -116,72 +116,72 @@ class PurchaseViewController: UIViewController, Q6WebApiProtocol,UITableViewDele
                 var memo = dataItem["Memo"] as? String
                 
                 if memo != nil {
-                
-                purchasesTransactionListViewDataItem.Memo = dataItem["Memo"] as! String
-                
+                    
+                    purchasesTransactionListViewDataItem.Memo = dataItem["Memo"] as! String
+                    
                 }
                 else{
                     purchasesTransactionListViewDataItem.Memo = ""
                 }
-               
                 
-              var DueDate = dataItem["DueDate"] as? String
-//                var convertDueDate = NSDate?()
-//                if dueDate != nil {
-//                print("dueDate sss" + dueDate!)
-//                    
-//                    convertDueDate = dueDate?.toDateTime()
-//                
-//                }
+                
+                var DueDate = dataItem["DueDate"] as? String
+                //                var convertDueDate = NSDate?()
+                //                if dueDate != nil {
+                //                print("dueDate sss" + dueDate!)
+                //
+                //                    convertDueDate = dueDate?.toDateTime()
+                //
+                //                }
                 purchasesTransactionListViewDataItem.DueDate = DueDate?.toDateTime()
                 
                 var TransactionDate = dataItem["TransactionDate"] as! String
                 
                 purchasesTransactionListViewDataItem.TransactionDate = TransactionDate.toDateTime()!
                 purchasesTransactionListViewDataItem.TotalAmount = dataItem["TotalAmount"] as! Double
-//                  purchasesTransactionListViewDataItem.DebitAmount = dataItem["DebitAmount"] as! Double
-               purchasesTransactionListViewDataItem.HasLinkedDoc = dataItem["HasLinkedDoc"] as! Bool
-               // purchasesTransactionListViewDataItem.TransactionDate = dataItem["TransactionDate"] as! NSDate
+                //                  purchasesTransactionListViewDataItem.DebitAmount = dataItem["DebitAmount"] as! Double
+                purchasesTransactionListViewDataItem.HasLinkedDoc = dataItem["HasLinkedDoc"] as! Bool
+                // purchasesTransactionListViewDataItem.TransactionDate = dataItem["TransactionDate"] as! NSDate
                 
                 var ClosedDate = dataItem["ClosedDate"] as? String
                 purchasesTransactionListViewDataItem.ClosedDate = ClosedDate?.toDateTime()
                 //print("Transaction Date" + dataItem["TransactionDate"])
                 purchaseTransactionListData.append(purchasesTransactionListViewDataItem)
-            
-               printFields(purchasesTransactionListViewDataItem)
+                
+                printFields(purchasesTransactionListViewDataItem)
             }
             print("purchaseTransactionListdata count" + purchaseTransactionListData.count.description)
-          //  self.purchaseTableView.reloadData()
+            //  self.purchaseTableView.reloadData()
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                 self.purchaseTableView.reloadData()
-                 self.Q6ActivityIndicatorView.hidesWhenStopped = true
+                self.Q6ActivityIndicatorView.hidesWhenStopped = true
                 self.Q6ActivityIndicatorView.stopAnimating()
-                self.SearchBar.resignFirstResponder()
-               
+                self.PurchaseSearchBox.resignFirstResponder()
+                
             })
-       
-//        var dd = try  NSJSONSerialization.JSONObjectWithData(postDicData["PurchasesTransactionsHeaderList"]! as! NSData, options: []) as! [AnyObject]
+            
+            //        var dd = try  NSJSONSerialization.JSONObjectWithData(postDicData["PurchasesTransactionsHeaderList"]! as! NSData, options: []) as! [AnyObject]
             //let dataDict = try  NSJSONSerialization.JSONObjectWithData(postDicData["PurchasesTransactionsHeaderList"]! as! NSData, options: NSJSONReadingOptions.MutableContainers) as! [[String:String]]
-
+            
             
         } catch  {
             print("error parsing response from POST on /posts")
             
             return ""
         }
-
+        
         return ""
     }
     
     func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
-       print("indexpath" + indexPath.row.description)
+        print("indexpath" + indexPath.row.description)
         if indexPath.row == pageIndex*(pageSize - 5 )
-       {
-        let q6CommonLib = Q6CommonLib(myObject: self)
-        pageIndex++
-       setAttachedURL(searchText, PageSize: pageSize, PageIndex: pageIndex)
-        dataRequestSource = ""
-        q6CommonLib.Q6IosClientGetApi("Purchase", ActionName: "GetPurchasesTransactionsList", attachedURL: attachedURL)
+        {
+            let q6CommonLib = Q6CommonLib(myObject: self)
+            pageIndex++
+            setAttachedURL(searchText, PageSize: pageSize, PageIndex: pageIndex)
+            dataRequestSource = ""
+            q6CommonLib.Q6IosClientGetApi("Purchase", ActionName: "GetPurchasesTransactionsList", attachedURL: attachedURL)
         }
         
     }
@@ -197,19 +197,19 @@ class PurchaseViewController: UIViewController, Q6WebApiProtocol,UITableViewDele
         self.searchText = searchText
         
         if searchText.length == 0 {
-           
-
-        
-        let q6CommonLib = Q6CommonLib(myObject: self)
-      
-        pageIndex = 1
-        purchaseTransactionListData.removeAll()
-        
-        dataRequestSource = "Search"
-        print("purchaseTransactionListdata count" + purchaseTransactionListData.count.description)
-        setAttachedURL(searchText, PageSize: pageSize, PageIndex: pageIndex)
-        q6CommonLib.Q6IosClientGetApi("Purchase", ActionName: "GetPurchasesTransactionsList", attachedURL: attachedURL)
-        
+            
+            
+            
+            let q6CommonLib = Q6CommonLib(myObject: self)
+            
+            pageIndex = 1
+            purchaseTransactionListData.removeAll()
+            
+            dataRequestSource = "Search"
+            print("purchaseTransactionListdata count" + purchaseTransactionListData.count.description)
+            setAttachedURL(searchText, PageSize: pageSize, PageIndex: pageIndex)
+            q6CommonLib.Q6IosClientGetApi("Purchase", ActionName: "GetPurchasesTransactionsList", attachedURL: attachedURL)
+            
         }
     }
     func printFields(purchasesTransactionListViewDataItem : PurchasesTransactionsListView)
@@ -232,7 +232,7 @@ class PurchaseViewController: UIViewController, Q6WebApiProtocol,UITableViewDele
         print("Memo"  + purchasesTransactionListViewDataItem.Memo)
         
         
-      
+        
         
         if let dueDates = purchasesTransactionListViewDataItem.DueDate  {
             
@@ -241,7 +241,7 @@ class PurchaseViewController: UIViewController, Q6WebApiProtocol,UITableViewDele
         else {
             print("DueDate nil")
         }
-     
+        
         print("TransactionDate"  + purchasesTransactionListViewDataItem.TransactionDate.formatted)
         print("TotalAmount" + purchasesTransactionListViewDataItem.TotalAmount.description)
         //                     print("DebitAmount" + purchasesTransactionListViewDataItem.DebitAmount.description)
@@ -256,49 +256,49 @@ class PurchaseViewController: UIViewController, Q6WebApiProtocol,UITableViewDele
             print("ClosedDate nil")
         }
     }
-        func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-            // #warning Incomplete implementation, return the number of sections
-            return 1
-        }
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        // #warning Incomplete implementation, return the number of sections
+        return 1
+    }
     
-         func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-            return purchaseTransactionListData.count
-        }
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return purchaseTransactionListData.count
+    }
     
-         func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-            let  cell = tableView.dequeueReusableCellWithIdentifier("PurchasePototypeCELL", forIndexPath: indexPath) as! PurchaseTableViewCell
-            
-           
-            cell.lblMemo.text = purchaseTransactionListData[indexPath.row].Memo
-           
-             let TotalAmount = purchaseTransactionListData[indexPath.row].TotalAmount
-            cell.lblTotalAmount.text = String(format: "%.2f", TotalAmount)
-            cell.lblSupplierName.text =  purchaseTransactionListData[indexPath.row].SupplierName
-            cell.lblSupplierName.font =  UIFont.boldSystemFontOfSize(18.0)
-            
-            let TransactionDate = purchaseTransactionListData[indexPath.row].TransactionDate
-            cell.lblTransactionDate.text = TransactionDate.formatted
-            
-            // Configure the cell...
-            
-            return cell
-        }
-   
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let  cell = tableView.dequeueReusableCellWithIdentifier("PurchasePototypeCELL", forIndexPath: indexPath) as! PurchaseTableViewCell
+        
+        
+        cell.lblMemo.text = purchaseTransactionListData[indexPath.row].Memo
+        
+        let TotalAmount = purchaseTransactionListData[indexPath.row].TotalAmount
+        cell.lblTotalAmount.text = String(format: "%.2f", TotalAmount)
+        cell.lblSupplierName.text =  purchaseTransactionListData[indexPath.row].SupplierName
+        cell.lblSupplierName.font =  UIFont.boldSystemFontOfSize(18.0)
+        
+        let TransactionDate = purchaseTransactionListData[indexPath.row].TransactionDate
+        cell.lblTransactionDate.text = TransactionDate.formatted
+        
+        // Configure the cell...
+        
+        return cell
+    }
     
     
-  
+    
+    
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-   
+        
         selectedRowNo = indexPath.row
         
-         self.performSegueWithIdentifier("editPurchaseDetail", sender: "PurchasePototypeCELL")
-        SearchBar.resignFirstResponder()
+        self.performSegueWithIdentifier("editPurchaseDetail", sender: "PurchasePototypeCELL")
+         PurchaseSearchBox.resignFirstResponder()
     }
     
     func searchBarSearchButtonClicked( searchBar: UISearchBar!)
     {
         let q6CommonLib = Q6CommonLib(myObject: self)
-      
+        
         pageIndex = 1
         purchaseTransactionListData.removeAll()
         
@@ -306,19 +306,18 @@ class PurchaseViewController: UIViewController, Q6WebApiProtocol,UITableViewDele
         print("purchaseTransactionListdata count" + purchaseTransactionListData.count.description)
         setAttachedURL(searchText, PageSize: 20, PageIndex: pageIndex)
         q6CommonLib.Q6IosClientGetApi("Purchase", ActionName: "GetPurchasesTransactionsList", attachedURL: attachedURL)
-        
-        searchBar.resignFirstResponder()
+       PurchaseSearchBox.resignFirstResponder()
         
     }
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
         if segue.identifier == "createPurchaseDetail" {
             
-          var operationType = OperationType()
+            var operationType = OperationType()
             
             var purchaseDetailViewController = segue.destinationViewController as! PurchaseDetailViewController
-      purchaseDetailViewController.operationType = operationType.Create
+            purchaseDetailViewController.operationType = operationType.Create
             print("purchaseDetailViewController.operationType" + purchaseDetailViewController.operationType)
-//            purchaseDetailDataLineInventorySearchViewController.delegate = self
+            //            purchaseDetailDataLineInventorySearchViewController.delegate = self
             
         }
         if segue.identifier == "editPurchaseDetail" {
@@ -334,6 +333,6 @@ class PurchaseViewController: UIViewController, Q6WebApiProtocol,UITableViewDele
             
         }
         
-     
+        
     }
 }

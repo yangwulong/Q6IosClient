@@ -17,22 +17,35 @@ protocol Q6WebApiProtocol : class {    // 'class' means only class types can imp
 protocol Q6GoBackFromView :class {
     
     func  sendGoBackFromPickerView(fromView : String ,forCell: String,selectedValue : String)
-   
+    
     func  sendGoBackFromContactSearchView(fromView : String ,forCell: String,Contact: Supplier)
     
     func sendGoBackFromDatePickerView(fromView:String, forCell:String ,Date: NSDate)
     
     func sendGoBackFromPurchaseDetailDataLineView(fromView:String,forCell:String,purchasesTransactionsDetailView: PurchasesTransactionsDetailView)
     
-        func sendGoBackFromPurchaseDetailDataLineInventorySearchView(fromView:String,forCell:String,inventoryView: InventoryView)
+    func sendGoBackFromPurchaseDetailDataLineInventorySearchView(fromView:String,forCell:String,inventoryView: InventoryView)
     
-       func  sendGoBackFromPurchaseDetailDataLineDescriptionView(fromView : String ,forCell: String,Description: String)
-     func  sendGoBackFromPurchaseDetailDataLineTaxCodeSearchView(fromView : String ,forCell: String,taxCodeView: TaxCodeView)
+    func  sendGoBackFromPurchaseDetailDataLineDescriptionView(fromView : String ,forCell: String,Description: String)
+    func  sendGoBackFromPurchaseDetailDataLineTaxCodeSearchView(fromView : String ,forCell: String,taxCodeView: TaxCodeView)
     
-     func  sendGoBackFromPurchaseDetailDataLineAccountSearchView(fromView : String ,forCell: String,accountView: AccountView)
+    func  sendGoBackFromPurchaseDetailDataLineAccountSearchView(fromView : String ,forCell: String,accountView: AccountView)
     func sendGoBackFromAddImageView(fromView: String, forCell: String, image:UIImage)
     
-     func  sendGoBackFromPurchaseDetailMemoView(fromView : String ,forCell: String,Memo: String)
-   
+    func  sendGoBackFromPurchaseDetailMemoView(fromView : String ,forCell: String,Memo: String)
+    
+    
+    func sendGoBackFromSaleDetailDataLineView(fromView:String,forCell:String,salesTransactionsDetailView: SalesTransactionsDetailView)
+    
+    func sendGoBackFromSaleDetailDataLineInventorySearchView(fromView:String,forCell:String,inventoryView: InventoryView)
+    
+    func  sendGoBackFromSaleDetailDataLineDescriptionView(fromView : String ,forCell: String,Description: String)
+    func  sendGoBackFromSaleDetailDataLineTaxCodeSearchView(fromView : String ,forCell: String,taxCodeView: TaxCodeView)
+    
+    func  sendGoBackFromSaleDetailDataLineAccountSearchView(fromView : String ,forCell: String,accountView: AccountView)
+
+    
+    func  sendGoBackFromSaleDetailMemoView(fromView : String ,forCell: String,Memo: String)
+    func  sendGoBackFromContactSearchView(fromView : String ,forCell: String,Contact: Customer)
     
 }

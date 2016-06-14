@@ -1,5 +1,5 @@
 //
-//  ContactSearchViewController.swift
+//  SupplierSearchViewController.swift
 //  Q6IosClient
 //
 //  Created by yang wulong on 5/05/2016.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ContactSearchViewController: UIViewController , Q6WebApiProtocol,UITableViewDelegate ,UITableViewDataSource,UISearchBarDelegate{
+class SupplierSearchViewController: UIViewController , Q6WebApiProtocol,UITableViewDelegate ,UITableViewDataSource,UISearchBarDelegate{
 
     var pageIndex: Int = 1
     var pageSize: Int = 20
@@ -71,7 +71,7 @@ setControlAppear()
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let  cell = tableView.dequeueReusableCellWithIdentifier("ContactSearchPrototypeCell", forIndexPath: indexPath) as! ContactSearchTableViewCell
+        let  cell = tableView.dequeueReusableCellWithIdentifier("SupplierSearchPrototypeCell", forIndexPath: indexPath) as! SupplierSearchTableViewCell
         
         cell.lblSupplierID.hidden = true
         
@@ -171,7 +171,7 @@ setControlAppear()
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
        
         print("selected indexpath" + indexPath.row.description)
-          let  cell = tableView.cellForRowAtIndexPath(indexPath) as! ContactSearchTableViewCell
+          let  cell = tableView.cellForRowAtIndexPath(indexPath) as! SupplierSearchTableViewCell
         
      selectedSuplier = supplierData[indexPath.row]
         ContactSearchBox.resignFirstResponder()
@@ -239,7 +239,7 @@ setControlAppear()
         }
         else{
         
-            self.delegate?.sendGoBackFromContactSearchView("ContactSearchViewController" ,forCell :fromCell,Contact: selectedSuplier!)
+            self.delegate?.sendGoBackFromSupplierSearchView("SupplierSearchViewController" ,forCell :fromCell,Contact: selectedSuplier!)
 //        
             
             navigationController?.popViewControllerAnimated(true)

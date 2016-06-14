@@ -522,7 +522,7 @@ class SaleDetailViewController: UIViewController, UITableViewDelegate ,UITableVi
             if fromCell == "CustomerCell"
             {
                 
-                var contactSearchViewController = segue.destinationViewController as! ContactSearchViewController
+                var contactSearchViewController = segue.destinationViewController as! CustomerSearchViewController
                 contactSearchViewController.fromCell = "CustomerCell"
                 contactSearchViewController.delegate = self
                 contactSearchViewController.hasAddedItemLine = hasAddedItemLine
@@ -1082,11 +1082,11 @@ class SaleDetailViewController: UIViewController, UITableViewDelegate ,UITableVi
         print("backFrom" + self.backFrom)
     }
     
-      func  sendGoBackFromContactSearchView(fromView : String ,forCell: String,Contact: Supplier)
+      func  sendGoBackFromSupplierSearchView(fromView : String ,forCell: String,Contact: Supplier)
       {}
-    func  sendGoBackFromContactSearchView(fromView : String ,forCell: String,Contact:Customer){
+    func  sendGoBackFromCustomerSearchView(fromView : String ,forCell: String,Contact:Customer){
         
-        if fromView == "ContactSearchViewController" {
+        if fromView == "CustomerSearchViewController" {
             if forCell == "CustomerCell" {
                 salesTransactionHeader.CustomerID = Contact.CustomerID
                 

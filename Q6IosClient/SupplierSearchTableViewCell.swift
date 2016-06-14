@@ -1,5 +1,5 @@
 //
-//  ContactSearchTableViewCell.swift
+//  SupplierSearchTableViewCell.swift
 //  Q6IosClient
 //
 //  Created by yang wulong on 5/05/2016.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ContactSearchTableViewCell: UITableViewCell {
+class SupplierSearchTableViewCell: UITableViewCell {
 
  
     @IBOutlet weak var lblSupplierName: UILabel!

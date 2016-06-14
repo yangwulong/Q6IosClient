@@ -24,8 +24,8 @@
 		19AD97271CED549B0079DF52 /* PurchaseDetailDataLineAccountSearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19AD97261CED549B0079DF52 /* PurchaseDetailDataLineAccountSearchTableViewCell.swift */; };
 		19B2B33D1CF7C83000BF53A9 /* PurchaseDetailMemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19B2B33C1CF7C83000BF53A9 /* PurchaseDetailMemoViewController.swift */; };
 		19B87D571CDAFF580048AAFB /* Supplier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19B87D561CDAFF580048AAFB /* Supplier.swift */; };
-		19B87D591CDB02120048AAFB /* ContactSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19B87D581CDB02120048AAFB /* ContactSearchViewController.swift */; };
-		19B87D5B1CDB0C3A0048AAFB /* ContactSearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19B87D5A1CDB0C3A0048AAFB /* ContactSearchTableViewCell.swift */; };
+		19B87D591CDB02120048AAFB /* SupplierSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19B87D581CDB02120048AAFB /* SupplierSearchViewController.swift */; };
+		19B87D5B1CDB0C3A0048AAFB /* SupplierSearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19B87D5A1CDB0C3A0048AAFB /* SupplierSearchTableViewCell.swift */; };
 		19BB92F31CF538DA00633CCD /* AddImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19BB92F21CF538DA00633CCD /* AddImageViewController.swift */; };
 		19BD3B9A1CE93B9500245B85 /* PurchaseDetailDataLineDescriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19BD3B991CE93B9500245B85 /* PurchaseDetailDataLineDescriptionViewController.swift */; };
 		19C4E00F1D08ED2D005B216C /* SalesTransactionsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C4E00E1D08ED2D005B216C /* SalesTransactionsListView.swift */; };
@@ -59,6 +59,13 @@
 		19DF32A81CD96AB800730FC5 /* ScreenSortLinesDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DF32A71CD96AB800730FC5 /* ScreenSortLinesDetail.swift */; };
 		19DF32AA1CD9806000730FC5 /* PickerViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DF32A91CD9806000730FC5 /* PickerViewViewController.swift */; };
 		19DF32AC1CD9B32B00730FC5 /* SegueFromRight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DF32AB1CD9B32B00730FC5 /* SegueFromRight.swift */; };
+		19E6610C1D0F832C00317E30 /* CustomerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19E6610B1D0F832C00317E30 /* CustomerViewController.swift */; };
+		19E6610E1D0F836B00317E30 /* CustomerSearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19E6610D1D0F836B00317E30 /* CustomerSearchTableViewCell.swift */; };
+		19E661101D0F989800317E30 /* SaleDetailDataLineInventorySearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19E6610F1D0F989800317E30 /* SaleDetailDataLineInventorySearchViewController.swift */; };
+		19E661121D0F98DC00317E30 /* SaleDetailDataLineDescriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19E661111D0F98DC00317E30 /* SaleDetailDataLineDescriptionViewController.swift */; };
+		19E661141D0F990700317E30 /* SaleDetailDataLineTaxCodeSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19E661131D0F990700317E30 /* SaleDetailDataLineTaxCodeSearchViewController.swift */; };
+		19E661161D0F992700317E30 /* SaleDetailDataLineAccountSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19E661151D0F992700317E30 /* SaleDetailDataLineAccountSearchViewController.swift */; };
+		19E661181D0F9BC700317E30 /* SaleDetailDataLineTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19E661171D0F9BC700317E30 /* SaleDetailDataLineTableViewCell.swift */; };
 		19F9B5341CB1DC3400571B9D /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F9B5331CB1DC3400571B9D /* libsqlite3.tbd */; };
 		19F9B5651CB1DF0700571B9D /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F9B55B1CB1DF0700571B9D /* FMDatabase.m */; };
 		19F9B5661CB1DF0700571B9D /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F9B55D1CB1DF0700571B9D /* FMResultSet.m */; };
@@ -95,8 +102,8 @@
 		19AD97261CED549B0079DF52 /* PurchaseDetailDataLineAccountSearchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurchaseDetailDataLineAccountSearchTableViewCell.swift; sourceTree = "<group>"; };
 		19B2B33C1CF7C83000BF53A9 /* PurchaseDetailMemoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurchaseDetailMemoViewController.swift; sourceTree = "<group>"; };
 		19B87D561CDAFF580048AAFB /* Supplier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Supplier.swift; sourceTree = "<group>"; };
-		19B87D581CDB02120048AAFB /* ContactSearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactSearchViewController.swift; sourceTree = "<group>"; };
-		19B87D5A1CDB0C3A0048AAFB /* ContactSearchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactSearchTableViewCell.swift; sourceTree = "<group>"; };
+		19B87D581CDB02120048AAFB /* SupplierSearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SupplierSearchViewController.swift; sourceTree = "<group>"; };
+		19B87D5A1CDB0C3A0048AAFB /* SupplierSearchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SupplierSearchTableViewCell.swift; sourceTree = "<group>"; };
 		19BB92F21CF538DA00633CCD /* AddImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddImageViewController.swift; sourceTree = "<group>"; };
 		19BD3B991CE93B9500245B85 /* PurchaseDetailDataLineDescriptionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurchaseDetailDataLineDescriptionViewController.swift; sourceTree = "<group>"; };
 		19C4E00E1D08ED2D005B216C /* SalesTransactionsListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SalesTransactionsListView.swift; sourceTree = "<group>"; };
@@ -130,6 +137,13 @@
 		19DF32A71CD96AB800730FC5 /* ScreenSortLinesDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreenSortLinesDetail.swift; sourceTree = "<group>"; };
 		19DF32A91CD9806000730FC5 /* PickerViewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickerViewViewController.swift; sourceTree = "<group>"; };
 		19DF32AB1CD9B32B00730FC5 /* SegueFromRight.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegueFromRight.swift; sourceTree = "<group>"; };
+		19E6610B1D0F832C00317E30 /* CustomerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomerViewController.swift; sourceTree = "<group>"; };
+		19E6610D1D0F836B00317E30 /* CustomerSearchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomerSearchTableViewCell.swift; sourceTree = "<group>"; };
+		19E6610F1D0F989800317E30 /* SaleDetailDataLineInventorySearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SaleDetailDataLineInventorySearchViewController.swift; sourceTree = "<group>"; };
+		19E661111D0F98DC00317E30 /* SaleDetailDataLineDescriptionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SaleDetailDataLineDescriptionViewController.swift; sourceTree = "<group>"; };
+		19E661131D0F990700317E30 /* SaleDetailDataLineTaxCodeSearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SaleDetailDataLineTaxCodeSearchViewController.swift; sourceTree = "<group>"; };
+		19E661151D0F992700317E30 /* SaleDetailDataLineAccountSearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SaleDetailDataLineAccountSearchViewController.swift; sourceTree = "<group>"; };
+		19E661171D0F9BC700317E30 /* SaleDetailDataLineTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SaleDetailDataLineTableViewCell.swift; sourceTree = "<group>"; };
 		19F9B5331CB1DC3400571B9D /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		19F9B5591CB1DF0700571B9D /* FMDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDB.h; sourceTree = "<group>"; };
 		19F9B55A1CB1DF0700571B9D /* FMDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabase.h; sourceTree = "<group>"; };
@@ -186,6 +200,8 @@
 		19B87D551CDAFE220048AAFB /* Purchases */ = {
 			isa = PBXGroup;
 			children = (
+				19B87D581CDB02120048AAFB /* SupplierSearchViewController.swift */,
+				19B87D5A1CDB0C3A0048AAFB /* SupplierSearchTableViewCell.swift */,
 				19C4FC8C1CD84DE1004A1449 /* PurchaseDetailViewController.swift */,
 				19AC960E1CEA89D100A9216E /* PurchaseDetailDataLine */,
 				19C4FC8E1CD86BD4004A1449 /* PurchaseDetailTableViewCell.swift */,
@@ -232,6 +248,8 @@
 				19C4E0101D08FD73005B216C /* SaleTableViewCell.swift */,
 				19DA2C8B1D0A2D5C008AF282 /* SaleDetailViewController.swift */,
 				19DA2C951D0A37E2008AF282 /* SaleDetailTableViewCell.swift */,
+				19E6610B1D0F832C00317E30 /* CustomerViewController.swift */,
+				19E6610D1D0F836B00317E30 /* CustomerSearchTableViewCell.swift */,
 			);
 			name = Sales;
 			sourceTree = "<group>";
@@ -240,6 +258,11 @@
 			isa = PBXGroup;
 			children = (
 				19DA2C981D0A4E03008AF282 /* SaleDetailDataLineViewController.swift */,
+				19E6610F1D0F989800317E30 /* SaleDetailDataLineInventorySearchViewController.swift */,
+				19E661111D0F98DC00317E30 /* SaleDetailDataLineDescriptionViewController.swift */,
+				19E661131D0F990700317E30 /* SaleDetailDataLineTaxCodeSearchViewController.swift */,
+				19E661151D0F992700317E30 /* SaleDetailDataLineAccountSearchViewController.swift */,
+				19E661171D0F9BC700317E30 /* SaleDetailDataLineTableViewCell.swift */,
 			);
 			name = SaleDetailDataLine;
 			sourceTree = "<group>";
@@ -304,8 +327,6 @@
 				19DF32A71CD96AB800730FC5 /* ScreenSortLinesDetail.swift */,
 				19DF32A91CD9806000730FC5 /* PickerViewViewController.swift */,
 				19DF32AB1CD9B32B00730FC5 /* SegueFromRight.swift */,
-				19B87D581CDB02120048AAFB /* ContactSearchViewController.swift */,
-				19B87D5A1CDB0C3A0048AAFB /* ContactSearchTableViewCell.swift */,
 				19D2CA3E1CE16D6800A8AAE0 /* DatePickerViewController.swift */,
 				19DE52DC1CEC2C0B0050A62D /* ScreenSectionSortDetailForAccount.swift */,
 				19A9B7841CF6B75D00071958 /* Q6Struct.swift */,
@@ -415,6 +436,8 @@
 				19DE52DD1CEC2C0B0050A62D /* ScreenSectionSortDetailForAccount.swift in Sources */,
 				19A9B7831CF6B1CC00071958 /* ShippingAddress.swift in Sources */,
 				19DA2C9D1D0A4FF0008AF282 /* SaleDetailMemoViewController.swift in Sources */,
+				19E6610C1D0F832C00317E30 /* CustomerViewController.swift in Sources */,
+				19E661101D0F989800317E30 /* SaleDetailDataLineInventorySearchViewController.swift in Sources */,
 				19D009E31D07D29300217C6A /* SalesViewController.swift in Sources */,
 				199F0CD31CA0BE0C00301EC4 /* LoginViewController.swift in Sources */,
 				19C9083E1CE3F6E300A828A3 /* PurchasesTransactionsDetailView.swift in Sources */,
@@ -423,6 +446,8 @@
 				19AC96101CEA909B00A9216E /* PurchaseDetailDataLineTaxCodeSearchViewController.swift in Sources */,
 				1918D0471CFFDAC600168AA6 /* PurchasesTransactionsHeaderView.swift in Sources */,
 				197D2ACF1CFE9BB800E03BEB /* JSON.swift in Sources */,
+				19E661121D0F98DC00317E30 /* SaleDetailDataLineDescriptionViewController.swift in Sources */,
+				19E661141D0F990700317E30 /* SaleDetailDataLineTaxCodeSearchViewController.swift in Sources */,
 				195AD4AA1CB35DE4002F2DD7 /* PurchaseViewController.swift in Sources */,
 				19DF1C401CE2AA2400908A32 /* PurchaseDetailDataLineTableViewCell.swift in Sources */,
 				19C908461CE443A400A828A3 /* InventoryView.swift in Sources */,
@@ -431,7 +456,7 @@
 				19DF1C411CE2AE2300908A32 /* PurchaseDetailViewController.swift in Sources */,
 				19BB92F31CF538DA00633CCD /* AddImageViewController.swift in Sources */,
 				190EBFA21CE5550A00B26E00 /* TaxCodeView.swift in Sources */,
-				19B87D5B1CDB0C3A0048AAFB /* ContactSearchTableViewCell.swift in Sources */,
+				19B87D5B1CDB0C3A0048AAFB /* SupplierSearchTableViewCell.swift in Sources */,
 				19DF32AA1CD9806000730FC5 /* PickerViewViewController.swift in Sources */,
 				19D0C64A1CD7230E0055093C /* PurchasesTransactionsHeader.swift in Sources */,
 				19F9B5741CB21D7600571B9D /* PassCodeViewController.swift in Sources */,
@@ -448,10 +473,12 @@
 				19F9B5681CB1DF0700571B9D /* FMDatabaseAdditions.m in Sources */,
 				19DA2C991D0A4E03008AF282 /* SaleDetailDataLineViewController.swift in Sources */,
 				19B2B33D1CF7C83000BF53A9 /* PurchaseDetailMemoViewController.swift in Sources */,
+				19E661181D0F9BC700317E30 /* SaleDetailDataLineTableViewCell.swift in Sources */,
 				19F9B5661CB1DF0700571B9D /* FMResultSet.m in Sources */,
+				19E661161D0F992700317E30 /* SaleDetailDataLineAccountSearchViewController.swift in Sources */,
 				19C908401CE3FBD800A828A3 /* PreLoadInventoryPurchase.swift in Sources */,
 				19DA2C921D0A32B5008AF282 /* Customer.swift in Sources */,
-				19B87D591CDB02120048AAFB /* ContactSearchViewController.swift in Sources */,
+				19B87D591CDB02120048AAFB /* SupplierSearchViewController.swift in Sources */,
 				19F9B56C1CB1E08500571B9D /* Q6DBLib.swift in Sources */,
 				19AC96121CEA90C400A9216E /* PurchaseDetailDataLineTaxCodeSearchTableViewCell.swift in Sources */,
 				19AD97271CED549B0079DF52 /* PurchaseDetailDataLineAccountSearchTableViewCell.swift in Sources */,
@@ -461,6 +488,7 @@
 				19D0C64C1CD7256A0055093C /* PurchasesTransactionsDetail.swift in Sources */,
 				19DA2C901D0A31A0008AF282 /* SalesTransactionDetail.swift in Sources */,
 				19DF32A81CD96AB800730FC5 /* ScreenSortLinesDetail.swift in Sources */,
+				19E6610E1D0F836B00317E30 /* CustomerSearchTableViewCell.swift in Sources */,
 				19F9B5651CB1DF0700571B9D /* FMDatabase.m in Sources */,
 				19DA2C8E1D0A2F85008AF282 /* SalesTransactionsHeader.swift in Sources */,
 				19A9B7811CF688FA00071958 /* PurchaseDetailDataLineInventorySearchTableViewCell.swift in Sources */,

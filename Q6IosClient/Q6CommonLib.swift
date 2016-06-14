@@ -29,7 +29,7 @@ public class Q6CommonLib{
         self.delegate = myObject
     }
     
-    init(myObject: ContactSearchViewController){
+    init(myObject: SupplierSearchViewController){
         
         self.delegate = myObject
     }
@@ -63,7 +63,10 @@ public class Q6CommonLib{
         
         self.delegate = myObject
     }
-    
+    init(myObject: CustomerSearchViewController){
+        
+        self.delegate = myObject
+    }
     func validateIfTouchIDExist()->Bool{
         
         let context = LAContext()

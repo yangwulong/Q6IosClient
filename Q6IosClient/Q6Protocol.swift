@@ -18,7 +18,7 @@ protocol Q6GoBackFromView :class {
     
     func  sendGoBackFromPickerView(fromView : String ,forCell: String,selectedValue : String)
     
-    func  sendGoBackFromContactSearchView(fromView : String ,forCell: String,Contact: Supplier)
+    func  sendGoBackFromSupplierSearchView(fromView : String ,forCell: String,Contact: Supplier)
     
     func sendGoBackFromDatePickerView(fromView:String, forCell:String ,Date: NSDate)
     
@@ -46,6 +46,6 @@ protocol Q6GoBackFromView :class {
 
     
     func  sendGoBackFromSaleDetailMemoView(fromView : String ,forCell: String,Memo: String)
-    func  sendGoBackFromContactSearchView(fromView : String ,forCell: String,Contact: Customer)
+    func  sendGoBackFromCustomerSearchView(fromView : String ,forCell: String,Contact: Customer)
     
 }

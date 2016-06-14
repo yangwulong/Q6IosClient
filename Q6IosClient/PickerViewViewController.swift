@@ -10,20 +10,25 @@ import UIKit
 
 class PickerViewViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
 
-  
+    
     @IBOutlet weak var lblPickerViewDescription: UILabel!
     @IBOutlet weak var pickerView: UIPickerView!
-      weak var delegate : Q6GoBackFromView?
+    weak var delegate : Q6GoBackFromView?
     var fromCell = String()
-     var pickerDataSource = [String]()
+    var pickerDataSource = [String]()
     override func viewWillAppear(animated: Bool) {
-    //  self.view.transform = CGAffineTransformMakeTranslation(600, 0)
+        //  self.view.transform = CGAffineTransformMakeTranslation(600, 0)
         
-                if( fromCell == "PurchasesTypecell")
-                {
-                    lblPickerViewDescription.text = "Please select a Purchase Type!"
-                    pickerDataSource = ["Quote","Order","Bill","DebitNote"]
-                }
+        if( fromCell == "PurchasesTypecell")
+        {
+            lblPickerViewDescription.text = "Please select a Purchase Type!"
+            pickerDataSource = ["Quote","Order","Bill","DebitNote"]
+        }
+        if( fromCell == "SalesTypecell")
+        {
+            lblPickerViewDescription.text = "Please select a Sale Type!"
+            pickerDataSource = ["Quote","Order","Invoice","CreditNote"]
+        }
     }
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,27 +37,23 @@ class PickerViewViewController: UIViewController, UIPickerViewDataSource, UIPick
         pickerView.dataSource = self
         
         print("from cell" + fromCell)
-  
-//        if( fromCell == "PurchasesTypecell")
-//        {
-//            pickerDataSource = ["QUOTE","ORDER","BILL","DEBIT NOTE"]
-//        }
-        // Do any additional setup after loading the view.
+        
+        
     }
     @IBAction func CancelButtonClick(sender: AnyObject) {
-       self.navigationController?.popViewControllerAnimated(true)
+        self.navigationController?.popViewControllerAnimated(true)
         
-      // navigationController?.popToRootViewControllerAnimated(true)
+        // navigationController?.popToRootViewControllerAnimated(true)
     }
     
- 
+    
     @IBAction func DonebuttonClick(sender: AnyObject) {
-    var selectedValue = pickerDataSource[pickerView.selectedRowInComponent(0)]
+        var selectedValue = pickerDataSource[pickerView.selectedRowInComponent(0)]
         
         self.delegate?.sendGoBackFromPickerView("fromPickerViewViewController" ,forCell :fromCell,selectedValue: selectedValue)
         
-      navigationController?.popViewControllerAnimated(true)
-       // navigationController?.popToRootViewControllerAnimated(true)
+        navigationController?.popViewControllerAnimated(true)
+        // navigationController?.popToRootViewControllerAnimated(true)
         print("PickView selected row" + selectedValue)
     }
     func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {

@@ -522,7 +522,7 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
             if fromCell == "SupplierCell"
             {
                 
-                var contactSearchViewController = segue.destinationViewController as! ContactSearchViewController
+                var contactSearchViewController = segue.destinationViewController as! SupplierSearchViewController
                 contactSearchViewController.fromCell = "SupplierCell"
                 contactSearchViewController.delegate = self
                 contactSearchViewController.hasAddedItemLine = hasAddedItemLine
@@ -1083,9 +1083,9 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
         print("backFrom" + self.backFrom)
     }
     
-    func  sendGoBackFromContactSearchView(fromView : String ,forCell: String,Contact:Supplier){
+    func  sendGoBackFromSupplierSearchView(fromView : String ,forCell: String,Contact:Supplier){
         
-        if fromView == "ContactSearchViewController" {
+        if fromView == "SupplierSearchViewController" {
             if forCell == "SupplierCell" {
                 purchasesTransactionHeader.SupplierID = Contact.SupplierID
                
@@ -1637,7 +1637,7 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
     
     func  sendGoBackFromSaleDetailMemoView(fromView : String ,forCell: String,Memo: String)
     {}
-      func  sendGoBackFromContactSearchView(fromView : String ,forCell: String,Contact: Customer)
+      func  sendGoBackFromCustomerSearchView(fromView : String ,forCell: String,Contact: Customer)
       {}
     //    func dataLoadCompletion(data:NSData?, response:NSURLResponse?, error:NSError?) -> AnyObject
     //    {

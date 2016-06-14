@@ -440,7 +440,7 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
         
     }
     
-    func  sendGoBackFromContactSearchView(fromView : String ,forCell: String,Contact: Supplier){
+    func  sendGoBackFromSupplierSearchView(fromView : String ,forCell: String,Contact: Supplier){
         
     }
     
@@ -868,7 +868,7 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
     
     func  sendGoBackFromSaleDetailMemoView(fromView : String ,forCell: String,Memo: String)
     {}
-      func  sendGoBackFromContactSearchView(fromView : String ,forCell: String,Contact: Customer)
+      func  sendGoBackFromCustomerSearchView(fromView : String ,forCell: String,Contact: Customer)
       {}
     //    func getTaxCodeByTaxCodeID() -> TaxCodeView {
     //       

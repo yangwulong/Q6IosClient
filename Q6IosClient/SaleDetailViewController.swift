@@ -630,8 +630,9 @@ class SaleDetailViewController: UIViewController, UITableViewDelegate ,UITableVi
             
             dicData["LoginDetail"] = LoginDetailDicData
             
-            if salesTransactionHeader.HasLinkedDoc == true
-            {
+              if attachedimage != nil {
+            salesTransactionHeader.HasLinkedDoc = true
+           
                 var UploadedDocuments = getImageFileDataDic(attachedimage!)
                 
                 dicData["UploadedDocuments"] = UploadedDocuments
@@ -764,7 +765,7 @@ class SaleDetailViewController: UIViewController, UITableViewDelegate ,UITableVi
         dicData["IsCreatedByRecurring"] = salesTransactionHeader.IsCreatedByRecurring
         dicData["RecurringTemplateID"] = salesTransactionHeader.RecurringTemplateID
         dicData["HasLinkedDoc"] = salesTransactionHeader.HasLinkedDoc
-        
+        dicData["CustomerPurchaseNO"] = salesTransactionHeader.CustomerPurchaseNO
         return dicData
         
     }
@@ -1537,7 +1538,7 @@ class SaleDetailViewController: UIViewController, UITableViewDelegate ,UITableVi
         salesTransactionsHeaderView.Memo = returnsalesTransactionHeaderData!["Memo"] as! String
         
         salesTransactionsHeaderView.SalesStatus = returnsalesTransactionHeaderData!["SalesStatus"] as! String
-        salesTransactionsHeaderView.SalesTransactionsHeaderID = returnsalesTransactionHeaderData!["salesTransactionsHeaderID"] as! String
+        salesTransactionsHeaderView.SalesTransactionsHeaderID = returnsalesTransactionHeaderData!["SalesTransactionsHeaderID"] as! String
         
         salesTransactionsHeaderView.SalesType = returnsalesTransactionHeaderData!["SalesType"] as! String
         
@@ -1611,6 +1612,7 @@ class SaleDetailViewController: UIViewController, UITableViewDelegate ,UITableVi
         salesTransactionHeader.TransactionDate = salesTransactionsHeaderView.TransactionDate
         
         salesTransactionHeader.SubTotal = salesTransactionHeader.TotalAmount - salesTransactionHeader.TaxTotal
+        salesTransactionHeader.CustomerPurchaseNO = ""
     }
     func  sendGoBackFromSaleDetailMemoView(fromView : String ,forCell: String,Memo: String)
     {

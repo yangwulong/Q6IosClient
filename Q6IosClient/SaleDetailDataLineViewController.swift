@@ -24,6 +24,7 @@ class SaleDetailDataLineViewController: UIViewController, UITableViewDelegate ,U
     
     var selectedInventoryView = InventoryView?()
     var selectedAccountView = AccountView?()
+    var selectedTaxCodeView = TaxCodeView?()
     var customer = Customer?()
     
     var enableTaxCodeButton = true
@@ -192,6 +193,12 @@ class SaleDetailDataLineViewController: UIViewController, UITableViewDelegate ,U
                     //cell.taxCodeButton.enabled = false
                 }
                 
+            }
+            if selectedTaxCodeView != nil {
+                
+                salesTransactionsDetailView.TaxCodeID = selectedTaxCodeView?.TaxCodeID
+                salesTransactionsDetailView.TaxCodeName = (selectedTaxCodeView?.TaxCodeName)!
+                salesTransactionsDetailView.TaxCodeRate = (selectedTaxCodeView?.TaxRate)!
             }
             
             
@@ -405,6 +412,10 @@ class SaleDetailDataLineViewController: UIViewController, UITableViewDelegate ,U
                 saleDetailDataLineInventorySearchViewController.fromCell = "InventoryCell"
                 
                 saleDetailDataLineInventorySearchViewController.delegate = self
+                
+                selectedAccountView = nil
+                selectedTaxCodeView = nil
+                
             }
             
             if fromCell == "AccountCell"
@@ -414,6 +425,8 @@ class SaleDetailDataLineViewController: UIViewController, UITableViewDelegate ,U
                 saleDetailDataLineAccountSearchViewController.fromCell = "AccountCell"
                 
                 saleDetailDataLineAccountSearchViewController.delegate = self
+                
+                selectedTaxCodeView = nil
             }
             
             if fromCell == "TaxCodeCell"
@@ -482,6 +495,7 @@ class SaleDetailDataLineViewController: UIViewController, UITableViewDelegate ,U
         salesTransactionsDetailView.TaxCodeName = taxCodeView.TaxCodeName
         salesTransactionsDetailView.TaxCodeRate = taxCodeView.TaxRate
         
+        selectedTaxCodeView = taxCodeView
         reloadFromCell = "TaxCodeCell"
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
             self.SaleDetailDataLineTableView.reloadData()
@@ -564,7 +578,7 @@ class SaleDetailDataLineViewController: UIViewController, UITableViewDelegate ,U
                         
                         
                         if UnitPrice == 0 {
-                            UnitPriceTextField.text = "0.00"
+                            UnitPriceTextField.text = "0.0000"
                         } else {
                             //round to 4 decimal place
                             UnitPriceTextField.text =  String(format: "%.4f",Double(round(10000 * UnitPrice)/10000))

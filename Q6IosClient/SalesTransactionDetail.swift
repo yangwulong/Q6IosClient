@@ -13,7 +13,7 @@ public class SalesTransactionsDetail
     var AccountID = String?()
     var Amount = Double()
     var Description = String?()
-    var Discount = Double?()
+    var Discount :Double = 0
     var InventoryID = String?()
     var IsDeleted: Bool = false
     var Quantity = Double()

@@ -83,6 +83,9 @@
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7fA-OT-Kjr">
                                                     <rect key="frame" x="378" y="26" width="46" height="30"/>
+                                                    <connections>
+                                                        <segue destination="vfx-Ij-ORk" kind="show" identifier="editSaleDetail" id="7Xs-DR-JEk"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>
@@ -722,7 +725,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gqG-yA-pKt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="801" y="-1123"/>
+            <point key="canvasLocation" x="933" y="-1177"/>
         </scene>
         <!--Picker View View Controller-->
         <scene sceneID="jcm-bD-Ona">
@@ -1202,6 +1205,12 @@
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U0s-O2-SHe">
+                                                    <rect key="frame" x="486" y="3" width="46" height="30"/>
+                                                    <connections>
+                                                        <segue destination="a7s-uz-eh2" kind="show" identifier="showPurchaseDetailDataLineViewController" id="VYF-Yj-Bwh"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="bottomMargin" secondItem="Ky1-Ko-lNb" secondAttribute="bottom" id="8aN-cx-DbW"/>
@@ -1248,6 +1257,12 @@
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SjV-aq-CZP">
                                                     <rect key="frame" x="485" y="8" width="46" height="30"/>
+                                                </button>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gQd-mZ-Ifj">
+                                                    <rect key="frame" x="485" y="10" width="46" height="30"/>
+                                                    <connections>
+                                                        <segue destination="tuC-Ay-tvP" kind="show" identifier="showAccount" id="X1M-5N-qAj"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>
@@ -1296,6 +1311,12 @@
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="phh-v6-7CW">
                                                     <rect key="frame" x="491" y="10" width="46" height="30"/>
+                                                </button>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TVx-za-efp">
+                                                    <rect key="frame" x="491" y="3" width="46" height="30"/>
+                                                    <connections>
+                                                        <segue destination="ELP-aJ-Zff" kind="show" identifier="showDescription" id="3hR-bT-oBs"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>
@@ -1447,6 +1468,9 @@
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0DX-lW-jVD">
                                                     <rect key="frame" x="482" y="5" width="46" height="30"/>
+                                                    <connections>
+                                                        <segue destination="6wU-pc-THE" kind="show" identifier="showTaxCode" id="Afy-mx-rRv"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>
@@ -1536,7 +1560,371 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QEw-sY-NRd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="139" y="-442"/>
+            <point key="canvasLocation" x="279" y="-475"/>
+        </scene>
+        <!--Sale Detail Data Line Inventory Search View Controller-->
+        <scene sceneID="joc-uR-lRf">
+            <objects>
+                <viewController id="a7s-uz-eh2" customClass="SaleDetailDataLineInventorySearchViewController" customModule="Q6IosClient" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Wlz-FR-iA1"/>
+                        <viewControllerLayoutGuide type="bottom" id="2Ps-mF-tEW"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ZkQ-Wt-z6I">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XZm-vL-3Bj">
+                                <rect key="frame" x="0.0" y="20" width="600" height="44"/>
+                                <items>
+                                    <navigationItem id="52A-ko-AFF">
+                                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="TUR-t3-pCT">
+                                            <connections>
+                                                <action selector="CancelButtonClicked:" destination="a7s-uz-eh2" id="Mss-dw-ih5"/>
+                                            </connections>
+                                        </barButtonItem>
+                                        <barButtonItem key="rightBarButtonItem" title="Done" id="Mt9-l5-rie">
+                                            <connections>
+                                                <action selector="DoneButtonClicked:" destination="a7s-uz-eh2" id="0lM-z3-Jwz"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <searchBar contentMode="redraw" placeholder="Inventory Name" translatesAutoresizingMaskIntoConstraints="NO" id="Lds-XH-Dm9">
+                                <rect key="frame" x="6" y="68" width="588" height="44"/>
+                                <color key="barTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="yZR-B0-OlD">
+                                <rect key="frame" x="0.0" y="114" width="600" height="437"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="InventoryCell" id="RF7-jn-kIB" customClass="SaleDetailDataLineInventorySearchTableViewCell" customModule="Q6IosClient" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="600" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="RF7-jn-kIB" id="P8O-DG-HQT">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1pk-55-hPM">
+                                                    <rect key="frame" x="8" y="8" width="540" height="27.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Ag-w3-CFw">
+                                                    <rect key="frame" x="550" y="8" width="42" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="2Ag-w3-CFw" firstAttribute="top" secondItem="P8O-DG-HQT" secondAttribute="topMargin" id="6Bd-OC-WA0"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="2Ag-w3-CFw" secondAttribute="bottom" id="C3I-jr-hEP"/>
+                                                <constraint firstItem="2Ag-w3-CFw" firstAttribute="trailing" secondItem="P8O-DG-HQT" secondAttribute="trailingMargin" id="L82-13-7rn"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="1pk-55-hPM" secondAttribute="bottom" id="Oh1-DB-JyQ"/>
+                                                <constraint firstItem="2Ag-w3-CFw" firstAttribute="leading" secondItem="1pk-55-hPM" secondAttribute="trailing" constant="2" id="jW9-wL-6Xi"/>
+                                                <constraint firstItem="1pk-55-hPM" firstAttribute="leading" secondItem="P8O-DG-HQT" secondAttribute="leadingMargin" id="k2E-Wu-HSa"/>
+                                                <constraint firstItem="1pk-55-hPM" firstAttribute="width" secondItem="P8O-DG-HQT" secondAttribute="width" multiplier="0.9" id="lrl-0O-jwx"/>
+                                                <constraint firstItem="1pk-55-hPM" firstAttribute="top" secondItem="P8O-DG-HQT" secondAttribute="topMargin" id="pri-dP-iyB"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="lblInventoryID" destination="2Ag-w3-CFw" id="MbK-Ic-0Zk"/>
+                                            <outlet property="lblInventoryName" destination="1pk-55-hPM" id="Hxk-Xu-DWE"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="aQq-EM-utD">
+                                <rect key="frame" x="0.0" y="290" width="600" height="20"/>
+                            </activityIndicatorView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="yZR-B0-OlD" firstAttribute="leading" secondItem="ZkQ-Wt-z6I" secondAttribute="leadingMargin" constant="-20" id="8SL-tt-l6P"/>
+                            <constraint firstItem="XZm-vL-3Bj" firstAttribute="top" secondItem="Wlz-FR-iA1" secondAttribute="bottom" constant="2" id="Lpe-Am-1nk"/>
+                            <constraint firstItem="Lds-XH-Dm9" firstAttribute="top" secondItem="XZm-vL-3Bj" secondAttribute="bottom" constant="2" id="SvY-Ea-NdE"/>
+                            <constraint firstItem="2Ps-mF-tEW" firstAttribute="top" secondItem="yZR-B0-OlD" secondAttribute="bottom" id="W3M-JL-AyS"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="XZm-vL-3Bj" secondAttribute="trailing" constant="-20" id="bYR-9C-N8A"/>
+                            <constraint firstItem="XZm-vL-3Bj" firstAttribute="leading" secondItem="ZkQ-Wt-z6I" secondAttribute="leadingMargin" constant="-20" id="guO-Yf-FvO"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Lds-XH-Dm9" secondAttribute="trailing" constant="-14" id="jHF-Qr-gkt"/>
+                            <constraint firstItem="yZR-B0-OlD" firstAttribute="top" secondItem="Lds-XH-Dm9" secondAttribute="bottom" constant="2" id="p0H-Fm-oIe"/>
+                            <constraint firstItem="Lds-XH-Dm9" firstAttribute="leading" secondItem="ZkQ-Wt-z6I" secondAttribute="leadingMargin" constant="-14" id="r4R-If-yWM"/>
+                            <constraint firstItem="aQq-EM-utD" firstAttribute="centerY" secondItem="ZkQ-Wt-z6I" secondAttribute="centerY" id="rNa-vB-gFf"/>
+                            <constraint firstItem="aQq-EM-utD" firstAttribute="centerX" secondItem="ZkQ-Wt-z6I" secondAttribute="centerX" id="vFU-Zg-35i"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="yZR-B0-OlD" secondAttribute="trailing" constant="-20" id="wZk-CW-1v1"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="InventoryListTableView" destination="yZR-B0-OlD" id="GuG-oe-OVN"/>
+                        <outlet property="InventorySearchBox" destination="Lds-XH-Dm9" id="jBY-cn-Ftv"/>
+                        <outlet property="Q6ActivityIndicator" destination="aQq-EM-utD" id="ejp-rf-JpH"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ClY-YE-SEm" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-647" y="-659"/>
+        </scene>
+        <!--Sale Detail Data Line Account Search View Controller-->
+        <scene sceneID="dWA-zd-JHe">
+            <objects>
+                <viewController id="tuC-Ay-tvP" customClass="SaleDetailDataLineAccountSearchViewController" customModule="Q6IosClient" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="vko-wT-l9j"/>
+                        <viewControllerLayoutGuide type="bottom" id="Fnd-Y5-d6J"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="S1C-ZI-aQB">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="0Vb-dW-2OR">
+                                <rect key="frame" x="290" y="290" width="20" height="20"/>
+                            </activityIndicatorView>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rTl-0B-kiS">
+                                <rect key="frame" x="0.0" y="8" width="600" height="44"/>
+                                <items>
+                                    <navigationItem id="teu-YF-XCz">
+                                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="g8K-PO-7Wl">
+                                            <connections>
+                                                <action selector="CancelButtonClicked:" destination="tuC-Ay-tvP" id="IqT-cw-awZ"/>
+                                            </connections>
+                                        </barButtonItem>
+                                        <barButtonItem key="rightBarButtonItem" title="Done" id="Kfd-0q-jE9">
+                                            <connections>
+                                                <action selector="DoneButtonClicked:" destination="tuC-Ay-tvP" id="xlU-3U-XyO"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="qKo-As-yfT">
+                                <rect key="frame" x="0.0" y="98" width="600" height="453"/>
+                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="AccountNameCell" id="7fi-Tz-77h" customClass="SaleDetailDataLineAccountSearchTableViewCell" customModule="Q6IosClient" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="49.5" width="600" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="7fi-Tz-77h" id="DL1-bZ-9p7">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cXT-Yf-BUD">
+                                                    <rect key="frame" x="8" y="8" width="584" height="27.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottomMargin" secondItem="cXT-Yf-BUD" secondAttribute="bottom" id="2cC-H6-zWb"/>
+                                                <constraint firstItem="cXT-Yf-BUD" firstAttribute="leading" secondItem="DL1-bZ-9p7" secondAttribute="leadingMargin" id="CKF-ZM-UAB"/>
+                                                <constraint firstItem="cXT-Yf-BUD" firstAttribute="top" secondItem="DL1-bZ-9p7" secondAttribute="topMargin" id="E37-T1-SZp"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="cXT-Yf-BUD" secondAttribute="trailing" id="WKN-xo-y5e"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="lblAccountNameWithAccountNo" destination="cXT-Yf-BUD" id="Qy0-Ix-KlV"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                            <searchBar contentMode="redraw" placeholder="Account No,Account Name" translatesAutoresizingMaskIntoConstraints="NO" id="FWY-d8-ugq">
+                                <rect key="frame" x="6" y="54" width="588" height="44"/>
+                                <color key="barTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="qKo-As-yfT" firstAttribute="top" secondItem="FWY-d8-ugq" secondAttribute="bottom" id="7TU-8d-gRr"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="rTl-0B-kiS" secondAttribute="trailing" constant="-20" id="K5l-n8-rRc"/>
+                            <constraint firstItem="rTl-0B-kiS" firstAttribute="top" secondItem="S1C-ZI-aQB" secondAttribute="topMargin" constant="8" id="KEc-JP-86L"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="qKo-As-yfT" secondAttribute="trailing" constant="-20" id="N1l-bJ-nH8"/>
+                            <constraint firstItem="qKo-As-yfT" firstAttribute="leading" secondItem="S1C-ZI-aQB" secondAttribute="leadingMargin" constant="-20" id="U0h-W8-2fE"/>
+                            <constraint firstItem="Fnd-Y5-d6J" firstAttribute="top" secondItem="qKo-As-yfT" secondAttribute="bottom" id="UOS-Gz-ZCM"/>
+                            <constraint firstItem="0Vb-dW-2OR" firstAttribute="centerX" secondItem="S1C-ZI-aQB" secondAttribute="centerX" id="iRB-E7-9SD"/>
+                            <constraint firstItem="FWY-d8-ugq" firstAttribute="leading" secondItem="S1C-ZI-aQB" secondAttribute="leadingMargin" constant="-14" id="nnR-wY-Jim"/>
+                            <constraint firstItem="FWY-d8-ugq" firstAttribute="top" secondItem="rTl-0B-kiS" secondAttribute="bottom" constant="2" id="pad-Cf-3UL"/>
+                            <constraint firstItem="rTl-0B-kiS" firstAttribute="leading" secondItem="S1C-ZI-aQB" secondAttribute="leadingMargin" constant="-20" id="sc9-79-nc0"/>
+                            <constraint firstItem="0Vb-dW-2OR" firstAttribute="centerY" secondItem="S1C-ZI-aQB" secondAttribute="centerY" id="wHs-PU-n2d"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="FWY-d8-ugq" secondAttribute="trailing" constant="-14" id="wxn-GA-anj"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="AccountListTableView" destination="qKo-As-yfT" id="4Th-s7-PQi"/>
+                        <outlet property="AccountSearchBox" destination="FWY-d8-ugq" id="AwM-m5-EnT"/>
+                        <outlet property="Q6ActivityIndicator" destination="0Vb-dW-2OR" id="lIA-52-8Fa"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XXK-AZ-9hb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-307" y="331"/>
+        </scene>
+        <!--Sale Detail Data Line Description View Controller-->
+        <scene sceneID="MkM-oU-fyo">
+            <objects>
+                <viewController id="ELP-aJ-Zff" customClass="SaleDetailDataLineDescriptionViewController" customModule="Q6IosClient" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="4p9-Hp-fyn"/>
+                        <viewControllerLayoutGuide type="bottom" id="Hsp-hI-7YN"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="2JY-bg-dwl">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LCG-ei-Shx">
+                                <rect key="frame" x="0.0" y="22" width="600" height="44"/>
+                                <items>
+                                    <navigationItem id="KOt-dn-Bso">
+                                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="atb-fq-lCB">
+                                            <connections>
+                                                <action selector="CancelButtonClicked:" destination="ELP-aJ-Zff" id="UUQ-f8-Jn4"/>
+                                            </connections>
+                                        </barButtonItem>
+                                        <barButtonItem key="rightBarButtonItem" title="Done" id="2AI-d6-Unz">
+                                            <connections>
+                                                <action selector="DoneButtonClicked:" destination="ELP-aJ-Zff" id="Qsd-05-qo8"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="anm-8q-PRd">
+                                <rect key="frame" x="0.0" y="68" width="600" height="420"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="textColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="anm-8q-PRd" firstAttribute="top" secondItem="LCG-ei-Shx" secondAttribute="bottom" constant="2" id="IPd-rI-2ZL"/>
+                            <constraint firstItem="LCG-ei-Shx" firstAttribute="top" secondItem="4p9-Hp-fyn" secondAttribute="bottom" constant="2" id="Twf-IH-dRV"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="LCG-ei-Shx" secondAttribute="trailing" constant="-20" id="b8w-8K-TXU"/>
+                            <constraint firstItem="anm-8q-PRd" firstAttribute="height" secondItem="2JY-bg-dwl" secondAttribute="height" multiplier="0.7" id="dpk-nE-NtG"/>
+                            <constraint firstItem="anm-8q-PRd" firstAttribute="leading" secondItem="2JY-bg-dwl" secondAttribute="leadingMargin" constant="-20" id="hZ0-rn-OGo"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="anm-8q-PRd" secondAttribute="trailing" constant="-20" id="jih-j5-syu"/>
+                            <constraint firstItem="LCG-ei-Shx" firstAttribute="leading" secondItem="2JY-bg-dwl" secondAttribute="leadingMargin" constant="-20" id="lsa-hm-Xeh"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="descriptionTextView" destination="anm-8q-PRd" id="ddR-YG-17n"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CrM-d7-hEf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-487" y="112"/>
+        </scene>
+        <!--Sale Detail Data Line Tax Code Search View Controller-->
+        <scene sceneID="ASH-jF-XP3">
+            <objects>
+                <viewController id="6wU-pc-THE" customClass="SaleDetailDataLineTaxCodeSearchViewController" customModule="Q6IosClient" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="GmB-Ac-P0Y"/>
+                        <viewControllerLayoutGuide type="bottom" id="Sf5-OR-FWy"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="dRB-DC-82q">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uNg-fu-lDC">
+                                <rect key="frame" x="0.0" y="22" width="600" height="44"/>
+                                <items>
+                                    <navigationItem id="f7a-Ym-euJ">
+                                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="5B1-JK-bER">
+                                            <connections>
+                                                <action selector="CancelButtonClicked:" destination="6wU-pc-THE" id="fNX-0e-eMu"/>
+                                            </connections>
+                                        </barButtonItem>
+                                        <barButtonItem key="rightBarButtonItem" title="Done" id="GfB-EF-BtQ">
+                                            <connections>
+                                                <action selector="DoneButtonClicked:" destination="6wU-pc-THE" id="u9o-ey-ria"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="aIO-MV-bub">
+                                <rect key="frame" x="0.0" y="114" width="600" height="437"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TaxCodeCell" id="BK9-pC-F8N" customClass="SaleDetailDataLineTaxCodeSearchTableViewCell" customModule="Q6IosClient" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="600" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="BK9-pC-F8N" id="Rfl-2e-fzJ">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fAM-2B-P2L">
+                                                    <rect key="frame" x="412" y="8" width="180" height="27.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="txY-qU-2ez">
+                                                    <rect key="frame" x="8" y="8" width="404" height="27.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="fAM-2B-P2L" firstAttribute="leading" secondItem="txY-qU-2ez" secondAttribute="trailing" id="1Uh-OK-ABF"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="txY-qU-2ez" secondAttribute="bottom" id="ND8-88-eSi"/>
+                                                <constraint firstItem="txY-qU-2ez" firstAttribute="leading" secondItem="Rfl-2e-fzJ" secondAttribute="leadingMargin" id="TNA-t6-eoz"/>
+                                                <constraint firstItem="fAM-2B-P2L" firstAttribute="width" secondItem="Rfl-2e-fzJ" secondAttribute="width" multiplier="0.3" id="dnV-vR-3HX"/>
+                                                <constraint firstItem="txY-qU-2ez" firstAttribute="width" secondItem="Rfl-2e-fzJ" secondAttribute="width" multiplier="0.7" priority="900" id="hB3-Cg-YRb"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="fAM-2B-P2L" secondAttribute="trailing" id="o72-4G-9Kp"/>
+                                                <constraint firstItem="fAM-2B-P2L" firstAttribute="top" secondItem="Rfl-2e-fzJ" secondAttribute="topMargin" id="reM-Ve-DIu"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="fAM-2B-P2L" secondAttribute="bottom" id="syk-ad-SBC"/>
+                                                <constraint firstItem="txY-qU-2ez" firstAttribute="top" secondItem="Rfl-2e-fzJ" secondAttribute="topMargin" id="uZK-4W-wVD"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="lblTaxCodeName" destination="txY-qU-2ez" id="wey-A8-oR9"/>
+                                            <outlet property="lblTaxRate" destination="fAM-2B-P2L" id="N0m-de-d68"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="7jG-57-gbS">
+                                <rect key="frame" x="290" y="290" width="20" height="20"/>
+                            </activityIndicatorView>
+                            <searchBar contentMode="redraw" placeholder="TaxCode Name" translatesAutoresizingMaskIntoConstraints="NO" id="dsC-HW-sbA">
+                                <rect key="frame" x="6" y="68" width="588" height="44"/>
+                                <color key="barTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Sf5-OR-FWy" firstAttribute="top" secondItem="aIO-MV-bub" secondAttribute="bottom" id="4ld-HW-diE"/>
+                            <constraint firstItem="aIO-MV-bub" firstAttribute="leading" secondItem="dRB-DC-82q" secondAttribute="leadingMargin" constant="-20" id="56L-SJ-C4z"/>
+                            <constraint firstItem="aIO-MV-bub" firstAttribute="top" secondItem="dsC-HW-sbA" secondAttribute="bottom" constant="2" id="5Bq-BE-Z8k"/>
+                            <constraint firstItem="dsC-HW-sbA" firstAttribute="leading" secondItem="dRB-DC-82q" secondAttribute="leadingMargin" constant="-14" id="HAC-5E-sD6"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="dsC-HW-sbA" secondAttribute="trailing" constant="-14" id="HDK-s6-WKZ"/>
+                            <constraint firstItem="uNg-fu-lDC" firstAttribute="leading" secondItem="dRB-DC-82q" secondAttribute="leadingMargin" constant="-20" id="Kvo-8R-wA6"/>
+                            <constraint firstItem="uNg-fu-lDC" firstAttribute="top" secondItem="GmB-Ac-P0Y" secondAttribute="bottom" constant="2" id="LPs-aD-Iyi"/>
+                            <constraint firstItem="dsC-HW-sbA" firstAttribute="top" secondItem="uNg-fu-lDC" secondAttribute="bottom" constant="2" id="SbT-Lu-cIh"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="aIO-MV-bub" secondAttribute="trailing" constant="-20" id="Wr2-cY-h94"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="uNg-fu-lDC" secondAttribute="trailing" constant="-20" id="Znv-6u-ovd"/>
+                            <constraint firstItem="7jG-57-gbS" firstAttribute="centerY" secondItem="dRB-DC-82q" secondAttribute="centerY" id="qJ0-VY-WOr"/>
+                            <constraint firstItem="7jG-57-gbS" firstAttribute="centerX" secondItem="dRB-DC-82q" secondAttribute="centerX" id="shQ-vC-h3i"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="Q6ActivityIndicator" destination="7jG-57-gbS" id="Er6-A7-Uc3"/>
+                        <outlet property="TaxCodeTableView" destination="aIO-MV-bub" id="hrB-A7-5N2"/>
+                        <outlet property="taxCodeSearchBox" destination="dsC-HW-sbA" id="zN9-lm-EmM"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="PiW-AF-TQt" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="326" y="365"/>
         </scene>
     </scenes>
     <resources>
@@ -1547,6 +1935,7 @@
         <image name="resultset_next" width="16" height="16"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="7Xs-DR-JEk"/>
         <segue reference="u8C-W8-vE6"/>
     </inferredMetricsTieBreakers>
 </document>

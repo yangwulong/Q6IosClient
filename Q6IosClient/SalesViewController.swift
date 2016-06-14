@@ -323,18 +323,18 @@ class SalesViewController: UIViewController, Q6WebApiProtocol,UITableViewDelegat
             //            purchaseDetailDataLineInventorySearchViewController.delegate = self
             
         }
-//        if segue.identifier == "editPurchaseDetail" {
-//            
-//            var operationType = OperationType()
-//            
-//            var saleDetailViewController = segue.destinationViewController as! SaleDetailViewController
-//            saleDetailViewController.operationType = operationType.Edit
-//            saleDetailViewController.salesTransactionHeader.SalesTransactionsHeaderID = saleTransactionListData[selectedRowNo].SalesTransactionsHeaderID
-//            
-//            print("saleDetailViewController.operationType" + saleDetailViewController.operationType)
-//            //            purchaseDetailDataLineInventorySearchViewController.delegate = self
-//            
-//        }
+        if segue.identifier == "editSaleDetail" {
+            
+            var operationType = OperationType()
+            
+            var saleDetailViewController = segue.destinationViewController as! SaleDetailViewController
+            saleDetailViewController.operationType = operationType.Edit
+            saleDetailViewController.salesTransactionHeader.SalesTransactionsHeaderID = saleTransactionListData[selectedRowNo].SalesTransactionsHeaderID
+            
+            print("saleDetailViewController.operationType" + saleDetailViewController.operationType)
+            //            purchaseDetailDataLineInventorySearchViewController.delegate = self
+            
+        }
         
         
     }

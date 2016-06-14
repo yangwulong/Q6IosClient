@@ -15,7 +15,7 @@ public class SalesTransactionsHeader
     var CreateTime = NSDate()
     var CustomerID = String()
     
-    var CustomerPurchaseNO = String()
+    var CustomerPurchaseNO: String = ""
     var DueDate = NSDate?()
     var HasLinkedDoc = Bool()
     var IsCreatedByRecurring = Bool()

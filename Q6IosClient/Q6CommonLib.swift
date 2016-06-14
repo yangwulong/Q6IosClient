@@ -67,6 +67,20 @@ public class Q6CommonLib{
         
         self.delegate = myObject
     }
+    init(myObject: SaleDetailDataLineInventorySearchViewController){
+        
+        self.delegate = myObject
+    }
+  
+    init(myObject: SaleDetailDataLineAccountSearchViewController){
+        
+        self.delegate = myObject
+    }
+    
+    init(myObject: SaleDetailDataLineTaxCodeSearchViewController){
+        
+        self.delegate = myObject
+    }
     func validateIfTouchIDExist()->Bool{
         
         let context = LAContext()
@@ -244,7 +258,7 @@ public class Q6CommonLib{
         // create some JSON data and configure the request
         let jsonString = convertDictionaryToJSONData(dicData)
         
-      // print(jsonString)
+       print(jsonString)
         request.HTTPBody = jsonString.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)
         request.HTTPMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")

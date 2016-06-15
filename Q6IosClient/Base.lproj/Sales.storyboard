@@ -783,9 +783,9 @@
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
-                                <exclude reference="rBA-2P-vsn"/>
-                                <exclude reference="axm-JG-jCW"/>
                                 <exclude reference="BjY-Ck-HhY"/>
+                                <exclude reference="axm-JG-jCW"/>
+                                <exclude reference="rBA-2P-vsn"/>
                                 <exclude reference="EUu-mO-gsx"/>
                             </mask>
                         </variation>
@@ -1382,10 +1382,10 @@
                                             </constraints>
                                             <variation key="default">
                                                 <mask key="constraints">
-                                                    <exclude reference="fu7-Lu-rJU"/>
                                                     <exclude reference="4Y5-pa-9hG"/>
-                                                    <exclude reference="dqM-bs-gVM"/>
                                                     <exclude reference="Gep-42-KSO"/>
+                                                    <exclude reference="dqM-bs-gVM"/>
+                                                    <exclude reference="fu7-Lu-rJU"/>
                                                 </mask>
                                             </variation>
                                         </tableViewCellContentView>

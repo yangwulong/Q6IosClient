@@ -81,6 +81,13 @@ public class Q6CommonLib{
         
         self.delegate = myObject
     }
+    
+  
+    init(myObject: ContactSearchViewController){
+        
+        self.delegate = myObject
+    }
+    
     func validateIfTouchIDExist()->Bool{
         
         let context = LAContext()

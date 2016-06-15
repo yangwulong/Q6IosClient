@@ -23,6 +23,12 @@
 		19AC96121CEA90C400A9216E /* PurchaseDetailDataLineTaxCodeSearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19AC96111CEA90C400A9216E /* PurchaseDetailDataLineTaxCodeSearchTableViewCell.swift */; };
 		19AD97271CED549B0079DF52 /* PurchaseDetailDataLineAccountSearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19AD97261CED549B0079DF52 /* PurchaseDetailDataLineAccountSearchTableViewCell.swift */; };
 		19B2B33D1CF7C83000BF53A9 /* PurchaseDetailMemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19B2B33C1CF7C83000BF53A9 /* PurchaseDetailMemoViewController.swift */; };
+		19B478CC1D10D37600BA1E4E /* Contact.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 19B478CB1D10D37600BA1E4E /* Contact.storyboard */; };
+		19B478CF1D10D51100BA1E4E /* ContactSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19B478CE1D10D51100BA1E4E /* ContactSearchViewController.swift */; };
+		19B478D11D10DEE000BA1E4E /* ContactSearchViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19B478D01D10DEE000BA1E4E /* ContactSearchViewTableViewCell.swift */; };
+		19B478D41D10E02300BA1E4E /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19B478D31D10E02300BA1E4E /* Contact.swift */; };
+		19B478D61D110E3E00BA1E4E /* ContactViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19B478D51D110E3E00BA1E4E /* ContactViewController.swift */; };
+		19B478D81D110ECB00BA1E4E /* ContactViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19B478D71D110ECB00BA1E4E /* ContactViewTableViewCell.swift */; };
 		19B87D571CDAFF580048AAFB /* Supplier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19B87D561CDAFF580048AAFB /* Supplier.swift */; };
 		19B87D591CDB02120048AAFB /* SupplierSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19B87D581CDB02120048AAFB /* SupplierSearchViewController.swift */; };
 		19B87D5B1CDB0C3A0048AAFB /* SupplierSearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19B87D5A1CDB0C3A0048AAFB /* SupplierSearchTableViewCell.swift */; };
@@ -104,6 +110,12 @@
 		19AC96111CEA90C400A9216E /* PurchaseDetailDataLineTaxCodeSearchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurchaseDetailDataLineTaxCodeSearchTableViewCell.swift; sourceTree = "<group>"; };
 		19AD97261CED549B0079DF52 /* PurchaseDetailDataLineAccountSearchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurchaseDetailDataLineAccountSearchTableViewCell.swift; sourceTree = "<group>"; };
 		19B2B33C1CF7C83000BF53A9 /* PurchaseDetailMemoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurchaseDetailMemoViewController.swift; sourceTree = "<group>"; };
+		19B478CB1D10D37600BA1E4E /* Contact.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Contact.storyboard; sourceTree = "<group>"; };
+		19B478CE1D10D51100BA1E4E /* ContactSearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactSearchViewController.swift; sourceTree = "<group>"; };
+		19B478D01D10DEE000BA1E4E /* ContactSearchViewTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactSearchViewTableViewCell.swift; sourceTree = "<group>"; };
+		19B478D31D10E02300BA1E4E /* Contact.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
+		19B478D51D110E3E00BA1E4E /* ContactViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactViewController.swift; sourceTree = "<group>"; };
+		19B478D71D110ECB00BA1E4E /* ContactViewTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactViewTableViewCell.swift; sourceTree = "<group>"; };
 		19B87D561CDAFF580048AAFB /* Supplier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Supplier.swift; sourceTree = "<group>"; };
 		19B87D581CDB02120048AAFB /* SupplierSearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SupplierSearchViewController.swift; sourceTree = "<group>"; };
 		19B87D5A1CDB0C3A0048AAFB /* SupplierSearchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SupplierSearchTableViewCell.swift; sourceTree = "<group>"; };
@@ -201,6 +213,25 @@
 				19A9B7801CF688FA00071958 /* PurchaseDetailDataLineInventorySearchTableViewCell.swift */,
 			);
 			name = PurchaseDetailDataLine;
+			sourceTree = "<group>";
+		};
+		19B478CD1D10D4D500BA1E4E /* Contact */ = {
+			isa = PBXGroup;
+			children = (
+				19B478CE1D10D51100BA1E4E /* ContactSearchViewController.swift */,
+				19B478D01D10DEE000BA1E4E /* ContactSearchViewTableViewCell.swift */,
+				19B478D51D110E3E00BA1E4E /* ContactViewController.swift */,
+				19B478D71D110ECB00BA1E4E /* ContactViewTableViewCell.swift */,
+			);
+			name = Contact;
+			sourceTree = "<group>";
+		};
+		19B478D21D10E01300BA1E4E /* Contact */ = {
+			isa = PBXGroup;
+			children = (
+				19B478D31D10E02300BA1E4E /* Contact.swift */,
+			);
+			name = Contact;
 			sourceTree = "<group>";
 		};
 		19B87D551CDAFE220048AAFB /* Purchases */ = {
@@ -308,11 +339,13 @@
 		19FD13241C9A134800E5C445 /* Q6IosClient */ = {
 			isa = PBXGroup;
 			children = (
+				19B478CD1D10D4D500BA1E4E /* Contact */,
 				19FD133C1C9A4CDE00E5C445 /* Model */,
 				19FD13391C9A184400E5C445 /* Common */,
 				19B87D551CDAFE220048AAFB /* Purchases */,
 				19FD13251C9A134800E5C445 /* AppDelegate.swift */,
 				19DDD7B11CB7701900FC32A5 /* Main.storyboard */,
+				19B478CB1D10D37600BA1E4E /* Contact.storyboard */,
 				19D009E61D07D88300217C6A /* Sales.storyboard */,
 				19D009E11D07D21800217C6A /* Sales */,
 				195AD4A71CB35DAF002F2DD7 /* TabBarViewController.swift */,
@@ -347,6 +380,7 @@
 		19FD133C1C9A4CDE00E5C445 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				19B478D21D10E01300BA1E4E /* Contact */,
 				19C4E00D1D08DCD2005B216C /* Sales */,
 				19C4E00C1D08DC95005B216C /* Purchases */,
 				19FD133D1C9A4D0A00E5C445 /* InternalUserLoginParameter.swift */,
@@ -419,6 +453,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				19F9B56A1CB1DF0700571B9D /* Info.plist in Resources */,
+				19B478CC1D10D37600BA1E4E /* Contact.storyboard in Resources */,
 				19FD13321C9A134800E5C445 /* LaunchScreen.storyboard in Resources */,
 				19DDD7B31CB7701900FC32A5 /* Main.storyboard in Resources */,
 				19FD132F1C9A134800E5C445 /* Assets.xcassets in Resources */,
@@ -448,6 +483,7 @@
 				19E6610C1D0F832C00317E30 /* CustomerViewController.swift in Sources */,
 				19E661101D0F989800317E30 /* SaleDetailDataLineInventorySearchViewController.swift in Sources */,
 				19D009E31D07D29300217C6A /* SalesViewController.swift in Sources */,
+				19B478CF1D10D51100BA1E4E /* ContactSearchViewController.swift in Sources */,
 				199F0CD31CA0BE0C00301EC4 /* LoginViewController.swift in Sources */,
 				19C9083E1CE3F6E300A828A3 /* PurchasesTransactionsDetailView.swift in Sources */,
 				19F9B5691CB1DF0700571B9D /* FMDatabasePool.m in Sources */,
@@ -465,6 +501,7 @@
 				19DA2C941D0A3635008AF282 /* SalesTransactionsDetailView.swift in Sources */,
 				19DF1C411CE2AE2300908A32 /* PurchaseDetailViewController.swift in Sources */,
 				19BB92F31CF538DA00633CCD /* AddImageViewController.swift in Sources */,
+				19B478D11D10DEE000BA1E4E /* ContactSearchViewTableViewCell.swift in Sources */,
 				190EBFA21CE5550A00B26E00 /* TaxCodeView.swift in Sources */,
 				19B87D5B1CDB0C3A0048AAFB /* SupplierSearchTableViewCell.swift in Sources */,
 				19DF32AA1CD9806000730FC5 /* PickerViewViewController.swift in Sources */,
@@ -474,6 +511,7 @@
 				19C4E00F1D08ED2D005B216C /* SalesTransactionsListView.swift in Sources */,
 				19691E8F1C9F8AE200E009A7 /* Q6Protocol.swift in Sources */,
 				19D2CA3F1CE16D6800A8AAE0 /* DatePickerViewController.swift in Sources */,
+				19B478D81D110ECB00BA1E4E /* ContactViewTableViewCell.swift in Sources */,
 				19DA2C9B1D0A4E94008AF282 /* SalesTransactionsHeaderView.swift in Sources */,
 				19E6611E1D0FB82300317E30 /* SaleDetailDataLineTaxCodeSearchTableViewCell.swift in Sources */,
 				19FD133E1C9A4D0A00E5C445 /* InternalUserLoginParameter.swift in Sources */,
@@ -490,7 +528,9 @@
 				19C908401CE3FBD800A828A3 /* PreLoadInventoryPurchase.swift in Sources */,
 				19DA2C921D0A32B5008AF282 /* Customer.swift in Sources */,
 				19B87D591CDB02120048AAFB /* SupplierSearchViewController.swift in Sources */,
+				19B478D61D110E3E00BA1E4E /* ContactViewController.swift in Sources */,
 				19F9B56C1CB1E08500571B9D /* Q6DBLib.swift in Sources */,
+				19B478D41D10E02300BA1E4E /* Contact.swift in Sources */,
 				19AC96121CEA90C400A9216E /* PurchaseDetailDataLineTaxCodeSearchTableViewCell.swift in Sources */,
 				19AD97271CED549B0079DF52 /* PurchaseDetailDataLineAccountSearchTableViewCell.swift in Sources */,
 				19FD13261C9A134800E5C445 /* AppDelegate.swift in Sources */,

@@ -37,7 +37,7 @@ public class Q6DBLib{
                  {
                     
                     //LoginStatus has two valude Login ,Logout
-                    let sql_stmt = "CREATE TABLE IF NOT EXISTS UserInfos (ID INTEGER  PRIMARY  KEY , LogInEmail,PassWord, LoginStatus,PassCode,CompanyID)"
+                    let sql_stmt = "CREATE TABLE IF NOT EXISTS UserInfos (ID INTEGER  PRIMARY  KEY , LogInEmail,PassWord, LoginStatus,PassCode,CompanyID,LoginFirstName,LoginLastName)"
                     if !q6IosClientDB.executeStatements(sql_stmt)
                     {
                        print("Error:\(q6IosClientDB.lastErrorMessage())")
@@ -66,7 +66,7 @@ public class Q6DBLib{
         }
         
     }
-    public func addUserInfos(LoginEmail : String,PassWord: String,LoginStatus: String,CompanyID: String)
+    public func addUserInfos(LoginEmail : String,PassWord: String,LoginStatus: String,CompanyID: String,LoginFirstName:String,LoginLastName: String)
     {
         
         let filemgr = NSFileManager.defaultManager()
@@ -82,7 +82,7 @@ public class Q6DBLib{
             if validateIfTableIsEmpty("UserInfos", Q6IosClientDB: q6IosClientDB) == true {
                 
             
-            let insertSQL = "INSERT INTO UserInfos (ID,LoginEmail,PassWord,LoginStatus,CompanyID) VALUES (1,'\(LoginEmail)' ,'\(PassWord)','Login','\(CompanyID)')"
+            let insertSQL = "INSERT INTO UserInfos (ID,LoginEmail,PassWord,LoginStatus,CompanyID,LoginFirstName,LoginLastName) VALUES (1,'\(LoginEmail)' ,'\(PassWord)','Login','\(CompanyID)','\(LoginFirstName)','\(LoginLastName)')"
             
             let result = q6IosClientDB.executeUpdate(insertSQL, withArgumentsInArray: nil)
             
@@ -178,7 +178,7 @@ public class Q6DBLib{
     let q6IosClientDB = FMDatabase(path: databasePath as String)
         
         if q6IosClientDB.open() {
-            let querySQL = "SELECT LoginEmail , PassWord ,PassCode ,CompanyID FROM UserInfos"
+            let querySQL = "SELECT LoginEmail , PassWord ,PassCode ,CompanyID ,LoginFirstName,LoginLastName FROM UserInfos"
             let results : FMResultSet? = q6IosClientDB.executeQuery(querySQL, withArgumentsInArray: nil)
             
             if results?.next() == true {
@@ -187,6 +187,8 @@ public class Q6DBLib{
                 userLoginData["PassWord"] = results?.stringForColumn("PassWord")
                   userLoginData["passCode"] = results?.stringForColumn("PassCode")
                 userLoginData["CompanyID"] = results?.stringForColumn("CompanyID")
+                userLoginData["LoginFirstName"] = results?.stringForColumn("LoginFirstName")
+                    userLoginData["LoginLastName"] = results?.stringForColumn("LoginLastName")
             }
         }
         return userLoginData

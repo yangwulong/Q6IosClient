@@ -193,13 +193,14 @@ class LoginViewController: UIViewController, Q6WebApiProtocol {
                  var returnValue = postDicData["ReturnValue"]! as! Dictionary<String, AnyObject>
                 
                 var companyID = returnValue["CompanyID"] as! String
-   
+                var LoginFirstName = returnValue["LoginFirstName"] as! String
+                 var LoginLastName = returnValue["LoginLastName"] as! String
 //var json = try  NSJSONSerialization.JSONObjectWithData(dd as! NSData, options: NSJSONReadingOptions.MutableContainers) as! Dictionary<String, String>
                 
                 let q6DBLib = Q6DBLib()
                 
               
-                q6DBLib.addUserInfos(txtLoginEmail.text!, PassWord: txtLoginPassword.text!, LoginStatus: "Login",CompanyID: companyID)
+                q6DBLib.addUserInfos(txtLoginEmail.text!, PassWord: txtLoginPassword.text!, LoginStatus: "Login",CompanyID: companyID ,LoginFirstName: LoginFirstName ,LoginLastName: LoginLastName)
                 //Set any attributes of the view controller before it is displayed, this is where you would set the category text in your code.
                 
                 var passCode = q6DBLib.getUserPassCode()
@@ -211,6 +212,12 @@ class LoginViewController: UIViewController, Q6WebApiProtocol {
                         if passCode == nil {
                             
                             passCodeViewController.ScreenMode = "CreatePassCode"
+                        }
+                        else if passCode != nil {
+                            if passCode!.length == 0
+                            {
+                                passCodeViewController.ScreenMode = "CreatePassCode"
+                            }
                         }
                         else {
                             passCodeViewController.ScreenMode = "ValidatePassCode"

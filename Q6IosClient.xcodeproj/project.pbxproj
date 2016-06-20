@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		190EBFA21CE5550A00B26E00 /* TaxCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 190EBFA11CE5550A00B26E00 /* TaxCodeView.swift */; };
 		1918D0471CFFDAC600168AA6 /* PurchasesTransactionsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1918D0461CFFDAC600168AA6 /* PurchasesTransactionsHeaderView.swift */; };
+		194875D71D139F7F005B254C /* SendEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 194875D61D139F7F005B254C /* SendEmailViewController.swift */; };
+		194875D91D139FBC005B254C /* SendEmailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 194875D81D139FBC005B254C /* SendEmailTableViewCell.swift */; };
+		194875DB1D13C49F005B254C /* Email.swift in Sources */ = {isa = PBXBuildFile; fileRef = 194875DA1D13C49F005B254C /* Email.swift */; };
 		195AD4A81CB35DAF002F2DD7 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 195AD4A71CB35DAF002F2DD7 /* TabBarViewController.swift */; };
 		195AD4AA1CB35DE4002F2DD7 /* PurchaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 195AD4A91CB35DE4002F2DD7 /* PurchaseViewController.swift */; };
 		19691E8F1C9F8AE200E009A7 /* Q6Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19691E8E1C9F8AE200E009A7 /* Q6Protocol.swift */; };
@@ -95,6 +98,9 @@
 /* Begin PBXFileReference section */
 		190EBFA11CE5550A00B26E00 /* TaxCodeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaxCodeView.swift; sourceTree = "<group>"; };
 		1918D0461CFFDAC600168AA6 /* PurchasesTransactionsHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurchasesTransactionsHeaderView.swift; sourceTree = "<group>"; };
+		194875D61D139F7F005B254C /* SendEmailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendEmailViewController.swift; sourceTree = "<group>"; };
+		194875D81D139FBC005B254C /* SendEmailTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendEmailTableViewCell.swift; sourceTree = "<group>"; };
+		194875DA1D13C49F005B254C /* Email.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Email.swift; sourceTree = "<group>"; };
 		195AD4A71CB35DAF002F2DD7 /* TabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		195AD4A91CB35DE4002F2DD7 /* PurchaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurchaseViewController.swift; sourceTree = "<group>"; };
 		19691E8E1C9F8AE200E009A7 /* Q6Protocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Q6Protocol.swift; sourceTree = "<group>"; };
@@ -287,6 +293,8 @@
 				19DA2C951D0A37E2008AF282 /* SaleDetailTableViewCell.swift */,
 				19E6610B1D0F832C00317E30 /* CustomerViewController.swift */,
 				19E6610D1D0F836B00317E30 /* CustomerSearchTableViewCell.swift */,
+				194875D61D139F7F005B254C /* SendEmailViewController.swift */,
+				194875D81D139FBC005B254C /* SendEmailTableViewCell.swift */,
 			);
 			name = Sales;
 			sourceTree = "<group>";
@@ -339,8 +347,8 @@
 		19FD13241C9A134800E5C445 /* Q6IosClient */ = {
 			isa = PBXGroup;
 			children = (
-				19B478CD1D10D4D500BA1E4E /* Contact */,
 				19FD133C1C9A4CDE00E5C445 /* Model */,
+				19B478CD1D10D4D500BA1E4E /* Contact */,
 				19FD13391C9A184400E5C445 /* Common */,
 				19B87D551CDAFE220048AAFB /* Purchases */,
 				19FD13251C9A134800E5C445 /* AppDelegate.swift */,
@@ -380,6 +388,7 @@
 		19FD133C1C9A4CDE00E5C445 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				194875DA1D13C49F005B254C /* Email.swift */,
 				19B478D21D10E01300BA1E4E /* Contact */,
 				19C4E00D1D08DCD2005B216C /* Sales */,
 				19C4E00C1D08DC95005B216C /* Purchases */,
@@ -515,6 +524,8 @@
 				19DA2C9B1D0A4E94008AF282 /* SalesTransactionsHeaderView.swift in Sources */,
 				19E6611E1D0FB82300317E30 /* SaleDetailDataLineTaxCodeSearchTableViewCell.swift in Sources */,
 				19FD133E1C9A4D0A00E5C445 /* InternalUserLoginParameter.swift in Sources */,
+				194875DB1D13C49F005B254C /* Email.swift in Sources */,
+				194875D71D139F7F005B254C /* SendEmailViewController.swift in Sources */,
 				19C4E0111D08FD73005B216C /* SaleTableViewCell.swift in Sources */,
 				19DF1C3E1CE2A7C400908A32 /* PurchaseDetailDataLineViewController.swift in Sources */,
 				19C908481CE44E0900A828A3 /* AccountView.swift in Sources */,
@@ -531,6 +542,7 @@
 				19B478D61D110E3E00BA1E4E /* ContactViewController.swift in Sources */,
 				19F9B56C1CB1E08500571B9D /* Q6DBLib.swift in Sources */,
 				19B478D41D10E02300BA1E4E /* Contact.swift in Sources */,
+				194875D91D139FBC005B254C /* SendEmailTableViewCell.swift in Sources */,
 				19AC96121CEA90C400A9216E /* PurchaseDetailDataLineTaxCodeSearchTableViewCell.swift in Sources */,
 				19AD97271CED549B0079DF52 /* PurchaseDetailDataLineAccountSearchTableViewCell.swift in Sources */,
 				19FD13261C9A134800E5C445 /* AppDelegate.swift in Sources */,

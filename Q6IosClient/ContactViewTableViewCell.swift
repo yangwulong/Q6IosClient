@@ -10,6 +10,10 @@ import UIKit
 
 class ContactViewTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var txtEmail: UITextField!
+    @IBOutlet weak var txtPhone: UITextField!
+    @IBOutlet weak var btnCallButton: UIButton!
+    @IBOutlet weak var lblMemo: UITextView!
     @IBOutlet weak var txtContactName: UITextField!
     @IBOutlet weak var lblContactName: UILabel!
     override func awakeFromNib() {

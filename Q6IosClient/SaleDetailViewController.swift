@@ -100,7 +100,7 @@ class SaleDetailViewController: UIViewController, UITableViewDelegate ,UITableVi
     {
         if ValidteWhetherHasAddedLinesInsalesDetailScreenLinesDic() == false
         {
-            for index in 0 ... 8 {
+            for index in 0 ... 9 {
                 
                 var screenSortLinesDetail = ScreenSortLinesDetail()
                 var prototypeCell = String()
@@ -124,6 +124,8 @@ class SaleDetailViewController: UIViewController, UITableViewDelegate ,UITableVi
                     prototypeCell = "MemoCell"
                 case 8:
                     prototypeCell = "AddanImageCell"
+                case 9:
+                    prototypeCell = "SendEmailCell"
                 default:
                     prototypeCell = ""
                 }
@@ -211,6 +213,7 @@ class SaleDetailViewController: UIViewController, UITableViewDelegate ,UITableVi
                 
                 
                 cell.lblDueDate.text = salesTransactionHeader.DueDate!.formatted
+                
             }
             
             
@@ -339,7 +342,20 @@ class SaleDetailViewController: UIViewController, UITableViewDelegate ,UITableVi
             
             
         }
-        
+        if resuseIdentifier == "SendEmailCell" {
+            
+            
+            if operationType == "Create"
+            {
+                cell.btnSendEmail.enabled = false
+                cell.SendEmailButton.enabled = false
+            }
+            else {
+                cell.btnSendEmail.enabled = true
+                cell.SendEmailButton.enabled = true
+            }
+            
+        }
         
         return cell
         
@@ -447,6 +463,15 @@ class SaleDetailViewController: UIViewController, UITableViewDelegate ,UITableVi
             
         }
         
+        if screenSortLinesDetail.PrototypeCellID == "SendEmailCell" {
+            
+            if salesTransactionHeader.CustomerID.length != 0 {
+                performSegueWithIdentifier("showSendEmail", sender: "SendEmailCell")
+            }
+            else{
+                Q6CommonLib.q6UIAlertPopupController("Information", message: "A Customer must be seleted!", viewController: self)
+            }
+        }
         var index = addItemsDic.count
         addItemsDic[index] = "One more Item"
         // let section = indexPath.section//3
@@ -585,6 +610,15 @@ class SaleDetailViewController: UIViewController, UITableViewDelegate ,UITableVi
                 
                 saleDetailMemoViewController.textValue = salesTransactionHeader.Memo
                 
+                
+            }
+            
+            if fromCell == "SendEmailCell"
+            {
+                       var sendEmailViewController = segue.destinationViewController as! SendEmailViewController
+                
+                sendEmailViewController.salesTransactionHeader = salesTransactionHeader
+                sendEmailViewController.customer = customer
                 
             }
         }

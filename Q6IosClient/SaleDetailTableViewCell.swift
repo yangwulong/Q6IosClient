@@ -10,6 +10,8 @@ import UIKit
 
 class SaleDetailTableViewCell: UITableViewCell {
     
+    @IBOutlet weak var SendEmailButton: UIButton!
+    @IBOutlet weak var btnSendEmail: UIButton!
     @IBOutlet weak var lblSubTotalAmount: UILabel!
     @IBOutlet weak var lblMemo: UILabel!
     @IBOutlet weak var lblTransactionDate: UILabel!

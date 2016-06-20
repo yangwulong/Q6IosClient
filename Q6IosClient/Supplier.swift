@@ -12,7 +12,7 @@ public class Supplier {
     
     var SupplierID = String()
     var SupplierName:String = ""
-     var CreateTime = NSDate()
+     var CreateDate = NSDate()
     var Title = String?()
     var FirstName = String?()
     var LastName = String?()
@@ -59,7 +59,7 @@ public class Supplier {
         self.BankAccountName = ""
         self.BankAccountNumber = ""
         self.BSBNumber = ""
-        self.CreateTime = NSDate()
+        self.CreateDate = NSDate()
         self.DefaultPurchasesAccountID = nil
         self.DefaultPurchasesTaxCodeID = nil
         self.Email = ""
@@ -92,6 +92,7 @@ public class Supplier {
         self.ShippingState = ""
         self.StatementText = ""
         self.SupplierName = ""
+        self.SupplierID = NSUUID().UUIDString
         self.Title = ""
     }
 }

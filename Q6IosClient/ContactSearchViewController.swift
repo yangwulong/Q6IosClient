@@ -21,7 +21,7 @@ class ContactSearchViewController: UIViewController , Q6WebApiProtocol,UITableVi
     var searchText: String = ""
     var dataRequestSource = ""
     var attachedURL = String()
-    var hasAddedItemLine = false
+    
     var selectedContact = Contact?()
     
     @IBOutlet weak var Q6ActivityIndicatorView: UIActivityIndicatorView!
@@ -34,10 +34,21 @@ class ContactSearchViewController: UIViewController , Q6WebApiProtocol,UITableVi
     
     override func viewWillAppear(animated: Bool) {
     
-    if hasAddedItemLine ==  true
-    {
-    Q6CommonLib.q6UIAlertPopupController("Information Message", message: "If changing the supplier, Please check the defaults are set correctly!", viewController: self ,timeArrange: 3)
-    }
+        ContactSearchBox.text = ""
+        Q6ActivityIndicatorView.startAnimating()
+        let q6CommonLib = Q6CommonLib(myObject: self)
+        
+        setAttachedURL(searchText, IsLoadInactive:false,PageSize: pageSize,PageIndex: pageIndex)
+        
+        if ContactSegmentedControl.selectedSegmentIndex == 0 {
+            
+            
+            q6CommonLib.Q6IosClientGetApi("Purchase", ActionName: "GetSupplierList", attachedURL: attachedURL)
+        }
+        else {
+            q6CommonLib.Q6IosClientGetApi("Sale", ActionName: "GetCustomerList", attachedURL: attachedURL)
+        }
+        
     }
     override func viewDidLoad() {
     super.viewDidLoad()
@@ -45,20 +56,7 @@ class ContactSearchViewController: UIViewController , Q6WebApiProtocol,UITableVi
     ContactSearchBox.delegate = self
     ContactTableView.delegate = self
     ContactTableView.dataSource = self
-    Q6ActivityIndicatorView.startAnimating()
-    let q6CommonLib = Q6CommonLib(myObject: self)
-    
-    setAttachedURL(searchText, IsLoadInactive:false,PageSize: pageSize,PageIndex: pageIndex)
-        
-        if ContactSegmentedControl.selectedSegmentIndex == 0 {
-            
-       
-    q6CommonLib.Q6IosClientGetApi("Purchase", ActionName: "GetSupplierList", attachedURL: attachedURL)
-        }
-        else {
-          q6CommonLib.Q6IosClientGetApi("Sale", ActionName: "GetCustomerList", attachedURL: attachedURL)
-        }
-    
+
     
     // Do any additional setup after loading the view.
     }
@@ -265,6 +263,8 @@ class ContactSearchViewController: UIViewController , Q6WebApiProtocol,UITableVi
     let  cell = tableView.cellForRowAtIndexPath(indexPath) as! ContactSearchViewTableViewCell
     
     selectedContact = contactData[indexPath.row]
+        
+         self.performSegueWithIdentifier("editContact", sender: "ContactSearchPrototypeCell")
     ContactSearchBox.resignFirstResponder()
     }
     
@@ -339,11 +339,46 @@ class ContactSearchViewController: UIViewController , Q6WebApiProtocol,UITableVi
     searchBar.resignFirstResponder()
     
     }
-    @IBAction func CancelButtonClick(sender: AnyObject) {
-    navigationController?.popViewControllerAnimated(true)
-    
-    // navigationController?.popToRootViewControllerAnimated(true)
+  
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
+        var ContactType = ""
+        
+              var contactViewController = segue.destinationViewController as! ContactViewController
+        if segue.identifier == "createContact" {
+            
+            
+            if ContactSegmentedControl.selectedSegmentIndex == 0 {
+                
+                ContactType = "Supplier"
+                
+            
+            }
+            else {
+                ContactType = "Customer"
+            }
+            contactViewController.ContactType = ContactType
+            contactViewController.OperationType = "Create"
+           // contactViewController.ContactID = (selectedContact?.ContactID)!
+        }
+        
+        if segue.identifier == "editContact" {
+            
+            
+            if ContactSegmentedControl.selectedSegmentIndex == 0 {
+                
+                ContactType = "Supplier"
+                
+                
+            }
+            else {
+                ContactType = "Customer"
+            }
+            contactViewController.ContactType = ContactType
+            contactViewController.OperationType = "Edit"
+            contactViewController.ContactID = (selectedContact?.ContactID)!
+        }
     }
+    
 //    @IBAction func DoneButtonClick(sender: AnyObject) {
 //    
 //    if selectedContact == nil {

@@ -87,7 +87,15 @@ public class Q6CommonLib{
         
         self.delegate = myObject
     }
+    init(myObject: ContactViewController){
+        
+        self.delegate = myObject
+    }
     
+    init(myObject: SendEmailViewController){
+        
+        self.delegate = myObject
+    }
     func validateIfTouchIDExist()->Bool{
         
         let context = LAContext()

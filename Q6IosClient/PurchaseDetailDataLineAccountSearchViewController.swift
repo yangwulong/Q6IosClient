@@ -96,7 +96,7 @@ setControlAppear()
         {
             if item.accountViewArray.count != 0
             {
-                count++
+                count = count + 1
             }
         }
         }

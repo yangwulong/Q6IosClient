@@ -32,14 +32,17 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
     
     var attachedimage = UIImage?()
     
+    @IBOutlet weak var navigationBar: UINavigationBar!
     var webAPICallAction: String = ""
     var operationType = String()
     var hasAddedItemLine = false
     var addItemRowIndex: Int = 0
     var isPreLoad = false
     var CompanyID = String()
+  weak var delegate2 : Q6GoBackFromViewTwo?
     override func viewWillAppear(animated: Bool) {
         
+       
         
         print("PurchaseDetailViewController" + operationType)
     }
@@ -1015,7 +1018,13 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
         //            presentViewController(purchaseViewController, animated: true, completion: nil)
         //        }
         //navigationController?.popViewControllerAnimated(true)
-        navigationController?.popToRootViewControllerAnimated(true)
+        
+//        let parentVC = (self.parentViewController)! as! PurchaseViewController
+//        
+//        parentVC.fromView = "PurchaseDetailViewController"
+        
+       // navigationController?.popToRootViewControllerAnimated(true)
+           self.navigationController?.popViewControllerAnimated(true)
     }
     //    func performFromRightToLeft(sourceViewController :AnyObject , destinationViewController: AnyObject)
     //    {
@@ -1380,8 +1389,12 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
                       // self.navigationController!.popViewControllerAnimated(true)
                        // self.navigationController?.popToRootViewControllerAnimated(true)
                     }
+                    
+                  
                     dispatch_after(delayTime2, dispatch_get_main_queue()) {
                        // self.dismissViewControllerAnimated(true, completion: nil);
+                        
+            self.delegate2?.sendGoBackFromPurchaseDetailView("PurchaseDetailView", fromButton: "Save")
                         self.navigationController!.popViewControllerAnimated(true)
                         // self.navigationController?.popToRootViewControllerAnimated(true)
                     }
@@ -1600,6 +1613,12 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
         purchasesTransactionHeader.PurchasesTransactionsHeaderID = purchasesTransactionsHeaderView.PurchasesTransactionsHeaderID
         purchasesTransactionHeader.PurchasesType = purchasesTransactionsHeaderView.PurchasesType
         purchasesTransactionHeader.ReferenceNo = purchasesTransactionsHeaderView.ReferenceNo
+        
+        
+        dispatch_async(dispatch_get_main_queue()) {
+       self.navigationBar.topItem?.title = self.purchasesTransactionHeader.ReferenceNo
+        }
+   
         purchasesTransactionHeader.ShipToAddress = purchasesTransactionsHeaderView.ShipToAddress
         purchasesTransactionHeader.SubTotal = purchasesTransactionsHeaderView.SubTotal
         purchasesTransactionHeader.SupplierID = purchasesTransactionsHeaderView.SupplierID
@@ -1639,6 +1658,7 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
     {}
       func  sendGoBackFromCustomerSearchView(fromView : String ,forCell: String,Contact: Customer)
       {}
+  
     //    func dataLoadCompletion(data:NSData?, response:NSURLResponse?, error:NSError?) -> AnyObject
     //    {
     //

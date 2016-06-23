@@ -47,5 +47,14 @@ protocol Q6GoBackFromView :class {
     
     func  sendGoBackFromSaleDetailMemoView(fromView : String ,forCell: String,Memo: String)
     func  sendGoBackFromCustomerSearchView(fromView : String ,forCell: String,Contact: Customer)
+ 
     
+   
+}
+
+
+protocol Q6GoBackFromViewTwo :class {
+func  sendGoBackFromPurchaseDetailView(fromView : String ,fromButton: String)
+    func  sendGoBackSaleDetailView(fromView : String ,fromButton: String)
+     func  sendGoBackContactDetailView(fromView : String ,fromButton: String)
 }

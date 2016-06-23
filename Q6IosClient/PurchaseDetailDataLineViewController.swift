@@ -881,6 +881,8 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
     {}
       func  sendGoBackFromCustomerSearchView(fromView : String ,forCell: String,Contact: Customer)
       {}
+    
+ 
     //    func getTaxCodeByTaxCodeID() -> TaxCodeView {
     //       
     //        

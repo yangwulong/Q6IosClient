@@ -80,6 +80,12 @@ extension String {
         
 
     }
+    
+    subscript (index: Int) -> Character {
+        let charIndex = self.startIndex.advancedBy(index)
+        return self[charIndex]
+    }
+    
 }
 
 extension NSDate {

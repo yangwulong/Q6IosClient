@@ -30,14 +30,17 @@ class SaleDetailViewController: UIViewController, UITableViewDelegate ,UITableVi
     
     var customer = Customer()
     
+    @IBOutlet weak var navigationBar: UINavigationBar!
     var attachedimage = UIImage?()
     
+   
     var webAPICallAction: String = ""
     var operationType = String()
     var hasAddedItemLine = false
     var addItemRowIndex: Int = 0
     var isPreLoad = false
     var CompanyID = String()
+    weak var delegate2: Q6GoBackFromViewTwo?
     override func viewWillAppear(animated: Bool) {
         
         
@@ -1418,6 +1421,8 @@ class SaleDetailViewController: UIViewController, UITableViewDelegate ,UITableVi
                     }
                     dispatch_after(delayTime2, dispatch_get_main_queue()) {
                         // self.dismissViewControllerAnimated(true, completion: nil);
+                        
+                        self.delegate2?.sendGoBackSaleDetailView("SaleDetailViewController", fromButton: "Save")
                         self.navigationController!.popViewControllerAnimated(true)
                         // self.navigationController?.popToRootViewControllerAnimated(true)
                     }
@@ -1636,6 +1641,11 @@ class SaleDetailViewController: UIViewController, UITableViewDelegate ,UITableVi
         salesTransactionHeader.SalesTransactionsHeaderID = salesTransactionsHeaderView.SalesTransactionsHeaderID
         salesTransactionHeader.SalesType = salesTransactionsHeaderView.SalesType
         salesTransactionHeader.ReferenceNo = salesTransactionsHeaderView.ReferenceNo
+        
+        dispatch_async(dispatch_get_main_queue()) {
+            self.navigationBar.topItem?.title = self.salesTransactionHeader.ReferenceNo
+        }
+        
         salesTransactionHeader.ShipToAddress = salesTransactionsHeaderView.ShipToAddress
         salesTransactionHeader.SubTotal = salesTransactionsHeaderView.SubTotal
         salesTransactionHeader.CustomerID = salesTransactionsHeaderView.CustomerID
@@ -1679,6 +1689,7 @@ func  sendGoBackFromPurchaseDetailDataLineAccountSearchView(fromView : String ,f
 
 func  sendGoBackFromPurchaseDetailMemoView(fromView : String ,forCell: String,Memo: String)
 {}
+   
     //    func dataLoadCompletion(data:NSData?, response:NSURLResponse?, error:NSError?) -> AnyObject
     //    {
     //

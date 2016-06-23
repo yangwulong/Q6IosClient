@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ContactSearchViewController: UIViewController , Q6WebApiProtocol,UITableViewDelegate ,UITableViewDataSource,UISearchBarDelegate{
+class ContactSearchViewController: UIViewController , Q6WebApiProtocol,UITableViewDelegate ,UITableViewDataSource,UISearchBarDelegate,Q6GoBackFromViewTwo{
     @IBOutlet weak var ContactSegmentedControl: UISegmentedControl!
 
     @IBOutlet weak var ContactSearchBox: UISearchBar!
@@ -57,6 +57,21 @@ class ContactSearchViewController: UIViewController , Q6WebApiProtocol,UITableVi
     ContactTableView.delegate = self
     ContactTableView.dataSource = self
 
+        
+        ContactSearchBox.text = ""
+        Q6ActivityIndicatorView.startAnimating()
+        let q6CommonLib = Q6CommonLib(myObject: self)
+        
+        setAttachedURL(searchText, IsLoadInactive:false,PageSize: pageSize,PageIndex: pageIndex)
+        
+        if ContactSegmentedControl.selectedSegmentIndex == 0 {
+            
+            
+            q6CommonLib.Q6IosClientGetApi("Purchase", ActionName: "GetSupplierList", attachedURL: attachedURL)
+        }
+        else {
+            q6CommonLib.Q6IosClientGetApi("Sale", ActionName: "GetCustomerList", attachedURL: attachedURL)
+        }
     
     // Do any additional setup after loading the view.
     }
@@ -358,6 +373,7 @@ class ContactSearchViewController: UIViewController , Q6WebApiProtocol,UITableVi
             }
             contactViewController.ContactType = ContactType
             contactViewController.OperationType = "Create"
+            contactViewController.delegate2 = self
            // contactViewController.ContactID = (selectedContact?.ContactID)!
         }
         
@@ -376,7 +392,34 @@ class ContactSearchViewController: UIViewController , Q6WebApiProtocol,UITableVi
             contactViewController.ContactType = ContactType
             contactViewController.OperationType = "Edit"
             contactViewController.ContactID = (selectedContact?.ContactID)!
+            contactViewController.delegate2 = self
         }
+    }
+    func  sendGoBackFromPurchaseDetailView(fromView : String ,fromButton: String)
+    {}
+    func  sendGoBackSaleDetailView(fromView : String ,fromButton: String)
+    {}
+    func  sendGoBackContactDetailView(fromView : String ,fromButton: String)
+    {
+    
+        //ContactSearchBox.text = ""
+        searchText = ""
+        Q6ActivityIndicatorView.startAnimating()
+        let q6CommonLib = Q6CommonLib(myObject: self)
+        
+        pageIndex = 1
+    contactData.removeAll()
+        setAttachedURL(searchText, IsLoadInactive:false,PageSize: pageSize,PageIndex: pageIndex)
+        
+        if ContactSegmentedControl.selectedSegmentIndex == 0 {
+            
+            
+            q6CommonLib.Q6IosClientGetApi("Purchase", ActionName: "GetSupplierList", attachedURL: attachedURL)
+        }
+        else {
+            q6CommonLib.Q6IosClientGetApi("Sale", ActionName: "GetCustomerList", attachedURL: attachedURL)
+        }
+        
     }
     
 //    @IBAction func DoneButtonClick(sender: AnyObject) {

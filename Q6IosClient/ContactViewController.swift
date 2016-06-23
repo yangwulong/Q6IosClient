@@ -23,6 +23,8 @@ class ContactViewController: UIViewController, UITableViewDelegate ,UITableViewD
     @IBOutlet weak var ContactTableView: UITableView!
     
     @IBOutlet weak var navigationBar: UINavigationBar!
+    
+    weak var delegate2: Q6GoBackFromViewTwo?
     override func viewWillAppear(animated: Bool) {
         Q6ActivityIndicatorView.hidesWhenStopped = true
         Q6ActivityIndicatorView.stopAnimating()
@@ -460,6 +462,7 @@ class ContactViewController: UIViewController, UITableViewDelegate ,UITableViewD
                 }
                 dispatch_after(delayTime2, dispatch_get_main_queue()) {
                     // self.dismissViewControllerAnimated(true, completion: nil);
+                    self.delegate2?.sendGoBackContactDetailView("ContactViewController", fromButton: "Save")
                     self.navigationController!.popViewControllerAnimated(true)
                     // self.navigationController?.popToRootViewControllerAnimated(true)
                 }
@@ -795,6 +798,8 @@ class ContactViewController: UIViewController, UITableViewDelegate ,UITableViewD
     {}
     func  sendGoBackFromCustomerSearchView(fromView : String ,forCell: String,Contact: Customer)
     {}
+    
+  
     /*
     // MARK: - Navigation
 

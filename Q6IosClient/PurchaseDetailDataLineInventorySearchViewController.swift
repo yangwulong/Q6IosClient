@@ -345,7 +345,7 @@ class PurchaseDetailDataLineInventorySearchViewController:UIViewController ,Q6We
         if indexPath.row == pageIndex*(pageSize - 5 )
         {
             let q6CommonLib = Q6CommonLib(myObject: self)
-            pageIndex++
+            pageIndex = pageIndex + 1
            // setAttachedURL(searchText, PageSize: pageSize, PageIndex: pageIndex)
             dataRequestSource = ""
             //q6CommonLib.Q6IosClientGetApi("Purchase", ActionName: "GetPurchasesTransactionsList", attachedURL: attachedURL)

@@ -182,7 +182,8 @@ setControlAppear()
         if indexPath.row == pageIndex*(pageSize - 5 )
         {
             let q6CommonLib = Q6CommonLib(myObject: self)
-            pageIndex++
+            pageIndex = pageIndex + 1
+            
             setAttachedURL(searchText, IsLoadInactive:false,PageSize: pageSize, PageIndex: pageIndex)
             dataRequestSource = ""
              q6CommonLib.Q6IosClientGetApi("Purchase", ActionName: "GetSupplierList", attachedURL: attachedURL)

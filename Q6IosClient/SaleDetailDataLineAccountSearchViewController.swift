@@ -64,7 +64,7 @@ class SaleDetailDataLineAccountSearchViewController:  UIViewController , Q6WebAp
         
         if accountListData.count == 0 {
             
-            for var i = 0 ; i <= 8; i++
+            for var i = 0 ; i <= 8; i += 1
             {
                 var screenSectionSortDetailForAccount = ScreenSectionSortDetailForAccount()
                 screenSectionSortDetailForAccount.AccountType = originalSectionsSortDic[i]!

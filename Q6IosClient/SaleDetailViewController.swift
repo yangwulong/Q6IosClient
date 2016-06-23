@@ -63,7 +63,7 @@ class SaleDetailViewController: UIViewController, UITableViewDelegate ,UITableVi
             Q6ActivityIndicatorView.startAnimating()
             let q6CommonLib = Q6CommonLib(myObject: self)
             
-            var attachedURL = "&SalesTransactionsHeaderID=" + salesTransactionHeader.SalesTransactionsHeaderID
+            let attachedURL = "&SalesTransactionsHeaderID=" + salesTransactionHeader.SalesTransactionsHeaderID
             isPreLoad = true
             q6CommonLib.Q6IosClientGetApi("Sale", ActionName: "GetSalesTransactionsByID", attachedURL: attachedURL)
         }
@@ -105,7 +105,7 @@ class SaleDetailViewController: UIViewController, UITableViewDelegate ,UITableVi
         {
             for index in 0 ... 9 {
                 
-                var screenSortLinesDetail = ScreenSortLinesDetail()
+                let screenSortLinesDetail = ScreenSortLinesDetail()
                 var prototypeCell = String()
                 
                 switch index {

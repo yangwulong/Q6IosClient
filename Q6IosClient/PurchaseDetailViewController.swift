@@ -842,12 +842,12 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
     func validateDate()-> Bool
     {
         var isValid = true
-        if purchasesTransactionHeader.PurchasesType == "BILL"
+        if purchasesTransactionHeader.PurchasesType == "Bill"
         {
             if purchasesTransactionHeader.DueDate == nil
             {
                 
-                Q6CommonLib.q6UIAlertPopupController("Information message", message: "Due Date can not be empty if purchase type is BILL!", viewController: self)
+                Q6CommonLib.q6UIAlertPopupController("Information message", message: "Due Date can not be empty if purchase type is Bill!", viewController: self)
                 isValid = false
             }
         }
@@ -869,7 +869,7 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
     func validateQuantityValue() -> Bool
     {
         var isValid = true
-        if purchasesTransactionHeader.PurchasesType == "DEBIT NOTE"
+        if purchasesTransactionHeader.PurchasesType == "DebitNote"
         {
             for i in 0..<purchasesDetailScreenLinesDic.count
             {

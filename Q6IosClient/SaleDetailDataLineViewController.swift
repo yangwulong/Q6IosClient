@@ -126,7 +126,9 @@ class SaleDetailDataLineViewController: UIViewController, UITableViewDelegate ,U
                 
             }
             
-            
+            if salesTransactionsDetailView.InventoryID != nil {
+                cell.accountButton.enabled = false
+            }
             cell.lblAccountNameWithNo.text = salesTransactionsDetailView.AccountNameWithAccountNo
             
             
@@ -375,7 +377,7 @@ class SaleDetailDataLineViewController: UIViewController, UITableViewDelegate ,U
         
         if originalRowsDic[indexPath.row] == "AccountCell" {
             
-            if selectedInventoryView == nil
+            if selectedInventoryView == nil && salesTransactionsDetailView.InventoryID == nil 
             {
                 performSegueWithIdentifier("showAccount", sender: "AccountCell")
                 

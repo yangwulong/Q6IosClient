@@ -64,7 +64,7 @@ setControlAppear()
         
         if accountListData.count == 0 {
             
-            for var i = 0 ; i <= 8; i++
+            for i in 0...8
             {
                 var screenSectionSortDetailForAccount = ScreenSectionSortDetailForAccount()
                 screenSectionSortDetailForAccount.AccountType = originalSectionsSortDic[i]!

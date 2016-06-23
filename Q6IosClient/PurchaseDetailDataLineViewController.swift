@@ -93,6 +93,22 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
             
             cell.lblInventoryName.text = purchasesTransactionsDetailView.InventoryName
             
+//            
+//            if cell.lblInventoryName.text?.length > 0 {
+//                
+//                if selectedInventoryView == nil {
+//            var tempInventoryView = InventoryView()
+//            tempInventoryView.InventoryID = purchasesTransactionsDetailView.InventoryID!
+//            tempInventoryView.InventoryName = purchasesTransactionsDetailView.InventoryName
+//            
+//           selectedInventoryView = tempInventoryView
+//                }
+//            }
+          
+            if selectedInventoryView != nil {
+                
+                
+            }
             // lblTotalLabel.font = UIFont.boldSystemFontOfSize(17.0)
             //lblTotalAmount.font = UIFont.boldSystemFontOfSize(17.0)
         }
@@ -126,6 +142,10 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
                 
             }
             
+            if purchasesTransactionsDetailView.InventoryID != nil {
+                
+               cell.accountButton.enabled = false
+            }
             
             cell.lblAccountNameWithNo.text = purchasesTransactionsDetailView.AccountNameWithAccountNo
             
@@ -374,7 +394,7 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
         
         if originalRowsDic[indexPath.row] == "AccountCell" {
             
-            if selectedInventoryView == nil
+            if selectedInventoryView == nil && purchasesTransactionsDetailView.InventoryID == nil
             {
                 performSegueWithIdentifier("showAccount", sender: "AccountCell")
                 

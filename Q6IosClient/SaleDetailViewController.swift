@@ -876,7 +876,7 @@ class SaleDetailViewController: UIViewController, UITableViewDelegate ,UITableVi
     func validateDate()-> Bool
     {
         var isValid = true
-        if salesTransactionHeader.SalesType == "INVOICE"
+        if salesTransactionHeader.SalesType == "Invoice"
         {
             if salesTransactionHeader.DueDate == nil
             {
@@ -903,7 +903,7 @@ class SaleDetailViewController: UIViewController, UITableViewDelegate ,UITableVi
     func validateQuantityValue() -> Bool
     {
         var isValid = true
-        if salesTransactionHeader.SalesType == "CREDIT NOTE"
+        if salesTransactionHeader.SalesType == "CreditNote"
         {
             for i in 0..<salesDetailScreenLinesDic.count
             {

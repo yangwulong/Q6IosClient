@@ -555,7 +555,7 @@ class ContactViewController: UIViewController, UITableViewDelegate ,UITableViewD
                 
                 Q6CommonLib.q6UIAlertPopupController("Information Message", message:" Customer Name can not be empty!", viewController: self)
             }
-            else if customer.Email?.length>0 &&  Q6CommonLib.isEmailAddressValid(supplier.Email!) == false {
+            else if customer.Email?.length>0 &&  Q6CommonLib.isEmailAddressValid(customer.Email!) == false {
                 Q6CommonLib.q6UIAlertPopupController("Information Message", message:" Email Address is not valid !", viewController: self)
             }
             else {

@@ -34,20 +34,20 @@ class ContactSearchViewController: UIViewController , Q6WebApiProtocol,UITableVi
     
     override func viewWillAppear(animated: Bool) {
     
-        ContactSearchBox.text = ""
-        Q6ActivityIndicatorView.startAnimating()
-        let q6CommonLib = Q6CommonLib(myObject: self)
-        
-        setAttachedURL(searchText, IsLoadInactive:false,PageSize: pageSize,PageIndex: pageIndex)
-        
-        if ContactSegmentedControl.selectedSegmentIndex == 0 {
-            
-            
-            q6CommonLib.Q6IosClientGetApi("Purchase", ActionName: "GetSupplierList", attachedURL: attachedURL)
-        }
-        else {
-            q6CommonLib.Q6IosClientGetApi("Sale", ActionName: "GetCustomerList", attachedURL: attachedURL)
-        }
+//        ContactSearchBox.text = ""
+//        Q6ActivityIndicatorView.startAnimating()
+//        let q6CommonLib = Q6CommonLib(myObject: self)
+//        
+//        setAttachedURL(searchText, IsLoadInactive:false,PageSize: pageSize,PageIndex: pageIndex)
+//        
+//        if ContactSegmentedControl.selectedSegmentIndex == 0 {
+//            
+//            
+//            q6CommonLib.Q6IosClientGetApi("Purchase", ActionName: "GetSupplierList", attachedURL: attachedURL)
+//        }
+//        else {
+//            q6CommonLib.Q6IosClientGetApi("Sale", ActionName: "GetCustomerList", attachedURL: attachedURL)
+//        }
         
     }
     override func viewDidLoad() {

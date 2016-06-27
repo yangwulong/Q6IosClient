@@ -12,7 +12,7 @@ extension CALayer {
     
     func addBorder(SelfWidth: CGFloat, edge: UIRectEdge, color: UIColor, thickness: CGFloat) {
         
-        var border = CALayer()
+        let border = CALayer()
     
         switch edge {
         case UIRectEdge.Top:
@@ -66,7 +66,7 @@ extension String {
         
         //Parse into NSDate
         
-       var str = self
+       let str = self
       var seperateStr = str.componentsSeparatedByString("T")
         if let dateFromString : NSDate = dateFormatter.dateFromString(seperateStr[0]){
             
@@ -97,7 +97,7 @@ extension NSDate {
 //        var todaysDate:NSDate = NSDate()
 //        var dateFormatter:NSDateFormatter = NSDateFormatter()
 //        dateFormatter.dateFormat = "dd/MM/yyyy"
-        var convertDate = formatter.stringFromDate(self)
+        let convertDate = formatter.stringFromDate(self)
         
         return convertDate
 }

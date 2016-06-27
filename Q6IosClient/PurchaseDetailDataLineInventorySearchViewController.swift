@@ -112,7 +112,7 @@ class PurchaseDetailDataLineInventorySearchViewController:UIViewController ,Q6We
                 //                //                print("no i =" + i.description)
                 var dataItem = returnData[i]
                 //
-             var inventoryView = InventoryView()
+             let inventoryView = InventoryView()
                 inventoryView.InventoryID = dataItem["InventoryID"] as! String
                 
                 inventoryView.InventoryName = dataItem["InventoryName"] as! String
@@ -125,7 +125,7 @@ class PurchaseDetailDataLineInventorySearchViewController:UIViewController ,Q6We
                 inventoryView.IsInactive = dataItem["IsInactive"] as! Bool
                 inventoryView.SupplierPartNumber = dataItem["SupplierPartNumber"] as! String
                 
-                var categoryName = dataItem["CategoryName"] as? String
+                let categoryName = dataItem["CategoryName"] as? String
                 if categoryName != nil {
                     
              
@@ -136,7 +136,7 @@ class PurchaseDetailDataLineInventorySearchViewController:UIViewController ,Q6We
                     print("inventoryView.CategoryName nil")
                 }
      
-                var AssetAccountNameWithAccountNo = dataItem["AssetAccountNameWithAccountNo"] as? String
+                let AssetAccountNameWithAccountNo = dataItem["AssetAccountNameWithAccountNo"] as? String
                 
                 if AssetAccountNameWithAccountNo != nil {
                     
@@ -147,7 +147,7 @@ class PurchaseDetailDataLineInventorySearchViewController:UIViewController ,Q6We
                 }
                 inventoryView.PurchaseDescription = dataItem["PurchaseDescription"] as! String
                 
-                var PurchasePrice = dataItem["PurchasePrice"] as? Double
+                let PurchasePrice = dataItem["PurchasePrice"] as? Double
                 
                 if PurchasePrice != nil {
                     inventoryView.PurchasePrice = PurchasePrice!
@@ -170,7 +170,7 @@ class PurchaseDetailDataLineInventorySearchViewController:UIViewController ,Q6We
                 inventoryView.PurchaseAccountNameWithAccountNo = dataItem["PurchaseAccountNameWithAccountNo"] as! String
                 print("inventoryView.PurchaseAccountNameWithAccountNo" + inventoryView.PurchaseAccountNameWithAccountNo)
                 
-                var MinQuantityForRestockingAlert = dataItem["MinQuantityForRestockingAlert"] as? Double
+                let MinQuantityForRestockingAlert = dataItem["MinQuantityForRestockingAlert"] as? Double
                 if MinQuantityForRestockingAlert != nil {
                     inventoryView.MinQuantityForRestockingAlert = MinQuantityForRestockingAlert!
                     
@@ -178,7 +178,7 @@ class PurchaseDetailDataLineInventorySearchViewController:UIViewController ,Q6We
                     
                 }
                 
-                var QuantityOnHand = dataItem["QuantityOnHand"] as? Double
+                let QuantityOnHand = dataItem["QuantityOnHand"] as? Double
                 
                 if QuantityOnHand != nil {
                     
@@ -194,7 +194,7 @@ class PurchaseDetailDataLineInventorySearchViewController:UIViewController ,Q6We
                     print("inventoryView.CurrentValue" + inventoryView.CurrentValue.description)
                 }
                 
-                var AverageCost = dataItem["AverageCost"] as? Double
+                let AverageCost = dataItem["AverageCost"] as? Double
                 
                 if AverageCost != nil {
                     
@@ -202,7 +202,7 @@ class PurchaseDetailDataLineInventorySearchViewController:UIViewController ,Q6We
                    
                 }
                 
-                var Committed = dataItem["Committed"] as? Double
+                let Committed = dataItem["Committed"] as? Double
                 
                 if Committed != nil {
                     
@@ -210,7 +210,7 @@ class PurchaseDetailDataLineInventorySearchViewController:UIViewController ,Q6We
                  
                 }
                 
-                var OnOrder = dataItem["OnOrder"] as? Double
+                let OnOrder = dataItem["OnOrder"] as? Double
                 
                 if OnOrder != nil {
                     
@@ -218,7 +218,7 @@ class PurchaseDetailDataLineInventorySearchViewController:UIViewController ,Q6We
                     print("inventoryView.OnOrder" + inventoryView.OnOrder.description)
                 }
                 
-                var Available = dataItem["Available"] as? Double
+                let Available = dataItem["Available"] as? Double
                  if Available != nil {
                     
                     inventoryView.Available = Available!
@@ -226,21 +226,21 @@ class PurchaseDetailDataLineInventorySearchViewController:UIViewController ,Q6We
                 }
                 
                 
-                var AssetAccountID = dataItem["AssetAccountID"] as? String
+                let AssetAccountID = dataItem["AssetAccountID"] as? String
                 if AssetAccountID != nil {
                     
                     inventoryView.AssetAccountID = AssetAccountID!
                     print("inventoryView.AssetAccountID " + inventoryView.AssetAccountID! )
                 }
                 
-                var PurchaseAccountID = dataItem["PurchaseAccountID"] as? String
+                let PurchaseAccountID = dataItem["PurchaseAccountID"] as? String
                 if PurchaseAccountID != nil {
                     
                     inventoryView.PurchaseAccountID = PurchaseAccountID!
                     print("inventoryView.PurchaseAccountID " + inventoryView.PurchaseAccountID! )
                 }
                 
-                var SaleAccountID = dataItem["SaleAccountID"] as? String
+                let SaleAccountID = dataItem["SaleAccountID"] as? String
                 if SaleAccountID != nil {
                     
                     inventoryView.SaleAccountID = SaleAccountID!
@@ -248,21 +248,21 @@ class PurchaseDetailDataLineInventorySearchViewController:UIViewController ,Q6We
                 }
                 
                 
-                var PurchaseTaxCodeID = dataItem["PurchaseTaxCodeID"] as? String
+                let PurchaseTaxCodeID = dataItem["PurchaseTaxCodeID"] as? String
                 if PurchaseTaxCodeID != nil {
                     
                     inventoryView.PurchaseTaxCodeID = PurchaseTaxCodeID!
                     print("inventoryView.PurchaseTaxCodeID " + inventoryView.PurchaseTaxCodeID! )
                 }
                 
-                var PurchaseTaxCodeRate = dataItem["PurchaseTaxCodeRate"] as? Double
+                let PurchaseTaxCodeRate = dataItem["PurchaseTaxCodeRate"] as? Double
                 if PurchaseTaxCodeRate != nil {
                     
                     inventoryView.PurchaseTaxCodeRate = PurchaseTaxCodeRate!
                     print("inventoryView.PurchaseTaxCodeRate " + inventoryView.PurchaseTaxCodeRate!.description )
                 }
                 
-                var PurchaseTaxCodePurpose = dataItem["PurchaseTaxCodePurpose"] as? String
+                let PurchaseTaxCodePurpose = dataItem["PurchaseTaxCodePurpose"] as? String
                 if PurchaseTaxCodePurpose != nil {
                     
                     inventoryView.PurchaseTaxCodePurpose = PurchaseTaxCodePurpose!
@@ -317,7 +317,7 @@ class PurchaseDetailDataLineInventorySearchViewController:UIViewController ,Q6We
         }
     }
     
-    func searchBarSearchButtonClicked( searchBar: UISearchBar!)
+    func searchBarSearchButtonClicked( searchBar: UISearchBar)
     {
         let q6CommonLib = Q6CommonLib(myObject: self)
         
@@ -328,7 +328,7 @@ class PurchaseDetailDataLineInventorySearchViewController:UIViewController ,Q6We
         //  print("purchaseTransactionListdata count" + purchaseTransactionListData.count.description)
         if InventorySearchBox.text?.length > 0 {
             
-            var inventoryName = self.InventorySearchBox.text!
+            let inventoryName = self.InventorySearchBox.text!
            
             pageIndex = 1
             inventoryViewData.removeAll()

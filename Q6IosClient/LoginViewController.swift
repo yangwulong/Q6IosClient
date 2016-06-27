@@ -28,7 +28,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate,Q6WebApiProtoco
         
         Q6ActivityIndicatorView.hidesWhenStopped = true
         Q6ActivityIndicatorView.stopAnimating()
-        var loginStatus = q6IosClientDB.validateLoginStatus()
+        let loginStatus = q6IosClientDB.validateLoginStatus()
         
         if loginStatus == true && ScreenMode == "" {
             imgQ6Logo.hidden = true
@@ -54,9 +54,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate,Q6WebApiProtoco
         
         q6IosClientDB.createDB()
         
-        var isEmpty = q6IosClientDB.validateIfTableIsEmpty("UserInfos")
+     //   var isEmpty = q6IosClientDB.validateIfTableIsEmpty("UserInfos")
         
-        var loginStatus = q6IosClientDB.validateLoginStatus()
+     //   var loginStatus = q6IosClientDB.validateLoginStatus()
         
         //        if loginStatus == true {
         ////            if let tabViewController = storyboard!.instantiateViewControllerWithIdentifier("Q6TabViewController") as? UITabBarController {
@@ -77,7 +77,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate,Q6WebApiProtoco
         
         
         
-        var loginStatus = q6IosClientDB.validateLoginStatus()
+        let loginStatus = q6IosClientDB.validateLoginStatus()
         
         if loginStatus == true && ScreenMode == "" {
             
@@ -123,6 +123,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate,Q6WebApiProtoco
                 dicData["Password"]=txtLoginPassword.text
                 dicData["ClientIP"]=Q6CommonLib.getIPAddresses()
                 
+                print("Q6CommonLib.getIPAddresses()" + Q6CommonLib.getIPAddresses())
                 Q6ActivityIndicatorView.startAnimating()
                 q6CommonLib.Q6IosClientPostAPI("Q6",ActionName: "InternalUserLogin", dicData:dicData)
                 
@@ -195,12 +196,12 @@ class LoginViewController: UIViewController, UITextFieldDelegate,Q6WebApiProtoco
             
             if IsLoginSuccessed == true {
                 
-                var q6CommonLib = Q6CommonLib()
+            
                 var returnValue = postDicData!["ReturnValue"]! as! Dictionary<String, AnyObject>
                 
-                var companyID = returnValue["CompanyID"] as! String
-                var LoginFirstName = returnValue["LoginFirstName"] as! String
-                var LoginLastName = returnValue["LoginLastName"] as! String
+                let companyID = returnValue["CompanyID"] as! String
+                let LoginFirstName = returnValue["LoginFirstName"] as! String
+                let LoginLastName = returnValue["LoginLastName"] as! String
     
                 
                 let q6DBLib = Q6DBLib()
@@ -209,7 +210,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate,Q6WebApiProtoco
                 q6DBLib.addUserInfos(txtLoginEmail.text!, PassWord: txtLoginPassword.text!, LoginStatus: "Login",CompanyID: companyID ,LoginFirstName: LoginFirstName ,LoginLastName: LoginLastName)
                 //Set any attributes of the view controller before it is displayed, this is where you would set the category text in your code.
                 
-                var passCode = q6DBLib.getUserPassCode()
+                let passCode = q6DBLib.getUserPassCode()
                 
                 
                 

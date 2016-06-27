@@ -84,10 +84,13 @@ class SaleDetailDataLineInventorySearchViewController:UIViewController ,Q6WebApi
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
-        
-        let  cell = tableView.cellForRowAtIndexPath(indexPath) as! SaleDetailDataLineInventorySearchTableViewCell
+//        
+//        let  cell = tableView.cellForRowAtIndexPath(indexPath) as! SaleDetailDataLineInventorySearchTableViewCell
         
         selectedInventoryView = inventoryViewData[indexPath.row]
+        
+        print("SeletectedInventoryView.SaleAccountID" + (selectedInventoryView?.SaleAccountID!)!)
+        print("SeletectedInventoryView.SaleAccounName" + (selectedInventoryView?.SaleAccountNameWithAccountNo)!)
         InventorySearchBox.resignFirstResponder()
         
     }
@@ -112,7 +115,7 @@ class SaleDetailDataLineInventorySearchViewController:UIViewController ,Q6WebApi
                 //                //                print("no i =" + i.description)
                 var dataItem = returnData[i]
                 //
-                var inventoryView = InventoryView()
+                let inventoryView = InventoryView()
                 inventoryView.InventoryID = dataItem["InventoryID"] as! String
                 
                 inventoryView.InventoryName = dataItem["InventoryName"] as! String
@@ -125,7 +128,7 @@ class SaleDetailDataLineInventorySearchViewController:UIViewController ,Q6WebApi
                 inventoryView.IsInactive = dataItem["IsInactive"] as! Bool
 //                inventoryView.SupplierPartNumber = dataItem["SupplierPartNumber"] as! String
                 
-                var categoryName = dataItem["CategoryName"] as? String
+                let categoryName = dataItem["CategoryName"] as? String
                 if categoryName != nil {
                     
                     
@@ -136,7 +139,7 @@ class SaleDetailDataLineInventorySearchViewController:UIViewController ,Q6WebApi
                     print("inventoryView.CategoryName nil")
                 }
                 
-                var AssetAccountNameWithAccountNo = dataItem["AssetAccountNameWithAccountNo"] as? String
+                let AssetAccountNameWithAccountNo = dataItem["AssetAccountNameWithAccountNo"] as? String
                 
                 if AssetAccountNameWithAccountNo != nil {
                     
@@ -147,7 +150,7 @@ class SaleDetailDataLineInventorySearchViewController:UIViewController ,Q6WebApi
                 }
                 inventoryView.SaleDescription = dataItem["SaleDescription"] as! String
                 
-                var SellingPrice = dataItem["SellingPrice"] as? Double
+                let SellingPrice = dataItem["SellingPrice"] as? Double
                 
                 if SellingPrice != nil {
                     inventoryView.SellingPrice = SellingPrice!
@@ -170,7 +173,7 @@ class SaleDetailDataLineInventorySearchViewController:UIViewController ,Q6WebApi
                 inventoryView.SaleAccountNameWithAccountNo = dataItem["SaleAccountNameWithAccountNo"] as! String
                 print("inventoryView.SaleAccountNameWithAccountNo" + inventoryView.SaleAccountNameWithAccountNo)
                 
-                var MinQuantityForRestockingAlert = dataItem["MinQuantityForRestockingAlert"] as? Double
+                let MinQuantityForRestockingAlert = dataItem["MinQuantityForRestockingAlert"] as? Double
                 if MinQuantityForRestockingAlert != nil {
                     inventoryView.MinQuantityForRestockingAlert = MinQuantityForRestockingAlert!
                     
@@ -178,7 +181,7 @@ class SaleDetailDataLineInventorySearchViewController:UIViewController ,Q6WebApi
                     
                 }
                 
-                var QuantityOnHand = dataItem["QuantityOnHand"] as? Double
+                let QuantityOnHand = dataItem["QuantityOnHand"] as? Double
                 
                 if QuantityOnHand != nil {
                     
@@ -186,7 +189,7 @@ class SaleDetailDataLineInventorySearchViewController:UIViewController ,Q6WebApi
                     
                 }
                 
-                var CurrentValue = dataItem["CurrentValue"] as? Double
+                let CurrentValue = dataItem["CurrentValue"] as? Double
                 
                 if CurrentValue != nil {
                     
@@ -194,7 +197,7 @@ class SaleDetailDataLineInventorySearchViewController:UIViewController ,Q6WebApi
                     print("inventoryView.CurrentValue" + inventoryView.CurrentValue.description)
                 }
                 
-                var AverageCost = dataItem["AverageCost"] as? Double
+                let AverageCost = dataItem["AverageCost"] as? Double
                 
                 if AverageCost != nil {
                     
@@ -202,7 +205,7 @@ class SaleDetailDataLineInventorySearchViewController:UIViewController ,Q6WebApi
                     
                 }
                 
-                var Committed = dataItem["Committed"] as? Double
+                let Committed = dataItem["Committed"] as? Double
                 
                 if Committed != nil {
                     
@@ -210,7 +213,7 @@ class SaleDetailDataLineInventorySearchViewController:UIViewController ,Q6WebApi
                     
                 }
                 
-                var OnOrder = dataItem["OnOrder"] as? Double
+                let OnOrder = dataItem["OnOrder"] as? Double
                 
                 if OnOrder != nil {
                     
@@ -218,7 +221,7 @@ class SaleDetailDataLineInventorySearchViewController:UIViewController ,Q6WebApi
                     print("inventoryView.OnOrder" + inventoryView.OnOrder.description)
                 }
                 
-                var Available = dataItem["Available"] as? Double
+                let Available = dataItem["Available"] as? Double
                 if Available != nil {
                     
                     inventoryView.Available = Available!
@@ -226,7 +229,7 @@ class SaleDetailDataLineInventorySearchViewController:UIViewController ,Q6WebApi
                 }
                 
                 
-                var AssetAccountID = dataItem["AssetAccountID"] as? String
+                let AssetAccountID = dataItem["AssetAccountID"] as? String
                 if AssetAccountID != nil {
                     
                     inventoryView.AssetAccountID = AssetAccountID!
@@ -240,7 +243,7 @@ class SaleDetailDataLineInventorySearchViewController:UIViewController ,Q6WebApi
 //                    print("inventoryView.SaleAccountID " + inventoryView.SaleAccountID! )
 //                }
                 
-                var SaleAccountID = dataItem["SaleAccountID"] as? String
+                let SaleAccountID = dataItem["SaleAccountID"] as? String
                 if SaleAccountID != nil {
                     
                     inventoryView.SaleAccountID = SaleAccountID!
@@ -255,14 +258,14 @@ class SaleDetailDataLineInventorySearchViewController:UIViewController ,Q6WebApi
 //                    print("inventoryView.PurchaseTaxCodeID " + inventoryView.PurchaseTaxCodeID! )
 //                }
                 
-                var SaleTaxCodeRate = dataItem["SaleTaxCodeRate"] as? Double
+                let SaleTaxCodeRate = dataItem["SaleTaxCodeRate"] as? Double
                 if SaleTaxCodeRate != nil {
                     
                     inventoryView.SaleTaxCodeRate = SaleTaxCodeRate!
                     print("inventoryView.SaleTaxCodeRate " + inventoryView.SaleTaxCodeRate!.description )
                 }
                 
-                var SaleTaxCodePurpose = dataItem["SaleTaxCodePurpose"] as? String
+                let SaleTaxCodePurpose = dataItem["SaleTaxCodePurpose"] as? String
                 if SaleTaxCodePurpose != nil {
                     
                     inventoryView.SaleTaxCodePurpose = SaleTaxCodePurpose!
@@ -317,7 +320,7 @@ class SaleDetailDataLineInventorySearchViewController:UIViewController ,Q6WebApi
         }
     }
     
-    func searchBarSearchButtonClicked( searchBar: UISearchBar!)
+    func searchBarSearchButtonClicked( searchBar: UISearchBar)
     {
         let q6CommonLib = Q6CommonLib(myObject: self)
         
@@ -328,7 +331,7 @@ class SaleDetailDataLineInventorySearchViewController:UIViewController ,Q6WebApi
         //  print("purchaseTransactionListdata count" + purchaseTransactionListData.count.description)
         if InventorySearchBox.text?.length > 0 {
             
-            var inventoryName = self.InventorySearchBox.text!
+            let inventoryName = self.InventorySearchBox.text!
             
             pageIndex = 1
             inventoryViewData.removeAll()
@@ -345,7 +348,7 @@ class SaleDetailDataLineInventorySearchViewController:UIViewController ,Q6WebApi
         if indexPath.row == pageIndex*(pageSize - 5 )
         {
             let q6CommonLib = Q6CommonLib(myObject: self)
-            pageIndex++
+            pageIndex = pageIndex + 1
             // setAttachedURL(searchText, PageSize: pageSize, PageIndex: pageIndex)
             dataRequestSource = ""
             //q6CommonLib.Q6IosClientGetApi("Purchase", ActionName: "GetPurchasesTransactionsList", attachedURL: attachedURL)

@@ -146,7 +146,7 @@ public class Q6CommonLib{
             
             let jsonData = try NSJSONSerialization.dataWithJSONObject(dicData, options: [])
             
-            var jsonString = NSString(data: jsonData, encoding: NSUTF8StringEncoding)! as String
+            let jsonString = NSString(data: jsonData, encoding: NSUTF8StringEncoding)! as String
             returnString = jsonString
             
 //      print(jsonString)
@@ -164,7 +164,7 @@ public class Q6CommonLib{
     func Q6IosClientGetApi(ModelName: String ,ActionName: String ,attachedURL: String)
     {
         
-        var q6DBLib =  Q6DBLib()
+        let q6DBLib =  Q6DBLib()
         var userInfos = q6DBLib.getUserInfos()
         
        
@@ -174,18 +174,29 @@ public class Q6CommonLib{
         loginDetail["Password"] = userInfos["PassWord"]
         loginDetail["WebApiTOKEN"] = "91561308-B547-4B4E-8289-D5F0B23F0037"
         
-        var jasonLoginDeail = convertDictionaryToJSONData(loginDetail)
+        let jasonLoginDeail = convertDictionaryToJSONData(loginDetail)
         
-        var url : String = q6WebApiUrl + ModelName + "/" + ActionName + "?Jsonlogin=" + jasonLoginDeail + attachedURL
+        
+       let EncodeAttachedURL = (jasonLoginDeail + attachedURL).stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())! as String
+        print("EncodeAttachedURL \(EncodeAttachedURL)")
+        
+        
+        let url : String = q6WebApiUrl + ModelName + "/" + ActionName + "?Jsonlogin="  + EncodeAttachedURL
+       // var url : String = q6WebApiUrl + ModelName + "/" + ActionName + "?Jsonlogin=" + jasonLoginDeail + attachedURL
         let configuration = NSURLSessionConfiguration .defaultSessionConfiguration()
         let session = NSURLSession(configuration: configuration)
         
         
-        var urlString : String = url.stringByReplacingOccurrencesOfString("\\", withString: "") as String
-        
-        urlString = urlString.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!
-        print("get url is \(urlString)")
-
+        let urlString : String = url.stringByReplacingOccurrencesOfString("\\", withString: "") as String
+//       print(" Original urlString: \(urlString)")
+//      urlString = urlString.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!
+//        
+//        
+//       print("urlString: \(urlString)")
+//        
+//       urlString = url.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())!
+//    
+// print("2 urlString: \(urlString)")
         
         //let url = NSURL(string: urlString as String)
         let request : NSMutableURLRequest = NSMutableURLRequest(URL: NSURL(string: urlString )!)
@@ -202,7 +213,7 @@ public class Q6CommonLib{
             (let data: NSData?, let response: NSURLResponse?, let error: NSError?) -> Void in
             
             
-            guard let responseData = data else {
+            guard data != nil else {
                 print("Error: did not receive data")
                 return
             }
@@ -211,20 +222,20 @@ public class Q6CommonLib{
                 print(error)
                 return
             }
-            guard let myResponse = response else {
+            guard response != nil else {
                 print("error calling response")
                 print(error)
                 return
             }
             
             // 1: Check HTTP Response for successful GET request
-            guard let httpResponse = response as? NSHTTPURLResponse, receivedData = data
+            guard let httpResponse = response as? NSHTTPURLResponse, _ = data
                 else {
                     print("error: not a valid http response")
                     return
             }
             
-            guard case let httpResponse.statusCode = 200 else {
+            guard case httpResponse.statusCode = 200 else {
                 
                 print("error: status is not 200")
                 return
@@ -266,7 +277,7 @@ public class Q6CommonLib{
         
         // create the request & response
         let request = NSMutableURLRequest(URL: NSURL(string: UrlString)!, cachePolicy: NSURLRequestCachePolicy.ReloadIgnoringLocalCacheData, timeoutInterval: 5)
-        var response: NSURLResponse?
+      //  var response: NSURLResponse?
         
         
         
@@ -293,7 +304,7 @@ public class Q6CommonLib{
             
             let task = session.dataTaskWithRequest(request, completionHandler: {
                 (data, response, error)  in
-                guard let responseData = data else {
+                guard data != nil else {
                     print("Error: did not receive data")
                     return
                 }
@@ -302,7 +313,7 @@ public class Q6CommonLib{
                     print(error)
                     return
                 }
-                guard let myResponse = response else {
+                guard response != nil else {
                     print("error calling response")
                     print(error)
                     return
@@ -395,26 +406,47 @@ public class Q6CommonLib{
         // Get list of all interfaces on the local machine:
         var ifaddr : UnsafeMutablePointer<ifaddrs> = nil
         if getifaddrs(&ifaddr) == 0 {
-            
-            // For each interface ...
-            for (var ptr = ifaddr; ptr != nil; ptr = ptr.memory.ifa_next) {
+            var ptr = ifaddr
+            repeat{
+               
                 let flags = Int32(ptr.memory.ifa_flags)
-                var addr = ptr.memory.ifa_addr.memory
+                                var addr = ptr.memory.ifa_addr.memory
                 
-                // Check for running IPv4, IPv6 interfaces. Skip the loopback interface.
-                if (flags & (IFF_UP|IFF_RUNNING|IFF_LOOPBACK)) == (IFF_UP|IFF_RUNNING) {
-                    if addr.sa_family == UInt8(AF_INET) || addr.sa_family == UInt8(AF_INET6) {
-                        
-                        // Convert interface address to a human readable string:
-                        var hostname = [CChar](count: Int(NI_MAXHOST), repeatedValue: 0)
-                        if (getnameinfo(&addr, socklen_t(addr.sa_len), &hostname, socklen_t(hostname.count),nil, socklen_t(0), NI_NUMERICHOST) == 0) {
-                            if let address = String.fromCString(hostname) {
-                                addresses.append(address)
-                            }
-                        }
-                    }
-                }
-            }
+                                // Check for running IPv4, IPv6 interfaces. Skip the loopback interface.
+                                if (flags & (IFF_UP|IFF_RUNNING|IFF_LOOPBACK)) == (IFF_UP|IFF_RUNNING) {
+                                    if addr.sa_family == UInt8(AF_INET) || addr.sa_family == UInt8(AF_INET6) {
+                
+                                        // Convert interface address to a human readable string:
+                                        var hostname = [CChar](count: Int(NI_MAXHOST), repeatedValue: 0)
+                                        if (getnameinfo(&addr, socklen_t(addr.sa_len), &hostname, socklen_t(hostname.count),nil, socklen_t(0), NI_NUMERICHOST) == 0) {
+                                            if let address = String.fromCString(hostname) {
+                                                addresses.append(address)
+                                            }
+                                        }
+                                    }
+                                }
+                ptr = ptr.memory.ifa_next
+
+            }while (ptr != nil)
+//            // For each interface ...
+//            for (var ptr = ifaddr; ptr != nil; ptr = ptr.memory.ifa_next) {
+//                let flags = Int32(ptr.memory.ifa_flags)
+//                var addr = ptr.memory.ifa_addr.memory
+//                
+//                // Check for running IPv4, IPv6 interfaces. Skip the loopback interface.
+//                if (flags & (IFF_UP|IFF_RUNNING|IFF_LOOPBACK)) == (IFF_UP|IFF_RUNNING) {
+//                    if addr.sa_family == UInt8(AF_INET) || addr.sa_family == UInt8(AF_INET6) {
+//                        
+//                        // Convert interface address to a human readable string:
+//                        var hostname = [CChar](count: Int(NI_MAXHOST), repeatedValue: 0)
+//                        if (getnameinfo(&addr, socklen_t(addr.sa_len), &hostname, socklen_t(hostname.count),nil, socklen_t(0), NI_NUMERICHOST) == 0) {
+//                            if let address = String.fromCString(hostname) {
+//                                addresses.append(address)
+//                            }
+//                        }
+//                    }
+//                }
+//            }
             freeifaddrs(ifaddr)
         }
         return addresses[0]   //return public IP ,addresses[1] return private ip
@@ -569,7 +601,7 @@ public class Q6CommonLib{
     
     public static func popUpLoadingSign(parentView: UIViewController) {
         
-        var myActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
+        let myActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
         myActivityIndicator.center = parentView.view.center
         myActivityIndicator.startAnimating()
         parentView.view.addSubview(myActivityIndicator)

@@ -206,6 +206,10 @@ SendEmailTableView.delegate = self
             
         }
     }
+    @IBAction func CancelButtonClicked(sender: AnyObject) {
+        
+        navigationController?.popViewControllerAnimated(true)
+    }
     func dataLoadCompletion(data:NSData?, response:NSURLResponse?, error:NSError?) -> AnyObject
     {
         

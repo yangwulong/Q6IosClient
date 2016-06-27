@@ -157,15 +157,15 @@
         <!--Main-->
         <scene sceneID="qGg-0e-OIg">
             <objects>
-                <viewControllerPlaceholder storyboardName="Main" id="03m-Bo-xXl" sceneMemberID="viewController"/>
+                <viewControllerPlaceholder storyboardIdentifier="MainID" storyboardName="Main" id="03m-Bo-xXl" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LTG-tV-AFx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1309" y="-1472"/>
+            <point key="canvasLocation" x="-1372" y="-1463"/>
         </scene>
         <!--Sale-->
         <scene sceneID="b8b-l1-AOa">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="vnU-RS-9yQ" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="SaleID" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" navigationBarHidden="YES" id="vnU-RS-9yQ" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Sale" image="sell24*24" id="UL3-tf-WIf"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="g9w-dT-DUC">
@@ -179,7 +179,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qJX-WI-axh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-885" y="-1285"/>
+            <point key="canvasLocation" x="-1009" y="-1256"/>
         </scene>
         <!--Sale Detail View Controller-->
         <scene sceneID="ZfR-Mr-gI9">
@@ -674,10 +674,6 @@
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ogb-lh-Foi">
-                                                    <rect key="frame" x="262" y="7" width="76" height="30"/>
-                                                    <state key="normal" title="Send Email"/>
-                                                </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q0A-Sr-rGM">
                                                     <rect key="frame" x="576" y="8" width="16" height="27.5"/>
                                                     <state key="normal" image="resultset_next"/>
@@ -688,30 +684,24 @@
                                                         <segue destination="RIt-qR-arD" kind="show" identifier="showSendEmail" id="or6-2p-tea"/>
                                                     </connections>
                                                 </button>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Send Email" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gA2-zc-ryD">
+                                                    <rect key="frame" x="257.5" y="11.5" width="85" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.42878054789999998" green="0.67319670919999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="bottomMargin" secondItem="ogb-lh-Foi" secondAttribute="bottom" id="7z2-gv-7EA"/>
-                                                <constraint firstItem="q0A-Sr-rGM" firstAttribute="leading" secondItem="ogb-lh-Foi" secondAttribute="trailing" constant="2" id="91s-23-bGS"/>
-                                                <constraint firstItem="ogb-lh-Foi" firstAttribute="centerY" secondItem="tj6-77-nZB" secondAttribute="centerY" id="Umz-Uu-cr2"/>
-                                                <constraint firstItem="ogb-lh-Foi" firstAttribute="top" secondItem="tj6-77-nZB" secondAttribute="topMargin" id="apT-5g-FA7"/>
+                                                <constraint firstItem="gA2-zc-ryD" firstAttribute="centerX" secondItem="tj6-77-nZB" secondAttribute="centerX" id="b3t-86-YXa"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="q0A-Sr-rGM" secondAttribute="trailing" id="g8f-Jj-g4x"/>
-                                                <constraint firstItem="ogb-lh-Foi" firstAttribute="centerX" secondItem="tj6-77-nZB" secondAttribute="centerX" id="gK9-XU-Z3q"/>
-                                                <constraint firstItem="ogb-lh-Foi" firstAttribute="leading" secondItem="tj6-77-nZB" secondAttribute="leadingMargin" id="nF0-AX-lP8"/>
+                                                <constraint firstItem="gA2-zc-ryD" firstAttribute="centerY" secondItem="tj6-77-nZB" secondAttribute="centerY" id="svL-c2-BvP"/>
                                                 <constraint firstItem="q0A-Sr-rGM" firstAttribute="top" secondItem="tj6-77-nZB" secondAttribute="topMargin" id="uC1-vX-j6c"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="q0A-Sr-rGM" secondAttribute="bottom" id="uqb-UR-AV3"/>
                                             </constraints>
-                                            <variation key="default">
-                                                <mask key="constraints">
-                                                    <exclude reference="7z2-gv-7EA"/>
-                                                    <exclude reference="apT-5g-FA7"/>
-                                                    <exclude reference="nF0-AX-lP8"/>
-                                                    <exclude reference="91s-23-bGS"/>
-                                                </mask>
-                                            </variation>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="SendEmailButton" destination="q0A-Sr-rGM" id="4pT-fY-oee"/>
-                                            <outlet property="btnSendEmail" destination="ogb-lh-Foi" id="bBH-NK-mop"/>
+                                            <outlet property="lblSendEmail" destination="gA2-zc-ryD" id="2Lx-JF-zKr"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -1293,7 +1283,7 @@
                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SHD-q2-NjK">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" restorationIdentifier="Sales" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SHD-q2-NjK">
                                                     <rect key="frame" x="106" y="8" width="360" height="27.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -1992,7 +1982,7 @@
                                     <navigationItem title="Send Email" id="hke-Nx-Ijv">
                                         <barButtonItem key="leftBarButtonItem" title="Cancel" id="qEi-j9-O7u">
                                             <connections>
-                                                <action selector="CancelButtonClick:" destination="RIt-qR-arD" id="ilq-s0-dqi"/>
+                                                <action selector="CancelButtonClicked:" destination="RIt-qR-arD" id="Mbh-zO-Iye"/>
                                             </connections>
                                         </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" title="Send" id="y69-06-x4f">

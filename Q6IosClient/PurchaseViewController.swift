@@ -98,7 +98,7 @@ class PurchaseViewController: UIViewController, Q6WebApiProtocol,UITableViewDele
                 
                 print("no i =" + i.description)
                 var dataItem = returnData[i]
-                var purchasesTransactionListViewDataItem =  PurchasesTransactionsListView()
+                let purchasesTransactionListViewDataItem =  PurchasesTransactionsListView()
                 
                 purchasesTransactionListViewDataItem.PurchasesTransactionsHeaderID = dataItem["PurchasesTransactionsHeaderID"] as! String
                 purchasesTransactionListViewDataItem.Overdueby = dataItem["Overdueby"] as? String
@@ -115,7 +115,7 @@ class PurchaseViewController: UIViewController, Q6WebApiProtocol,UITableViewDele
                 
                 purchasesTransactionListViewDataItem.PurchasesStatusString = dataItem["PurchasesStatusString"] as! String
                 
-                var memo = dataItem["Memo"] as? String
+                let memo = dataItem["Memo"] as? String
                 
                 if memo != nil {
                     
@@ -127,7 +127,7 @@ class PurchaseViewController: UIViewController, Q6WebApiProtocol,UITableViewDele
                 }
                 
                 
-                var DueDate = dataItem["DueDate"] as? String
+                let DueDate = dataItem["DueDate"] as? String
                 //                var convertDueDate = NSDate?()
                 //                if dueDate != nil {
                 //                print("dueDate sss" + dueDate!)
@@ -137,7 +137,7 @@ class PurchaseViewController: UIViewController, Q6WebApiProtocol,UITableViewDele
                 //                }
                 purchasesTransactionListViewDataItem.DueDate = DueDate?.toDateTime()
                 
-                var TransactionDate = dataItem["TransactionDate"] as! String
+                let TransactionDate = dataItem["TransactionDate"] as! String
                 
                 purchasesTransactionListViewDataItem.TransactionDate = TransactionDate.toDateTime()!
                 purchasesTransactionListViewDataItem.TotalAmount = dataItem["TotalAmount"] as! Double
@@ -145,7 +145,7 @@ class PurchaseViewController: UIViewController, Q6WebApiProtocol,UITableViewDele
                 purchasesTransactionListViewDataItem.HasLinkedDoc = dataItem["HasLinkedDoc"] as! Bool
                 // purchasesTransactionListViewDataItem.TransactionDate = dataItem["TransactionDate"] as! NSDate
                 
-                var ClosedDate = dataItem["ClosedDate"] as? String
+                let ClosedDate = dataItem["ClosedDate"] as? String
                 purchasesTransactionListViewDataItem.ClosedDate = ClosedDate?.toDateTime()
                 //print("Transaction Date" + dataItem["TransactionDate"])
                 purchaseTransactionListData.append(purchasesTransactionListViewDataItem)
@@ -299,7 +299,7 @@ class PurchaseViewController: UIViewController, Q6WebApiProtocol,UITableViewDele
          PurchaseSearchBox.resignFirstResponder()
     }
     
-    func searchBarSearchButtonClicked( searchBar: UISearchBar!)
+    func searchBarSearchButtonClicked( searchBar: UISearchBar)
     {
         let q6CommonLib = Q6CommonLib(myObject: self)
         
@@ -316,9 +316,9 @@ class PurchaseViewController: UIViewController, Q6WebApiProtocol,UITableViewDele
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
         if segue.identifier == "createPurchaseDetail" {
             
-            var operationType = OperationType()
+            let operationType = OperationType()
             
-            var purchaseDetailViewController = segue.destinationViewController as! PurchaseDetailViewController
+            let purchaseDetailViewController = segue.destinationViewController as! PurchaseDetailViewController
             purchaseDetailViewController.operationType = operationType.Create
             print("purchaseDetailViewController.operationType" + purchaseDetailViewController.operationType)
             purchaseDetailViewController.delegate2 = self
@@ -327,9 +327,9 @@ class PurchaseViewController: UIViewController, Q6WebApiProtocol,UITableViewDele
         }
         if segue.identifier == "editPurchaseDetail" {
             
-            var operationType = OperationType()
+            let operationType = OperationType()
             
-            var purchaseDetailViewController = segue.destinationViewController as! PurchaseDetailViewController
+            let purchaseDetailViewController = segue.destinationViewController as! PurchaseDetailViewController
             purchaseDetailViewController.operationType = operationType.Edit
             purchaseDetailViewController.purchasesTransactionHeader.PurchasesTransactionsHeaderID = purchaseTransactionListData[selectedRowNo].PurchasesTransactionsHeaderID
             

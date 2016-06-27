@@ -9,7 +9,7 @@
         <!--Contact-->
         <scene sceneID="1ha-lr-dsC">
             <objects>
-                <viewController id="kV2-fq-eaY" customClass="ContactSearchViewController" customModule="Q6IosClient" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ContactID" useStoryboardIdentifierAsRestorationIdentifier="YES" id="kV2-fq-eaY" customClass="ContactSearchViewController" customModule="Q6IosClient" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Laz-2v-wkr"/>
                         <viewControllerLayoutGuide type="bottom" id="ryl-iL-C7m"/>
@@ -71,7 +71,7 @@
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bmd-t4-wLi">
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bmd-t4-wLi">
                                                     <rect key="frame" x="575" y="8" width="16" height="27.5"/>
                                                     <state key="normal" image="resultset_next"/>
                                                 </button>
@@ -377,7 +377,7 @@
         <!--Main-->
         <scene sceneID="Rvq-2X-ob4">
             <objects>
-                <viewControllerPlaceholder storyboardName="Main" id="ekB-1d-ovg" sceneMemberID="viewController"/>
+                <viewControllerPlaceholder storyboardIdentifier="MainID" storyboardName="Main" id="ekB-1d-ovg" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Maz-wy-8ah" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="184.5" y="119"/>

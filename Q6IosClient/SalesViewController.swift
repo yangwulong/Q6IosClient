@@ -102,7 +102,7 @@ class SalesViewController: UIViewController, Q6WebApiProtocol,UITableViewDelegat
                 
                 print("no i =" + i.description)
                 var dataItem = returnData[i]
-                var salesTransactionListViewDataItem =  SalesTransactionsListView()
+                let salesTransactionListViewDataItem =  SalesTransactionsListView()
                 
                 salesTransactionListViewDataItem.SalesTransactionsHeaderID = dataItem["SalesTransactionsHeaderID"] as! String
                 salesTransactionListViewDataItem.Overdueby = dataItem["Overdueby"] as? String
@@ -119,7 +119,7 @@ class SalesViewController: UIViewController, Q6WebApiProtocol,UITableViewDelegat
                 
                 salesTransactionListViewDataItem.SalesStatusString = dataItem["SalesStatusString"] as! String
                 
-                var memo = dataItem["Memo"] as? String
+                let memo = dataItem["Memo"] as? String
                 
                 if memo != nil {
                     
@@ -131,7 +131,7 @@ class SalesViewController: UIViewController, Q6WebApiProtocol,UITableViewDelegat
                 }
                 
                 
-                var DueDate = dataItem["DueDate"] as? String
+                let DueDate = dataItem["DueDate"] as? String
                 //                var convertDueDate = NSDate?()
                 //                if dueDate != nil {
                 //                print("dueDate sss" + dueDate!)
@@ -141,7 +141,7 @@ class SalesViewController: UIViewController, Q6WebApiProtocol,UITableViewDelegat
                 //                }
                 salesTransactionListViewDataItem.DueDate = DueDate?.toDateTime()
                 
-                var TransactionDate = dataItem["TransactionDate"] as! String
+                let TransactionDate = dataItem["TransactionDate"] as! String
                 
                 salesTransactionListViewDataItem.TransactionDate = TransactionDate.toDateTime()!
                 salesTransactionListViewDataItem.TotalAmount = dataItem["TotalAmount"] as! Double
@@ -149,7 +149,7 @@ class SalesViewController: UIViewController, Q6WebApiProtocol,UITableViewDelegat
                 salesTransactionListViewDataItem.HasLinkedDoc = dataItem["HasLinkedDoc"] as! Bool
                 // purchasesTransactionListViewDataItem.TransactionDate = dataItem["TransactionDate"] as! NSDate
                 
-                var ClosedDate = dataItem["ClosedDate"] as? String
+                let ClosedDate = dataItem["ClosedDate"] as? String
                 salesTransactionListViewDataItem.ClosedDate = ClosedDate?.toDateTime()
                 //print("Transaction Date" + dataItem["TransactionDate"])
                 saleTransactionListData.append(salesTransactionListViewDataItem)
@@ -184,7 +184,7 @@ class SalesViewController: UIViewController, Q6WebApiProtocol,UITableViewDelegat
         if indexPath.row == pageIndex*(pageSize - 5 )
         {
             let q6CommonLib = Q6CommonLib(myObject: self)
-            pageIndex++
+            pageIndex = pageIndex + 1
             setAttachedURL(searchText, PageSize: pageSize, PageIndex: pageIndex)
             dataRequestSource = ""
             q6CommonLib.Q6IosClientGetApi("Sale", ActionName: "GetSaleTransactionsList", attachedURL: attachedURL)
@@ -301,7 +301,7 @@ class SalesViewController: UIViewController, Q6WebApiProtocol,UITableViewDelegat
         SaleSearchBox.resignFirstResponder()
     }
     
-    func searchBarSearchButtonClicked( searchBar: UISearchBar!)
+    func searchBarSearchButtonClicked( searchBar: UISearchBar)
     {
         let q6CommonLib = Q6CommonLib(myObject: self)
         
@@ -319,9 +319,9 @@ class SalesViewController: UIViewController, Q6WebApiProtocol,UITableViewDelegat
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
         if segue.identifier == "createSaleDetail" {
             
-            var operationType = OperationType()
+            let operationType = OperationType()
             
-            var saleDetailViewController = segue.destinationViewController as! SaleDetailViewController
+            let saleDetailViewController = segue.destinationViewController as! SaleDetailViewController
             saleDetailViewController.operationType = operationType.Create
             print("saleDetailViewController.operationType" + saleDetailViewController.operationType)
             //            purchaseDetailDataLineInventorySearchViewController.delegate = self
@@ -330,9 +330,9 @@ class SalesViewController: UIViewController, Q6WebApiProtocol,UITableViewDelegat
         }
         if segue.identifier == "editSaleDetail" {
             
-            var operationType = OperationType()
+            let operationType = OperationType()
             
-            var saleDetailViewController = segue.destinationViewController as! SaleDetailViewController
+            let saleDetailViewController = segue.destinationViewController as! SaleDetailViewController
             saleDetailViewController.operationType = operationType.Edit
             saleDetailViewController.salesTransactionHeader.SalesTransactionsHeaderID = saleTransactionListData[selectedRowNo].SalesTransactionsHeaderID
               saleDetailViewController.delegate2 = self

@@ -48,7 +48,7 @@ class PickerViewViewController: UIViewController, UIPickerViewDataSource, UIPick
     
     
     @IBAction func DonebuttonClick(sender: AnyObject) {
-        var selectedValue = pickerDataSource[pickerView.selectedRowInComponent(0)]
+        let selectedValue = pickerDataSource[pickerView.selectedRowInComponent(0)]
         
         self.delegate?.sendGoBackFromPickerView("fromPickerViewViewController" ,forCell :fromCell,selectedValue: selectedValue)
         

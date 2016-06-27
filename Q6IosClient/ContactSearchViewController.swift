@@ -151,7 +151,7 @@ class ContactSearchViewController: UIViewController , Q6WebApiProtocol,UITableVi
     
     func dataLoadCompletion(data:NSData?, response:NSURLResponse?, error:NSError?) -> AnyObject
     {
-        var selecedSegmentIndex: Int = ContactSegmentedControl.selectedSegmentIndex
+        let selecedSegmentIndex: Int = ContactSegmentedControl.selectedSegmentIndex
     var postDicData :[String:AnyObject]?
     
     do {
@@ -167,14 +167,14 @@ class ContactSearchViewController: UIViewController , Q6WebApiProtocol,UITableVi
     var returnData =  [[String : AnyObject]]?()
         
         if selecedSegmentIndex == 0 {
-       var tempReturnData = postDicData!["SupplierList"] as? [[String : AnyObject]]
+       let tempReturnData = postDicData!["SupplierList"] as? [[String : AnyObject]]
             
             if tempReturnData != nil {
                 returnData = tempReturnData
             }
         }
         else {
-            var tempReturnData = postDicData!["CustomerList"] as? [[String : AnyObject]]
+            let tempReturnData = postDicData!["CustomerList"] as? [[String : AnyObject]]
             if tempReturnData != nil {
                 returnData = tempReturnData
             }
@@ -189,17 +189,17 @@ class ContactSearchViewController: UIViewController , Q6WebApiProtocol,UITableVi
     //                print("no i =" + i.description)
     var dataItem = returnData![i]
     
-    var contact = Contact()
+    let contact = Contact()
         
         if selecedSegmentIndex == 0
         {
-            var ContactID = dataItem["SupplierID"] as? String
+            let ContactID = dataItem["SupplierID"] as? String
             
             if ContactID != nil {
                 contact.ContactID = ContactID!
             }
             
-            var ContactName = dataItem["SupplierName"] as? String
+            let ContactName = dataItem["SupplierName"] as? String
             
             if ContactName != nil {
                 contact.ContactName = ContactName!
@@ -208,13 +208,13 @@ class ContactSearchViewController: UIViewController , Q6WebApiProtocol,UITableVi
         }
         else
         {
-            var ContactID = dataItem["CustomerID"] as? String
+            let ContactID = dataItem["CustomerID"] as? String
             
             if ContactID != nil {
                 contact.ContactID = ContactID!
             }
             
-            var ContactName = dataItem["CustomerName"] as? String
+            let ContactName = dataItem["CustomerName"] as? String
             
             if ContactName != nil {
                 contact.ContactName = ContactName!
@@ -333,7 +333,7 @@ class ContactSearchViewController: UIViewController , Q6WebApiProtocol,UITableVi
     }
     }
     
-    func searchBarSearchButtonClicked( searchBar: UISearchBar!)
+    func searchBarSearchButtonClicked( searchBar: UISearchBar)
     {
     let q6CommonLib = Q6CommonLib(myObject: self)
     
@@ -358,7 +358,7 @@ class ContactSearchViewController: UIViewController , Q6WebApiProtocol,UITableVi
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
         var ContactType = ""
         
-              var contactViewController = segue.destinationViewController as! ContactViewController
+              let contactViewController = segue.destinationViewController as! ContactViewController
         if segue.identifier == "createContact" {
             
             

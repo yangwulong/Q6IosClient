@@ -110,7 +110,7 @@ class CustomerSearchViewController: UIViewController , Q6WebApiProtocol,UITableV
                 //                print("no i =" + i.description)
                 var dataItem = returnData[i]
                 
-                var customer = Customer()
+                let customer = Customer()
                 customer.CustomerID = dataItem["CustomerID"] as! String
                 
                 // print("SupplierID" + supplier.SupplierID)
@@ -182,7 +182,7 @@ class CustomerSearchViewController: UIViewController , Q6WebApiProtocol,UITableV
         if indexPath.row == pageIndex*(pageSize - 5 )
         {
             let q6CommonLib = Q6CommonLib(myObject: self)
-            pageIndex++
+            pageIndex = pageIndex + 1
             setAttachedURL(searchText, IsLoadInactive:false,PageSize: pageSize, PageIndex: pageIndex)
             dataRequestSource = ""
             q6CommonLib.Q6IosClientGetApi("Sale", ActionName: "GetCustomerList", attachedURL: attachedURL)
@@ -211,7 +211,7 @@ class CustomerSearchViewController: UIViewController , Q6WebApiProtocol,UITableV
         }
     }
     
-    func searchBarSearchButtonClicked( searchBar: UISearchBar!)
+    func searchBarSearchButtonClicked( searchBar: UISearchBar)
     {
         let q6CommonLib = Q6CommonLib(myObject: self)
         

@@ -168,7 +168,7 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
             
             // cell.taxCodeButton.enabled = true
             if selectedAccountView != nil {
-                var TaxCodeID = selectedAccountView?.TaxCodeID
+                let TaxCodeID = selectedAccountView?.TaxCodeID
                 
                 if TaxCodeID != nil {
                     
@@ -187,7 +187,7 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
             
             if selectedInventoryView != nil {
                 
-                var TaxCodeID = selectedInventoryView!.PurchaseTaxCodeID
+                let TaxCodeID = selectedInventoryView!.PurchaseTaxCodeID
                 if TaxCodeID != nil {
                     
                     
@@ -201,7 +201,7 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
             
             if supplier != nil {
                 
-                var defaultTaxCodeID = supplier!.DefaultPurchasesTaxCodeID
+                let defaultTaxCodeID = supplier!.DefaultPurchasesTaxCodeID
                 
                 if defaultTaxCodeID != nil {
                     
@@ -232,14 +232,14 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
         if resuseIdentifier == "AmountCell" {
             
             
-            var amount = purchasesTransactionsDetailView.Amount
+            let amount = purchasesTransactionsDetailView.Amount
             
-            var strAmount = String(amount)
+            let strAmount = String(amount)
             if amount != 0 {
                 
                 if strAmount.containsString(".") == true {
                     //Check decimal place whether less than 4
-                    var strsplit = strAmount.characters.split(("."))
+                    let strsplit = strAmount.characters.split(("."))
                     let strLast = String(strsplit.last!)
                     
                     if strLast.length > 2 {
@@ -289,7 +289,7 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
                             if selectedInventoryView?.PurchasePrice != nil {
                                 var purchasePrice = (selectedInventoryView?.PurchasePrice)! as Double
                                 
-                                var purchasePriceTaxRate = selectedInventoryView?.PurchaseTaxCodeRate
+                                let purchasePriceTaxRate = selectedInventoryView?.PurchaseTaxCodeRate
                                 purchasePrice = purchasePrice + purchasePrice * purchasePriceTaxRate! / 100
                                 cell.lblUnitPrice.text = String(format: "%.4f", purchasePrice)
                                 purchasesTransactionsDetailView.UnitPrice = purchasePrice
@@ -306,10 +306,10 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
                             
                             var purchasePrice = (selectedInventoryView?.PurchasePrice)! as Double
                             
-                            var purchasePriceTaxRate = selectedInventoryView?.PurchaseTaxCodeRate
+                            let purchasePriceTaxRate = selectedInventoryView?.PurchaseTaxCodeRate
                             purchasePrice = purchasePrice + purchasePrice * purchasePriceTaxRate! / 100
                             
-                            var purchasePriceWithoutTax = purchasePrice*(1 - purchasePriceTaxRate!/100)
+                            let purchasePriceWithoutTax = purchasePrice*(1 - purchasePriceTaxRate!/100)
                             
                             cell.lblUnitPrice.text = String(format: "%.4f", purchasePriceWithoutTax)
                             purchasesTransactionsDetailView.UnitPrice = purchasePriceWithoutTax                        }
@@ -376,13 +376,13 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
         
         
         // Configure the cell...
-        print("indexPath" + indexPath.row.description)
+      //  print("indexPath" + indexPath.row.description)
         
         //return cell
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let row = indexPath.row //2
+        _ = indexPath.row //2
         
         
         if originalRowsDic[indexPath.row] == "InventoryCell" {
@@ -427,7 +427,7 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
             
             if fromCell == "InventoryCell"
             {
-                var purchaseDetailDataLineInventorySearchViewController = segue.destinationViewController as! PurchaseDetailDataLineInventorySearchViewController
+                let purchaseDetailDataLineInventorySearchViewController = segue.destinationViewController as! PurchaseDetailDataLineInventorySearchViewController
                 purchaseDetailDataLineInventorySearchViewController.fromCell = "InventoryCell"
                 
                 purchaseDetailDataLineInventorySearchViewController.delegate = self
@@ -438,7 +438,7 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
             
             if fromCell == "AccountCell"
             {
-                var purchaseDetailDataLineAccountSearchViewController = segue.destinationViewController as! PurchaseDetailDataLineAccountSearchViewController
+                let purchaseDetailDataLineAccountSearchViewController = segue.destinationViewController as! PurchaseDetailDataLineAccountSearchViewController
                 
                 purchaseDetailDataLineAccountSearchViewController.fromCell = "AccountCell"
                 
@@ -449,7 +449,7 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
             
             if fromCell == "TaxCodeCell"
             {
-                var purchaseDetailDataLineTaxCodeSearchViewController = segue.destinationViewController as! PurchaseDetailDataLineTaxCodeSearchViewController
+                let purchaseDetailDataLineTaxCodeSearchViewController = segue.destinationViewController as! PurchaseDetailDataLineTaxCodeSearchViewController
                 
                 purchaseDetailDataLineTaxCodeSearchViewController.fromCell = "TaxCodeCell"
                 
@@ -457,7 +457,7 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
             }
             if fromCell == "DescriptionCell"
             {
-                var purchaseDetailDataLineDescription = segue.destinationViewController as! PurchaseDetailDataLineDescriptionViewController
+                let purchaseDetailDataLineDescription = segue.destinationViewController as! PurchaseDetailDataLineDescriptionViewController
                 
                 purchaseDetailDataLineDescription.fromCell = "DescriptionCell"
                 
@@ -522,8 +522,8 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
     
     @IBAction func unitPriceEditingChanged(sender: AnyObject) {
         
-        var UnitPriceTextField = sender as! UITextField
-        var StrUnitPrice = UnitPriceTextField.text as String?
+        let UnitPriceTextField = sender as! UITextField
+        let StrUnitPrice = UnitPriceTextField.text as String?
         
         if let UnitPrice = Double(StrUnitPrice!) {
             
@@ -577,8 +577,8 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
         purchasesTransactionsDetailView.Amount = purchasesTransactionsDetailView.UnitPrice * purchasesTransactionsDetailView.Quantity
     }
     @IBAction func unitPriceEditingDidEnd(sender: AnyObject) {
-        var UnitPriceTextField = sender as! UITextField
-        var StrUnitPrice = UnitPriceTextField.text as String?
+        let UnitPriceTextField = sender as! UITextField
+        let StrUnitPrice = UnitPriceTextField.text as String?
         
         if let UnitPrice = Double(StrUnitPrice!) {
             
@@ -587,7 +587,7 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
                 
                 if StrUnitPrice?.containsString(".") == true {
                     //Check decimal place whether less than 4
-                    var strsplit = StrUnitPrice?.characters.split(("."))
+                    let strsplit = StrUnitPrice?.characters.split(("."))
                     let strLast = String(strsplit?.last!)
                     
                     
@@ -636,8 +636,8 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
     
     @IBAction func quantityEditingChanged(sender: AnyObject) {
         
-        var QuantityTextField = sender as! UITextField
-        var StrQuantity = QuantityTextField.text as String?
+        let QuantityTextField = sender as! UITextField
+        let StrQuantity = QuantityTextField.text as String?
         
         if let Quantity = Double(StrQuantity!) {
             
@@ -692,8 +692,8 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
     }
     @IBAction func quantityEditingDidEnd(sender: AnyObject) {
         
-        var QuantityTextField = sender as! UITextField
-        var StrQuantity = QuantityTextField.text as String?
+        let QuantityTextField = sender as! UITextField
+        let StrQuantity = QuantityTextField.text as String?
         
         if let Quantity = Double(StrQuantity!) {
             
@@ -702,7 +702,7 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
                 
                 if StrQuantity?.containsString(".") == true {
                     //Check decimal place whether less than 4
-                    var strsplit = StrQuantity?.characters.split(("."))
+                    let strsplit = StrQuantity?.characters.split(("."))
                     let strLast = String(strsplit?.last!)
                     
                     
@@ -799,13 +799,13 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
     func calculateTaxAmount()
     {
         
-        var amount = purchasesTransactionsDetailView.Amount
+        let amount = purchasesTransactionsDetailView.Amount
         
         if purchasesTransactionsDetailView.TaxCodeID != nil
         {
-            var taxRate = purchasesTransactionsDetailView.TaxCodeRate! as Double
+            let taxRate = purchasesTransactionsDetailView.TaxCodeRate! as Double
             
-            var amountWithOutTax = 100*amount/(100 + taxRate)
+            let amountWithOutTax = 100*amount/(100 + taxRate)
             purchasesTransactionsDetailView.AmountWithoutTax = amountWithOutTax
         }
         else{
@@ -848,7 +848,7 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
     }
     func validateQuantityValue() -> Bool
     {
-        if purchasesTransactionHeader.PurchasesType == "DEBIT NOTE"
+        if purchasesTransactionHeader.PurchasesType == "DebitNote"
         {
             if  purchasesTransactionsDetailView.Quantity > 0
             {

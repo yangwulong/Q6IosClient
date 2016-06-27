@@ -102,22 +102,22 @@ class SaleDetailDataLineViewController: UIViewController, UITableViewDelegate ,U
             enableTaxCodeButton = true
             if selectedInventoryView != nil {
                 
-                if selectedInventoryView!.IsBuy == true && selectedInventoryView!.IsInventory == false {
+                if selectedInventoryView!.IsSell == true && selectedInventoryView!.IsInventory == false {
                     
                     
-                    salesTransactionsDetailView.AccountID = selectedInventoryView?.PurchaseAccountID
-                    salesTransactionsDetailView.AccountNameWithAccountNo = (selectedInventoryView?.PurchaseAccountNameWithAccountNo)!
-                    
+                    salesTransactionsDetailView.AccountID = selectedInventoryView?.SaleAccountID
+                    salesTransactionsDetailView.AccountNameWithAccountNo = (selectedInventoryView?.SaleAccountNameWithAccountNo)!
+                    //cell.lblAccountNameWithNo.text = salesTransactionsDetailView.AccountNameWithAccountNo
                     cell.accountButton.enabled = false
                     
                     //enableTaxCodeButton = false
                 }
-                if selectedInventoryView!.IsBuy == true && selectedInventoryView!.IsInventory == true {
+                if selectedInventoryView!.IsSell == true && selectedInventoryView!.IsInventory == true {
                     
                     
                     salesTransactionsDetailView.AccountID = selectedInventoryView?.AssetAccountID
                     salesTransactionsDetailView.AccountNameWithAccountNo = (selectedInventoryView?.AssetAccountNameWithAccountNo)!
-                    
+                  //  cell.lblAccountNameWithNo.text = salesTransactionsDetailView.AccountNameWithAccountNo
                     cell.accountButton.enabled = false
                     // enableTaxCodeButton = false
                     
@@ -833,7 +833,7 @@ class SaleDetailDataLineViewController: UIViewController, UITableViewDelegate ,U
     }
     func validateQuantityValue() -> Bool
     {
-        if salesTransactionHeader.SalesType == "CREDIT NOTE"
+        if salesTransactionHeader.SalesType == "CreditNote"
         {
             if  salesTransactionsDetailView.Quantity > 0
             {

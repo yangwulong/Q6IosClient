@@ -111,13 +111,13 @@ setControlAppear()
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        var SectionCount = getSectionCount()
+        let SectionCount = getSectionCount()
         print("getSectionCount" + SectionCount.description)
         return getSectionCount()
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        var accountViewArray = accountListData[section].accountViewArray
+        let accountViewArray = accountListData[section].accountViewArray
         
         print("Section" + section.description + "accountViewArray.count" + accountViewArray.count.description)
         return accountViewArray.count
@@ -129,7 +129,7 @@ setControlAppear()
     }
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let  cell = tableView.dequeueReusableCellWithIdentifier("AccountNameCell", forIndexPath: indexPath) as! PurchaseDetailDataLineAccountSearchTableViewCell
-        var accountView = accountListData[indexPath.section].accountViewArray[indexPath.row]
+        let accountView = accountListData[indexPath.section].accountViewArray[indexPath.row]
         cell.lblAccountNameWithAccountNo.text = accountView.AccountNameWithAccountNo
         print("AccountNameWithAccountNo" + accountView.AccountNameWithAccountNo)
 //        cell.lblSupplierID.hidden = true
@@ -256,11 +256,11 @@ var accountView = AccountView()
     func  recountandSortaccountListData()
     {
         print(" Before accountListData.count" + accountListData.count.description)
-        var sortNoArray = [Int]()
+    //    var sortNoArray = [Int]()
         var tempAccountListData = [ScreenSectionSortDetailForAccount]()
     for i in 0..<accountListData.count
     {
-        var screenSectionSortDetailForAccount = accountListData[i]
+        let screenSectionSortDetailForAccount = accountListData[i]
         
         if screenSectionSortDetailForAccount.accountViewArray.count != 0
         {
@@ -299,7 +299,7 @@ var accountView = AccountView()
         }
     }
     
-    func searchBarSearchButtonClicked( searchBar: UISearchBar!)
+    func searchBarSearchButtonClicked( searchBar: UISearchBar)
     {
         let q6CommonLib = Q6CommonLib(myObject: self)
         

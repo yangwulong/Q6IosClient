@@ -63,7 +63,7 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
             Q6ActivityIndicatorView.startAnimating()
             let q6CommonLib = Q6CommonLib(myObject: self)
             
-            var attachedURL = "&PurchasesTransactionsHeaderID=" + purchasesTransactionHeader.PurchasesTransactionsHeaderID
+            let attachedURL = "&PurchasesTransactionsHeaderID=" + purchasesTransactionHeader.PurchasesTransactionsHeaderID
             isPreLoad = true
             q6CommonLib.Q6IosClientGetApi("Purchase", ActionName: "GetPurchasesTransactionsByID", attachedURL: attachedURL)
         }
@@ -105,7 +105,7 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
         {
             for index in 0 ... 8 {
                 
-                var screenSortLinesDetail = ScreenSortLinesDetail()
+                let screenSortLinesDetail = ScreenSortLinesDetail()
                 var prototypeCell = String()
                 
                 switch index {
@@ -178,7 +178,7 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
         //             resuseIdentifier = originalRowsDic[5]!
         //        }
         
-        var screenSortLinesDetail = purchasesDetailScreenLinesDic[indexPath.row]  as ScreenSortLinesDetail
+        let screenSortLinesDetail = purchasesDetailScreenLinesDic[indexPath.row]  as ScreenSortLinesDetail
         
         resuseIdentifier = screenSortLinesDetail.PrototypeCellID
         let cell = tableView.dequeueReusableCellWithIdentifier(resuseIdentifier, forIndexPath: indexPath) as! PurchaseDetailTableViewCell
@@ -269,7 +269,7 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
                 {
                     if purchasesDetailScreenLinesDic[i].purchasesTransactionsDetailView != nil {
                         
-                        var purchasesTransactionsDetailView = purchasesDetailScreenLinesDic[i].purchasesTransactionsDetailView
+                        let purchasesTransactionsDetailView = purchasesDetailScreenLinesDic[i].purchasesTransactionsDetailView
                         
                         subTotalAmount = subTotalAmount + (purchasesTransactionsDetailView?.AmountWithoutTax)!
                     }
@@ -294,7 +294,7 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
                 {
                     if purchasesDetailScreenLinesDic[i].purchasesTransactionsDetailView != nil {
                         
-                        var purchasesTransactionsDetailView = purchasesDetailScreenLinesDic[i].purchasesTransactionsDetailView
+                        let purchasesTransactionsDetailView = purchasesDetailScreenLinesDic[i].purchasesTransactionsDetailView
                         
                         totalAmount = totalAmount + (purchasesTransactionsDetailView?.Amount)!
                     }
@@ -314,6 +314,10 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
                 
                 cell.AddRemoveImageButton.setImage(UIImage(named: "Minus-25.png"), forState: UIControlState.Normal)
                 cell.lblAddImageLabel.text = "Has a linked image!"
+            }
+            else{
+                cell.AddRemoveImageButton.setImage(UIImage(named: "plus.png"), forState: UIControlState.Normal)
+                cell.lblAddImageLabel.text = "Add an image"
             }
             
             
@@ -348,16 +352,16 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
         
         
         // Configure the cell...
-        print("indexPath" + indexPath.row.description)
+     //   print("indexPath" + indexPath.row.description)
         
         //return cell
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let row = indexPath.row //2
+//        let row = indexPath.row //2
         
         print("Selected Row" + indexPath.row.description)
-        var screenSortLinesDetail = purchasesDetailScreenLinesDic[indexPath.row]  as ScreenSortLinesDetail
+        let screenSortLinesDetail = purchasesDetailScreenLinesDic[indexPath.row]  as ScreenSortLinesDetail
         print("screenSortLinesDetail.PrototypeCellID" + screenSortLinesDetail.PrototypeCellID)
         if screenSortLinesDetail.PrototypeCellID == "PurchasesTypecell" && operationType == "Create" {
             
@@ -450,7 +454,7 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
             
         }
         
-        var index = addItemsDic.count
+        let index = addItemsDic.count
         addItemsDic[index] = "One more Item"
         // let section = indexPath.section//3
         //        dispatch_async(dispatch_get_main_queue(), { () -> Void in
@@ -465,6 +469,14 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
         
         if purchasesDetailScreenLinesDic[indexPath.row].isAdded == true {
             return true
+        }
+        else if purchasesDetailScreenLinesDic[indexPath.row].PrototypeCellID == "AddanImageCell"
+        {
+            if attachedimage != nil {
+                
+                return true
+            }
+            return false
         }
         else {
             return false
@@ -501,6 +513,18 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
                 
                 
             }
+            else if purchasesDetailScreenLinesDic[indexPath.row].PrototypeCellID == "AddanImageCell"
+            {
+                if attachedimage != nil {
+                    
+                    attachedimage = nil
+                }
+                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    self.purchaseDetailTableView.reloadData()
+                    
+                })
+              
+            }
             // handle delete (by removing the data from your array and updating the tableview)
         }
     }
@@ -517,7 +541,7 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
             
             if fromCell == "PurchasesTypecell"
             {
-                var pickerViewController = segue.destinationViewController as! PickerViewViewController
+                let pickerViewController = segue.destinationViewController as! PickerViewViewController
                 pickerViewController.fromCell = "PurchasesTypecell"
                 
                 pickerViewController.delegate = self
@@ -525,7 +549,7 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
             if fromCell == "SupplierCell"
             {
                 
-                var contactSearchViewController = segue.destinationViewController as! SupplierSearchViewController
+                let contactSearchViewController = segue.destinationViewController as! SupplierSearchViewController
                 contactSearchViewController.fromCell = "SupplierCell"
                 contactSearchViewController.delegate = self
                 contactSearchViewController.hasAddedItemLine = hasAddedItemLine
@@ -535,7 +559,7 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
             if fromCell == "DueDateCell"
             {
                 
-                var datePickerViewController = segue.destinationViewController as! DatePickerViewController
+                let datePickerViewController = segue.destinationViewController as! DatePickerViewController
                 datePickerViewController.fromCell = "DueDateCell"
                 datePickerViewController.delegate = self
                 
@@ -543,7 +567,7 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
             
             if fromCell == "AddanItemCell"
             {
-                var purchaseDetailDataLineViewController = segue.destinationViewController as! PurchaseDetailDataLineViewController
+                let purchaseDetailDataLineViewController = segue.destinationViewController as! PurchaseDetailDataLineViewController
                 purchaseDetailDataLineViewController.fromCell = "AddanItemCell"
                 
                 purchaseDetailDataLineViewController.supplier = supplier
@@ -558,7 +582,7 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
             
             if fromCell == "AddanImageCell"
             {
-                var addImageViewController = segue.destinationViewController as! AddImageViewController
+                let addImageViewController = segue.destinationViewController as! AddImageViewController
                 addImageViewController.fromCell = "AddanImageCell"
                 
                 if attachedimage != nil
@@ -571,7 +595,7 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
             if fromCell == "TransactionDateCell"
             {
                 
-                var datePickerViewController = segue.destinationViewController as! DatePickerViewController
+                let datePickerViewController = segue.destinationViewController as! DatePickerViewController
                 datePickerViewController.fromCell = "TransactionDateCell"
                 datePickerViewController.delegate = self
                 
@@ -580,7 +604,7 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
             if fromCell == "MemoCell"
             {
                 
-                var purchaseDetailMemoViewController = segue.destinationViewController as! PurchaseDetailMemoViewController
+                let purchaseDetailMemoViewController = segue.destinationViewController as! PurchaseDetailMemoViewController
                 purchaseDetailMemoViewController.fromCell = "MemoCell"
                 
                 purchaseDetailMemoViewController.delegate = self
@@ -609,18 +633,18 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
             var dicData=[String:AnyObject]()
             
             
-            var q6DBLib = Q6DBLib()
+            let q6DBLib = Q6DBLib()
             let q6CommonLib = Q6CommonLib(myObject: self)
             var userInfos = q6DBLib.getUserInfos()
             
-            var LoginDetail = InternalUserLoginParameter()
+            let LoginDetail = InternalUserLoginParameter()
             
             LoginDetail.LoginUserName = userInfos["LoginEmail"]!
             LoginDetail.Password = userInfos["PassWord"]!
             LoginDetail.ClientIP = Q6CommonLib.getIPAddresses()
             LoginDetail.WebApiTOKEN = Q6CommonLib.getQ6WebAPIToken()
             
-            var NeedValidate = true
+           
             
  
             
@@ -636,7 +660,7 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
             if attachedimage != nil {
                 purchasesTransactionHeader.HasLinkedDoc = true
                 
-                var UploadedDocuments = getImageFileDataDic(attachedimage!)
+                let UploadedDocuments = getImageFileDataDic(attachedimage!)
                 
                 dicData["UploadedDocuments"] = UploadedDocuments
             }
@@ -646,15 +670,15 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
 
             
             
-            var purchasesTransactionsDetailDataDic = convertpurchasesTransactionsDetailDataTOArray()
+            let purchasesTransactionsDetailDataDic = convertpurchasesTransactionsDetailDataTOArray()
             
-            var purchasesTransactionsHeaderDic =   convertpurchasesTransactionsHeaderToArray()
+            let purchasesTransactionsHeaderDic =   convertpurchasesTransactionsHeaderToArray()
             
             dicData["PurchasesTransactionsDetail"] = purchasesTransactionsDetailDataDic
             dicData["PurchasesTransactionsHeader"] = purchasesTransactionsHeaderDic
             dicData["RecurringTemplateList"] = nil
             
-            dicData["NeedValidate"] = true
+            dicData["NeedValidate"] = false
             var purchasesTransactionsParameter = [String: AnyObject]()
             
             purchasesTransactionsParameter["PurchasesTransactionsParameter"] = dicData
@@ -676,20 +700,20 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
     func getImageFileDataDic(image: UIImage) -> [String: AnyObject]
     {
         
-        var FileName = "AttachedPhoneImage"
+        let FileName = "AttachedPhoneImage"
         //
-        var imgData: NSData = NSData(data: UIImageJPEGRepresentation((image), 1)!)
+        let imgData: NSData = NSData(data: UIImageJPEGRepresentation((image), 1)!)
         // var imgData: NSData = UIImagePNGRepresentation(image)
         // you can also replace UIImageJPEGRepresentation with UIImagePNGRepresentation.
-        var FileSize: Int = imgData.length
+        let FileSize: Int = imgData.length
         print("File Size" + FileSize.description)
-        var HasLinkedTransaction = false
-        var LinkedTransactionID = String?()
-        var TransactionType = String?()
-        var UploadedBy = String?()
+        let HasLinkedTransaction = false
+      
+        let TransactionType = String?()
+        let UploadedBy = String?()
         
-        var UploadedDate = NSDate().description
-        var UploadedDocumentsID = "{00000000-0000-0000-0000-000000000000}"
+        let UploadedDate = NSDate().description
+        let UploadedDocumentsID = "{00000000-0000-0000-0000-000000000000}"
         var i = CGFloat()
         if  FileSize > 2000000 {
             
@@ -699,8 +723,8 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
         else {
             i = 1
         }
-        var imageData = UIImageJPEGRepresentation(image, i)
-        var File = imageData!.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
+        let imageData = UIImageJPEGRepresentation(image, i)
+        let File = imageData!.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
         
         var dicData = [String: AnyObject]()
         
@@ -720,7 +744,7 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
     {
         var dicData = [String: AnyObject]()
         
-        var PurchasesTransactionsHeaderID  = purchasesTransactionHeader.PurchasesTransactionsHeaderID
+        let PurchasesTransactionsHeaderID  = purchasesTransactionHeader.PurchasesTransactionsHeaderID
         
         if operationType == "Create" {
             dicData["PurchasesTransactionsHeaderID"] = "{00000000-0000-0000-0000-000000000000}"
@@ -784,7 +808,7 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
                 
                 var data = [String : AnyObject]()
                 
-                var PurchasesTransactionsDetailID = purchasesTransactionsDetailData[i].PurchasesTransactionsDetailID
+                let PurchasesTransactionsDetailID = purchasesTransactionsDetailData[i].PurchasesTransactionsDetailID
                 if operationType == "Create"{
                     data["PurchasesTransactionsDetailID"] = "{00000000-0000-0000-0000-000000000000}"
                 }
@@ -794,7 +818,7 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
                 
                 
                 
-                var PurchasesTransactionsHeaderID = purchasesTransactionsDetailData[i].PurchasesTransactionsHeaderID
+                let PurchasesTransactionsHeaderID = purchasesTransactionsDetailData[i].PurchasesTransactionsHeaderID
                 
                 if operationType == "Create" {
                     data["PurchasesTransactionsHeaderID"] = "{00000000-0000-0000-0000-000000000000}"
@@ -854,10 +878,10 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
         
         if purchasesTransactionHeader.DueDate != nil {
             
-            var DueDate = purchasesTransactionHeader.DueDate
-            var TransactionDate = purchasesTransactionHeader.TransactionDate
+            let DueDate = purchasesTransactionHeader.DueDate
+            let TransactionDate = purchasesTransactionHeader.TransactionDate
             
-            var isEalierOrEqual = (DueDate?.isLaterOrEqualThanDate(TransactionDate))! as Bool
+            let isEalierOrEqual = (DueDate?.isLaterOrEqualThanDate(TransactionDate))! as Bool
             
             if isEalierOrEqual == false {
                 Q6CommonLib.q6UIAlertPopupController("Information message", message: "Due Date can not be later than TransactionDate!", viewController: self)
@@ -873,7 +897,7 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
         {
             for i in 0..<purchasesDetailScreenLinesDic.count
             {
-                var purchasesTransactionsDetailView = purchasesDetailScreenLinesDic[i].purchasesTransactionsDetailView
+                let purchasesTransactionsDetailView = purchasesDetailScreenLinesDic[i].purchasesTransactionsDetailView
                 
                 if purchasesTransactionsDetailView != nil && purchasesDetailScreenLinesDic[i].isAdded == true
                 {
@@ -890,7 +914,7 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
         else {
             for i in 0..<purchasesDetailScreenLinesDic.count
             {
-                var purchasesTransactionsDetailView = purchasesDetailScreenLinesDic[i].purchasesTransactionsDetailView
+                let purchasesTransactionsDetailView = purchasesDetailScreenLinesDic[i].purchasesTransactionsDetailView
                 
                 if purchasesTransactionsDetailView != nil && purchasesDetailScreenLinesDic[i].isAdded == true
                 {
@@ -914,10 +938,10 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
         var sortNo: Int = 0
         for i in 0..<purchasesDetailScreenLinesDic.count
         {
-            var purchasesTransactionsDetailView = purchasesDetailScreenLinesDic[i].purchasesTransactionsDetailView
+            let purchasesTransactionsDetailView = purchasesDetailScreenLinesDic[i].purchasesTransactionsDetailView
             if purchasesTransactionsDetailView != nil && purchasesDetailScreenLinesDic[i].isAdded == true
             {
-                var purchasesTransactionsDetail = PurchasesTransactionsDetail()
+                let purchasesTransactionsDetail = PurchasesTransactionsDetail()
                 
                 purchasesTransactionsDetail.AccountID = purchasesTransactionsDetailView!.AccountID
                 purchasesTransactionsDetail.Amount = purchasesTransactionsDetailView!.Amount
@@ -950,7 +974,7 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
         
       for i in 0 ..< purchasesTransactionsDetailList.count
      {
-        var purchasesTransactionDetail = PurchasesTransactionsDetail()
+        let purchasesTransactionDetail = PurchasesTransactionsDetail()
            purchasesTransactionDetail.AccountID = purchasesTransactionsDetailList[i].AccountID
         
         purchasesTransactionDetail.Amount = purchasesTransactionsDetailList[i].Amount
@@ -965,7 +989,7 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
     
         purchasesTransactionsDetailData.append(purchasesTransactionDetail)
         
-        var screenSortLinesDetail = ScreenSortLinesDetail()
+        let screenSortLinesDetail = ScreenSortLinesDetail()
         screenSortLinesDetail.ID = 3 + i
         screenSortLinesDetail.isAdded = true
         screenSortLinesDetail.LineDescription = purchasesTransactionsDetailList[i].InventoryName + purchasesTransactionsDetailList[i].AccountNameWithAccountNo
@@ -1051,7 +1075,7 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
         
         
         for index in 0 ..< purchasesDetailScreenLinesDic.count {
-            var screenSortLinesDetail = purchasesDetailScreenLinesDic[index]  as ScreenSortLinesDetail
+            let screenSortLinesDetail = purchasesDetailScreenLinesDic[index]  as ScreenSortLinesDetail
             
             if screenSortLinesDetail.isAdded == true {
                 indexPath = index
@@ -1063,7 +1087,7 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
     func ValidteWhetherHasAddedLinesInPurchasesDetailScreenLinesDic() -> Bool {
         
         for index in 0 ..< purchasesDetailScreenLinesDic.count {
-            var screenSortLinesDetail = purchasesDetailScreenLinesDic[index]  as ScreenSortLinesDetail
+            let screenSortLinesDetail = purchasesDetailScreenLinesDic[index]  as ScreenSortLinesDetail
             
             if screenSortLinesDetail.isAdded == true {
                 return true
@@ -1146,7 +1170,7 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
         
         if purchasesDetailScreenLinesDic[addItemRowIndex].isAdded == false{
             
-            var screenSortLinesDetail = ScreenSortLinesDetail()
+            let screenSortLinesDetail = ScreenSortLinesDetail()
             screenSortLinesDetail.isAdded = true
             screenSortLinesDetail.ID = addItemRowIndex
             screenSortLinesDetail.LineDescription = purchasesTransactionsDetailView.InventoryName + " " + purchasesTransactionsDetailView.AccountNameWithAccountNo
@@ -1216,23 +1240,23 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
                 //                }
                 postDicData = try  NSJSONSerialization.JSONObjectWithData(data!, options: []) as! [String:AnyObject]
                 
-                var returnPurchasesTransactionHeaderData = postDicData["PurchasesTransactionsHeader"]  as? [String:AnyObject]
+                let returnPurchasesTransactionHeaderData = postDicData["PurchasesTransactionsHeader"]  as? [String:AnyObject]
                 
                 if returnPurchasesTransactionHeaderData != nil {
                     
-                    var purchasesTransactionsHeaderView =   initialPurchasepurchasesTransactionsHeaderView(returnPurchasesTransactionHeaderData!)
+                    let purchasesTransactionsHeaderView =   initialPurchasepurchasesTransactionsHeaderView(returnPurchasesTransactionHeaderData!)
                     
                     copyFromPurchasesTransactionsHeaderViewToPurchasesTransactionsHeader(purchasesTransactionsHeaderView)
                   
                   
                 }
                 
-                var returnPurchasesTransactionsDetailListData = postDicData["PurchasesTransactionsDetailList"]  as? [[String:AnyObject]]
+                let returnPurchasesTransactionsDetailListData = postDicData["PurchasesTransactionsDetailList"]  as? [[String:AnyObject]]
                 
                 
                 if returnPurchasesTransactionsDetailListData != nil {
                    
-             var purchasesTransactionsDetailView =    initialPurchasepurchasesTransactionsDetailListView(returnPurchasesTransactionsDetailListData!)
+             let purchasesTransactionsDetailView =    initialPurchasepurchasesTransactionsDetailListView(returnPurchasesTransactionsDetailListData!)
                     
                        copyFromPurchasesTransactionDetailViewToPurchasesTransactionDetailForEdit(purchasesTransactionsDetailView)
                     
@@ -1273,46 +1297,46 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
                 
                 if IsLoginSuccessed == true {
                     
-                    var q6CommonLib = Q6CommonLib()
+                //    var q6CommonLib = Q6CommonLib()
                     var returnValue = postDicData["ReturnValue"]! as! Dictionary<String, AnyObject>
                     //
-                    var shippingAddress = ShippingAddress()
-                    var Address = returnValue["ShippingAddress"] as? String
+                    let shippingAddress = ShippingAddress()
+                    let Address = returnValue["ShippingAddress"] as? String
                     
                     
                     if Address != nil {
                         shippingAddress.ShippingAddress = Address!
                     }
-                    var  ShippingAddressLine2 = returnValue["ShippingAddressLine2"] as? String
+                    let  ShippingAddressLine2 = returnValue["ShippingAddressLine2"] as? String
                     
                     if ShippingAddressLine2 != nil {
                         shippingAddress.ShippingAddressLine2 = ShippingAddressLine2!
                     }
                     
-                    var  ShippingCity = returnValue["ShippingCity"] as? String
+                    let  ShippingCity = returnValue["ShippingCity"] as? String
                     
                     if ShippingCity != nil {
                         shippingAddress.ShippingCity = ShippingCity!
                     }
-                    var ShippingCountry = returnValue["ShippingCountry"] as? String
+                    let ShippingCountry = returnValue["ShippingCountry"] as? String
                     
                     if ShippingCountry != nil {
                         shippingAddress.ShippingCountry = ShippingCountry!
                     }
                     
-                    var ShippingPostalCode = returnValue["ShippingPostalCode"] as? String
+                    let ShippingPostalCode = returnValue["ShippingPostalCode"] as? String
                     
                     if ShippingPostalCode != nil {
                         shippingAddress.ShippingPostalCode = ShippingPostalCode!
                     }
                     
-                    var ShippingState = returnValue["ShippingState"] as? String
+                    let ShippingState = returnValue["ShippingState"] as? String
                     
                     if ShippingState != nil {
                         shippingAddress.ShippingState = ShippingState!
                     }
                     
-                    var RealCompanyName = returnValue["RealCompanyName"] as? String
+                    let RealCompanyName = returnValue["RealCompanyName"] as? String
                     
                     if RealCompanyName != nil {
                         shippingAddress.RealCompanyName = RealCompanyName!
@@ -1358,13 +1382,14 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
             
             var postDicData :[String:AnyObject]
             var IsSuccessed : Bool?
-            
+            var Message: String?
             do {
                 postDicData = try  NSJSONSerialization.JSONObjectWithData(data!, options: []) as! [String:AnyObject]
                 
                 IsSuccessed = postDicData["IsSuccessed"] as? Bool
+                Message = postDicData["Message"] as? String
                 if IsSuccessed != nil {
-                    IsSuccessed = postDicData["IsSuccessed"] as! Bool
+                    IsSuccessed = postDicData["IsSuccessed"] as? Bool
                 }
                 ////                else{
                 //                var message = postDicData["Message"] as! String
@@ -1372,7 +1397,7 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
                 ////                }
                 if IsSuccessed == true {
                     
-                    var nav = navigationController
+                 //   var nav = navigationController
                    // Q6CommonLib.q6UIAlertPopupControllerThenGoBack("Information message", message: "Save Successfully!", viewController: self,timeArrange:3,navigationController: nav!)
                     
                     
@@ -1408,7 +1433,14 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
                     //
                 }
                 else {
-                    Q6CommonLib.q6UIAlertPopupController("Information message", message: "Save Fail!", viewController: self, timeArrange:2)
+                    
+                    
+                    var txtmessage = " Save Fail! \n"
+                    
+                    if Message != nil {
+                        txtmessage = txtmessage + Message!
+                    }
+                    Q6CommonLib.q6UIAlertPopupController("Information message", message: txtmessage, viewController: self, timeArrange:2)
                 }
                 
             } catch  {
@@ -1430,9 +1462,9 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
         
         for i in 0..<returnPurchasesTransactionDetailListData.count
         {
-           var purchasesTransactionsDetailView = PurchasesTransactionsDetailView()
+           let purchasesTransactionsDetailView = PurchasesTransactionsDetailView()
             
-            purchasesTransactionsDetailView.AccountID = returnPurchasesTransactionDetailListData[i]["AccountID"] as! String
+            purchasesTransactionsDetailView.AccountID = returnPurchasesTransactionDetailListData[i]["AccountID"] as? String
             purchasesTransactionsDetailView.AccountNameWithAccountNo = returnPurchasesTransactionDetailListData[i]["AccountNameWithAccountNo"] as! String
             
             
@@ -1472,9 +1504,9 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
            
             if purchasesTransactionsDetailView.TaxCodeID != nil {
                 
-                var taxCodeRate = purchasesTransactionsDetailView.TaxCodeRate
+                let taxCodeRate = purchasesTransactionsDetailView.TaxCodeRate
                 
-                var amount = purchasesTransactionsDetailView.Amount
+                let amount = purchasesTransactionsDetailView.Amount
                 
                 purchasesTransactionsDetailView.AmountWithoutTax = amount / (1 + taxCodeRate!/100)
                 
@@ -1491,12 +1523,12 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
     func initialPurchasepurchasesTransactionsHeaderView(returnPurchasesTransactionHeaderData : [String: AnyObject]!) -> PurchasesTransactionsHeaderView
     {
         
-        var purchasesTransactionsHeaderView = PurchasesTransactionsHeaderView()
+        let purchasesTransactionsHeaderView = PurchasesTransactionsHeaderView()
         purchasesTransactionsHeaderView.ClosedDate = returnPurchasesTransactionHeaderData!["ClosedDate"] as? NSDate
         
         
         
-        var DueDate = returnPurchasesTransactionHeaderData!["DueDate"] as? String
+        let DueDate = returnPurchasesTransactionHeaderData!["DueDate"] as? String
         
         if DueDate != nil {
             print("DueDate" + DueDate!)
@@ -1523,7 +1555,7 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
         
         
         
-        var LastModifiedTime = returnPurchasesTransactionHeaderData!["LastModifiedTime"] as! String
+        let LastModifiedTime = returnPurchasesTransactionHeaderData!["LastModifiedTime"] as! String
         
         
 //        let dateFormatter = NSDateFormatter()
@@ -1573,7 +1605,7 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
         
         
         
-        var TransactionDate  = returnPurchasesTransactionHeaderData!["TransactionDate"] as! String
+        let TransactionDate  = returnPurchasesTransactionHeaderData!["TransactionDate"] as! String
         
         
         let dateFormatter2 = NSDateFormatter()
@@ -1585,7 +1617,7 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
         
         if purchasesTransactionsHeaderView.UploadedDocumentsID != nil {
             
-            var imageDataStr = purchasesTransactionsHeaderView.LinkDocumentFile
+            let imageDataStr = purchasesTransactionsHeaderView.LinkDocumentFile
             
             
             let imageData = NSData(base64EncodedString: imageDataStr!, options: NSDataBase64DecodingOptions(rawValue: 0))

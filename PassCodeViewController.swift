@@ -65,7 +65,7 @@ class PassCodeViewController: UIViewController , UITextFieldDelegate{
     
     
     
-    public func setControlAppear()
+    internal func setControlAppear()
     {
         
         txtPassCode1.layer.addBorder(txtPassCode1.frame.width, edge: UIRectEdge.Bottom, color: UIColor.lightGrayColor(), thickness: 0.5)
@@ -95,7 +95,7 @@ class PassCodeViewController: UIViewController , UITextFieldDelegate{
     }
     @IBAction func activeFieldEditingChanged(sender: AnyObject) {
         
-        var textfield = sender as! UITextField
+        let textfield = sender as! UITextField
         
         if textfield.text?.length == 0 {
           
@@ -106,7 +106,7 @@ class PassCodeViewController: UIViewController , UITextFieldDelegate{
         }
         else if textfield.text?.length == 1 {
             
-            var txt = textfield.text! as String
+            let txt = textfield.text! as String
             userInputPasscodeValue1 = String(txt[0])
             txtPassCode1.text = userInputPasscodeValue1
             
@@ -117,7 +117,7 @@ class PassCodeViewController: UIViewController , UITextFieldDelegate{
         }
         else if textfield.text?.length == 2 {
             
-            var txt = textfield.text! as String
+            let txt = textfield.text! as String
             userInputPasscodeValue1 = String(txt[0])
             txtPassCode1.text = userInputPasscodeValue1
             
@@ -130,7 +130,7 @@ class PassCodeViewController: UIViewController , UITextFieldDelegate{
         }
         else if textfield.text?.length == 3 {
             
-            var txt = textfield.text! as String
+            let txt = textfield.text! as String
             userInputPasscodeValue1 = String(txt[0])
             txtPassCode1.text = userInputPasscodeValue1
             
@@ -145,7 +145,7 @@ class PassCodeViewController: UIViewController , UITextFieldDelegate{
         }
         else if textfield.text?.length == 4 {
             
-            var txt = textfield.text! as String
+            let txt = textfield.text! as String
             userInputPasscodeValue1 = String(txt[0])
             txtPassCode1.text = userInputPasscodeValue1
             
@@ -173,7 +173,7 @@ class PassCodeViewController: UIViewController , UITextFieldDelegate{
                 
                 if ValidateTimeInputPassCode.length == 4 {
                     
-                    var q6DBLib = Q6DBLib()
+                    let q6DBLib = Q6DBLib()
                     var userInfos  = q6DBLib.getUserInfos() as [String:String]
                     // var passCode = userInfos["passCode"]
                     if userInfos["passCode"] == ValidateTimeInputPassCode {
@@ -213,7 +213,7 @@ class PassCodeViewController: UIViewController , UITextFieldDelegate{
                     
                     if firstTimeInputPassCode == secondTimeInputPassCode{
                         
-                        var q6DBLib = Q6DBLib()
+                        let q6DBLib = Q6DBLib()
                         q6DBLib.editPassCode(secondTimeInputPassCode)
                         
                         
@@ -324,7 +324,7 @@ class PassCodeViewController: UIViewController , UITextFieldDelegate{
                 
                 if ValidateTimeInputPassCode.length == 4 {
                     
-                    var q6DBLib = Q6DBLib()
+                    let q6DBLib = Q6DBLib()
                     var userInfos  = q6DBLib.getUserInfos() as [String:String]
                     // var passCode = userInfos["passCode"]
                     if userInfos["passCode"] == ValidateTimeInputPassCode {
@@ -362,7 +362,7 @@ class PassCodeViewController: UIViewController , UITextFieldDelegate{
                     
                     if firstTimeInputPassCode == secondTimeInputPassCode{
                         
-                        var q6DBLib = Q6DBLib()
+                        let q6DBLib = Q6DBLib()
                         q6DBLib.editPassCode(secondTimeInputPassCode)
                         
                         
@@ -428,7 +428,7 @@ class PassCodeViewController: UIViewController , UITextFieldDelegate{
         }
     }
     
-    public func setToCofirmationScreen(){
+    internal func setToCofirmationScreen(){
         
         lblPassCodeScreenTitle.text = "Confirm your PassCode"
         clearTextFields()

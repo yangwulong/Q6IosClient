@@ -757,6 +757,8 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="Q6ActivityIndicatorView" destination="9Yp-se-L6w" id="Ggx-vs-H3u"/>
+                        <outlet property="btnCancelButton" destination="5dh-wg-Z9u" id="RVt-GT-NNR"/>
+                        <outlet property="btnSaveButton" destination="XFa-9M-lbY" id="Q5l-ri-HBf"/>
                         <outlet property="navigationBar" destination="14t-u3-yFV" id="swK-3p-etc"/>
                         <outlet property="saleDetailTableView" destination="4si-5z-yjv" id="EG7-nk-Zbc"/>
                     </connections>

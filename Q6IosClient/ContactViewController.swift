@@ -11,6 +11,8 @@ import UIKit
 class ContactViewController: UIViewController, UITableViewDelegate ,UITableViewDataSource,Q6GoBackFromView, Q6WebApiProtocol ,UITextViewDelegate{
     var originalRowsDic: [Int: String] = [0: "ContactNameCell", 1: "PhoneCell",2: "EmailCell",3: "MemoCell"]
     
+    @IBOutlet weak var btnSaveButton: UIBarButtonItem!
+    @IBOutlet weak var btnCancelButton: UIBarButtonItem!
     var Memo = UITextView()
     var OperationType = String()
     var ContactType = String()
@@ -475,6 +477,8 @@ class ContactViewController: UIViewController, UITableViewDelegate ,UITableViewD
                 dispatch_async(dispatch_get_main_queue()) {
                     
                     self.presentViewController(alert, animated: true, completion: nil)
+                    self.btnSaveButton.enabled = true
+                    self.btnCancelButton.enabled = true
                     
                 }
                 
@@ -483,7 +487,8 @@ class ContactViewController: UIViewController, UITableViewDelegate ,UITableViewD
             }
         } catch  {
             print("error parsing response from POST on /posts")
-            
+            btnSaveButton.enabled = true
+            btnCancelButton.enabled = true
             return ""
         }
         
@@ -545,6 +550,9 @@ class ContactViewController: UIViewController, UITableViewDelegate ,UITableViewD
                 
                     q6CommonLib.Q6IosClientPostAPI("Purchase",ActionName: "EditSupplier", dicData:dicData)
                 }
+                
+                btnSaveButton.enabled = false
+                btnCancelButton.enabled = false
             }
         }
         
@@ -570,6 +578,8 @@ class ContactViewController: UIViewController, UITableViewDelegate ,UITableViewD
                     
                     q6CommonLib.Q6IosClientPostAPI("Sale",ActionName: "EditCustomer", dicData:dicData)
                 }
+                btnSaveButton.enabled = false
+                btnCancelButton.enabled = false
             }
         }
        

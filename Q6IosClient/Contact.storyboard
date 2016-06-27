@@ -71,7 +71,7 @@
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bmd-t4-wLi">
+                                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bmd-t4-wLi">
                                                     <rect key="frame" x="575" y="8" width="16" height="27.5"/>
                                                     <state key="normal" image="resultset_next"/>
                                                 </button>
@@ -367,6 +367,8 @@
                     <connections>
                         <outlet property="ContactTableView" destination="kzH-km-f8Z" id="5nB-dO-GeF"/>
                         <outlet property="Q6ActivityIndicatorView" destination="zlC-jn-51W" id="Caa-gv-QsX"/>
+                        <outlet property="btnCancelButton" destination="jm2-Cw-ZSo" id="2zI-OE-M9O"/>
+                        <outlet property="btnSaveButton" destination="LBG-iM-vza" id="w8K-v0-fO2"/>
                         <outlet property="navigationBar" destination="hJh-2e-Y0I" id="oU6-uD-JYE"/>
                     </connections>
                 </viewController>

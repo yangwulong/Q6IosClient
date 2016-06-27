@@ -11,6 +11,8 @@ import UIKit
 class SaleDetailViewController: UIViewController, UITableViewDelegate ,UITableViewDataSource,Q6GoBackFromView, Q6WebApiProtocol {
     
     
+    @IBOutlet weak var btnSaveButton: UIBarButtonItem!
+    @IBOutlet weak var btnCancelButton: UIBarButtonItem!
     @IBOutlet weak var Q6ActivityIndicatorView: UIActivityIndicatorView!
     // @IBOutlet weak var lblsalesType: UILabel!
     @IBOutlet var saleDetailTableView: UITableView!
@@ -729,7 +731,8 @@ class SaleDetailViewController: UIViewController, UITableViewDelegate ,UITableVi
                 q6CommonLib.Q6IosClientPostAPI("Sale",ActionName: "EditSale", dicData:dicData)
             }
             
-            
+            btnSaveButton.enabled = false
+            btnCancelButton.enabled = false
             
         }
     }
@@ -1471,11 +1474,14 @@ class SaleDetailViewController: UIViewController, UITableViewDelegate ,UITableVi
                         txtMessage = txtMessage + Message!
                     }
                     Q6CommonLib.q6UIAlertPopupController("Information message", message: txtMessage, viewController: self, timeArrange:2)
+                    btnSaveButton.enabled = true
+                    btnCancelButton.enabled = true
                 }
                 
             } catch  {
                 print("error parsing response from POST on /posts")
-                
+                btnSaveButton.enabled = false
+                btnCancelButton.enabled = false
                 return ""
             }
             

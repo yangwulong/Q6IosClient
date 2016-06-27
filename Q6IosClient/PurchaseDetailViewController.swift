@@ -11,6 +11,8 @@ import UIKit
 class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITableViewDataSource,Q6GoBackFromView, Q6WebApiProtocol {
     
     
+    @IBOutlet weak var btnCancelButton: UIBarButtonItem!
+    @IBOutlet weak var btnSaveButton: UIBarButtonItem!
     @IBOutlet weak var Q6ActivityIndicatorView: UIActivityIndicatorView!
     // @IBOutlet weak var lblPurchasesType: UILabel!
     @IBOutlet var purchaseDetailTableView: UITableView!
@@ -692,7 +694,8 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
                 q6CommonLib.Q6IosClientPostAPI("Purchase",ActionName: "EditPurchase", dicData:dicData)
             }
            
-            
+            btnSaveButton.enabled = false
+            btnCancelButton.enabled = false
             
         }
     }
@@ -1434,7 +1437,8 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
                 }
                 else {
                     
-                    
+                    btnSaveButton.enabled = true
+                    btnCancelButton.enabled = true 
                     var txtmessage = " Save Fail! \n"
                     
                     if Message != nil {
@@ -1445,7 +1449,8 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
                 
             } catch  {
                 print("error parsing response from POST on /posts")
-                
+                btnSaveButton.enabled = false
+                btnCancelButton.enabled = false
                 return ""
             }
             

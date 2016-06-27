@@ -66,7 +66,7 @@ setControlAppear()
             
             for i in 0...8
             {
-                var screenSectionSortDetailForAccount = ScreenSectionSortDetailForAccount()
+                let screenSectionSortDetailForAccount = ScreenSectionSortDetailForAccount()
                 screenSectionSortDetailForAccount.AccountType = originalSectionsSortDic[i]!
                 screenSectionSortDetailForAccount.sortNo = i
                 
@@ -153,9 +153,9 @@ setControlAppear()
         selectedAccountView = nil
         
         print("selected indexpath" + indexPath.row.description)
-        let  cell = tableView.cellForRowAtIndexPath(indexPath) as! PurchaseDetailDataLineAccountSearchTableViewCell
+     //   let  cell = tableView.cellForRowAtIndexPath(indexPath) as! PurchaseDetailDataLineAccountSearchTableViewCell
         
-        var selAccountView = accountListData[indexPath.section].accountViewArray[indexPath.row]
+        let selAccountView = accountListData[indexPath.section].accountViewArray[indexPath.row]
        
         selectedAccountView = selAccountView
         
@@ -183,7 +183,7 @@ setControlAppear()
                 //                print("no i =" + i.description)
              var dataItem = returnData[i]
 //                
-var accountView = AccountView()
+let accountView = AccountView()
                 accountView.AccountID = dataItem["AccountID"] as! String
                 accountView.AccountName = dataItem["AccountName"] as! String
                 accountView.AccountNameWithAccountNo = dataItem["AccountNameWithAccountNo"] as! String
@@ -204,7 +204,7 @@ var accountView = AccountView()
                     print("item.accounttype" + item.AccountType)
                     if accountView.AccountType == item.AccountType
                     {
-                        var i = item.sortNo
+                        let i = item.sortNo
                         
                       var accountViewArray =  accountListData[i].accountViewArray
                         accountViewArray.append(accountView)

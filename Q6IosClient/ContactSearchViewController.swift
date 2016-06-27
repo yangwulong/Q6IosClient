@@ -275,7 +275,7 @@ class ContactSearchViewController: UIViewController , Q6WebApiProtocol,UITableVi
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
     
     print("selected indexpath" + indexPath.row.description)
-    let  cell = tableView.cellForRowAtIndexPath(indexPath) as! ContactSearchViewTableViewCell
+    _ = tableView.cellForRowAtIndexPath(indexPath) as! ContactSearchViewTableViewCell
     
     selectedContact = contactData[indexPath.row]
         

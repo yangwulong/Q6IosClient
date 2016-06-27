@@ -150,7 +150,7 @@ class SaleDetailDataLineViewController: UIViewController, UITableViewDelegate ,U
             
             // cell.taxCodeButton.enabled = true
             if selectedAccountView != nil {
-                var TaxCodeID = selectedAccountView?.TaxCodeID
+                let TaxCodeID = selectedAccountView?.TaxCodeID
                 
                 if TaxCodeID != nil {
                     
@@ -169,7 +169,7 @@ class SaleDetailDataLineViewController: UIViewController, UITableViewDelegate ,U
             
             if selectedInventoryView != nil {
                 
-                var TaxCodeID = selectedInventoryView!.SaleTaxCodeID
+                let TaxCodeID = selectedInventoryView!.SaleTaxCodeID
                 if TaxCodeID != nil {
                     
                     
@@ -183,7 +183,7 @@ class SaleDetailDataLineViewController: UIViewController, UITableViewDelegate ,U
             
             if customer != nil {
                 
-                var defaultTaxCodeID = customer!.DefaultSalesTaxCodeID
+                let defaultTaxCodeID = customer!.DefaultSalesTaxCodeID
                 
                 if defaultTaxCodeID != nil {
                     
@@ -215,14 +215,14 @@ class SaleDetailDataLineViewController: UIViewController, UITableViewDelegate ,U
         if resuseIdentifier == "AmountCell" {
             
             
-            var amount = salesTransactionsDetailView.Amount
+            let amount = salesTransactionsDetailView.Amount
             
-            var strAmount = String(amount)
+            let strAmount = String(amount)
             if amount != 0 {
                 
                 if strAmount.containsString(".") == true {
                     //Check decimal place whether less than 4
-                    var strsplit = strAmount.characters.split(("."))
+                    let strsplit = strAmount.characters.split(("."))
                     let strLast = String(strsplit.last!)
                     
                     if strLast.length > 2 {
@@ -272,7 +272,7 @@ class SaleDetailDataLineViewController: UIViewController, UITableViewDelegate ,U
                             if selectedInventoryView?.SellingPrice != nil {
                                 var salePrice = (selectedInventoryView?.SellingPrice)! as Double
                                 
-                                var salePriceTaxRate = selectedInventoryView?.SaleTaxCodeRate
+                                let salePriceTaxRate = selectedInventoryView?.SaleTaxCodeRate
                                 salePrice = salePrice + salePrice * salePriceTaxRate! / 100
                                 cell.lblUnitPrice.text = String(format: "%.4f", salePrice)
                                 salesTransactionsDetailView.UnitPrice = salePrice
@@ -289,10 +289,10 @@ class SaleDetailDataLineViewController: UIViewController, UITableViewDelegate ,U
                             
                             var salePrice = (selectedInventoryView?.SellingPrice)! as Double
                             
-                            var salePriceTaxRate = selectedInventoryView?.SaleTaxCodeRate
+                            let salePriceTaxRate = selectedInventoryView?.SaleTaxCodeRate
                             salePrice = salePrice + salePrice * salePriceTaxRate! / 100
                             
-                            var salePriceWithoutTax = salePrice*(1 - salePriceTaxRate!/100)
+                            let salePriceWithoutTax = salePrice*(1 - salePriceTaxRate!/100)
                             
                             cell.lblUnitPrice.text = String(format: "%.4f", salePriceWithoutTax)
                             salesTransactionsDetailView.UnitPrice = salePriceWithoutTax                        }
@@ -359,13 +359,13 @@ class SaleDetailDataLineViewController: UIViewController, UITableViewDelegate ,U
         
         
         // Configure the cell...
-        print("indexPath" + indexPath.row.description)
+      //  print("indexPath" + indexPath.row.description)
         
         //return cell
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let row = indexPath.row //2
+        _ = indexPath.row //2
         
         
         if originalRowsDic[indexPath.row] == "InventoryCell" {
@@ -410,7 +410,7 @@ class SaleDetailDataLineViewController: UIViewController, UITableViewDelegate ,U
             
             if fromCell == "InventoryCell"
             {
-                var saleDetailDataLineInventorySearchViewController = segue.destinationViewController as! SaleDetailDataLineInventorySearchViewController
+                let saleDetailDataLineInventorySearchViewController = segue.destinationViewController as! SaleDetailDataLineInventorySearchViewController
                 saleDetailDataLineInventorySearchViewController.fromCell = "InventoryCell"
                 
                 saleDetailDataLineInventorySearchViewController.delegate = self
@@ -422,7 +422,7 @@ class SaleDetailDataLineViewController: UIViewController, UITableViewDelegate ,U
             
             if fromCell == "AccountCell"
             {
-                var saleDetailDataLineAccountSearchViewController = segue.destinationViewController as! SaleDetailDataLineAccountSearchViewController
+                let saleDetailDataLineAccountSearchViewController = segue.destinationViewController as! SaleDetailDataLineAccountSearchViewController
                 
                 saleDetailDataLineAccountSearchViewController.fromCell = "AccountCell"
                 
@@ -433,7 +433,7 @@ class SaleDetailDataLineViewController: UIViewController, UITableViewDelegate ,U
             
             if fromCell == "TaxCodeCell"
             {
-                var saleDetailDataLineTaxCodeSearchViewController = segue.destinationViewController as! SaleDetailDataLineTaxCodeSearchViewController
+                let saleDetailDataLineTaxCodeSearchViewController = segue.destinationViewController as! SaleDetailDataLineTaxCodeSearchViewController
                 
                 saleDetailDataLineTaxCodeSearchViewController.fromCell = "TaxCodeCell"
                 
@@ -441,7 +441,7 @@ class SaleDetailDataLineViewController: UIViewController, UITableViewDelegate ,U
             }
             if fromCell == "DescriptionCell"
             {
-                var saleDetailDataLineDescription = segue.destinationViewController as! SaleDetailDataLineDescriptionViewController
+                let saleDetailDataLineDescription = segue.destinationViewController as! SaleDetailDataLineDescriptionViewController
                 
                 saleDetailDataLineDescription.fromCell = "DescriptionCell"
                 
@@ -507,8 +507,8 @@ class SaleDetailDataLineViewController: UIViewController, UITableViewDelegate ,U
     
     @IBAction func unitPriceEditingChanged(sender: AnyObject) {
         
-        var UnitPriceTextField = sender as! UITextField
-        var StrUnitPrice = UnitPriceTextField.text as String?
+        let UnitPriceTextField = sender as! UITextField
+        let StrUnitPrice = UnitPriceTextField.text as String?
         
         if let UnitPrice = Double(StrUnitPrice!) {
             
@@ -562,8 +562,8 @@ class SaleDetailDataLineViewController: UIViewController, UITableViewDelegate ,U
         salesTransactionsDetailView.Amount = salesTransactionsDetailView.UnitPrice * salesTransactionsDetailView.Quantity
     }
     @IBAction func unitPriceEditingDidEnd(sender: AnyObject) {
-        var UnitPriceTextField = sender as! UITextField
-        var StrUnitPrice = UnitPriceTextField.text as String?
+        let UnitPriceTextField = sender as! UITextField
+        let StrUnitPrice = UnitPriceTextField.text as String?
         
         if let UnitPrice = Double(StrUnitPrice!) {
             
@@ -572,7 +572,7 @@ class SaleDetailDataLineViewController: UIViewController, UITableViewDelegate ,U
                 
                 if StrUnitPrice?.containsString(".") == true {
                     //Check decimal place whether less than 4
-                    var strsplit = StrUnitPrice?.characters.split(("."))
+                    let strsplit = StrUnitPrice?.characters.split(("."))
                     let strLast = String(strsplit?.last!)
                     
                     
@@ -621,8 +621,8 @@ class SaleDetailDataLineViewController: UIViewController, UITableViewDelegate ,U
     
     @IBAction func quantityEditingChanged(sender: AnyObject) {
         
-        var QuantityTextField = sender as! UITextField
-        var StrQuantity = QuantityTextField.text as String?
+        let QuantityTextField = sender as! UITextField
+        let StrQuantity = QuantityTextField.text as String?
         
         if let Quantity = Double(StrQuantity!) {
             
@@ -677,8 +677,8 @@ class SaleDetailDataLineViewController: UIViewController, UITableViewDelegate ,U
     }
     @IBAction func quantityEditingDidEnd(sender: AnyObject) {
         
-        var QuantityTextField = sender as! UITextField
-        var StrQuantity = QuantityTextField.text as String?
+        let QuantityTextField = sender as! UITextField
+        let StrQuantity = QuantityTextField.text as String?
         
         if let Quantity = Double(StrQuantity!) {
             
@@ -687,7 +687,7 @@ class SaleDetailDataLineViewController: UIViewController, UITableViewDelegate ,U
                 
                 if StrQuantity?.containsString(".") == true {
                     //Check decimal place whether less than 4
-                    var strsplit = StrQuantity?.characters.split(("."))
+                    let strsplit = StrQuantity?.characters.split(("."))
                     let strLast = String(strsplit?.last!)
                     
                     
@@ -784,13 +784,13 @@ class SaleDetailDataLineViewController: UIViewController, UITableViewDelegate ,U
     func calculateTaxAmount()
     {
         
-        var amount = salesTransactionsDetailView.Amount
+        let amount = salesTransactionsDetailView.Amount
         
         if salesTransactionsDetailView.TaxCodeID != nil
         {
-            var taxRate = salesTransactionsDetailView.TaxCodeRate! as Double
+            let taxRate = salesTransactionsDetailView.TaxCodeRate! as Double
             
-            var amountWithOutTax = 100*amount/(100 + taxRate)
+            let amountWithOutTax = 100*amount/(100 + taxRate)
             salesTransactionsDetailView.AmountWithoutTax = amountWithOutTax
         }
         else{

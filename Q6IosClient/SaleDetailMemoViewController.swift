@@ -65,7 +65,7 @@ class SaleDetailMemoViewController: UIViewController ,UITextViewDelegate{
     }
     func setControlAppear()
     {
-        var strMemo = memoTextView.text
+        let strMemo = memoTextView.text
         
         if strMemo == "" {
             

@@ -110,7 +110,7 @@ setControlAppear()
 //                print("no i =" + i.description)
            var dataItem = returnData[i]
                 
-                var supplier = Supplier()
+                let supplier = Supplier()
                 supplier.SupplierID = dataItem["SupplierID"] as! String
                 
                // print("SupplierID" + supplier.SupplierID)
@@ -171,7 +171,7 @@ setControlAppear()
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
        
         print("selected indexpath" + indexPath.row.description)
-          let  cell = tableView.cellForRowAtIndexPath(indexPath) as! SupplierSearchTableViewCell
+          _ = tableView.cellForRowAtIndexPath(indexPath) as! SupplierSearchTableViewCell
         
      selectedSuplier = supplierData[indexPath.row]
         ContactSearchBox.resignFirstResponder()
@@ -212,7 +212,7 @@ setControlAppear()
         }
     }
     
-    func searchBarSearchButtonClicked( searchBar: UISearchBar!)
+    func searchBarSearchButtonClicked( searchBar: UISearchBar)
     {
         let q6CommonLib = Q6CommonLib(myObject: self)
      

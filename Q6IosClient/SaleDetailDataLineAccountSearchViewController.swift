@@ -64,9 +64,9 @@ class SaleDetailDataLineAccountSearchViewController:  UIViewController , Q6WebAp
         
         if accountListData.count == 0 {
             
-            for var i = 0 ; i <= 8; i += 1
+            for i in 0..<8
             {
-                var screenSectionSortDetailForAccount = ScreenSectionSortDetailForAccount()
+                let screenSectionSortDetailForAccount = ScreenSectionSortDetailForAccount()
                 screenSectionSortDetailForAccount.AccountType = originalSectionsSortDic[i]!
                 screenSectionSortDetailForAccount.sortNo = i
                 
@@ -96,7 +96,7 @@ class SaleDetailDataLineAccountSearchViewController:  UIViewController , Q6WebAp
             {
                 if item.accountViewArray.count != 0
                 {
-                    count++
+                    count = count + 1
                 }
             }
         }
@@ -111,13 +111,13 @@ class SaleDetailDataLineAccountSearchViewController:  UIViewController , Q6WebAp
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        var SectionCount = getSectionCount()
+        let SectionCount = getSectionCount()
         print("getSectionCount" + SectionCount.description)
         return getSectionCount()
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        var accountViewArray = accountListData[section].accountViewArray
+        let accountViewArray = accountListData[section].accountViewArray
         
         print("Section" + section.description + "accountViewArray.count" + accountViewArray.count.description)
         return accountViewArray.count
@@ -129,7 +129,7 @@ class SaleDetailDataLineAccountSearchViewController:  UIViewController , Q6WebAp
     }
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let  cell = tableView.dequeueReusableCellWithIdentifier("AccountNameCell", forIndexPath: indexPath) as! SaleDetailDataLineAccountSearchTableViewCell
-        var accountView = accountListData[indexPath.section].accountViewArray[indexPath.row]
+        let accountView = accountListData[indexPath.section].accountViewArray[indexPath.row]
         cell.lblAccountNameWithAccountNo.text = accountView.AccountNameWithAccountNo
         print("AccountNameWithAccountNo" + accountView.AccountNameWithAccountNo)
         //        cell.lblSupplierID.hidden = true
@@ -153,9 +153,9 @@ class SaleDetailDataLineAccountSearchViewController:  UIViewController , Q6WebAp
         selectedAccountView = nil
         
         print("selected indexpath" + indexPath.row.description)
-        let  cell = tableView.cellForRowAtIndexPath(indexPath) as! SaleDetailDataLineAccountSearchTableViewCell
+        _ = tableView.cellForRowAtIndexPath(indexPath) as! SaleDetailDataLineAccountSearchTableViewCell
         
-        var selAccountView = accountListData[indexPath.section].accountViewArray[indexPath.row]
+        let selAccountView = accountListData[indexPath.section].accountViewArray[indexPath.row]
         
         selectedAccountView = selAccountView
         
@@ -183,7 +183,7 @@ class SaleDetailDataLineAccountSearchViewController:  UIViewController , Q6WebAp
                 //                print("no i =" + i.description)
                 var dataItem = returnData[i]
                 //
-                var accountView = AccountView()
+                let accountView = AccountView()
                 accountView.AccountID = dataItem["AccountID"] as! String
                 accountView.AccountName = dataItem["AccountName"] as! String
                 accountView.AccountNameWithAccountNo = dataItem["AccountNameWithAccountNo"] as! String
@@ -204,7 +204,7 @@ class SaleDetailDataLineAccountSearchViewController:  UIViewController , Q6WebAp
                     print("item.accounttype" + item.AccountType)
                     if accountView.AccountType == item.AccountType
                     {
-                        var i = item.sortNo
+                        let i = item.sortNo
                         
                         var accountViewArray =  accountListData[i].accountViewArray
                         accountViewArray.append(accountView)
@@ -256,11 +256,11 @@ class SaleDetailDataLineAccountSearchViewController:  UIViewController , Q6WebAp
     func  recountandSortaccountListData()
     {
         print(" Before accountListData.count" + accountListData.count.description)
-        var sortNoArray = [Int]()
+        _ = [Int]()
         var tempAccountListData = [ScreenSectionSortDetailForAccount]()
         for i in 0..<accountListData.count
         {
-            var screenSectionSortDetailForAccount = accountListData[i]
+            let screenSectionSortDetailForAccount = accountListData[i]
             
             if screenSectionSortDetailForAccount.accountViewArray.count != 0
             {
@@ -299,7 +299,7 @@ class SaleDetailDataLineAccountSearchViewController:  UIViewController , Q6WebAp
         }
     }
     
-    func searchBarSearchButtonClicked( searchBar: UISearchBar!)
+    func searchBarSearchButtonClicked( searchBar: UISearchBar)
     {
         let q6CommonLib = Q6CommonLib(myObject: self)
         

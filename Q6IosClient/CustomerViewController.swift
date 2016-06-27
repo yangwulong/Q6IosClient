@@ -171,7 +171,7 @@ class CustomerSearchViewController: UIViewController , Q6WebApiProtocol,UITableV
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
         print("selected indexpath" + indexPath.row.description)
-        let  cell = tableView.cellForRowAtIndexPath(indexPath) as! CustomerSearchTableViewCell
+        _ = tableView.cellForRowAtIndexPath(indexPath) as! CustomerSearchTableViewCell
         
         selectedCustomer = customerData[indexPath.row]
         ContactSearchBox.resignFirstResponder()

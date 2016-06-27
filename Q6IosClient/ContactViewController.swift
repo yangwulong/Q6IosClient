@@ -45,7 +45,7 @@ class ContactViewController: UIViewController, UITableViewDelegate ,UITableViewD
                 Q6ActivityIndicatorView.startAnimating()
                 let q6CommonLib = Q6CommonLib(myObject: self)
                 
-                var attachedURL = "&SupplierID=" + ContactID!
+                let attachedURL = "&SupplierID=" + ContactID!
                 isPreLoad = true
                 q6CommonLib.Q6IosClientGetApi("Purchase", ActionName: "GetSupplierByID", attachedURL: attachedURL)
                 
@@ -58,7 +58,7 @@ class ContactViewController: UIViewController, UITableViewDelegate ,UITableViewD
                 Q6ActivityIndicatorView.startAnimating()
                 let q6CommonLib = Q6CommonLib(myObject: self)
                 
-                var attachedURL = "&CustomerID=" + ContactID!
+                let attachedURL = "&CustomerID=" + ContactID!
                 isPreLoad = true
                 q6CommonLib.Q6IosClientGetApi("Sale", ActionName: "GetCustomerByID", attachedURL: attachedURL)
                 
@@ -202,17 +202,17 @@ class ContactViewController: UIViewController, UITableViewDelegate ,UITableViewD
             
                 postDicData = try  NSJSONSerialization.JSONObjectWithData(data!, options: []) as! [String:AnyObject]
                 
-                var returnData = postDicData["Supplier"] as! [String : AnyObject]
+                let returnData = postDicData["Supplier"] as! [String : AnyObject]
                 print("returnDate Count" + returnData.count.description)
 //                for i in 0  ..< returnData.count {
                       var dataItem = returnData  //[i]
-                    supplier.ABN = dataItem["ABN"] as! String
-                 supplier.BankAccountName = dataItem["BankAccountName"] as! String
-                    supplier.BankAccountNumber = dataItem["BankAccountNumber"] as! String
-                    supplier.BSBNumber = dataItem["BSBNumber"] as! String
+                    supplier.ABN = dataItem["ABN"] as? String
+                 supplier.BankAccountName = dataItem["BankAccountName"] as? String
+                    supplier.BankAccountNumber = dataItem["BankAccountNumber"] as? String
+                    supplier.BSBNumber = dataItem["BSBNumber"] as? String
                 
                     
-                    var CreateDate = dataItem["CreateDate"] as? String
+                    let CreateDate = dataItem["CreateDate"] as? String
                     //                var convertDueDate = NSDate?()
                     //                if dueDate != nil {
                     //                print("dueDate sss" + dueDate!)
@@ -225,17 +225,17 @@ class ContactViewController: UIViewController, UITableViewDelegate ,UITableViewD
                     
                   print("Supplier Create Date" + supplier.CreateDate.description)
                     
-                    var DefaultPurchasesAccountID = dataItem["DefaultPurchasesAccountID"] as? String 
+                    let DefaultPurchasesAccountID = dataItem["DefaultPurchasesAccountID"] as? String
                     
                     if DefaultPurchasesAccountID != nil {
                        supplier.DefaultPurchasesAccountID = DefaultPurchasesAccountID!
                     }
                  
                     
-                    supplier.DefaultPurchasesAccountNameWithAccountNo = dataItem["DefaultPurchasesAccountNameWithAccountNo"] as! String
+                    supplier.DefaultPurchasesAccountNameWithAccountNo = dataItem["DefaultPurchasesAccountNameWithAccountNo"] as? String
                     
                     
-                    var DefaultPurchasesTaxCodeID = dataItem["DefaultPurchasesTaxCodeID"] as? String
+                    let DefaultPurchasesTaxCodeID = dataItem["DefaultPurchasesTaxCodeID"] as? String
                     
                     if DefaultPurchasesTaxCodeID != nil {
                     supplier.DefaultPurchasesTaxCodeID = DefaultPurchasesTaxCodeID!                     }
@@ -244,52 +244,52 @@ class ContactViewController: UIViewController, UITableViewDelegate ,UITableViewD
                     supplier.DefaultPurchasesTaxCodePurpose = dataItem["DefaultPurchasesTaxCodePurpose"] as! String
                     
                     supplier.DefaultPurchasesTaxCodeRate = dataItem["DefaultPurchasesTaxCodeRate"] as! Double
-                    var Email = dataItem["Email"] as? String
+                    let Email = dataItem["Email"] as? String
                     
                     if Email != nil {
                      supplier.Email = Email!
                     }
                  
                     
-                    supplier.Fax = dataItem["Fax"] as! String
-                    supplier.FirstName = dataItem["FirstName"] as! String
+                    supplier.Fax = dataItem["Fax"] as? String
+                    supplier.FirstName = dataItem["FirstName"] as? String
                     supplier.IsInactive = dataItem["IsInactive"] as! Bool
-                    supplier.IsSameAsPhysicalAddress = dataItem["IsSameAsPhysicalAddress"] as! Bool
-                    supplier.IsSameAsPostalAddress = dataItem["IsSameAsPostalAddress"] as! Bool
-                    supplier.LastName = dataItem["LastName"] as! String
-                    supplier.Memos = dataItem["Memos"] as! String
-                    supplier.PaymentMemos = dataItem["PaymentMemos"] as! String
-                    supplier.Phone = dataItem["Phone"] as! String
+                    supplier.IsSameAsPhysicalAddress = dataItem["IsSameAsPhysicalAddress"] as? Bool
+                    supplier.IsSameAsPostalAddress = dataItem["IsSameAsPostalAddress"] as? Bool
+                    supplier.LastName = dataItem["LastName"] as? String
+                    supplier.Memos = dataItem["Memos"] as? String
+                    supplier.PaymentMemos = dataItem["PaymentMemos"] as? String
+                    supplier.Phone = dataItem["Phone"] as? String
                     
-                    supplier.PhysicalAddress = dataItem["PhysicalAddress"] as! String
-                    supplier.PhysicalAddressLine2 = dataItem["PhysicalAddressLine2"] as! String
-                    supplier.PhysicalCity = dataItem["PhysicalCity"] as! String
-                    supplier.PhysicalCountry = dataItem["PhysicalCountry"] as! String
-                    supplier.PhysicalPostalCode = dataItem["PhysicalPostalCode"] as! String
-                    supplier.PhysicalState = dataItem["PhysicalState"] as! String
+                    supplier.PhysicalAddress = dataItem["PhysicalAddress"] as? String
+                    supplier.PhysicalAddressLine2 = dataItem["PhysicalAddressLine2"] as? String
+                    supplier.PhysicalCity = dataItem["PhysicalCity"] as? String
+                    supplier.PhysicalCountry = dataItem["PhysicalCountry"] as? String
+                    supplier.PhysicalPostalCode = dataItem["PhysicalPostalCode"] as? String
+                    supplier.PhysicalState = dataItem["PhysicalState"] as? String
                     
                     
-                    supplier.PostalAddress = dataItem["PostalAddress"] as! String
-                    supplier.PostalAddressLine2 = dataItem["PostalAddressLine2"] as! String
-                    supplier.PostalCity = dataItem["PostalCity"] as! String
-                    supplier.PostalCountry = dataItem["PostalCountry"] as! String
-                    supplier.PostalPostalCode = dataItem["PostalPostalCode"] as! String
-                    supplier.PostalState = dataItem["PostalState"] as! String
+                    supplier.PostalAddress = dataItem["PostalAddress"] as? String
+                    supplier.PostalAddressLine2 = dataItem["PostalAddressLine2"] as? String
+                    supplier.PostalCity = dataItem["PostalCity"] as? String
+                    supplier.PostalCountry = dataItem["PostalCountry"] as? String
+                    supplier.PostalPostalCode = dataItem["PostalPostalCode"] as? String
+                    supplier.PostalState = dataItem["PostalState"] as? String
                     
-                    supplier.ShippingAddress = dataItem["ShippingAddress"] as! String
-                    supplier.ShippingAddressLine2 = dataItem["ShippingAddressLine2"] as! String
-                    supplier.ShippingCity = dataItem["ShippingCity"] as! String
-                    supplier.ShippingCountry = dataItem["ShippingCountry"] as! String
-                    supplier.ShippingPostalCode = dataItem["ShippingPostalCode"] as! String
-                    supplier.ShippingState = dataItem["ShippingState"] as! String
+                    supplier.ShippingAddress = dataItem["ShippingAddress"] as? String
+                    supplier.ShippingAddressLine2 = dataItem["ShippingAddressLine2"] as? String
+                    supplier.ShippingCity = dataItem["ShippingCity"] as? String
+                    supplier.ShippingCountry = dataItem["ShippingCountry"] as? String
+                    supplier.ShippingPostalCode = dataItem["ShippingPostalCode"] as? String
+                    supplier.ShippingState = dataItem["ShippingState"] as? String
                     
-                    supplier.StatementText = dataItem["StatementText"] as! String
+                    supplier.StatementText = dataItem["StatementText"] as? String
                     
                     supplier.SupplierID = dataItem["SupplierID"] as! String
                     
                     supplier.SupplierName = dataItem["SupplierName"] as! String
                     
-                     supplier.Title = dataItem["Title"] as! String
+                     supplier.Title = dataItem["Title"] as? String
                      //supplier.SupplierName = dataItem["SupplierName"] as! String
                 
                 dispatch_async(dispatch_get_main_queue()) {
@@ -315,17 +315,17 @@ class ContactViewController: UIViewController, UITableViewDelegate ,UITableViewD
                 
                 postDicData = try  NSJSONSerialization.JSONObjectWithData(data!, options: []) as! [String:AnyObject]
                 
-                var returnData = postDicData["Customer"] as! [String : AnyObject]
+                let returnData = postDicData["Customer"] as! [String : AnyObject]
                 print("returnDate Count" + returnData.count.description)
                 //                for i in 0  ..< returnData.count {
                 var dataItem = returnData  //[i]
-                customer.ABN = dataItem["ABN"] as! String
-                customer.BankAccountName = dataItem["BankAccountName"] as! String
-                customer.BankAccountNumber = dataItem["BankAccountNumber"] as! String
-                customer.BSBNumber = dataItem["BSBNumber"] as! String
+                customer.ABN = dataItem["ABN"] as? String
+                customer.BankAccountName = dataItem["BankAccountName"] as? String
+                customer.BankAccountNumber = dataItem["BankAccountNumber"] as? String
+                customer.BSBNumber = dataItem["BSBNumber"] as? String
                 
                 
-                var CreateDate = dataItem["CreateDate"] as? String
+                let CreateDate = dataItem["CreateDate"] as? String
                 //                var convertDueDate = NSDate?()
                 //                if dueDate != nil {
                 //                print("dueDate sss" + dueDate!)
@@ -337,17 +337,17 @@ class ContactViewController: UIViewController, UITableViewDelegate ,UITableViewD
                 print(" Create Date" + CreateDate!)
                 print("Customer Create Date" + customer.CreateDate.description)
                 
-                var DefaultSalesAccountID = dataItem["DefaultSalesAccountID"] as? String
+                let DefaultSalesAccountID = dataItem["DefaultSalesAccountID"] as? String
                 
                 if DefaultSalesAccountID != nil {
                     customer.DefaultSalesAccountID = DefaultSalesAccountID!
                 }
                 
                 
-                customer.DefaultSalesAccountNameWithAccountNo = dataItem["DefaultSalesAccountNameWithAccountNo"] as! String
+                customer.DefaultSalesAccountNameWithAccountNo = dataItem["DefaultSalesAccountNameWithAccountNo"] as? String
                 
                 
-                var DefaultSalesTaxCodeID = dataItem["DefaultSalesTaxCodeID"] as? String
+                let DefaultSalesTaxCodeID = dataItem["DefaultSalesTaxCodeID"] as? String
                 
                 if DefaultSalesTaxCodeID != nil {
                     customer.DefaultSalesTaxCodeID = DefaultSalesTaxCodeID!                     }
@@ -356,52 +356,52 @@ class ContactViewController: UIViewController, UITableViewDelegate ,UITableViewD
                 customer.DefaultSalesTaxCodePurpose = dataItem["DefaultSalesTaxCodePurpose"] as! String
                 
                 customer.DefaultSalesTaxCodeRate = dataItem["DefaultSalesTaxCodeRate"] as! Double
-                var Email = dataItem["Email"] as? String
+                let Email = dataItem["Email"] as? String
                 
                 if Email != nil {
                     customer.Email = Email!
                 }
                 
                 
-                customer.Fax = dataItem["Fax"] as! String
-                customer.FirstName = dataItem["FirstName"] as! String
+                customer.Fax = dataItem["Fax"] as? String
+                customer.FirstName = dataItem["FirstName"] as? String
                 customer.IsInactive = dataItem["IsInactive"] as! Bool
-                customer.IsSameAsPhysicalAddress = dataItem["IsSameAsPhysicalAddress"] as! Bool
-                customer.IsSameAsPostalAddress = dataItem["IsSameAsPostalAddress"] as! Bool
-                customer.LastName = dataItem["LastName"] as! String
-                customer.Memos = dataItem["Memos"] as! String
-                customer.PaymentMemos = dataItem["PaymentMemos"] as! String
-                customer.Phone = dataItem["Phone"] as! String
+                customer.IsSameAsPhysicalAddress = dataItem["IsSameAsPhysicalAddress"] as? Bool
+                customer.IsSameAsPostalAddress = dataItem["IsSameAsPostalAddress"] as? Bool
+                customer.LastName = dataItem["LastName"] as? String
+                customer.Memos = dataItem["Memos"] as? String
+                customer.PaymentMemos = dataItem["PaymentMemos"] as? String
+                customer.Phone = dataItem["Phone"] as? String
                 
-                customer.PhysicalAddress = dataItem["PhysicalAddress"] as! String
-                customer.PhysicalAddressLine2 = dataItem["PhysicalAddressLine2"] as! String
-                customer.PhysicalCity = dataItem["PhysicalCity"] as! String
-                customer.PhysicalCountry = dataItem["PhysicalCountry"] as! String
-                customer.PhysicalPostalCode = dataItem["PhysicalPostalCode"] as! String
-                customer.PhysicalState = dataItem["PhysicalState"] as! String
+                customer.PhysicalAddress = dataItem["PhysicalAddress"] as? String
+                customer.PhysicalAddressLine2 = dataItem["PhysicalAddressLine2"] as? String
+                customer.PhysicalCity = dataItem["PhysicalCity"] as? String
+                customer.PhysicalCountry = dataItem["PhysicalCountry"] as? String
+                customer.PhysicalPostalCode = dataItem["PhysicalPostalCode"] as? String
+                customer.PhysicalState = dataItem["PhysicalState"] as? String
                 
                 
-                customer.PostalAddress = dataItem["PostalAddress"] as! String
-                customer.PostalAddressLine2 = dataItem["PostalAddressLine2"] as! String
-                customer.PostalCity = dataItem["PostalCity"] as! String
-                customer.PostalCountry = dataItem["PostalCountry"] as! String
-                customer.PostalPostalCode = dataItem["PostalPostalCode"] as! String
-                customer.PostalState = dataItem["PostalState"] as! String
+                customer.PostalAddress = dataItem["PostalAddress"] as? String
+                customer.PostalAddressLine2 = dataItem["PostalAddressLine2"] as? String
+                customer.PostalCity = dataItem["PostalCity"] as? String
+                customer.PostalCountry = dataItem["PostalCountry"] as? String
+                customer.PostalPostalCode = dataItem["PostalPostalCode"] as? String
+                customer.PostalState = dataItem["PostalState"] as? String
                 
-                customer.ShippingAddress = dataItem["ShippingAddress"] as! String
-                customer.ShippingAddressLine2 = dataItem["ShippingAddressLine2"] as! String
-                customer.ShippingCity = dataItem["ShippingCity"] as! String
-                customer.ShippingCountry = dataItem["ShippingCountry"] as! String
-                customer.ShippingPostalCode = dataItem["ShippingPostalCode"] as! String
-                customer.ShippingState = dataItem["ShippingState"] as! String
+                customer.ShippingAddress = dataItem["ShippingAddress"] as? String
+                customer.ShippingAddressLine2 = dataItem["ShippingAddressLine2"] as? String
+                customer.ShippingCity = dataItem["ShippingCity"] as? String
+                customer.ShippingCountry = dataItem["ShippingCountry"] as? String
+                customer.ShippingPostalCode = dataItem["ShippingPostalCode"] as? String
+                customer.ShippingState = dataItem["ShippingState"] as? String
                 
-                customer.StatementText = dataItem["StatementText"] as! String
+                customer.StatementText = dataItem["StatementText"] as? String
                 
                 customer.CustomerID = dataItem["CustomerID"] as! String
                 
                 customer.CustomerName = dataItem["CustomerName"] as! String
                 
-                customer.Title = dataItem["Title"] as! String
+                customer.Title = dataItem["Title"] as? String
                 //supplier.SupplierName = dataItem["SupplierName"] as! String
                 
                 dispatch_async(dispatch_get_main_queue()) {
@@ -421,12 +421,12 @@ class ContactViewController: UIViewController, UITableViewDelegate ,UITableViewD
 
         else if isPreLoad == false   {
         var postDicData :[String:AnyObject]
-        var IsLoginSuccessed : Bool
+        var _ : Bool
         do {
             postDicData = try  NSJSONSerialization.JSONObjectWithData(data!, options: []) as! [String:AnyObject]
             
             
-            var IsSuccessed = postDicData["IsSuccessed"] as! Bool
+            let IsSuccessed = postDicData["IsSuccessed"] as! Bool
             
             
             if IsSuccessed == true {
@@ -438,7 +438,7 @@ class ContactViewController: UIViewController, UITableViewDelegate ,UITableViewD
                     
                 }
                 
-                var nav = navigationController
+                _ = navigationController
                 // Q6CommonLib.q6UIAlertPopupControllerThenGoBack("Information message", message: "Save Successfully!", viewController: self,timeArrange:3,navigationController: nav!)
                 
                 
@@ -498,11 +498,11 @@ class ContactViewController: UIViewController, UITableViewDelegate ,UITableViewD
         var dicData=[String:AnyObject]()
         
         
-        var q6DBLib = Q6DBLib()
+        let q6DBLib = Q6DBLib()
         let q6CommonLib = Q6CommonLib(myObject: self)
         var userInfos = q6DBLib.getUserInfos()
         
-        var LoginDetail = InternalUserLoginParameter()
+        let LoginDetail = InternalUserLoginParameter()
         
         LoginDetail.LoginUserName = userInfos["LoginEmail"]!
         LoginDetail.Password = userInfos["PassWord"]!
@@ -688,7 +688,7 @@ class ContactViewController: UIViewController, UITableViewDelegate ,UITableViewD
     }
     @IBAction func contactNameEditingChanged(sender: AnyObject) {
         
-        var txtContactName = sender as! UITextField
+        let txtContactName = sender as! UITextField
         
         if ContactType == "Supplier"
         {
@@ -700,7 +700,7 @@ class ContactViewController: UIViewController, UITableViewDelegate ,UITableViewD
         }
     }
     @IBAction func phoneEditingChanged(sender: AnyObject) {
-        var txtPhone = sender as! UITextField
+        let txtPhone = sender as! UITextField
         
         if CallButton != nil {
             if txtPhone.text?.length == 0 {
@@ -723,7 +723,7 @@ class ContactViewController: UIViewController, UITableViewDelegate ,UITableViewD
     }
     
     @IBAction func emailEditingChanged(sender: AnyObject) {
-        var txtEmail = sender as! UITextField
+        let txtEmail = sender as! UITextField
         
         if ContactType == "Supplier"
         {

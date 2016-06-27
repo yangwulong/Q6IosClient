@@ -439,7 +439,7 @@ class PassCodeViewController: UIViewController , UITextFieldDelegate{
     @IBAction func goBackToSignInScreen(sender: AnyObject) {
         
         if let loginViewController = storyboard!.instantiateViewControllerWithIdentifier("Q6LoginViewController") as? LoginViewController {
-            var q6DBLib = Q6DBLib()
+            let q6DBLib = Q6DBLib()
             q6DBLib.deleteUserInfos()
             loginViewController.ScreenMode = "GoBackFromPassCodeScreen"
             presentViewController(loginViewController, animated: true, completion: nil)

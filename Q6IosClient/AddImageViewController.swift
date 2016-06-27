@@ -86,10 +86,10 @@ setControlAppear()
             attachedImage = image
            // let pngImageData = UIImagePNGRepresentation(image,1)
           let pngImageData = UIImageJPEGRepresentation(image, 1)
-     var base64String = pngImageData!.base64EncodedStringWithOptions(NSDataBase64EncodingOptions.Encoding64CharacterLineLength)
+     _ = pngImageData!.base64EncodedStringWithOptions(NSDataBase64EncodingOptions.Encoding64CharacterLineLength)
             lblInfo.hidden = true
             if newMedia == true {
-                UIImageWriteToSavedPhotosAlbum(image,self, "image:didFinishSavingWithError:contextInfo:", nil)
+                UIImageWriteToSavedPhotosAlbum(image,self, #selector(AddImageViewController.image(_:didFinishSavingWithError:contextInfo:)), nil)
             }
         }
     }
@@ -125,11 +125,11 @@ setControlAppear()
     {
         
         
-        var imgData: NSData = NSData(data: UIImageJPEGRepresentation((attachedImage)!, 1)!)
+        let imgData: NSData = NSData(data: UIImageJPEGRepresentation((attachedImage)!, 1)!)
         
         // var imgData: NSData = UIImagePNGRepresentation(image)
         // you can also replace UIImageJPEGRepresentation with UIImagePNGRepresentation.
-        var FileSize: Int = imgData.length
+        let FileSize: Int = imgData.length
         
         
         

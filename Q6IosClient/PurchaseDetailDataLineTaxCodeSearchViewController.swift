@@ -75,7 +75,7 @@ class PurchaseDetailDataLineTaxCodeSearchViewController:UIViewController, Q6WebA
         
         cell.lblTaxCodeName.text = taxCodeViewData[indexPath.row].TaxCodeName
         
-        var taxRate = taxCodeViewData[indexPath.row].TaxRate
+        let taxRate = taxCodeViewData[indexPath.row].TaxRate
         let taxRateWithTwoDecimalPlaces = String(format: "%.2f", taxRate)
         cell.lblTaxRate.text = String(taxRateWithTwoDecimalPlaces) + "%"
 //        cell.lblSupplierID.hidden = true
@@ -110,7 +110,7 @@ class PurchaseDetailDataLineTaxCodeSearchViewController:UIViewController, Q6WebA
                 //                print("no i =" + i.description)
                 var dataItem = returnData[i]
                 
-                var taxCodeView = TaxCodeView()
+                let taxCodeView = TaxCodeView()
                 taxCodeView.TaxCodeID = dataItem["TaxCodeID"] as! String
                 
          
@@ -188,7 +188,7 @@ selectedTaxCodeView = taxCodeViewData[indexPath.row]
         }
     }
     
-    func searchBarSearchButtonClicked( searchBar: UISearchBar!)
+    func searchBarSearchButtonClicked( searchBar: UISearchBar)
     {
        
         

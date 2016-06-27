@@ -27,7 +27,7 @@ class SendEmailViewController: UIViewController, UITableViewDelegate ,UITableVie
         email.TransactionID = salesTransactionHeader.SalesTransactionsHeaderID
         let q6CommonLib = Q6CommonLib(myObject: self)
         
-        var attachedURL = "&CustomerID=" + salesTransactionHeader.CustomerID
+        let attachedURL = "&CustomerID=" + salesTransactionHeader.CustomerID
         isPreLoad = true
         q6CommonLib.Q6IosClientGetApi("Sale", ActionName: "GetCustomerByID", attachedURL: attachedURL)
         
@@ -89,7 +89,7 @@ SendEmailTableView.delegate = self
         
         if resuseIdentifier == "FromCell" {
             
-            var q6DBLib = Q6DBLib()
+            let q6DBLib = Q6DBLib()
             var userInfos  = q6DBLib.getUserInfos() as [String:String]
             email.FromEmail = userInfos["LoginEmail"]!
             email.SenderName = userInfos["LoginFirstName"]! + " " + userInfos["LoginLastName"]!
@@ -131,16 +131,16 @@ SendEmailTableView.delegate = self
         }
     }
     @IBAction func FromEditingChanged(sender: AnyObject) {
-        var txtFrom = sender as! UITextField
+        let txtFrom = sender as! UITextField
         email.FromEmail = txtFrom.text!
     }
     @IBAction func ToEditingChanged(sender: AnyObject) {
         
-        var txtTo = sender as! UITextField
+        let txtTo = sender as! UITextField
         email.ToEmail = txtTo.text!
     }
     @IBAction func SubjectEditingChanged(sender: AnyObject) {
-        var txtSubject = sender as! UITextField
+        let txtSubject = sender as! UITextField
         email.SubjectName = txtSubject.text!
     }
     func textViewDidChange(textView: UITextView) { //Handle the text changes here
@@ -166,11 +166,11 @@ SendEmailTableView.delegate = self
             var dicData=[String:AnyObject]()
             
             
-            var q6DBLib = Q6DBLib()
+            let q6DBLib = Q6DBLib()
             let q6CommonLib = Q6CommonLib(myObject: self)
             var userInfos = q6DBLib.getUserInfos()
             
-            var LoginDetail = InternalUserLoginParameter()
+            let LoginDetail = InternalUserLoginParameter()
             
             LoginDetail.LoginUserName = userInfos["LoginEmail"]!
             LoginDetail.Password = userInfos["PassWord"]!
@@ -221,7 +221,7 @@ SendEmailTableView.delegate = self
             
             postDicData = try  NSJSONSerialization.JSONObjectWithData(data!, options: []) as! [String:AnyObject]
             
-            var returnData = postDicData["Customer"] as! [String : AnyObject]
+            let returnData = postDicData["Customer"] as! [String : AnyObject]
             print("returnDate Count" + returnData.count.description)
             //                for i in 0  ..< returnData.count {
             var dataItem = returnData  //[i]
@@ -248,7 +248,7 @@ SendEmailTableView.delegate = self
                 
                 postDicData = try  NSJSONSerialization.JSONObjectWithData(data!, options: []) as! [String:AnyObject]
                 
-                var IsSuccessed = postDicData["IsSuccessed"] as! Bool
+                let IsSuccessed = postDicData["IsSuccessed"] as! Bool
                 
                 if IsSuccessed == true {
                    

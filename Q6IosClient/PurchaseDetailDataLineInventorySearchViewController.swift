@@ -85,7 +85,7 @@ class PurchaseDetailDataLineInventorySearchViewController:UIViewController ,Q6We
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
         
-        let  cell = tableView.cellForRowAtIndexPath(indexPath) as! PurchaseDetailDataLineInventorySearchTableViewCell
+       // let  cell = tableView.cellForRowAtIndexPath(indexPath) as! PurchaseDetailDataLineInventorySearchTableViewCell
         
        selectedInventoryView = inventoryViewData[indexPath.row]
         InventorySearchBox.resignFirstResponder()
@@ -186,7 +186,7 @@ class PurchaseDetailDataLineInventorySearchViewController:UIViewController ,Q6We
                  
                 }
                 
-                var CurrentValue = dataItem["CurrentValue"] as? Double
+                let CurrentValue = dataItem["CurrentValue"] as? Double
                 
                 if CurrentValue != nil {
                     

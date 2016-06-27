@@ -64,7 +64,7 @@ class PurchaseDetailDataLineDescriptionViewController: UIViewController ,UITextV
     }
     func setControlAppear()
     {
-        var strDescription = descriptionTextView.text
+        let strDescription = descriptionTextView.text
         
         if strDescription == "" {
             

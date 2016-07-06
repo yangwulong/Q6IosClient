@@ -2175,11 +2175,13 @@
                     <connections>
                         <outlet property="Q6ActivityIndicatorView" destination="m7g-0K-yCo" id="QjJ-Sc-ANM"/>
                         <outlet property="SendEmailTableView" destination="8Lj-k8-hl4" id="FZh-XK-zJT"/>
+                        <outlet property="btnCancel" destination="qEi-j9-O7u" id="XEd-z7-FOB"/>
+                        <outlet property="btnSendEmail" destination="y69-06-x4f" id="Npp-JJ-yRw"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="D4s-us-dec" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2056" y="-577"/>
+            <point key="canvasLocation" x="2070" y="-625"/>
         </scene>
     </scenes>
     <resources>

@@ -10,6 +10,8 @@ import UIKit
 
 class SendEmailViewController: UIViewController, UITableViewDelegate ,UITableViewDataSource,Q6GoBackFromView, Q6WebApiProtocol ,UITextViewDelegate{
     
+    @IBOutlet weak var btnCancel: UIBarButtonItem!
+    @IBOutlet weak var btnSendEmail: UIBarButtonItem!
     var Message = UITextView()
     var originalRowsDic: [Int: String] = [0: "FromCell", 1: "ToCell",2: "SubjectCell",3: "MessageCell"]
     
@@ -28,6 +30,8 @@ class SendEmailViewController: UIViewController, UITableViewDelegate ,UITableVie
         let q6CommonLib = Q6CommonLib(myObject: self)
         
         let attachedURL = "&CustomerID=" + salesTransactionHeader.CustomerID
+        
+        print("CustomerID " + salesTransactionHeader.CustomerID)
         isPreLoad = true
         q6CommonLib.Q6IosClientGetApi("Sale", ActionName: "GetCustomerByID", attachedURL: attachedURL)
         
@@ -204,6 +208,9 @@ SendEmailTableView.delegate = self
             isPreLoad = false
              q6CommonLib.Q6IosClientPostAPI("Email",ActionName: "SendEmail", dicData:dicData)
             
+            btnSendEmail.enabled = false
+            btnCancel.enabled = false
+            
         }
     }
     @IBAction func CancelButtonClicked(sender: AnyObject) {
@@ -296,6 +303,8 @@ SendEmailTableView.delegate = self
                     dispatch_after(delayTime, dispatch_get_main_queue()) {
                         self.dismissViewControllerAnimated(true, completion: nil);
                         
+                        self.btnSendEmail.enabled = true
+                        self.btnCancel.enabled = true
                         // self.navigationController!.popViewControllerAnimated(true)
                         // self.navigationController?.popToRootViewControllerAnimated(true)
                     }

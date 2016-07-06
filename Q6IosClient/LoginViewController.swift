@@ -9,6 +9,9 @@ import UIKit
 
 class LoginViewController: UIViewController, UITextFieldDelegate,Q6WebApiProtocol {
     
+    var activeField: UITextField?
+    
+    @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var Q6ActivityIndicatorView: UIActivityIndicatorView!
     @IBOutlet weak var txtLoginEmail: UITextField!
     @IBOutlet weak var txtLoginPassword: UITextField!
@@ -21,7 +24,21 @@ class LoginViewController: UIViewController, UITextFieldDelegate,Q6WebApiProtoco
     override func viewWillAppear(animated: Bool) {
         //        var q6CommonLib = Q6CommonLib()
         //        q6CommonLib.testTouchID()
+       
+      
         
+        let bounds = UIScreen.mainScreen().bounds
+        let width = bounds.size.width
+        
+       
+        let height = bounds.size.height
+        
+      //  scrollView.contentSize = CGSizeMake(200, self.view.frame.size.height)
+        scrollView.frame.size = CGSizeMake(width, height)
+        scrollView.contentSize = CGSizeMake(width, height)
+        txtLoginEmail.frame.size.width = width - 50
+        txtLoginPassword.frame.size.width = width - 50
+        btnSignIn.frame.size.width = width - 50 
         let q6IosClientDB = Q6DBLib()
         
         q6IosClientDB.createDB()
@@ -42,14 +59,14 @@ class LoginViewController: UIViewController, UITextFieldDelegate,Q6WebApiProtoco
             btnSignIn.hidden = false
         }
         
-        
+        registerForKeyboardNotifications()
         
     }
     override func viewDidLoad() {
         super.viewDidLoad()
         setControlAppear()
         txtLoginPassword.delegate = self
-        
+       txtLoginEmail.delegate = self
         let q6IosClientDB = Q6DBLib()
         
         q6IosClientDB.createDB()
@@ -68,7 +85,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate,Q6WebApiProtoco
         //        // Do any additional setup after loading the view.
         //        var dd = Q6CommonLib.isConnectedToNetwork()
     }
-    
     override func viewDidAppear(animated: Bool) {
         
         let q6IosClientDB = Q6DBLib()
@@ -97,6 +113,18 @@ class LoginViewController: UIViewController, UITextFieldDelegate,Q6WebApiProtoco
         
     }
     
+    @IBAction func SwipeGestureRecognizerEvent(sender: AnyObject) {
+        
+        print("swipe")
+    }
+    @IBAction func TapGestureRecognizerEvent(sender: UITapGestureRecognizer) {
+        txtLoginEmail.resignFirstResponder()
+        txtLoginPassword.resignFirstResponder()
+        scrollView.scrollEnabled = false
+        scrollView.setContentOffset(CGPointMake(0,0), animated: true)
+    
+        print("tap")
+    }
     
     @IBAction func SignIn(sender: AnyObject) {
         
@@ -269,4 +297,76 @@ class LoginViewController: UIViewController, UITextFieldDelegate,Q6WebApiProtoco
         insideSignIn()
         return true;
     }
+    
+//    override func viewWillAppear(animated: Bool) {
+//        registerForKeyboardNotifications()
+//    }
+    override func viewWillDisappear(animated: Bool) {
+        deregisterFromKeyboardNotifications()
+    }
+    
+    func registerForKeyboardNotifications()
+    {
+        //Adding notifies on keyboard appearing
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(LoginViewController.keyboardWasShown(_:)), name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(LoginViewController.keyboardWillBeHidden(_:)), name: UIKeyboardWillHideNotification, object: nil)
+    }
+    
+    
+    func deregisterFromKeyboardNotifications()
+    {
+        //Removing notifies on keyboard appearing
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
+    }
+    
+    func keyboardWasShown(notification: NSNotification)
+    {
+        //Need to calculate keyboard exact size due to Apple suggestions
+        self.scrollView.scrollEnabled = true
+        var info : NSDictionary = notification.userInfo!
+        var keyboardSize = (info[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.CGRectValue().size
+        var contentInsets : UIEdgeInsets = UIEdgeInsetsMake(0.0, 0.0, keyboardSize!.height, 0.0)
+        
+        self.scrollView.contentInset = contentInsets
+        self.scrollView.scrollIndicatorInsets = contentInsets
+        
+        var aRect : CGRect = self.view.frame
+        aRect.size.height -= keyboardSize!.height
+        if let activeFieldPresent = activeField
+        {
+            if (!CGRectContainsPoint(aRect, activeField!.frame.origin))
+            {
+                self.scrollView.scrollRectToVisible(activeField!.frame, animated: true)
+            }
+        }
+        
+        
+    }
+    
+    
+    func keyboardWillBeHidden(notification: NSNotification)
+    {
+        //Once keyboard disappears, restore original positions
+        var info : NSDictionary = notification.userInfo!
+        var keyboardSize = (info[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.CGRectValue().size
+        var contentInsets : UIEdgeInsets = UIEdgeInsetsMake(0.0, 0.0, -keyboardSize!.height, 0.0)
+        self.scrollView.contentInset = contentInsets
+        self.scrollView.scrollIndicatorInsets = contentInsets
+        self.view.endEditing(true)
+        self.scrollView.scrollEnabled = false
+        
+    }
+    
+ 
+    func textFieldDidBeginEditing(textField: UITextField)
+    {
+        activeField = textField
+    }
+    
+    func textFieldDidEndEditing(textField: UITextField)
+    {
+        activeField = nil
+    }
+    
 }

@@ -178,7 +178,7 @@ public class Q6CommonLib{
         
         
        let EncodeAttachedURL = (jasonLoginDeail + attachedURL).stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())! as String
-        print("EncodeAttachedURL \(EncodeAttachedURL)")
+     //   print("EncodeAttachedURL \(EncodeAttachedURL)")
         
         
         let url : String = q6WebApiUrl + ModelName + "/" + ActionName + "?Jsonlogin="  + EncodeAttachedURL

@@ -1689,6 +1689,8 @@ class SaleDetailViewController: UIViewController, UITableViewDelegate ,UITableVi
         salesTransactionHeader.ShipToAddress = salesTransactionsHeaderView.ShipToAddress
         salesTransactionHeader.SubTotal = salesTransactionsHeaderView.SubTotal
         salesTransactionHeader.CustomerID = salesTransactionsHeaderView.CustomerID
+        
+        print("salesTransactionHeader.CustomerID" + salesTransactionHeader.CustomerID)
 //        salesTransactionHeader.CustomerInv = salesTransactionsHeaderView.CustomerInv
         salesTransactionHeader.TaxInclusive = salesTransactionsHeaderView.TaxInclusive
         salesTransactionHeader.TaxTotal = salesTransactionsHeaderView.TaxTotal

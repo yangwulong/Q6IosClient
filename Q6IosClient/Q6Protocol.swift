@@ -58,3 +58,7 @@ func  sendGoBackFromPurchaseDetailView(fromView : String ,fromButton: String)
     func  sendGoBackSaleDetailView(fromView : String ,fromButton: String)
      func  sendGoBackContactDetailView(fromView : String ,fromButton: String)
 }
+
+
+
+

@@ -128,7 +128,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate,Q6WebApiProtoco
     
     @IBAction func SignIn(sender: AnyObject) {
         
-        
+        txtLoginPassword.resignFirstResponder()
+        txtLoginEmail.resignFirstResponder()
         insideSignIn()
    
     }

@@ -91,10 +91,12 @@
                                             <constraints>
                                                 <constraint firstItem="TGJ-FE-G51" firstAttribute="top" secondItem="EGk-P9-7uY" secondAttribute="topMargin" id="18S-qD-iNb"/>
                                                 <constraint firstItem="WCW-To-jvz" firstAttribute="top" secondItem="Ibr-Sw-4rz" secondAttribute="bottom" constant="10" id="4XV-bg-62C"/>
+                                                <constraint firstItem="TGJ-FE-G51" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Ibr-Sw-4rz" secondAttribute="trailing" constant="10" id="4bj-vp-Y1C"/>
                                                 <constraint firstItem="WCW-To-jvz" firstAttribute="leading" secondItem="EGk-P9-7uY" secondAttribute="leadingMargin" constant="-8" id="LHD-HY-C5M"/>
                                                 <constraint firstItem="Ibr-Sw-4rz" firstAttribute="top" secondItem="EGk-P9-7uY" secondAttribute="topMargin" id="V5m-uy-6HD"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="TGJ-FE-G51" secondAttribute="trailing" constant="-8" id="Yn0-Od-wGo"/>
                                                 <constraint firstItem="Ibr-Sw-4rz" firstAttribute="leading" secondItem="EGk-P9-7uY" secondAttribute="leadingMargin" constant="-8" id="feM-Yt-732"/>
+                                                <constraint firstItem="xYY-6C-KeC" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="WCW-To-jvz" secondAttribute="trailing" constant="10" id="gaT-ho-szL"/>
                                                 <constraint firstItem="xYY-6C-KeC" firstAttribute="top" secondItem="TGJ-FE-G51" secondAttribute="bottom" constant="10" id="wdW-JE-hys"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="xYY-6C-KeC" secondAttribute="trailing" constant="-8" id="xfT-uA-xft"/>
                                             </constraints>

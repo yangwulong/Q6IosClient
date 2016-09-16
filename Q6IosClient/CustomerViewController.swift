@@ -16,7 +16,7 @@ class CustomerSearchViewController: UIViewController , Q6WebApiProtocol,UITableV
     var dataRequestSource = ""
     var attachedURL = String()
     var hasAddedItemLine = false
-    var selectedCustomer = Customer?()
+    var selectedCustomer:Customer?
     
     @IBOutlet weak var Q6ActivityIndicatorView: UIActivityIndicatorView!
     @IBOutlet weak var ContactTableView: UITableView!
@@ -26,11 +26,11 @@ class CustomerSearchViewController: UIViewController , Q6WebApiProtocol,UITableV
     weak var delegate : Q6GoBackFromView?
     var fromCell = String()
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         
         if hasAddedItemLine ==  true
         {
-            Q6CommonLib.q6UIAlertPopupController("Information Message", message: "If changing the customer, Please check the defaults are set correctly!", viewController: self ,timeArrange: 3)
+            Q6CommonLib.q6UIAlertPopupController(title: "Information Message", message: "If changing the customer, Please check the defaults are set correctly!", viewController: self ,timeArrange: 3)
         }
     }
     override func viewDidLoad() {
@@ -42,8 +42,8 @@ class CustomerSearchViewController: UIViewController , Q6WebApiProtocol,UITableV
         Q6ActivityIndicatorView.startAnimating()
         let q6CommonLib = Q6CommonLib(myObject: self)
         
-        setAttachedURL(searchText, IsLoadInactive:false,PageSize: pageSize,PageIndex: pageIndex)
-        q6CommonLib.Q6IosClientGetApi("Sale", ActionName: "GetCustomerList", attachedURL: attachedURL)
+        setAttachedURL(SearchText: searchText, IsLoadInactive:false,PageSize: pageSize,PageIndex: pageIndex)
+        q6CommonLib.Q6IosClientGetApi(ModelName: "Sale", ActionName: "GetCustomerList", attachedURL: attachedURL)
         
         
         // Do any additional setup after loading the view.
@@ -53,7 +53,7 @@ class CustomerSearchViewController: UIViewController , Q6WebApiProtocol,UITableV
         
         ContactSearchBox.layer.cornerRadius = 2;
         ContactSearchBox.layer.borderWidth = 0.1;
-        ContactSearchBox.layer.borderColor = UIColor.blackColor().CGColor
+        ContactSearchBox.layer.borderColor = UIColor.black.cgColor
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -61,19 +61,19 @@ class CustomerSearchViewController: UIViewController , Q6WebApiProtocol,UITableV
     }
     
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    private func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return customerData.count
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let  cell = tableView.dequeueReusableCellWithIdentifier("CustomerSearchPrototypeCell", forIndexPath: indexPath) as! CustomerSearchTableViewCell
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let  cell = tableView.dequeueReusableCell(withIdentifier: "CustomerSearchPrototypeCell", for: indexPath) as! CustomerSearchTableViewCell
         
-        cell.lblCustomerID.hidden = true
+        cell.lblCustomerID.isHidden = true
         
         
         cell.lblCustomerName.text =  customerData[indexPath.row].CustomerName
@@ -90,7 +90,7 @@ class CustomerSearchViewController: UIViewController , Q6WebApiProtocol,UITableV
         attachedURL = "&Search=" + SearchText + "&IsLoadInactive=" + String(IsLoadInactive) + "&PageSize=" + String(PageSize) + "&PageIndex=" + String(pageIndex)
     }
     
-    func dataLoadCompletion(data:NSData?, response:NSURLResponse?, error:NSError?) -> AnyObject
+    func dataLoadCompletion(data:NSData?, response:URLResponse?, error:NSError?) -> AnyObject
     {
         var postDicData :[String:AnyObject]
         
@@ -99,7 +99,7 @@ class CustomerSearchViewController: UIViewController , Q6WebApiProtocol,UITableV
                 customerData.removeAll()
                 selectedCustomer = nil
             }
-            postDicData = try  NSJSONSerialization.JSONObjectWithData(data!, options: []) as! [String:AnyObject]
+            postDicData = try  JSONSerialization.jsonObject(with: data! as Data, options: []) as! [String:AnyObject]
             
             var returnData = postDicData["CustomerList"] as! [[String : AnyObject]]
             print("returnDate Count" + returnData.count.description)
@@ -147,49 +147,49 @@ class CustomerSearchViewController: UIViewController , Q6WebApiProtocol,UITableV
             
             print("customer Date Count" + customerData.count.description)
             
-            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+            DispatchQueue.main.async {
                 self.ContactTableView.reloadData()
                 self.Q6ActivityIndicatorView.hidesWhenStopped = true
                 self.Q6ActivityIndicatorView.stopAnimating()
                 self.ContactSearchBox.resignFirstResponder()
                 
-            })
+            }
             
             
             
         } catch  {
             print("error parsing response from POST on /posts")
             
-            return ""
+            return "" as AnyObject
         }
         
-        return ""
+        return "" as AnyObject
     }
-    func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath as IndexPath, animated: true)
     }
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         print("selected indexpath" + indexPath.row.description)
-        _ = tableView.cellForRowAtIndexPath(indexPath) as! CustomerSearchTableViewCell
+        _ = tableView.cellForRow(at: indexPath as IndexPath) as! CustomerSearchTableViewCell
         
         selectedCustomer = customerData[indexPath.row]
         ContactSearchBox.resignFirstResponder()
     }
     
-    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         print("indexpath" + indexPath.row.description)
         if indexPath.row == pageIndex*(pageSize - 5 )
         {
             let q6CommonLib = Q6CommonLib(myObject: self)
             pageIndex = pageIndex + 1
-            setAttachedURL(searchText, IsLoadInactive:false,PageSize: pageSize, PageIndex: pageIndex)
+            setAttachedURL(SearchText: searchText, IsLoadInactive:false,PageSize: pageSize, PageIndex: pageIndex)
             dataRequestSource = ""
-            q6CommonLib.Q6IosClientGetApi("Sale", ActionName: "GetCustomerList", attachedURL: attachedURL)
+            q6CommonLib.Q6IosClientGetApi(ModelName: "Sale", ActionName: "GetCustomerList", attachedURL: attachedURL)
         }
         
     }
-    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         
         self.searchText = searchText
         
@@ -205,13 +205,13 @@ class CustomerSearchViewController: UIViewController , Q6WebApiProtocol,UITableV
             
             dataRequestSource = "Search"
             
-            setAttachedURL(searchText, IsLoadInactive:false,PageSize: pageSize, PageIndex: pageIndex)
-            q6CommonLib.Q6IosClientGetApi("Sale", ActionName: "GetCustomerList", attachedURL: attachedURL)
+            setAttachedURL(SearchText: searchText, IsLoadInactive:false,PageSize: pageSize, PageIndex: pageIndex)
+            q6CommonLib.Q6IosClientGetApi(ModelName: "Sale", ActionName: "GetCustomerList", attachedURL: attachedURL)
             
         }
     }
     
-    func searchBarSearchButtonClicked( searchBar: UISearchBar)
+    func searchBarSearchButtonClicked( _ searchBar: UISearchBar)
     {
         let q6CommonLib = Q6CommonLib(myObject: self)
         
@@ -220,14 +220,14 @@ class CustomerSearchViewController: UIViewController , Q6WebApiProtocol,UITableV
         selectedCustomer = nil
         
         dataRequestSource = "Search"
-        setAttachedURL(searchText, IsLoadInactive:false,PageSize: pageSize, PageIndex: pageIndex)
-        q6CommonLib.Q6IosClientGetApi("Sale", ActionName: "GetCustomerList", attachedURL: attachedURL)
+        setAttachedURL(SearchText: searchText, IsLoadInactive:false,PageSize: pageSize, PageIndex: pageIndex)
+        q6CommonLib.Q6IosClientGetApi(ModelName: "Sale", ActionName: "GetCustomerList", attachedURL: attachedURL)
         
         searchBar.resignFirstResponder()
         
     }
     @IBAction func CancelButtonClick(sender: AnyObject) {
-        navigationController?.popViewControllerAnimated(true)
+        _ = navigationController?.popViewController(animated: true)
         
         // navigationController?.popToRootViewControllerAnimated(true)
     }
@@ -235,14 +235,14 @@ class CustomerSearchViewController: UIViewController , Q6WebApiProtocol,UITableV
         
         if selectedCustomer == nil {
             
-            Q6CommonLib.q6UIAlertPopupController("Information message", message: "You haven't select a customer", viewController: self)
+            Q6CommonLib.q6UIAlertPopupController(title: "Information message", message: "You haven't select a customer", viewController: self)
         }
         else{
             
-            self.delegate?.sendGoBackFromCustomerSearchView("CustomerSearchViewController" ,forCell :fromCell,Contact: selectedCustomer!)
+            self.delegate?.sendGoBackFromCustomerSearchView(fromView: "CustomerSearchViewController" ,forCell :fromCell,Contact: selectedCustomer!)
             //
             
-            navigationController?.popViewControllerAnimated(true)
+            _ = navigationController?.popViewController(animated: true)
             
         }
         

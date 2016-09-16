@@ -19,12 +19,12 @@ class PurchaseDetailMemoViewController: UIViewController ,UITextViewDelegate{
     
     var textValue = ""
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         
         if textValue != ""
         {
             memoTextView.text = textValue
-            memoTextView.textColor = UIColor.blackColor()
+            memoTextView.textColor = UIColor.black
         }
     }
     override func viewDidLoad() {
@@ -45,12 +45,12 @@ class PurchaseDetailMemoViewController: UIViewController ,UITextViewDelegate{
     
     @IBAction func CancelButtonClicked(sender: AnyObject) {
         
-        navigationController?.popViewControllerAnimated(true)
+        _ = navigationController?.popViewController(animated: true)
         
     }
     @IBAction func DoneButtonClicked(sender: AnyObject) {
         
-        if memoTextView.textColor == UIColor.lightGrayColor()
+        if memoTextView.textColor == UIColor.lightGray
         {
             strMemo = ""
         }
@@ -58,9 +58,9 @@ class PurchaseDetailMemoViewController: UIViewController ,UITextViewDelegate{
             strMemo = memoTextView.text
         }
         
-        self.delegate?.sendGoBackFromPurchaseDetailMemoView("PurchaseDetailMemoViewController", forCell: "MemoCell", Memo: strMemo)
+        self.delegate?.sendGoBackFromPurchaseDetailMemoView(fromView: "PurchaseDetailMemoViewController", forCell: "MemoCell", Memo: strMemo)
         
-        navigationController?.popViewControllerAnimated(true)
+        _ = navigationController?.popViewController(animated: true)
         
     }
     func setControlAppear()
@@ -73,7 +73,7 @@ class PurchaseDetailMemoViewController: UIViewController ,UITextViewDelegate{
             
             
             memoTextView.text = "Memo"
-            memoTextView.textColor = UIColor.lightGrayColor()
+            memoTextView.textColor = UIColor.lightGray
         }
         //
         //        descriptionTextView.selectedTextRange = descriptionTextView.textRangeFromPosition(descriptionTextView.beginningOfDocument, toPosition: descriptionTextView.beginningOfDocument)
@@ -83,16 +83,16 @@ class PurchaseDetailMemoViewController: UIViewController ,UITextViewDelegate{
         // Dispose of any resources that can be recreated.
     }
     
-    func textViewDidBeginEditing(textView: UITextView) {
-        if textView.textColor == UIColor.lightGrayColor() && textView.text == "Memo" {
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.textColor == UIColor.lightGray && textView.text == "Memo" {
             textView.text = ""
-            textView.textColor = UIColor.blackColor()
+            textView.textColor = UIColor.black
         }
         
-        memoTextView.selectedTextRange = memoTextView.textRangeFromPosition(memoTextView.beginningOfDocument, toPosition: memoTextView.beginningOfDocument)
+        memoTextView.selectedTextRange = memoTextView.textRange(from: memoTextView.beginningOfDocument, to: memoTextView.beginningOfDocument)
     }
     
-    func textViewDidEndEditing(textView: UITextView) {
+    func textViewDidEndEditing(_ textView: UITextView) {
         //        if textView.text.isEmpty {
         //            textView.text = "Description"
         //            textView.textColor = UIColor.lightGrayColor()
@@ -130,7 +130,7 @@ class PurchaseDetailMemoViewController: UIViewController ,UITextViewDelegate{
     //        return true
     //    }
     
-    func textViewDidChangeSelection(textView: UITextView) {
+    func textViewDidChangeSelection(_ textView: UITextView) {
         //        if self.view.window != nil {
         //           // print("textView 's length" + textView.text.length.description)
         //            if textView.textColor == UIColor.lightGrayColor() {

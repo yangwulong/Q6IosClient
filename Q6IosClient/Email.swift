@@ -11,12 +11,12 @@ import Foundation
 
 public class Email
 {
-    var TransactionID =  NSUUID().UUIDString
+    var TransactionID =  NSUUID().uuidString
     var SenderName: String = ""
     var FromEmail: String = ""
     var ToEmail: String = ""
-    var CcEmail = String?()
-    var BccEmail = String?()
+    var CcEmail:String?
+    var BccEmail:String?
     var SubjectName: String = ""
     var BodyMessage: String = ""
     var ModuleName:String = "Sale"

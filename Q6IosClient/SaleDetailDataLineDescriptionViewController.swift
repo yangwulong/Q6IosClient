@@ -17,12 +17,12 @@ class SaleDetailDataLineDescriptionViewController: UIViewController ,UITextViewD
     
     var textValue = ""
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         
         if textValue != ""
         {
             descriptionTextView.text = textValue
-            descriptionTextView.textColor = UIColor.blackColor()
+            descriptionTextView.textColor = UIColor.black
         }
     }
     override func viewDidLoad() {
@@ -43,12 +43,12 @@ class SaleDetailDataLineDescriptionViewController: UIViewController ,UITextViewD
     
     @IBAction func CancelButtonClicked(sender: AnyObject) {
         
-        navigationController?.popViewControllerAnimated(true)
+        _ = navigationController?.popViewController(animated: true)
         
     }
     @IBAction func DoneButtonClicked(sender: AnyObject) {
         
-        if descriptionTextView.textColor == UIColor.lightGrayColor()
+        if descriptionTextView.textColor == UIColor.lightGray
         {
             strDescription = ""
         }
@@ -56,9 +56,9 @@ class SaleDetailDataLineDescriptionViewController: UIViewController ,UITextViewD
             strDescription = descriptionTextView.text
         }
         
-        self.delegate?.sendGoBackFromSaleDetailDataLineDescriptionView("SaleDetailDataLineDescriptionViewController", forCell: "DescriptionCell", Description: strDescription)
+        self.delegate?.sendGoBackFromSaleDetailDataLineDescriptionView(fromView: "SaleDetailDataLineDescriptionViewController", forCell: "DescriptionCell", Description: strDescription)
         
-        navigationController?.popViewControllerAnimated(true)
+        _ = navigationController?.popViewController(animated: true)
         
     }
     func setControlAppear()
@@ -71,7 +71,7 @@ class SaleDetailDataLineDescriptionViewController: UIViewController ,UITextViewD
             
             
             descriptionTextView.text = "Description"
-            descriptionTextView.textColor = UIColor.lightGrayColor()
+            descriptionTextView.textColor = UIColor.lightGray
         }
         //
         //        descriptionTextView.selectedTextRange = descriptionTextView.textRangeFromPosition(descriptionTextView.beginningOfDocument, toPosition: descriptionTextView.beginningOfDocument)
@@ -81,16 +81,16 @@ class SaleDetailDataLineDescriptionViewController: UIViewController ,UITextViewD
         // Dispose of any resources that can be recreated.
     }
     
-    func textViewDidBeginEditing(textView: UITextView) {
-        if textView.textColor == UIColor.lightGrayColor() && textView.text == "Description" {
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.textColor == UIColor.lightGray && textView.text == "Description" {
             textView.text = ""
-            textView.textColor = UIColor.blackColor()
+            textView.textColor = UIColor.black
         }
         
-        descriptionTextView.selectedTextRange = descriptionTextView.textRangeFromPosition(descriptionTextView.beginningOfDocument, toPosition: descriptionTextView.beginningOfDocument)
+        descriptionTextView.selectedTextRange = descriptionTextView .textRange(from: descriptionTextView.beginningOfDocument, to: descriptionTextView.beginningOfDocument)
     }
     
-    func textViewDidEndEditing(textView: UITextView) {
+    func textViewDidEndEditing(_ textView: UITextView) {
         //        if textView.text.isEmpty {
         //            textView.text = "Description"
         //            textView.textColor = UIColor.lightGrayColor()

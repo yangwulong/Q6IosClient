@@ -33,7 +33,7 @@ class SaleDetailViewController: UIViewController, UITableViewDelegate ,UITableVi
     var customer = Customer()
     
     @IBOutlet weak var navigationBar: UINavigationBar!
-    var attachedimage = UIImage?()
+    var attachedimage:UIImage?
     
    
     var webAPICallAction: String = ""
@@ -43,7 +43,7 @@ class SaleDetailViewController: UIViewController, UITableViewDelegate ,UITableVi
     var isPreLoad = false
     var CompanyID = String()
     weak var delegate2: Q6GoBackFromViewTwo?
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         
         
         print("SaleDetailViewController" + operationType)
@@ -61,16 +61,16 @@ class SaleDetailViewController: UIViewController, UITableViewDelegate ,UITableVi
         
         if operationType == "Edit"
         {
-            saleDetailTableView.hidden = true
+            saleDetailTableView.isHidden = true
             Q6ActivityIndicatorView.startAnimating()
             let q6CommonLib = Q6CommonLib(myObject: self)
             
             let attachedURL = "&SalesTransactionsHeaderID=" + salesTransactionHeader.SalesTransactionsHeaderID
             isPreLoad = true
-            q6CommonLib.Q6IosClientGetApi("Sale", ActionName: "GetSalesTransactionsByID", attachedURL: attachedURL)
+            q6CommonLib.Q6IosClientGetApi(ModelName: "Sale", ActionName: "GetSalesTransactionsByID", attachedURL: attachedURL)
         }
         else {
-            Q6ActivityIndicatorView.hidden = true
+            Q6ActivityIndicatorView.isHidden = true
             // Uncomment the following line to preserve selection between presentations
             // self.clearsSelectionOnViewWillAppear = false
             
@@ -98,7 +98,7 @@ class SaleDetailViewController: UIViewController, UITableViewDelegate ,UITableVi
         let q6CommonLib = Q6CommonLib(myObject: self)
         webAPICallAction = "InternalUserLogin"
         isPreLoad = true
-        q6CommonLib.Q6IosClientPostAPI("Q6",ActionName: "InternalUserLogin", dicData:dicData)
+        q6CommonLib.Q6IosClientPostAPI(ModeName: "Q6",ActionName: "InternalUserLogin", dicData:dicData as [String : AnyObject])
         
     }
     func setScreenSortLines()
@@ -150,7 +150,7 @@ class SaleDetailViewController: UIViewController, UITableViewDelegate ,UITableVi
         // lblTotalLabel.font = UIFont.boldSystemFontOfSize(17.0)
         //lblTotalAmount.font = UIFont.boldSystemFontOfSize(17.0)
         
-        saleDetailTableView.tableFooterView = UIView(frame: CGRectZero)
+        saleDetailTableView.tableFooterView = UIView(frame: CGRect.zero)
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -159,12 +159,12 @@ class SaleDetailViewController: UIViewController, UITableViewDelegate ,UITableVi
     
     // MARK: - Table view data source
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    private func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         
         // print("addItemsDic" + addItemsDic.count.description)
@@ -173,7 +173,7 @@ class SaleDetailViewController: UIViewController, UITableViewDelegate ,UITableVi
     }
     
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var resuseIdentifier = String()
         //        if indexPath.row <= 8 {
         //       resuseIdentifier = originalRowsDic[indexPath.row]!
@@ -185,7 +185,7 @@ class SaleDetailViewController: UIViewController, UITableViewDelegate ,UITableVi
         let screenSortLinesDetail = salesDetailScreenLinesDic[indexPath.row]  as ScreenSortLinesDetail
         
         resuseIdentifier = screenSortLinesDetail.PrototypeCellID
-        let cell = tableView.dequeueReusableCellWithIdentifier(resuseIdentifier, forIndexPath: indexPath) as! SaleDetailTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: resuseIdentifier, for: indexPath) as! SaleDetailTableViewCell
         
         
         if resuseIdentifier == "SalesTypecell" {
@@ -193,7 +193,7 @@ class SaleDetailViewController: UIViewController, UITableViewDelegate ,UITableVi
             cell.lblSalesType.text = salesTransactionHeader.SalesType
             
             if operationType != "Create"{
-                cell.SalesTypeButton.enabled = false
+                cell.SalesTypeButton.isEnabled = false
             }
             // lblTotalLabel.font = UIFont.boldSystemFontOfSize(17.0)
             //lblTotalAmount.font = UIFont.boldSystemFontOfSize(17.0)
@@ -203,7 +203,7 @@ class SaleDetailViewController: UIViewController, UITableViewDelegate ,UITableVi
             cell.lblCustomerName.text = customer.CustomerName
             
             if operationType != "Create" {
-                cell.CustomerButton.enabled = false
+                cell.CustomerButton.isEnabled = false
                 
             }
             
@@ -241,7 +241,7 @@ class SaleDetailViewController: UIViewController, UITableViewDelegate ,UITableVi
                 
                 
                 
-                cell.AddDeleteButton.setImage(image, forState: .Normal)
+                cell.AddDeleteButton.setImage(image, for: .normal)
                 cell.LineDescription.text = salesDetailScreenLinesDic[indexPath.row].LineDescription
                 
             }
@@ -255,7 +255,7 @@ class SaleDetailViewController: UIViewController, UITableViewDelegate ,UITableVi
                 // cell.AddDeleteButton = UIButton(type: .System) as UIButton
                 
                 
-                cell.AddDeleteButton.setImage(image, forState: .Normal)
+                cell.AddDeleteButton.setImage(image, for: .normal)
                 cell.LineDescription.text = "Add an Item"
                 
                 
@@ -290,8 +290,8 @@ class SaleDetailViewController: UIViewController, UITableViewDelegate ,UITableVi
         }
         if resuseIdentifier == "TotalCell" {
             
-            cell.lblTotalAmountLabel.font = UIFont.boldSystemFontOfSize(17.0)
-            cell.lblTotalAmount.font = UIFont.boldSystemFontOfSize(17.0)
+            cell.lblTotalAmountLabel.font = UIFont.boldSystemFont(ofSize: 17.0)
+            cell.lblTotalAmount.font = UIFont.boldSystemFont(ofSize: 17.0)
             
             var totalAmount: Double = 0
             for i in 0 ..< salesDetailScreenLinesDic.count
@@ -318,11 +318,11 @@ class SaleDetailViewController: UIViewController, UITableViewDelegate ,UITableVi
             
             if attachedimage != nil {
                 
-                cell.AddRemoveImageButton.setImage(UIImage(named: "Minus-25.png"), forState: UIControlState.Normal)
+                cell.AddRemoveImageButton.setImage(UIImage(named: "Minus-25.png"), for: UIControlState.normal)
                 cell.lblAddImageLabel.text = "Has a linked image!"
             }
             else{
-                cell.AddRemoveImageButton.setImage(UIImage(named: "plus.png"), forState: UIControlState.Normal)
+                cell.AddRemoveImageButton.setImage(UIImage(named: "plus.png"), for: UIControlState.normal)
                 cell.lblAddImageLabel.text = "Add an image"
             }
             
@@ -357,14 +357,14 @@ class SaleDetailViewController: UIViewController, UITableViewDelegate ,UITableVi
             
             if operationType == "Create"
             {
-                cell.lblSendEmail.hidden = true
-                cell.SendEmailButton.enabled = false
-                cell.SendEmailButton.hidden = true
+                cell.lblSendEmail.isHidden = true
+                cell.SendEmailButton.isEnabled = false
+                cell.SendEmailButton.isHidden = true
             }
             else {
-                cell.lblSendEmail.hidden = false
-                cell.SendEmailButton.enabled = true
-                cell.SendEmailButton.hidden = false
+                cell.lblSendEmail.isHidden = false
+                cell.SendEmailButton.isEnabled = true
+                cell.SendEmailButton.isHidden = false
                 
             }
             
@@ -379,7 +379,7 @@ class SaleDetailViewController: UIViewController, UITableViewDelegate ,UITableVi
         //return cell
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     //    let row = indexPath.row //2
         
         print("Selected Row" + indexPath.row.description)
@@ -387,7 +387,7 @@ class SaleDetailViewController: UIViewController, UITableViewDelegate ,UITableVi
         print("screenSortLinesDetail.PrototypeCellID" + screenSortLinesDetail.PrototypeCellID)
         if screenSortLinesDetail.PrototypeCellID == "SalesTypecell" && operationType == "Create" {
             
-            performSegueWithIdentifier("showPickerView", sender: "SalesTypecell")
+            performSegue(withIdentifier: "showPickerView", sender: "SalesTypecell")
             
             
         }
@@ -408,7 +408,7 @@ class SaleDetailViewController: UIViewController, UITableViewDelegate ,UITableVi
             
             
             
-            self.performSegueWithIdentifier("showContactSearch", sender: "CustomerCell")
+            self.performSegue(withIdentifier: "showContactSearch", sender: "CustomerCell")
             
             
             
@@ -417,10 +417,10 @@ class SaleDetailViewController: UIViewController, UITableViewDelegate ,UITableVi
         }
         if screenSortLinesDetail.PrototypeCellID == "DueDateCell" {
             if salesTransactionHeader.CustomerID.length != 0 {
-                performSegueWithIdentifier("showDueDate", sender: "DueDateCell")
+                performSegue(withIdentifier: "showDueDate", sender: "DueDateCell")
             }
             else{
-                Q6CommonLib.q6UIAlertPopupController("Information", message: "A Customer must be seleted!", viewController: self)
+                Q6CommonLib.q6UIAlertPopupController(title: "Information", message: "A Customer must be seleted!", viewController: self)
             }
             
             
@@ -431,10 +431,10 @@ class SaleDetailViewController: UIViewController, UITableViewDelegate ,UITableVi
         if screenSortLinesDetail.PrototypeCellID == "AddanImageCell" {
             
             if salesTransactionHeader.CustomerID.length != 0 {
-                performSegueWithIdentifier("showPhoto", sender: "AddanImageCell")
+                performSegue(withIdentifier: "showPhoto", sender: "AddanImageCell")
             }
             else{
-                Q6CommonLib.q6UIAlertPopupController("Information", message: "A Customer must be seleted!", viewController: self)
+                Q6CommonLib.q6UIAlertPopupController(title: "Information", message: "A Customer must be seleted!", viewController: self)
             }
             
         }
@@ -443,10 +443,10 @@ class SaleDetailViewController: UIViewController, UITableViewDelegate ,UITableVi
             
             if salesTransactionHeader.CustomerID.length != 0 {
                 addItemRowIndex = indexPath.row
-                performSegueWithIdentifier("showItemDetail", sender: "AddanItemCell")
+                performSegue(withIdentifier: "showItemDetail", sender: "AddanItemCell")
             }
             else{
-                Q6CommonLib.q6UIAlertPopupController("Information", message: "A Customer must be seleted!", viewController: self)
+                Q6CommonLib.q6UIAlertPopupController(title: "Information", message: "A Customer must be seleted!", viewController: self)
             }
             
             
@@ -456,10 +456,10 @@ class SaleDetailViewController: UIViewController, UITableViewDelegate ,UITableVi
         
         if screenSortLinesDetail.PrototypeCellID == "TransactionDateCell" {
             if salesTransactionHeader.CustomerID.length != 0 {
-                performSegueWithIdentifier("showTransactionDate", sender: "TransactionDateCell")
+                performSegue(withIdentifier: "showTransactionDate", sender: "TransactionDateCell")
             }
             else{
-                Q6CommonLib.q6UIAlertPopupController("Information", message: "A Customer must be seleted!", viewController: self)
+                Q6CommonLib.q6UIAlertPopupController(title: "Information", message: "A Customer must be seleted!", viewController: self)
             }
             
             
@@ -467,10 +467,10 @@ class SaleDetailViewController: UIViewController, UITableViewDelegate ,UITableVi
         
         if screenSortLinesDetail.PrototypeCellID == "MemoCell" {
             if salesTransactionHeader.CustomerID.length != 0 {
-                performSegueWithIdentifier("showMemo", sender: "MemoCell")
+                performSegue(withIdentifier: "showMemo", sender: "MemoCell")
             }
             else{
-                Q6CommonLib.q6UIAlertPopupController("Information", message: "A Customer must be seleted!", viewController: self)
+                Q6CommonLib.q6UIAlertPopupController(title: "Information", message: "A Customer must be seleted!", viewController: self)
             }
             
             
@@ -479,10 +479,10 @@ class SaleDetailViewController: UIViewController, UITableViewDelegate ,UITableVi
         if screenSortLinesDetail.PrototypeCellID == "SendEmailCell" {
             
             if salesTransactionHeader.CustomerID.length != 0 {
-                performSegueWithIdentifier("showSendEmail", sender: "SendEmailCell")
+                performSegue(withIdentifier: "showSendEmail", sender: "SendEmailCell")
             }
             else{
-                Q6CommonLib.q6UIAlertPopupController("Information", message: "A Customer must be seleted!", viewController: self)
+                Q6CommonLib.q6UIAlertPopupController(title: "Information", message: "A Customer must be seleted!", viewController: self)
             }
         }
         let index = addItemsDic.count
@@ -496,7 +496,7 @@ class SaleDetailViewController: UIViewController, UITableViewDelegate ,UITableVi
     }
     
     
-    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: NSIndexPath) -> Bool {
         
         if salesDetailScreenLinesDic[indexPath.row].isAdded == true {
             return true
@@ -515,13 +515,13 @@ class SaleDetailViewController: UIViewController, UITableViewDelegate ,UITableVi
     }
     
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if (editingStyle == UITableViewCellEditingStyle.Delete) {
+        if (editingStyle == UITableViewCellEditingStyle.delete) {
             
             if salesDetailScreenLinesDic[indexPath.row].isAdded == true
             {
                 
                 print("indexPath.row delete" + indexPath.row.description)
-                salesDetailScreenLinesDic.removeAtIndex(indexPath.row)
+                salesDetailScreenLinesDic.remove(at: indexPath.row)
                 
                 
                 for i in 0 ..< salesDetailScreenLinesDic.count
@@ -536,10 +536,10 @@ class SaleDetailViewController: UIViewController, UITableViewDelegate ,UITableVi
                     print("salesDetailScreenLinesDic[i].LineDescription"  + salesDetailScreenLinesDic[i].LineDescription)
                     
                 }
-                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+               DispatchQueue.main.async {
                     self.saleDetailTableView.reloadData()
                     
-                })
+                }
                 
                 
                 
@@ -550,16 +550,16 @@ class SaleDetailViewController: UIViewController, UITableViewDelegate ,UITableVi
                     
                    attachedimage = nil
                 }
-                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                DispatchQueue.main.async {
                     self.saleDetailTableView.reloadData()
                     
-                })
+                }
             }
             // handle delete (by removing the data from your array and updating the tableview)
         }
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any!) {
         
         if sender is String {
             
@@ -571,7 +571,7 @@ class SaleDetailViewController: UIViewController, UITableViewDelegate ,UITableVi
             
             if fromCell == "SalesTypecell"
             {
-                let pickerViewController = segue.destinationViewController as! PickerViewViewController
+                let pickerViewController = segue.destination as! PickerViewViewController
                 pickerViewController.fromCell = "SalesTypecell"
                 
                 pickerViewController.delegate = self
@@ -579,7 +579,7 @@ class SaleDetailViewController: UIViewController, UITableViewDelegate ,UITableVi
             if fromCell == "CustomerCell"
             {
                 
-                let contactSearchViewController = segue.destinationViewController as! CustomerSearchViewController
+                let contactSearchViewController = segue.destination as! CustomerSearchViewController
                 contactSearchViewController.fromCell = "CustomerCell"
                 contactSearchViewController.delegate = self
                 contactSearchViewController.hasAddedItemLine = hasAddedItemLine
@@ -589,7 +589,7 @@ class SaleDetailViewController: UIViewController, UITableViewDelegate ,UITableVi
             if fromCell == "DueDateCell"
             {
                 
-                let datePickerViewController = segue.destinationViewController as! DatePickerViewController
+                let datePickerViewController = segue.destination as! DatePickerViewController
                 datePickerViewController.fromCell = "DueDateCell"
                 datePickerViewController.delegate = self
                 
@@ -597,7 +597,7 @@ class SaleDetailViewController: UIViewController, UITableViewDelegate ,UITableVi
             
             if fromCell == "AddanItemCell"
             {
-                let saleDetailDataLineViewController = segue.destinationViewController as! SaleDetailDataLineViewController
+                let saleDetailDataLineViewController = segue.destination as! SaleDetailDataLineViewController
                 saleDetailDataLineViewController.fromCell = "AddanItemCell"
                 
                 saleDetailDataLineViewController.customer = customer
@@ -612,7 +612,7 @@ class SaleDetailViewController: UIViewController, UITableViewDelegate ,UITableVi
             
             if fromCell == "AddanImageCell"
             {
-                let addImageViewController = segue.destinationViewController as! AddImageViewController
+                let addImageViewController = segue.destination as! AddImageViewController
                 addImageViewController.fromCell = "AddanImageCell"
                 
                 if attachedimage != nil
@@ -625,7 +625,7 @@ class SaleDetailViewController: UIViewController, UITableViewDelegate ,UITableVi
             if fromCell == "TransactionDateCell"
             {
                 
-                let datePickerViewController = segue.destinationViewController as! DatePickerViewController
+                let datePickerViewController = segue.destination as! DatePickerViewController
                 datePickerViewController.fromCell = "TransactionDateCell"
                 datePickerViewController.delegate = self
                 
@@ -634,7 +634,7 @@ class SaleDetailViewController: UIViewController, UITableViewDelegate ,UITableVi
             if fromCell == "MemoCell"
             {
                 
-                let saleDetailMemoViewController = segue.destinationViewController as! SaleDetailMemoViewController
+                let saleDetailMemoViewController = segue.destination as! SaleDetailMemoViewController
                 saleDetailMemoViewController.fromCell = "MemoCell"
                 
                 saleDetailMemoViewController.delegate = self
@@ -647,7 +647,7 @@ class SaleDetailViewController: UIViewController, UITableViewDelegate ,UITableVi
             
             if fromCell == "SendEmailCell"
             {
-                       let sendEmailViewController = segue.destinationViewController as! SendEmailViewController
+                       let sendEmailViewController = segue.destination as! SendEmailViewController
                 
                 sendEmailViewController.salesTransactionHeader = salesTransactionHeader
                 sendEmailViewController.customer = customer
@@ -663,7 +663,7 @@ class SaleDetailViewController: UIViewController, UITableViewDelegate ,UITableVi
         
         if validateQuantityValue()&&validateDate()&&validateIfSaleDetailIsNotEmpty()
         {
-            Q6ActivityIndicatorView.hidden = false
+            Q6ActivityIndicatorView.isHidden = false
             Q6ActivityIndicatorView.startAnimating()
             
             salesTransactionHeader.TaxTotal = salesTransactionHeader.TotalAmount - salesTransactionHeader.SubTotal
@@ -689,19 +689,19 @@ class SaleDetailViewController: UIViewController, UITableViewDelegate ,UITableVi
             
             var LoginDetailDicData = [String:AnyObject]()
             
-            LoginDetailDicData["Email"] = userInfos["LoginEmail"]!
-            LoginDetailDicData["Password"] = userInfos["PassWord"]!
-            LoginDetailDicData["CompanyID"] = userInfos["CompanyID"]!
-            LoginDetailDicData["WebApiTOKEN"] = Q6CommonLib.getQ6WebAPIToken()
+            LoginDetailDicData["Email"] = userInfos["LoginEmail"]! as AnyObject?
+            LoginDetailDicData["Password"] = userInfos["PassWord"]! as AnyObject?
+            LoginDetailDicData["CompanyID"] = userInfos["CompanyID"]! as AnyObject?
+            LoginDetailDicData["WebApiTOKEN"] = Q6CommonLib.getQ6WebAPIToken() as AnyObject?
             
-            dicData["LoginDetail"] = LoginDetailDicData
+            dicData["LoginDetail"] = LoginDetailDicData as AnyObject?
             
               if attachedimage != nil {
             salesTransactionHeader.HasLinkedDoc = true
            
-                let UploadedDocuments = getImageFileDataDic(attachedimage!)
+                let UploadedDocuments = getImageFileDataDic(image: attachedimage!)
                 
-                dicData["UploadedDocuments"] = UploadedDocuments
+                dicData["UploadedDocuments"] = UploadedDocuments as AnyObject?
             }
             else{
                 dicData["UploadedDocuments"] = nil
@@ -713,26 +713,26 @@ class SaleDetailViewController: UIViewController, UITableViewDelegate ,UITableVi
             
             let salesTransactionsHeaderDic =   convertsalesTransactionsHeaderToArray()
             
-            dicData["SalesTransactionsDetail"] = salesTransactionsDetailDataDic
-            dicData["SalesTransactionsHeader"] = salesTransactionsHeaderDic
+            dicData["SalesTransactionsDetail"] = salesTransactionsDetailDataDic as AnyObject?
+            dicData["SalesTransactionsHeader"] = salesTransactionsHeaderDic as AnyObject?
             dicData["RecurringTemplateList"] = nil
             
-            dicData["NeedValidate"] = false
+            dicData["NeedValidate"] = false as AnyObject?
             var salesTransactionsParameter = [String: AnyObject]()
             
-            salesTransactionsParameter["SalesTransactionsParameter"] = dicData
+            salesTransactionsParameter["SalesTransactionsParameter"] = dicData as AnyObject?
             
             isPreLoad = false
             
             if operationType == "Create" {
-                q6CommonLib.Q6IosClientPostAPI("Sale",ActionName: "AddSale", dicData:dicData)
+                q6CommonLib.Q6IosClientPostAPI(ModeName: "Sale",ActionName: "AddSale", dicData:dicData)
             }
             else if operationType == "Edit"{
-                q6CommonLib.Q6IosClientPostAPI("Sale",ActionName: "EditSale", dicData:dicData)
+                q6CommonLib.Q6IosClientPostAPI(ModeName: "Sale",ActionName: "EditSale", dicData:dicData)
             }
             
-            btnSaveButton.enabled = false
-            btnCancelButton.enabled = false
+            btnSaveButton.isEnabled = false
+            btnCancelButton.isEnabled = false
             
         }
     }
@@ -748,9 +748,9 @@ class SaleDetailViewController: UIViewController, UITableViewDelegate ,UITableVi
         let FileSize: Int = imgData.length
         print("File Size" + FileSize.description)
         let HasLinkedTransaction = false
-        _ = String?()
-        let TransactionType = String?()
-        let UploadedBy = String?()
+      
+        let TransactionType:String? = nil
+        let UploadedBy:String? = nil 
         
         let UploadedDate = NSDate().description
         let UploadedDocumentsID = "{00000000-0000-0000-0000-000000000000}"
@@ -764,18 +764,18 @@ class SaleDetailViewController: UIViewController, UITableViewDelegate ,UITableVi
             i = 1
         }
         let imageData = UIImageJPEGRepresentation(image, i)
-        let File = imageData!.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
+        let File = imageData!.base64EncodedString(options: NSData.Base64EncodingOptions(rawValue: 0))
         
         var dicData = [String: AnyObject]()
         
-        dicData["File"] = File
-        dicData["FileName"] = FileName
-        dicData["FileSize"] = FileSize
-        dicData["HasLinkedTransaction"] = HasLinkedTransaction
-        dicData["TransactionType"] = TransactionType
-        dicData["UploadedBy"] = UploadedBy
-        dicData["UploadedDate"] = UploadedDate
-        dicData["UploadedDocumentsID"] = UploadedDocumentsID
+        dicData["File"] = File as AnyObject?
+        dicData["FileName"] = FileName as AnyObject?
+        dicData["FileSize"] = FileSize as AnyObject?
+        dicData["HasLinkedTransaction"] = HasLinkedTransaction as AnyObject?
+        dicData["TransactionType"] = TransactionType as AnyObject?
+        dicData["UploadedBy"] = UploadedBy as AnyObject?
+        dicData["UploadedDate"] = UploadedDate as AnyObject?
+        dicData["UploadedDocumentsID"] = UploadedDocumentsID as AnyObject?
         
         return dicData
         //  print("size of image in KB: %f ", imageSize / 1024)
@@ -787,19 +787,19 @@ class SaleDetailViewController: UIViewController, UITableViewDelegate ,UITableVi
         let SalesTransactionsHeaderID  = salesTransactionHeader.SalesTransactionsHeaderID
         
         if operationType == "Create" {
-            dicData["SalesTransactionsHeaderID"] = "{00000000-0000-0000-0000-000000000000}"
+            dicData["SalesTransactionsHeaderID"] = "{00000000-0000-0000-0000-000000000000}" as AnyObject?
         }
         else {
-            dicData["SalesTransactionsHeaderID"] = SalesTransactionsHeaderID
+            dicData["SalesTransactionsHeaderID"] = SalesTransactionsHeaderID as AnyObject?
         }
-        dicData["ReferenceNo"] = salesTransactionHeader.ReferenceNo
+        dicData["ReferenceNo"] = salesTransactionHeader.ReferenceNo as AnyObject?
         
-        dicData["SalesType"] = salesTransactionHeader.SalesType
-        dicData["SalesStatus"] = salesTransactionHeader.SalesStatus
-        dicData["TransactionDate"] = salesTransactionHeader.TransactionDate.description
+        dicData["SalesType"] = salesTransactionHeader.SalesType as AnyObject?
+        dicData["SalesStatus"] = salesTransactionHeader.SalesStatus as AnyObject?
+        dicData["TransactionDate"] = salesTransactionHeader.TransactionDate.description as AnyObject?
         
         print("salesTransactionHeader.TransactionDate.description" + salesTransactionHeader.TransactionDate.description)
-        dicData["CreateTime"] = salesTransactionHeader.CreateTime.description
+        dicData["CreateTime"] = salesTransactionHeader.CreateTime.description as AnyObject?
         
         //        var LastModifiedTime = NSDate()
         //        let dateFormatter = NSDateFormatter()
@@ -811,28 +811,28 @@ class SaleDetailViewController: UIViewController, UITableViewDelegate ,UITableVi
         //        print("strLastModifiedTime" + strLastModifiedTime)
         
         if operationType == "Create" {
-            dicData["LastModifiedTime"] = salesTransactionHeader.CreateTime.description
+            dicData["LastModifiedTime"] = salesTransactionHeader.CreateTime.description as AnyObject?
         }
         else{
-            dicData["LastModifiedTime"] = salesTransactionHeader.LastModifiedTime
+            dicData["LastModifiedTime"] = salesTransactionHeader.LastModifiedTime as AnyObject?
         }
         
-        dicData["CustomerID"] = salesTransactionHeader.CustomerID
-        dicData["ShipToAddress"] = salesTransactionHeader.ShipToAddress
+        dicData["CustomerID"] = salesTransactionHeader.CustomerID as AnyObject?
+        dicData["ShipToAddress"] = salesTransactionHeader.ShipToAddress as AnyObject?
 //        dicData["CustomerInv"] = salesTransactionHeader.CustomerInv
-        dicData["Memo"] = salesTransactionHeader.Memo
+        dicData["Memo"] = salesTransactionHeader.Memo as AnyObject?
         
-        dicData["ClosedDate"] = salesTransactionHeader.ClosedDate?.description
-        dicData["SubTotal"] = salesTransactionHeader.SubTotal
-        dicData["TaxTotal"] = salesTransactionHeader.TaxTotal
-        dicData["TotalAmount"] = salesTransactionHeader.TotalAmount
-        dicData["DueDate"] = salesTransactionHeader.DueDate?.description
-        dicData["TaxInclusive"] = salesTransactionHeader.TaxInclusive
-        dicData["IsDeleted"] = salesTransactionHeader.IsDeleted
-        dicData["IsCreatedByRecurring"] = salesTransactionHeader.IsCreatedByRecurring
-        dicData["RecurringTemplateID"] = salesTransactionHeader.RecurringTemplateID
-        dicData["HasLinkedDoc"] = salesTransactionHeader.HasLinkedDoc
-        dicData["CustomerPurchaseNO"] = salesTransactionHeader.CustomerPurchaseNO
+        dicData["ClosedDate"] = salesTransactionHeader.ClosedDate?.description as AnyObject?
+        dicData["SubTotal"] = salesTransactionHeader.SubTotal as AnyObject?
+        dicData["TaxTotal"] = salesTransactionHeader.TaxTotal as AnyObject?
+        dicData["TotalAmount"] = salesTransactionHeader.TotalAmount as AnyObject?
+        dicData["DueDate"] = salesTransactionHeader.DueDate?.description as AnyObject?
+        dicData["TaxInclusive"] = salesTransactionHeader.TaxInclusive as AnyObject?
+        dicData["IsDeleted"] = salesTransactionHeader.IsDeleted as AnyObject?
+        dicData["IsCreatedByRecurring"] = salesTransactionHeader.IsCreatedByRecurring as AnyObject?
+        dicData["RecurringTemplateID"] = salesTransactionHeader.RecurringTemplateID as AnyObject?
+        dicData["HasLinkedDoc"] = salesTransactionHeader.HasLinkedDoc as AnyObject?
+        dicData["CustomerPurchaseNO"] = salesTransactionHeader.CustomerPurchaseNO as AnyObject?
         return dicData
         
     }
@@ -850,10 +850,10 @@ class SaleDetailViewController: UIViewController, UITableViewDelegate ,UITableVi
                 
                 let SalesTransactionsDetailID = salesTransactionsDetailData[i].SalesTransactionsDetailID
                 if operationType == "Create"{
-                    data["SalesTransactionsDetailID"] = "{00000000-0000-0000-0000-000000000000}"
+                    data["SalesTransactionsDetailID"] = "{00000000-0000-0000-0000-000000000000}" as AnyObject?
                 }
                 else {
-                    data["SalesTransactionsDetailID"] = SalesTransactionsDetailID
+                    data["SalesTransactionsDetailID"] = SalesTransactionsDetailID as AnyObject?
                 }
                 
                 
@@ -861,24 +861,24 @@ class SaleDetailViewController: UIViewController, UITableViewDelegate ,UITableVi
                 let SalesTransactionsHeaderID = salesTransactionsDetailData[i].SalesTransactionsHeaderID
                 
                 if operationType == "Create" {
-                    data["SalesTransactionsHeaderID"] = "{00000000-0000-0000-0000-000000000000}"
+                    data["SalesTransactionsHeaderID"] = "{00000000-0000-0000-0000-000000000000}" as AnyObject?
                 }
                 else {
-                    data["SalesTransactionsHeaderID"] = SalesTransactionsHeaderID
+                    data["SalesTransactionsHeaderID"] = SalesTransactionsHeaderID as AnyObject?
                 }
-                data["Quantity"] = salesTransactionsDetailData[i].Quantity
+                data["Quantity"] = salesTransactionsDetailData[i].Quantity as AnyObject?
                 
-                data["InventoryID"] = salesTransactionsDetailData[i].InventoryID
-                data["AccountID"] = salesTransactionsDetailData[i].AccountID
-                data["TaxCodeID"] = salesTransactionsDetailData[i].TaxCodeID
-                data["Description"] = salesTransactionsDetailData[i].Description
+                data["InventoryID"] = salesTransactionsDetailData[i].InventoryID as AnyObject?
+                data["AccountID"] = salesTransactionsDetailData[i].AccountID as AnyObject?
+                data["TaxCodeID"] = salesTransactionsDetailData[i].TaxCodeID as AnyObject?
+                data["Description"] = salesTransactionsDetailData[i].Description as AnyObject?
                 
-                data["UnitPrice"] = salesTransactionsDetailData[i].UnitPrice
-                data["Discount"] = salesTransactionsDetailData[i].Discount
-                data["Amount"] = salesTransactionsDetailData[i].Amount
+                data["UnitPrice"] = salesTransactionsDetailData[i].UnitPrice as AnyObject?
+                data["Discount"] = salesTransactionsDetailData[i].Discount as AnyObject?
+                data["Amount"] = salesTransactionsDetailData[i].Amount as AnyObject?
                 
-                data["IsDeleted"] = salesTransactionsDetailData[i].IsDeleted
-                data["SortNo"] = salesTransactionsDetailData[i].SortNo
+                data["IsDeleted"] = salesTransactionsDetailData[i].IsDeleted as AnyObject?
+                data["SortNo"] = salesTransactionsDetailData[i].SortNo as AnyObject?
                 
                 dicData.append(data)
                 
@@ -895,7 +895,7 @@ class SaleDetailViewController: UIViewController, UITableViewDelegate ,UITableVi
         copyFromSalesTransactionDetailViewToSalesTransactionDetail()
         if salesTransactionsDetailData.count <= 0
         {
-            Q6CommonLib.q6UIAlertPopupController("Information message", message: "You need to add at least one data line before you save sale transaction !", viewController: self)
+            Q6CommonLib.q6UIAlertPopupController(title: "Information message", message: "You need to add at least one data line before you save sale transaction !", viewController: self)
             
             IsNotEmpty = false
         }
@@ -911,7 +911,7 @@ class SaleDetailViewController: UIViewController, UITableViewDelegate ,UITableVi
             if salesTransactionHeader.DueDate == nil
             {
                 
-                Q6CommonLib.q6UIAlertPopupController("Information message", message: "Due Date can not be empty if sale type is Invoice!", viewController: self)
+                Q6CommonLib.q6UIAlertPopupController(title: "Information message", message: "Due Date can not be empty if sale type is Invoice!", viewController: self)
                 isValid = false
             }
         }
@@ -921,10 +921,10 @@ class SaleDetailViewController: UIViewController, UITableViewDelegate ,UITableVi
             let DueDate = salesTransactionHeader.DueDate
             let TransactionDate = salesTransactionHeader.TransactionDate
             
-            let isLaterOrEqual = (DueDate?.isLaterOrEqualThanDate(TransactionDate))! as Bool
+            let isLaterOrEqual = (DueDate?.isLaterOrEqualThanDate(dateToCompare: TransactionDate))! as Bool
             
             if isLaterOrEqual == false {
-                Q6CommonLib.q6UIAlertPopupController("Information message", message: "Due Date can not be later than TransactionDate!", viewController: self)
+                Q6CommonLib.q6UIAlertPopupController(title: "Information message", message: "Due Date can not be later than TransactionDate!", viewController: self)
                 isValid = false
             }
         }
@@ -943,7 +943,7 @@ class SaleDetailViewController: UIViewController, UITableViewDelegate ,UITableVi
                 {
                     if  salesTransactionsDetailView!.Quantity > 0
                     {
-                        Q6CommonLib.q6UIAlertPopupController("Information message", message: "you can not input positive amount at quantity field when sale type is CREDIT NOTE!", viewController: self)
+                        Q6CommonLib.q6UIAlertPopupController(title: "Information message", message: "you can not input positive amount at quantity field when sale type is CREDIT NOTE!", viewController: self)
                         isValid = false
                         
                     }
@@ -960,7 +960,7 @@ class SaleDetailViewController: UIViewController, UITableViewDelegate ,UITableVi
                 {
                     if  salesTransactionsDetailView!.Quantity < 0
                     {
-                        Q6CommonLib.q6UIAlertPopupController("Information message", message: "you can not input negative amount at quantity field when sale type is QUOTE,ORDER ,INVOICE!", viewController: self)
+                        Q6CommonLib.q6UIAlertPopupController(title: "Information message", message: "you can not input negative amount at quantity field when sale type is QUOTE,ORDER ,INVOICE!", viewController: self)
                         isValid = false
                     }
                 }
@@ -1036,7 +1036,7 @@ class SaleDetailViewController: UIViewController, UITableViewDelegate ,UITableVi
             screenSortLinesDetail.salesTransactionsDetailView = salesTransactionsDetailList[i]
             screenSortLinesDetail.PrototypeCellID = "AddanItemCell"
             
-            salesDetailScreenLinesDic.insert(screenSortLinesDetail, atIndex: screenSortLinesDetail.ID)
+            salesDetailScreenLinesDic.insert(screenSortLinesDetail, at: screenSortLinesDetail.ID)
             
             
         }
@@ -1082,7 +1082,7 @@ class SaleDetailViewController: UIViewController, UITableViewDelegate ,UITableVi
         //            presentViewController(saleViewController, animated: true, completion: nil)
         //        }
         //navigationController?.popViewControllerAnimated(true)
-        navigationController?.popToRootViewControllerAnimated(true)
+        navigationController?.popToRootViewController(animated: true)
     }
     //    func performFromRightToLeft(sourceViewController :AnyObject , destinationViewController: AnyObject)
     //    {
@@ -1105,7 +1105,7 @@ class SaleDetailViewController: UIViewController, UITableViewDelegate ,UITableVi
     //    }
     func searchLastAddedIndexInsaleDetailScreenLinesDic() -> Int? {
         
-        var indexPath = Int?()
+        var indexPath:Int?
         
         
         for index in 0 ..< salesDetailScreenLinesDic.count {
@@ -1140,10 +1140,10 @@ class SaleDetailViewController: UIViewController, UITableViewDelegate ,UITableVi
                 salesTransactionHeader.SalesType = selectedValue
                 
                 
-                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+               DispatchQueue.main.async {
                     self.saleDetailTableView.reloadData()
                     
-                })
+                }
                 
             }
         }
@@ -1161,10 +1161,10 @@ class SaleDetailViewController: UIViewController, UITableViewDelegate ,UITableVi
                 customer = Contact
                 
                 print("salesTransactionHeader.CustomerID" + salesTransactionHeader.CustomerID)
-                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+       DispatchQueue.main.async {
                     self.saleDetailTableView.reloadData()
                     
-                })
+                }
             }
         }
         
@@ -1178,10 +1178,10 @@ class SaleDetailViewController: UIViewController, UITableViewDelegate ,UITableVi
                 
                 
                 
-                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+               DispatchQueue.main.async {
                     self.saleDetailTableView.reloadData()
                     
-                })
+                }
                 
             }
             
@@ -1190,10 +1190,10 @@ class SaleDetailViewController: UIViewController, UITableViewDelegate ,UITableVi
                 
                 
                 
-                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                DispatchQueue.main.async {
                     self.saleDetailTableView.reloadData()
                     
-                })
+                }
                 
             }
             
@@ -1212,20 +1212,20 @@ class SaleDetailViewController: UIViewController, UITableViewDelegate ,UITableVi
             screenSortLinesDetail.LineDescription = salesTransactionsDetailView.InventoryName + " " + salesTransactionsDetailView.AccountNameWithAccountNo
             screenSortLinesDetail.PrototypeCellID = "AddanItemCell"
             screenSortLinesDetail.salesTransactionsDetailView = salesTransactionsDetailView
-            salesDetailScreenLinesDic.insert(screenSortLinesDetail, atIndex: addItemRowIndex)
+            salesDetailScreenLinesDic.insert(screenSortLinesDetail, at: addItemRowIndex)
             
-            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+      DispatchQueue.main.async {
                 self.saleDetailTableView.reloadData()
                 
-            })
+            }
         }
         else{
             salesDetailScreenLinesDic[addItemRowIndex].LineDescription = salesTransactionsDetailView.InventoryName + " " + salesTransactionsDetailView.AccountNameWithAccountNo
             salesDetailScreenLinesDic[addItemRowIndex].salesTransactionsDetailView = salesTransactionsDetailView
-            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+            DispatchQueue.main.async {
                 self.saleDetailTableView.reloadData()
                 
-            })
+            }
         }
     }
     func sendGoBackFromSaleDetailDataLineInventorySearchView(fromView:String,forCell:String,inventoryView: InventoryView){
@@ -1254,16 +1254,16 @@ class SaleDetailViewController: UIViewController, UITableViewDelegate ,UITableVi
                 
                 
                 
-                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+               DispatchQueue.main.async {
                     self.saleDetailTableView.reloadData()
                     
-                })
+                }
                 
             }
         }
     }
     
-    func dataLoadCompletion(data:NSData?, response:NSURLResponse?, error:NSError?) -> AnyObject
+    func dataLoadCompletion(data:NSData?, response:URLResponse?, error:NSError?) -> AnyObject
     {
         if operationType == "Edit" && isPreLoad == true {
             
@@ -1274,15 +1274,15 @@ class SaleDetailViewController: UIViewController, UITableViewDelegate ,UITableVi
                 //                    CustomerData.removeAll()
                 //                    selectedSuplier = nil
                 //                }
-                postDicData = try  NSJSONSerialization.JSONObjectWithData(data!, options: []) as! [String:AnyObject]
+                postDicData = try  JSONSerialization.jsonObject(with: data! as Data, options: []) as! [String:AnyObject]
                 
                 let returnSalesTransactionHeaderData = postDicData["SalesTransactionsHeader"]  as? [String:AnyObject]
                 
                 if returnSalesTransactionHeaderData != nil {
                     
-                    let salesTransactionsHeaderView =   initialSalesTransactionsHeaderView(returnSalesTransactionHeaderData!)
+                    let salesTransactionsHeaderView =   initialSalesTransactionsHeaderView(returnsalesTransactionHeaderData: returnSalesTransactionHeaderData!)
                     
-                    copyFromSalesTransactionsHeaderViewToSalesTransactionsHeader(salesTransactionsHeaderView)
+                    copyFromSalesTransactionsHeaderViewToSalesTransactionsHeader(salesTransactionsHeaderView: salesTransactionsHeaderView)
                     
                     
                 }
@@ -1292,27 +1292,27 @@ class SaleDetailViewController: UIViewController, UITableViewDelegate ,UITableVi
                 
                 if returnSalesTransactionsDetailListData != nil {
                     
-                    let salesTransactionsDetailView =    initialSalesTransactionsDetailListView(returnSalesTransactionsDetailListData!)
+                    let salesTransactionsDetailView =    initialSalesTransactionsDetailListView(returnSalesTransactionDetailListData: returnSalesTransactionsDetailListData!)
                     
-                    copyFromSalesTransactionDetailViewToSalesTransactionDetailForEdit(salesTransactionsDetailView)
+                    copyFromSalesTransactionDetailViewToSalesTransactionDetailForEdit(salesTransactionsDetailList: salesTransactionsDetailView)
                     
                     
-                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    DispatchQueue.main.async {
                         self.saleDetailTableView.reloadData()
                         //                        self.Q6ActivityIndicatorView.hidesWhenStopped = true
                         //                        self.Q6ActivityIndicatorView.stopAnimating()
                         //                        self.ContactSearchBox.resignFirstResponder()
                         
-                        self.saleDetailTableView.hidden = false
+                        self.saleDetailTableView.isHidden = false
                         self.Q6ActivityIndicatorView.hidesWhenStopped = true
                         self.Q6ActivityIndicatorView.stopAnimating()
-                    })
+                    }
                     
                 }
             } catch  {
                 print("error parsing response from POST on /posts")
                 
-                return ""
+                return "" as AnyObject
             }
             
             
@@ -1325,7 +1325,7 @@ class SaleDetailViewController: UIViewController, UITableViewDelegate ,UITableVi
             var postDicData :[String:AnyObject]
             var IsLoginSuccessed : Bool
             do {
-                postDicData = try  NSJSONSerialization.JSONObjectWithData(data!, options: []) as! [String:AnyObject]
+                postDicData = try  JSONSerialization.jsonObject(with: data! as Data, options: []) as! [String:AnyObject]
                 
                 
                 IsLoginSuccessed = postDicData["IsSuccessed"] as! Bool
@@ -1410,7 +1410,7 @@ class SaleDetailViewController: UIViewController, UITableViewDelegate ,UITableVi
             } catch  {
                 print("error parsing response from POST on /posts")
                 
-                return ""
+                return "" as AnyObject
             }
         }
         
@@ -1420,7 +1420,7 @@ class SaleDetailViewController: UIViewController, UITableViewDelegate ,UITableVi
             var IsSuccessed : Bool?
             var Message: String?
             do {
-                postDicData = try  NSJSONSerialization.JSONObjectWithData(data!, options: []) as! [String:AnyObject]
+                postDicData = try  JSONSerialization.jsonObject(with: data! as Data, options: []) as! [String:AnyObject]
                 
                 IsSuccessed = postDicData["IsSuccessed"] as? Bool
                 Message = postDicData["Message"] as? String
@@ -1437,24 +1437,49 @@ class SaleDetailViewController: UIViewController, UITableViewDelegate ,UITableVi
                     // Q6CommonLib.q6UIAlertPopupControllerThenGoBack("Information message", message: "Save Successfully!", viewController: self,timeArrange:3,navigationController: nav!)
                     
                     
-                    let alert = UIAlertController(title: "Information message", message: "Save Successfully!", preferredStyle: UIAlertControllerStyle.Alert)
-                    self.presentViewController(alert, animated: true, completion: nil)
+                    let alert = UIAlertController(title: "Information message", message: "Save Successfully!", preferredStyle: UIAlertControllerStyle.alert)
+                    self.present(alert, animated: true, completion: nil)
                     
                     
-                    let delayTime = dispatch_time(DISPATCH_TIME_NOW,
-                                                  Int64(3 * Double(NSEC_PER_SEC)))
-                    let delayTime2 = dispatch_time(DISPATCH_TIME_NOW,
-                                                   Int64(4 * Double(NSEC_PER_SEC)))
-                    dispatch_after(delayTime, dispatch_get_main_queue()) {
-                        self.dismissViewControllerAnimated(true, completion: nil);
+                    
+//                    let delayTime = dispatch_time(DISPATCH_TIME_NOW,
+//                                                  Int64(3 * Double(NSEC_PER_SEC)))
+//                    let delayTime2 = dispatch_time(DISPATCH_TIME_NOW,
+//                                                   Int64(4 * Double(NSEC_PER_SEC)))
+//                    dispatch_after(delayTime, dispatch_get_main_queue()) {
+//                        self.dismissViewControllerAnimated(true, completion: nil);
+//                        // self.navigationController!.popViewControllerAnimated(true)
+//                        // self.navigationController?.popToRootViewControllerAnimated(true)
+//                    }
+//                    dispatch_after(delayTime2, dispatch_get_main_queue()) {
+//                        // self.dismissViewControllerAnimated(true, completion: nil);
+//                        
+//                        self.delegate2?.sendGoBackSaleDetailView("SaleDetailViewController", fromButton: "Save")
+//                        self.navigationController!.popViewControllerAnimated(true)
+//                        // self.navigationController?.popToRootViewControllerAnimated(true)
+//                    }
+//                    
+                    
+                    let delayTime = DispatchTime.now() + Double(Int64(3 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
+                    
+                    let delayTime2 = DispatchTime.now() + Double(Int64(4 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
+                    
+                    //                let delayTime = dispatch_time(dispatch_time_t(DISPATCH_TIME_NOW),
+                    //                                              Int64(3 * Double(NSEC_PER_SEC)))
+                    //                let delayTime2 = dispatch_time(DISPATCH_TIME_NOW,
+                    //                                               Int64(4 * Double(NSEC_PER_SEC)))
+                    
+                    DispatchQueue.main.asyncAfter(deadline: delayTime)
+                    {
+                     self.dismiss(animated: true, completion: nil);
+                        
                         // self.navigationController!.popViewControllerAnimated(true)
                         // self.navigationController?.popToRootViewControllerAnimated(true)
                     }
-                    dispatch_after(delayTime2, dispatch_get_main_queue()) {
-                        // self.dismissViewControllerAnimated(true, completion: nil);
-                        
-                        self.delegate2?.sendGoBackSaleDetailView("SaleDetailViewController", fromButton: "Save")
-                        self.navigationController!.popViewControllerAnimated(true)
+                    DispatchQueue.main.asyncAfter(deadline: delayTime2)
+                    { // self.dismissViewControllerAnimated(true, completion: nil);
+                        self.delegate2?.sendGoBackSaleDetailView(fromView: "SaleDetailViewController", fromButton: "Save")
+                        self.navigationController!.popViewController(animated: true)
                         // self.navigationController?.popToRootViewControllerAnimated(true)
                     }
                     //self.navigationController!.popViewControllerAnimated(true)
@@ -1473,23 +1498,30 @@ class SaleDetailViewController: UIViewController, UITableViewDelegate ,UITableVi
                         
                         txtMessage = txtMessage + Message!
                     }
-                    Q6CommonLib.q6UIAlertPopupController("Information message", message: txtMessage, viewController: self, timeArrange:2)
-                    btnSaveButton.enabled = true
-                    btnCancelButton.enabled = true
+                   
+                    btnSaveButton.isEnabled = true
+                    btnCancelButton.isEnabled = true
+                    Q6ActivityIndicatorView.hidesWhenStopped = true
+                    Q6ActivityIndicatorView.isHidden = true
+                    Q6ActivityIndicatorView.stopAnimating()
+                    
+                    
+                    Q6CommonLib.q6UIAlertPopupController(title: "Information message", message: txtMessage, viewController: self, timeArrange:2)
+                   
                 }
                 
             } catch  {
                 print("error parsing response from POST on /posts")
-                btnSaveButton.enabled = false
-                btnCancelButton.enabled = false
-                return ""
+                btnSaveButton.isEnabled = false
+                btnCancelButton.isEnabled = false
+                return "" as AnyObject
             }
             
             
         }
         
         //
-        return ""
+        return "" as AnyObject
     }
     
     func initialSalesTransactionsDetailListView(returnSalesTransactionDetailListData : [[String: AnyObject]]) ->[SalesTransactionsDetailView]
@@ -1569,10 +1601,10 @@ class SaleDetailViewController: UIViewController, UITableViewDelegate ,UITableVi
         if DueDate != nil {
             print("DueDate" + DueDate!)
             
-            let dateFormatter = NSDateFormatter()
-            dateFormatter.timeZone = NSTimeZone(name: "UTC")
+            let dateFormatter = DateFormatter()
+            dateFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone!
             dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
-            salesTransactionsHeaderView.DueDate = dateFormatter.dateFromString(DueDate!)
+            salesTransactionsHeaderView.DueDate = dateFormatter.date(from: DueDate!) as NSDate?
         }
         else{
             salesTransactionsHeaderView.DueDate = nil
@@ -1644,10 +1676,10 @@ class SaleDetailViewController: UIViewController, UITableViewDelegate ,UITableVi
         let TransactionDate  = returnsalesTransactionHeaderData!["TransactionDate"] as! String
         
         
-        let dateFormatter2 = NSDateFormatter()
-        dateFormatter2.timeZone = NSTimeZone(name: "UTC")
+        let dateFormatter2 = DateFormatter()
+        dateFormatter2.timeZone = NSTimeZone(name: "UTC") as TimeZone!
         dateFormatter2.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
-        salesTransactionsHeaderView.TransactionDate = dateFormatter2.dateFromString(TransactionDate)!
+        salesTransactionsHeaderView.TransactionDate = dateFormatter2.date(from: TransactionDate)! as NSDate
         
         salesTransactionsHeaderView.UploadedDocumentsID = returnsalesTransactionHeaderData!["UploadedDocumentsID"] as? String
         
@@ -1656,8 +1688,8 @@ class SaleDetailViewController: UIViewController, UITableViewDelegate ,UITableVi
             let imageDataStr = salesTransactionsHeaderView.LinkDocumentFile
             
             
-            let imageData = NSData(base64EncodedString: imageDataStr!, options: NSDataBase64DecodingOptions(rawValue: 0))
-            attachedimage = UIImage(data: imageData!)
+            let imageData = NSData(base64Encoded: imageDataStr!, options: NSData.Base64DecodingOptions(rawValue: 0))
+            attachedimage = UIImage(data: imageData! as Data)
             print("salesTransactionsHeaderView.UploadedDocumentsID" + salesTransactionsHeaderView.UploadedDocumentsID!)
         }
         else {
@@ -1682,7 +1714,7 @@ class SaleDetailViewController: UIViewController, UITableViewDelegate ,UITableVi
         salesTransactionHeader.SalesType = salesTransactionsHeaderView.SalesType
         salesTransactionHeader.ReferenceNo = salesTransactionsHeaderView.ReferenceNo
         
-        dispatch_async(dispatch_get_main_queue()) {
+      DispatchQueue.main.async {
             self.navigationBar.topItem?.title = self.salesTransactionHeader.ReferenceNo
         }
         
@@ -1704,10 +1736,10 @@ class SaleDetailViewController: UIViewController, UITableViewDelegate ,UITableVi
     {
         salesTransactionHeader.Memo = Memo
         
-        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+ DispatchQueue.main.async {
             self.saleDetailTableView.reloadData()
             
-        })
+        }
         
     }
 

@@ -22,7 +22,7 @@ class ContactSearchViewController: UIViewController , Q6WebApiProtocol,UITableVi
     var dataRequestSource = ""
     var attachedURL = String()
     
-    var selectedContact = Contact?()
+    var selectedContact:Contact?
     
     @IBOutlet weak var Q6ActivityIndicatorView: UIActivityIndicatorView!
     @IBOutlet weak var ContactTableView: UITableView!
@@ -32,7 +32,7 @@ class ContactSearchViewController: UIViewController , Q6WebApiProtocol,UITableVi
     weak var delegate : Q6GoBackFromView?
     var fromCell = String()
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
     
 //        ContactSearchBox.text = ""
 //        Q6ActivityIndicatorView.startAnimating()
@@ -62,15 +62,15 @@ class ContactSearchViewController: UIViewController , Q6WebApiProtocol,UITableVi
         Q6ActivityIndicatorView.startAnimating()
         let q6CommonLib = Q6CommonLib(myObject: self)
         
-        setAttachedURL(searchText, IsLoadInactive:false,PageSize: pageSize,PageIndex: pageIndex)
+        setAttachedURL(SearchText: searchText, IsLoadInactive:false,PageSize: pageSize,PageIndex: pageIndex)
         
         if ContactSegmentedControl.selectedSegmentIndex == 0 {
             
             
-            q6CommonLib.Q6IosClientGetApi("Purchase", ActionName: "GetSupplierList", attachedURL: attachedURL)
+            q6CommonLib.Q6IosClientGetApi(ModelName: "Purchase", ActionName: "GetSupplierList", attachedURL: attachedURL)
         }
         else {
-            q6CommonLib.Q6IosClientGetApi("Sale", ActionName: "GetCustomerList", attachedURL: attachedURL)
+            q6CommonLib.Q6IosClientGetApi(ModelName: "Sale", ActionName: "GetCustomerList", attachedURL: attachedURL)
         }
     
     // Do any additional setup after loading the view.
@@ -80,7 +80,7 @@ class ContactSearchViewController: UIViewController , Q6WebApiProtocol,UITableVi
     
     ContactSearchBox.layer.cornerRadius = 2;
     ContactSearchBox.layer.borderWidth = 0.1;
-    ContactSearchBox.layer.borderColor = UIColor.blackColor().CGColor
+    ContactSearchBox.layer.borderColor = UIColor.black.cgColor
         
         if ContactSegmentedControl.selectedSegmentIndex == 0 {
             ContactSearchBox.placeholder = "Supplier Name"
@@ -100,16 +100,16 @@ class ContactSearchViewController: UIViewController , Q6WebApiProtocol,UITableVi
         let q6CommonLib = Q6CommonLib(myObject: self)
         pageIndex = 1
         dataRequestSource = "Search"
-        setAttachedURL(searchText, IsLoadInactive:false,PageSize: pageSize,PageIndex: pageIndex)
+        setAttachedURL(SearchText: searchText, IsLoadInactive:false,PageSize: pageSize,PageIndex: pageIndex)
         if ContactSegmentedControl.selectedSegmentIndex == 0 {
             
             ContactSearchBox.placeholder = "Supplier Name"
             
-            q6CommonLib.Q6IosClientGetApi("Purchase", ActionName: "GetSupplierList", attachedURL: attachedURL)
+            q6CommonLib.Q6IosClientGetApi(ModelName: "Purchase", ActionName: "GetSupplierList", attachedURL: attachedURL)
         }
         else {
             ContactSearchBox.placeholder = "Customer Name"
-            q6CommonLib.Q6IosClientGetApi("Sale", ActionName: "GetCustomerList", attachedURL: attachedURL)
+            q6CommonLib.Q6IosClientGetApi(ModelName: "Sale", ActionName: "GetCustomerList", attachedURL: attachedURL)
         }
 
     }
@@ -121,19 +121,19 @@ class ContactSearchViewController: UIViewController , Q6WebApiProtocol,UITableVi
     }
     
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    private func numberOfSectionsInTableView(tableView: UITableView) -> Int {
     // #warning Incomplete implementation, return the number of sections
     return 1
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return contactData.count
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    let  cell = tableView.dequeueReusableCellWithIdentifier("ContactSearchPrototypeCell", forIndexPath: indexPath) as! ContactSearchViewTableViewCell
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    let  cell = tableView.dequeueReusableCell(withIdentifier: "ContactSearchPrototypeCell", for: indexPath) as! ContactSearchViewTableViewCell
     
-    cell.lblContactID.hidden = true
+    cell.lblContactID.isHidden = true
     
     
     cell.lblContactName.text =  contactData[indexPath.row].ContactName
@@ -149,7 +149,7 @@ class ContactSearchViewController: UIViewController , Q6WebApiProtocol,UITableVi
     attachedURL = "&Search=" + SearchText + "&IsLoadInactive=" + String(IsLoadInactive) + "&PageSize=" + String(PageSize) + "&PageIndex=" + String(pageIndex)
     }
     
-    func dataLoadCompletion(data:NSData?, response:NSURLResponse?, error:NSError?) -> AnyObject
+    func dataLoadCompletion(data:NSData?, response:URLResponse?, error:NSError?) -> AnyObject
     {
         let selecedSegmentIndex: Int = ContactSegmentedControl.selectedSegmentIndex
     var postDicData :[String:AnyObject]?
@@ -160,11 +160,11 @@ class ContactSearchViewController: UIViewController , Q6WebApiProtocol,UITableVi
     selectedContact = nil
     }
       
-    postDicData = try  NSJSONSerialization.JSONObjectWithData(data!, options: []) as? [String:AnyObject]
+    postDicData = try  JSONSerialization.jsonObject(with: data! as Data, options: []) as? [String:AnyObject]
    
         if postDicData != nil {
         
-    var returnData =  [[String : AnyObject]]?()
+            var returnData:[[String : AnyObject]]?
         
         if selecedSegmentIndex == 0 {
        let tempReturnData = postDicData!["SupplierList"] as? [[String : AnyObject]]
@@ -249,60 +249,65 @@ class ContactSearchViewController: UIViewController , Q6WebApiProtocol,UITableVi
     //                printFields(purchasesTransactionListViewDataItem)
     }
     
- 
-    
-    dispatch_async(dispatch_get_main_queue(), { () -> Void in
-    self.ContactTableView.reloadData()
-    self.Q6ActivityIndicatorView.hidesWhenStopped = true
-    self.Q6ActivityIndicatorView.stopAnimating()
-    self.ContactSearchBox.resignFirstResponder()
-    
-    })
+ //swift3
+            DispatchQueue.main.async {
+                self.ContactTableView.reloadData()
+                self.Q6ActivityIndicatorView.hidesWhenStopped = true
+                self.Q6ActivityIndicatorView.stopAnimating()
+                self.ContactSearchBox.resignFirstResponder()
+            }
+//    dispatch_async(dispatch_get_main_queue(), { () -> Void in
+//    self.ContactTableView.reloadData()
+//    self.Q6ActivityIndicatorView.hidesWhenStopped = true
+//    self.Q6ActivityIndicatorView.stopAnimating()
+//    self.ContactSearchBox.resignFirstResponder()
+//    
+//    })
     
     
         }
     } catch  {
     print("error parsing response from POST on /posts")
     
-    return ""
+    return "" as AnyObject
     }
     
-    return ""
+    return "" as AnyObject
     }
-    func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
-    tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+    tableView.deselectRow(at: indexPath as IndexPath, animated: true)
     }
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: IndexPath) {
     
     print("selected indexpath" + indexPath.row.description)
-    _ = tableView.cellForRowAtIndexPath(indexPath) as! ContactSearchViewTableViewCell
+    _ = tableView.cellForRow(at: indexPath as IndexPath) as! ContactSearchViewTableViewCell
     
     selectedContact = contactData[indexPath.row]
         
-         self.performSegueWithIdentifier("editContact", sender: "ContactSearchPrototypeCell")
+         self.performSegue(withIdentifier: "editContact", sender: "ContactSearchPrototypeCell")
     ContactSearchBox.resignFirstResponder()
     }
     
-    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: IndexPath) {
     print("indexpath" + indexPath.row.description)
     if indexPath.row == pageIndex*(pageSize - 5 )
     {
     let q6CommonLib = Q6CommonLib(myObject: self)
     pageIndex = pageIndex + 1
-    setAttachedURL(searchText, IsLoadInactive:false,PageSize: pageSize, PageIndex: pageIndex)
+    setAttachedURL(SearchText: searchText, IsLoadInactive:false,PageSize: pageSize, PageIndex: pageIndex)
     dataRequestSource = ""
         
         if ContactSegmentedControl.selectedSegmentIndex == 0
         {
-    q6CommonLib.Q6IosClientGetApi("Purchase", ActionName: "GetSupplierList", attachedURL: attachedURL)
+    q6CommonLib.Q6IosClientGetApi(ModelName: "Purchase", ActionName: "GetSupplierList", attachedURL: attachedURL)
         }
         else {
-           q6CommonLib.Q6IosClientGetApi("Sale", ActionName: "GetCustomerList", attachedURL: attachedURL)
+           q6CommonLib.Q6IosClientGetApi(ModelName: "Sale", ActionName: "GetCustomerList", attachedURL: attachedURL)
         }
     }
     
     }
-    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
     
     self.searchText = searchText
     
@@ -319,21 +324,21 @@ class ContactSearchViewController: UIViewController , Q6WebApiProtocol,UITableVi
     dataRequestSource = "Search"
     
         
-    setAttachedURL(searchText, IsLoadInactive:false,PageSize: pageSize, PageIndex: pageIndex)
+    setAttachedURL(SearchText: searchText, IsLoadInactive:false,PageSize: pageSize, PageIndex: pageIndex)
         
         if ContactSegmentedControl.selectedSegmentIndex == 0 {
             
        
-    q6CommonLib.Q6IosClientGetApi("Purchase", ActionName: "GetSupplierList", attachedURL: attachedURL)
+    q6CommonLib.Q6IosClientGetApi(ModelName: "Purchase", ActionName: "GetSupplierList", attachedURL: attachedURL)
         }
         else {
-          q6CommonLib.Q6IosClientGetApi("Sale", ActionName: "GetCustomerList", attachedURL: attachedURL)
+          q6CommonLib.Q6IosClientGetApi(ModelName: "Sale", ActionName: "GetCustomerList", attachedURL: attachedURL)
         }
     
     }
     }
     
-    func searchBarSearchButtonClicked( searchBar: UISearchBar)
+    func searchBarSearchButtonClicked( _ searchBar: UISearchBar)
     {
     let q6CommonLib = Q6CommonLib(myObject: self)
     
@@ -342,23 +347,23 @@ class ContactSearchViewController: UIViewController , Q6WebApiProtocol,UITableVi
     selectedContact = nil
     
     dataRequestSource = "Search"
-    setAttachedURL(searchText, IsLoadInactive:false,PageSize: pageSize, PageIndex: pageIndex)
+    setAttachedURL(SearchText: searchText, IsLoadInactive:false,PageSize: pageSize, PageIndex: pageIndex)
         
         if ContactSegmentedControl.selectedSegmentIndex == 0 {
-    q6CommonLib.Q6IosClientGetApi("Purchase", ActionName: "GetSupplierList", attachedURL: attachedURL)
+    q6CommonLib.Q6IosClientGetApi(ModelName: "Purchase", ActionName: "GetSupplierList", attachedURL: attachedURL)
         }
         else {
-           q6CommonLib.Q6IosClientGetApi("Sale", ActionName: "GetCustomerList", attachedURL: attachedURL)  
+           q6CommonLib.Q6IosClientGetApi(ModelName: "Sale", ActionName: "GetCustomerList", attachedURL: attachedURL)  
         }
     
     searchBar.resignFirstResponder()
     
     }
   
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any!) {
         var ContactType = ""
         
-              let contactViewController = segue.destinationViewController as! ContactViewController
+              let contactViewController = segue.destination as! ContactViewController
         if segue.identifier == "createContact" {
             
             
@@ -409,15 +414,15 @@ class ContactSearchViewController: UIViewController , Q6WebApiProtocol,UITableVi
         
         pageIndex = 1
     contactData.removeAll()
-        setAttachedURL(searchText, IsLoadInactive:false,PageSize: pageSize,PageIndex: pageIndex)
+        setAttachedURL(SearchText: searchText, IsLoadInactive:false,PageSize: pageSize,PageIndex: pageIndex)
         
         if ContactSegmentedControl.selectedSegmentIndex == 0 {
             
             
-            q6CommonLib.Q6IosClientGetApi("Purchase", ActionName: "GetSupplierList", attachedURL: attachedURL)
+            q6CommonLib.Q6IosClientGetApi(ModelName: "Purchase", ActionName: "GetSupplierList", attachedURL: attachedURL)
         }
         else {
-            q6CommonLib.Q6IosClientGetApi("Sale", ActionName: "GetCustomerList", attachedURL: attachedURL)
+            q6CommonLib.Q6IosClientGetApi(ModelName: "Sale", ActionName: "GetCustomerList", attachedURL: attachedURL)
         }
         
     }

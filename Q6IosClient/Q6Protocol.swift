@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 protocol Q6WebApiProtocol : class {    // 'class' means only class types can implement it
-    func dataLoadCompletion(data:NSData?, response:NSURLResponse?, error:NSError?) -> AnyObject
+    func dataLoadCompletion(data:NSData?, response:URLResponse?, error:NSError?) -> AnyObject
     
 }
 

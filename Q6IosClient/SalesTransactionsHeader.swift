@@ -10,19 +10,19 @@ import Foundation
 public class SalesTransactionsHeader
 {
     
-    var SalesTransactionsHeaderID  = NSUUID().UUIDString //: String = NSUUID().UUIDString
-    var ClosedDate = NSDate?()
+    var SalesTransactionsHeaderID  = NSUUID().uuidString //: String = NSUUID().uuidString
+    var ClosedDate:NSDate?
     var CreateTime = NSDate()
     var CustomerID = String()
     
     var CustomerPurchaseNO: String = ""
-    var DueDate = NSDate?()
+    var DueDate:NSDate?
     var HasLinkedDoc = Bool()
     var IsCreatedByRecurring = Bool()
     var IsDeleted = Bool()
     var LastModifiedTime = String()
     var Memo :String = ""
-    var RecurringTemplateID = String?()
+    var RecurringTemplateID:String?
     
     
     var ReferenceNo = String()

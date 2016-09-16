@@ -10,6 +10,8 @@ import UIKit
 
 class PurchaseDetailDataLineAccountSearchViewController:  UIViewController , Q6WebApiProtocol,UITableViewDelegate ,UITableViewDataSource,UISearchBarDelegate{
 
+
+
     @IBOutlet weak var AccountSearchBox: UISearchBar!
     
     var originalSectionsSortDic: [Int:String] = [0:"Expense" , 1:"Other Expense",2:"Cost of Sales",3:"Bank Account",4:"Current Asset",5:"Non-Current Asset",6:"Current Liability",7:"Non-Current Liability",8:"Equity"]
@@ -24,14 +26,14 @@ class PurchaseDetailDataLineAccountSearchViewController:  UIViewController , Q6W
     var dataRequestSource = ""
     var attachedURL = String()
     
-    var selectedAccountView = AccountView?()
+    var selectedAccountView:AccountView?
     
     weak var delegate : Q6GoBackFromView?
     var fromCell = String()
     
     @IBOutlet weak var AccountListTableView: UITableView!
  
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         
         intitalAccounListData()
     }
@@ -45,8 +47,8 @@ class PurchaseDetailDataLineAccountSearchViewController:  UIViewController , Q6W
         selectedAccountView = nil
         let q6CommonLib = Q6CommonLib(myObject: self)
         
-       setAttachedURL("" ,IsPurchase: true,IsSale: false,IsLoadCurrentBalance:false, IsLoadInactive:false,PageSize: pageSize,PageIndex: pageIndex )
-        q6CommonLib.Q6IosClientGetApi("Account", ActionName: "GetChartOfAccountList", attachedURL: attachedURL)
+       setAttachedURL(AccountNameOrAccountNo: "" ,IsPurchase: true,IsSale: false,IsLoadCurrentBalance:false, IsLoadInactive:false,PageSize: pageSize,PageIndex: pageIndex )
+        q6CommonLib.Q6IosClientGetApi(ModelName: "Account", ActionName: "GetChartOfAccountList", attachedURL: attachedURL)
         
 setControlAppear()
         // Do any additional setup after loading the view.
@@ -57,7 +59,7 @@ setControlAppear()
         
         AccountSearchBox.layer.cornerRadius = 2;
         AccountSearchBox.layer.borderWidth = 0.1;
-        AccountSearchBox.layer.borderColor = UIColor.blackColor().CGColor
+        AccountSearchBox.layer.borderColor = UIColor.black.cgColor
     }
     
     func intitalAccounListData() {
@@ -109,26 +111,28 @@ setControlAppear()
         attachedURL = "&AccountNameOrAccountNo=" + AccountNameOrAccountNo + "&IsPurchase=" + String(IsPurchase) + "&IsSale=" + String(IsSale)  + "&IsLoadCurrentBalance=" + String(IsLoadCurrentBalance) + "&IsLoadInactive=" + String(IsLoadInactive) + "&PageSize=" + String(PageSize) + "&PageIndex=" + String(pageIndex)
     }
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         let SectionCount = getSectionCount()
         print("getSectionCount" + SectionCount.description)
         return getSectionCount()
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let accountViewArray = accountListData[section].accountViewArray
         
         print("Section" + section.description + "accountViewArray.count" + accountViewArray.count.description)
         return accountViewArray.count
 
     }
-    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 40
         
     }
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let  cell = tableView.dequeueReusableCellWithIdentifier("AccountNameCell", forIndexPath: indexPath) as! PurchaseDetailDataLineAccountSearchTableViewCell
+    
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
+        let  cell = tableView.dequeueReusableCell(withIdentifier: "AccountNameCell", for: indexPath) as! PurchaseDetailDataLineAccountSearchTableViewCell
         let accountView = accountListData[indexPath.section].accountViewArray[indexPath.row]
         cell.lblAccountNameWithAccountNo.text = accountView.AccountNameWithAccountNo
         print("AccountNameWithAccountNo" + accountView.AccountNameWithAccountNo)
@@ -144,11 +148,14 @@ setControlAppear()
         return cell
     }
     
-    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+
+    
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return accountListData[section].AccountType
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         selectedAccountView = nil
         
@@ -161,7 +168,7 @@ setControlAppear()
         
         AccountSearchBox.resignFirstResponder()
     }
-    func dataLoadCompletion(data:NSData?, response:NSURLResponse?, error:NSError?) -> AnyObject
+    func dataLoadCompletion(data:NSData?, response:URLResponse?, error:NSError?) -> AnyObject
     {
         var postDicData :[String:AnyObject]
         
@@ -172,7 +179,7 @@ setControlAppear()
                 intitalAccounListData()
                
             }
-            postDicData = try  NSJSONSerialization.JSONObjectWithData(data!, options: []) as! [String:AnyObject]
+            postDicData = try  JSONSerialization.jsonObject(with: data! as Data, options: []) as! [String:AnyObject]
             
             var returnData = postDicData["AccountList"] as! [[String : AnyObject]]
             print("returnDate Count" + returnData.count.description)
@@ -234,23 +241,23 @@ let accountView = AccountView()
 //            print("supplier Date Count" + supplierData.count.description)
 //            
             recountandSortaccountListData()
-            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+             DispatchQueue.main.async {
               self.AccountListTableView.reloadData()
                 self.Q6ActivityIndicator.hidesWhenStopped = true
                 self.Q6ActivityIndicator.stopAnimating()
                 self.AccountSearchBox.resignFirstResponder()
                 
-            })
+            }
             
             
             
         } catch  {
             print("error parsing response from POST on /posts")
             
-            return ""
+            return "" as AnyObject
         }
         
-        return ""
+        return "" as AnyObject
     }
     
     func  recountandSortaccountListData()
@@ -279,7 +286,7 @@ let accountView = AccountView()
     }
     
     
-    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         
         self.searchText = searchText
 //        
@@ -293,13 +300,13 @@ let accountView = AccountView()
             
             dataRequestSource = "Search"
             
-            setAttachedURL(searchText ,IsPurchase: true,IsSale: false,IsLoadCurrentBalance:false, IsLoadInactive:false,PageSize: pageSize,PageIndex: pageIndex )
-            q6CommonLib.Q6IosClientGetApi("Account", ActionName: "GetChartOfAccountList", attachedURL: attachedURL)
+            setAttachedURL(AccountNameOrAccountNo: searchText ,IsPurchase: true,IsSale: false,IsLoadCurrentBalance:false, IsLoadInactive:false,PageSize: pageSize,PageIndex: pageIndex )
+            q6CommonLib.Q6IosClientGetApi(ModelName: "Account", ActionName: "GetChartOfAccountList", attachedURL: attachedURL)
             
         }
     }
     
-    func searchBarSearchButtonClicked( searchBar: UISearchBar)
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar)
     {
         let q6CommonLib = Q6CommonLib(myObject: self)
         
@@ -308,8 +315,8 @@ let accountView = AccountView()
    
         
         dataRequestSource = "Search"
-        setAttachedURL(searchText ,IsPurchase: true,IsSale: false,IsLoadCurrentBalance:false, IsLoadInactive:false,PageSize: pageSize,PageIndex: pageIndex )
-        q6CommonLib.Q6IosClientGetApi("Account", ActionName: "GetChartOfAccountList", attachedURL: attachedURL)
+        setAttachedURL(AccountNameOrAccountNo: searchText ,IsPurchase: true,IsSale: false,IsLoadCurrentBalance:false, IsLoadInactive:false,PageSize: pageSize,PageIndex: pageIndex )
+        q6CommonLib.Q6IosClientGetApi(ModelName: "Account", ActionName: "GetChartOfAccountList", attachedURL: attachedURL)
         
         searchBar.resignFirstResponder()
         
@@ -319,22 +326,22 @@ let accountView = AccountView()
         
         if selectedAccountView != nil {
             
-            self.delegate?.sendGoBackFromPurchaseDetailDataLineAccountSearchView("PurchaseDetailDataLineAccountSearchViewController" ,forCell :fromCell,accountView: selectedAccountView!)
+            self.delegate?.sendGoBackFromPurchaseDetailDataLineAccountSearchView(fromView: "PurchaseDetailDataLineAccountSearchViewController" ,forCell :fromCell,accountView: selectedAccountView!)
             //
             
-            navigationController?.popViewControllerAnimated(true)
+            _ = navigationController?.popViewController(animated: true)
             
         
         }
         else{
             
-              Q6CommonLib.q6UIAlertPopupController("Information Message", message: "You haven't select a account", viewController: self)
+              Q6CommonLib.q6UIAlertPopupController(title: "Information Message", message: "You haven't select a account", viewController: self)
             
         }
     }
     @IBAction func CancelButtonClicked(sender: AnyObject) {
         
-        navigationController?.popViewControllerAnimated(true)
+        _ = navigationController?.popViewController(animated: true)
     }
     /*
     // MARK: - Navigation

@@ -24,14 +24,14 @@ class SaleDetailDataLineAccountSearchViewController:  UIViewController , Q6WebAp
     var dataRequestSource = ""
     var attachedURL = String()
     
-    var selectedAccountView = AccountView?()
+    var selectedAccountView:AccountView?
     
     weak var delegate : Q6GoBackFromView?
     var fromCell = String()
     
     @IBOutlet weak var AccountListTableView: UITableView!
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         
         intitalAccounListData()
     }
@@ -45,8 +45,8 @@ class SaleDetailDataLineAccountSearchViewController:  UIViewController , Q6WebAp
         selectedAccountView = nil
         let q6CommonLib = Q6CommonLib(myObject: self)
         
-        setAttachedURL("" ,IsPurchase: false,IsSale: true,IsLoadCurrentBalance:false, IsLoadInactive:false,PageSize: pageSize,PageIndex: pageIndex )
-        q6CommonLib.Q6IosClientGetApi("Account", ActionName: "GetChartOfAccountList", attachedURL: attachedURL)
+        setAttachedURL(AccountNameOrAccountNo: "" ,IsPurchase: false,IsSale: true,IsLoadCurrentBalance:false, IsLoadInactive:false,PageSize: pageSize,PageIndex: pageIndex )
+        q6CommonLib.Q6IosClientGetApi(ModelName: "Account", ActionName: "GetChartOfAccountList", attachedURL: attachedURL)
         
         setControlAppear()
         // Do any additional setup after loading the view.
@@ -57,7 +57,7 @@ class SaleDetailDataLineAccountSearchViewController:  UIViewController , Q6WebAp
         
         AccountSearchBox.layer.cornerRadius = 2;
         AccountSearchBox.layer.borderWidth = 0.1;
-        AccountSearchBox.layer.borderColor = UIColor.blackColor().CGColor
+        AccountSearchBox.layer.borderColor = UIColor.black.cgColor
     }
     
     func intitalAccounListData() {
@@ -109,26 +109,26 @@ class SaleDetailDataLineAccountSearchViewController:  UIViewController , Q6WebAp
         attachedURL = "&AccountNameOrAccountNo=" + AccountNameOrAccountNo + "&IsPurchase=" + String(IsPurchase) + "&IsSale=" + String(IsSale)  + "&IsLoadCurrentBalance=" + String(IsLoadCurrentBalance) + "&IsLoadInactive=" + String(IsLoadInactive) + "&PageSize=" + String(PageSize) + "&PageIndex=" + String(pageIndex)
     }
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    internal func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         let SectionCount = getSectionCount()
         print("getSectionCount" + SectionCount.description)
         return getSectionCount()
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let accountViewArray = accountListData[section].accountViewArray
         
         print("Section" + section.description + "accountViewArray.count" + accountViewArray.count.description)
         return accountViewArray.count
         
     }
-    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 40
         
     }
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let  cell = tableView.dequeueReusableCellWithIdentifier("AccountNameCell", forIndexPath: indexPath) as! SaleDetailDataLineAccountSearchTableViewCell
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let  cell = tableView.dequeueReusableCell(withIdentifier: "AccountNameCell", for: indexPath) as! SaleDetailDataLineAccountSearchTableViewCell
         let accountView = accountListData[indexPath.section].accountViewArray[indexPath.row]
         cell.lblAccountNameWithAccountNo.text = accountView.AccountNameWithAccountNo
         print("AccountNameWithAccountNo" + accountView.AccountNameWithAccountNo)
@@ -144,16 +144,16 @@ class SaleDetailDataLineAccountSearchViewController:  UIViewController , Q6WebAp
         return cell
     }
     
-    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    internal func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return accountListData[section].AccountType
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         selectedAccountView = nil
         
         print("selected indexpath" + indexPath.row.description)
-        _ = tableView.cellForRowAtIndexPath(indexPath) as! SaleDetailDataLineAccountSearchTableViewCell
+        _ = tableView.cellForRow(at: indexPath as IndexPath) as! SaleDetailDataLineAccountSearchTableViewCell
         
         let selAccountView = accountListData[indexPath.section].accountViewArray[indexPath.row]
         
@@ -161,7 +161,7 @@ class SaleDetailDataLineAccountSearchViewController:  UIViewController , Q6WebAp
         
         AccountSearchBox.resignFirstResponder()
     }
-    func dataLoadCompletion(data:NSData?, response:NSURLResponse?, error:NSError?) -> AnyObject
+    func dataLoadCompletion(data:NSData?, response:URLResponse?, error:NSError?) -> AnyObject
     {
         var postDicData :[String:AnyObject]
         
@@ -172,7 +172,7 @@ class SaleDetailDataLineAccountSearchViewController:  UIViewController , Q6WebAp
                 intitalAccounListData()
                 
             }
-            postDicData = try  NSJSONSerialization.JSONObjectWithData(data!, options: []) as! [String:AnyObject]
+            postDicData = try  JSONSerialization.jsonObject(with: data! as Data, options: []) as! [String:AnyObject]
             
             var returnData = postDicData["AccountList"] as! [[String : AnyObject]]
             print("returnDate Count" + returnData.count.description)
@@ -234,23 +234,23 @@ class SaleDetailDataLineAccountSearchViewController:  UIViewController , Q6WebAp
             //            print("supplier Date Count" + supplierData.count.description)
             //
             recountandSortaccountListData()
-            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+      DispatchQueue.main.async {
                 self.AccountListTableView.reloadData()
                 self.Q6ActivityIndicator.hidesWhenStopped = true
                 self.Q6ActivityIndicator.stopAnimating()
                 self.AccountSearchBox.resignFirstResponder()
                 
-            })
+            }
             
             
             
         } catch  {
             print("error parsing response from POST on /posts")
             
-            return ""
+            return "" as AnyObject
         }
         
-        return ""
+        return "" as AnyObject
     }
     
     func  recountandSortaccountListData()
@@ -279,7 +279,7 @@ class SaleDetailDataLineAccountSearchViewController:  UIViewController , Q6WebAp
     }
     
     
-    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         
         self.searchText = searchText
         //
@@ -293,13 +293,13 @@ class SaleDetailDataLineAccountSearchViewController:  UIViewController , Q6WebAp
             
             dataRequestSource = "Search"
             
-            setAttachedURL(searchText ,IsPurchase: false,IsSale: true,IsLoadCurrentBalance:false, IsLoadInactive:false,PageSize: pageSize,PageIndex: pageIndex )
-            q6CommonLib.Q6IosClientGetApi("Account", ActionName: "GetChartOfAccountList", attachedURL: attachedURL)
+            setAttachedURL(AccountNameOrAccountNo: searchText ,IsPurchase: false,IsSale: true,IsLoadCurrentBalance:false, IsLoadInactive:false,PageSize: pageSize,PageIndex: pageIndex )
+            q6CommonLib.Q6IosClientGetApi(ModelName: "Account", ActionName: "GetChartOfAccountList", attachedURL: attachedURL)
             
         }
     }
     
-    func searchBarSearchButtonClicked( searchBar: UISearchBar)
+    func searchBarSearchButtonClicked( _ searchBar: UISearchBar)
     {
         let q6CommonLib = Q6CommonLib(myObject: self)
         
@@ -308,8 +308,8 @@ class SaleDetailDataLineAccountSearchViewController:  UIViewController , Q6WebAp
         
         
         dataRequestSource = "Search"
-        setAttachedURL(searchText ,IsPurchase: false,IsSale: true,IsLoadCurrentBalance:false, IsLoadInactive:false,PageSize: pageSize,PageIndex: pageIndex )
-        q6CommonLib.Q6IosClientGetApi("Account", ActionName: "GetChartOfAccountList", attachedURL: attachedURL)
+        setAttachedURL(AccountNameOrAccountNo: searchText ,IsPurchase: false,IsSale: true,IsLoadCurrentBalance:false, IsLoadInactive:false,PageSize: pageSize,PageIndex: pageIndex )
+        q6CommonLib.Q6IosClientGetApi(ModelName: "Account", ActionName: "GetChartOfAccountList", attachedURL: attachedURL)
         
         searchBar.resignFirstResponder()
         
@@ -319,22 +319,22 @@ class SaleDetailDataLineAccountSearchViewController:  UIViewController , Q6WebAp
         
         if selectedAccountView != nil {
             
-            self.delegate?.sendGoBackFromSaleDetailDataLineAccountSearchView("SaleDetailDataLineAccountSearchViewController" ,forCell :fromCell,accountView: selectedAccountView!)
+            self.delegate?.sendGoBackFromSaleDetailDataLineAccountSearchView(fromView: "SaleDetailDataLineAccountSearchViewController" ,forCell :fromCell,accountView: selectedAccountView!)
             //
             
-            navigationController?.popViewControllerAnimated(true)
+            _ = navigationController?.popViewController(animated: true)
             
             
         }
         else{
             
-            Q6CommonLib.q6UIAlertPopupController("Information Message", message: "You haven't select a account", viewController: self)
+            Q6CommonLib.q6UIAlertPopupController(title: "Information Message", message: "You haven't select a account", viewController: self)
             
         }
     }
     @IBAction func CancelButtonClicked(sender: AnyObject) {
         
-        navigationController?.popViewControllerAnimated(true)
+        _ = navigationController?.popViewController(animated: true)
     }
     /*
      // MARK: - Navigation

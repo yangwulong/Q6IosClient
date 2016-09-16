@@ -11,15 +11,15 @@ import Foundation
 public class PurchasesTransactionsDetail
 {
 
-    var PurchasesTransactionsDetailID = NSUUID().UUIDString
-    var PurchasesTransactionsHeaderID = NSUUID().UUIDString
+    var PurchasesTransactionsDetailID = NSUUID().uuidString
+    var PurchasesTransactionsHeaderID = NSUUID().uuidString
     var Quantity = Double()
-    var InventoryID = String?()
-    var AccountID = String?()
-    var TaxCodeID = String?()
-    var Description = String?()
+    var InventoryID:String?
+    var AccountID:String?
+    var TaxCodeID:String?
+    var Description:String?
     var UnitPrice = Double()
-    var Discount = Double?()
+    var Discount:Double?
     var Amount = Double()
     var IsDeleted: Bool = false 
     var SortNo = Int()

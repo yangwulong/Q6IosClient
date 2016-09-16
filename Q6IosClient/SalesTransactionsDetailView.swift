@@ -10,16 +10,16 @@ import Foundation
 public class SalesTransactionsDetailView
 {
     
-    var SalesTransactionsDetailID  = NSUUID().UUIDString //:String =  NSUUID().UUIDString
-    var SalesTransactionsHeaderID = NSUUID().UUIDString
+    var SalesTransactionsDetailID  = NSUUID().uuidString //:String =  NSUUID().uuidString
+    var SalesTransactionsHeaderID = NSUUID().uuidString
     var Quantity:Double = 0
-    var InventoryID = String?()
+    var InventoryID:String?
     var InventoryName: String = ""
-    var AccountID = String?()
+    var AccountID:String?
     var AccountNameWithAccountNo:String = ""
-    var TaxCodeID = String?()
+    var TaxCodeID:String?
     var TaxCodeName = String()
-    var TaxCodeRate = Double?()
+    var TaxCodeRate:Double?
     var Description: String = ""
     var UnitPrice:Double = 0
     var Discount :Double = 0

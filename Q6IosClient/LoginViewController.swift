@@ -7,6 +7,7 @@
 //2
 import UIKit
 
+
 class LoginViewController: UIViewController, UITextFieldDelegate,Q6WebApiProtocol {
     
     var activeField: UITextField?
@@ -21,21 +22,21 @@ class LoginViewController: UIViewController, UITextFieldDelegate,Q6WebApiProtoco
     
     var ScreenMode : String = ""
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         //        var q6CommonLib = Q6CommonLib()
         //        q6CommonLib.testTouchID()
        
       
         
-        let bounds = UIScreen.mainScreen().bounds
+        let bounds = UIScreen.main.bounds
         let width = bounds.size.width
         
        
         let height = bounds.size.height
         
       //  scrollView.contentSize = CGSizeMake(200, self.view.frame.size.height)
-        scrollView.frame.size = CGSizeMake(width, height)
-        scrollView.contentSize = CGSizeMake(width, height)
+        scrollView.frame.size = CGSize(width:width, height:height)
+        scrollView.contentSize = CGSize(width:width, height:height)
         txtLoginEmail.frame.size.width = width - 50
         txtLoginPassword.frame.size.width = width - 50
         btnSignIn.frame.size.width = width - 50 
@@ -48,21 +49,21 @@ class LoginViewController: UIViewController, UITextFieldDelegate,Q6WebApiProtoco
         let loginStatus = q6IosClientDB.validateLoginStatus()
         
         if loginStatus == true && ScreenMode == "" {
-            imgQ6Logo.hidden = true
-            txtLoginEmail.hidden = true
-            txtLoginPassword.hidden = true
-            btnSignIn.hidden = true
+            imgQ6Logo.isHidden = true
+            txtLoginEmail.isHidden = true
+            txtLoginPassword.isHidden = true
+            btnSignIn.isHidden = true
         } else {
-            imgQ6Logo.hidden = false
-            txtLoginEmail.hidden = false
-            txtLoginPassword.hidden = false
-            btnSignIn.hidden = false
+            imgQ6Logo.isHidden = false
+            txtLoginEmail.isHidden = false
+            txtLoginPassword.isHidden = false
+            btnSignIn.isHidden = false
         }
         
         registerForKeyboardNotifications()
         
     }
-    override func viewDidLoad() {
+    override  func viewDidLoad() {
         super.viewDidLoad()
         setControlAppear()
         txtLoginPassword.delegate = self
@@ -85,7 +86,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate,Q6WebApiProtoco
         //        // Do any additional setup after loading the view.
         //        var dd = Q6CommonLib.isConnectedToNetwork()
     }
-    override func viewDidAppear(animated: Bool) {
+    override  func viewDidAppear(_ animated: Bool) {
         
         let q6IosClientDB = Q6DBLib()
         
@@ -99,12 +100,12 @@ class LoginViewController: UIViewController, UITextFieldDelegate,Q6WebApiProtoco
             
             
             
-            if let passCodeViewController = storyboard!.instantiateViewControllerWithIdentifier("Q6PassCodeViewController") as? PassCodeViewController {
+            if let passCodeViewController = storyboard!.instantiateViewController(withIdentifier: "Q6PassCodeViewController") as? PassCodeViewController {
                 
                 
                 passCodeViewController.ScreenMode = "ValidatePassCode"
                 
-                presentViewController(passCodeViewController, animated: true, completion: nil)
+                present(passCodeViewController, animated: true, completion: nil)
             }
             ScreenMode = ""
             
@@ -120,8 +121,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate,Q6WebApiProtoco
     @IBAction func TapGestureRecognizerEvent(sender: UITapGestureRecognizer) {
         txtLoginEmail.resignFirstResponder()
         txtLoginPassword.resignFirstResponder()
-        scrollView.scrollEnabled = false
-        scrollView.setContentOffset(CGPointMake(0,0), animated: true)
+        scrollView.isScrollEnabled = false
+        scrollView.setContentOffset(CGPoint(x:0,y:0), animated: true)
     
         print("tap")
     }
@@ -154,7 +155,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate,Q6WebApiProtoco
                 
                 print("Q6CommonLib.getIPAddresses()" + Q6CommonLib.getIPAddresses())
                 Q6ActivityIndicatorView.startAnimating()
-                q6CommonLib.Q6IosClientPostAPI("Q6",ActionName: "InternalUserLogin", dicData:dicData)
+                q6CommonLib.Q6IosClientPostAPI(ModeName: "Q6",ActionName: "InternalUserLogin", dicData:dicData as [String : AnyObject])
                 
                 //  Q6ActivityIndicatorView.startAnimating()
                 // Q6CommonLib.popUpLoadingSign(self)
@@ -167,7 +168,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate,Q6WebApiProtoco
             
         }
     }
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+
+    override open func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         txtLoginEmail.resignFirstResponder()
         txtLoginPassword.resignFirstResponder()
         
@@ -181,10 +183,10 @@ class LoginViewController: UIViewController, UITextFieldDelegate,Q6WebApiProtoco
     
     func validaUserInput() -> Bool
     {
-        let isEmailAddressValid = Q6CommonLib.isEmailAddressValid(txtLoginEmail.text!)
+        let isEmailAddressValid = Q6CommonLib.isEmailAddressValid(email: txtLoginEmail.text!)
         
         if isEmailAddressValid == false {
-            Q6CommonLib.q6UIAlertPopupController("Login Error", message: "Your email address is not valid!", viewController: self)
+            Q6CommonLib.q6UIAlertPopupController(title: "Login Error", message: "Your email address is not valid!", viewController: self)
         }
         
         return isEmailAddressValid
@@ -194,22 +196,22 @@ class LoginViewController: UIViewController, UITextFieldDelegate,Q6WebApiProtoco
         
         txtLoginEmail.layer.cornerRadius = 2;
         txtLoginEmail.layer.borderWidth = 0.1;
-        txtLoginEmail.layer.borderColor = UIColor.blackColor().CGColor
+        txtLoginEmail.layer.borderColor = UIColor.black.cgColor
         
         txtLoginPassword.layer.cornerRadius = 2;
         txtLoginPassword.layer.borderWidth = 0.1;
-        txtLoginPassword.layer.borderColor = UIColor.blackColor().CGColor
+        txtLoginPassword.layer.borderColor = UIColor.black.cgColor
         
         btnSignIn.layer.cornerRadius = 2;
         btnSignIn.layer.borderWidth = 0.1;
-        btnSignIn.layer.borderColor = UIColor.blackColor().CGColor
+        btnSignIn.layer.borderColor = UIColor.black.cgColor
     }
-    override func didReceiveMemoryWarning() {
+    override open func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-    func dataLoadCompletion(data:NSData?, response:NSURLResponse?, error:NSError?) -> AnyObject
+    func dataLoadCompletion(data:NSData?, response:URLResponse?, error:NSError?) -> AnyObject
     {
         
         
@@ -217,7 +219,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate,Q6WebApiProtoco
         var postDicData :[String:AnyObject]?
         var IsLoginSuccessed : Bool
         do {
-            postDicData = try  NSJSONSerialization.JSONObjectWithData(data!, options: []) as? [String:AnyObject]
+            postDicData = try  JSONSerialization.jsonObject(with: data! as Data, options: []) as? [String:AnyObject]
             
             if postDicData != nil {
             IsLoginSuccessed = postDicData!["IsSuccessed"] as! Bool
@@ -236,14 +238,14 @@ class LoginViewController: UIViewController, UITextFieldDelegate,Q6WebApiProtoco
                 let q6DBLib = Q6DBLib()
                 
                 
-                q6DBLib.addUserInfos(txtLoginEmail.text!, PassWord: txtLoginPassword.text!, LoginStatus: "Login",CompanyID: companyID ,LoginFirstName: LoginFirstName ,LoginLastName: LoginLastName)
+                q6DBLib.addUserInfos(LoginEmail: txtLoginEmail.text!, PassWord: txtLoginPassword.text!, LoginStatus: "Login",CompanyID: companyID ,LoginFirstName: LoginFirstName ,LoginLastName: LoginLastName)
                 //Set any attributes of the view controller before it is displayed, this is where you would set the category text in your code.
                 
                 let passCode = q6DBLib.getUserPassCode()
                 
                 
                 
-                if let passCodeViewController = storyboard!.instantiateViewControllerWithIdentifier("Q6PassCodeViewController") as? PassCodeViewController {
+                if let passCodeViewController = storyboard!.instantiateViewController(withIdentifier: "Q6PassCodeViewController") as? PassCodeViewController {
                     
                     if passCode == nil {
                         
@@ -258,25 +260,26 @@ class LoginViewController: UIViewController, UITextFieldDelegate,Q6WebApiProtoco
                     else {
                         passCodeViewController.ScreenMode = "ValidatePassCode"
                     }
-                    presentViewController(passCodeViewController, animated: true, completion: nil)
+                    present(passCodeViewController, animated: true, completion: nil)
                 }
                 
             }else {
                 
-                Q6CommonLib.q6UIAlertPopupController("Information Message", message: "Login fail ,Please check your login name ,password!", viewController: self)
+                Q6CommonLib.q6UIAlertPopupController(title: "Information Message", message: "Login fail ,Please check your login name ,password!", viewController: self)
             }
             }
             else {
                 
-                Q6CommonLib.q6UIAlertPopupController("Information Message", message: "Login fail ,Please check your login name ,password!", viewController: self)
+                Q6CommonLib.q6UIAlertPopupController(title: "Information Message", message: "Login fail ,Please check your login name ,password!", viewController: self)
             }
             
             
         } catch  {
             
-            Q6CommonLib.q6UIAlertPopupController("Information Message", message: "Login fail ,Please check your login name ,password!", viewController: self)
+            Q6CommonLib.q6UIAlertPopupController(title: "Information Message", message: "Login fail ,Please check your login name ,password!", viewController: self)
             
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
+
                 
                 self.Q6ActivityIndicatorView.hidesWhenStopped = true
                 self.Q6ActivityIndicatorView.stopAnimating()
@@ -286,14 +289,14 @@ class LoginViewController: UIViewController, UITextFieldDelegate,Q6WebApiProtoco
            
             print("error parsing response from POST on /posts")
             
-            return ""
+            return "" as AnyObject
         }
         
         //
-        return ""
+        return "" as AnyObject
     }
     
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         insideSignIn()
         return true;
@@ -302,41 +305,46 @@ class LoginViewController: UIViewController, UITextFieldDelegate,Q6WebApiProtoco
 //    override func viewWillAppear(animated: Bool) {
 //        registerForKeyboardNotifications()
 //    }
-    override func viewWillDisappear(animated: Bool) {
+    override open func viewWillDisappear(_ animated: Bool) {
         deregisterFromKeyboardNotifications()
     }
     
     func registerForKeyboardNotifications()
     {
+       
         //Adding notifies on keyboard appearing
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(LoginViewController.keyboardWasShown(_:)), name: UIKeyboardWillShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(LoginViewController.keyboardWillBeHidden(_:)), name: UIKeyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(LoginViewController.keyboardWasShown(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(LoginViewController.keyboardWillBeHidden(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        
+//        //Adding notifies on keyboard appearing
+//        NotificationCenter.default.addObserver(self, selector: Selector("keyboardWasShown:"), name: NSNotification.Name.UIKeyboardDidShow, object: nil)
+//        NotificationCenter.default.addObserver(self, selector: Selector("keyboardWillBeHidden:"), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
     
     
     func deregisterFromKeyboardNotifications()
     {
         //Removing notifies on keyboard appearing
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
     
-    func keyboardWasShown(notification: NSNotification)
+    func keyboardWasShown(_ notification: NSNotification)
     {
         //Need to calculate keyboard exact size due to Apple suggestions
-        self.scrollView.scrollEnabled = true
-        var info : NSDictionary = notification.userInfo!
-        var keyboardSize = (info[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.CGRectValue().size
-        var contentInsets : UIEdgeInsets = UIEdgeInsetsMake(0.0, 0.0, keyboardSize!.height, 0.0)
+        self.scrollView.isScrollEnabled = true
+        let info : NSDictionary = notification.userInfo! as NSDictionary
+        let keyboardSize = (info[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue.size
+        let contentInsets : UIEdgeInsets = UIEdgeInsetsMake(0.0, 0.0, keyboardSize!.height, 0.0)
         
         self.scrollView.contentInset = contentInsets
         self.scrollView.scrollIndicatorInsets = contentInsets
         
         var aRect : CGRect = self.view.frame
         aRect.size.height -= keyboardSize!.height
-        if let activeFieldPresent = activeField
+        if activeField != nil
         {
-            if (!CGRectContainsPoint(aRect, activeField!.frame.origin))
+            if (!aRect.contains(activeField!.frame.origin))
             {
                 self.scrollView.scrollRectToVisible(activeField!.frame, animated: true)
             }
@@ -346,26 +354,26 @@ class LoginViewController: UIViewController, UITextFieldDelegate,Q6WebApiProtoco
     }
     
     
-    func keyboardWillBeHidden(notification: NSNotification)
+    func keyboardWillBeHidden(_ notification: NSNotification)
     {
         //Once keyboard disappears, restore original positions
-        var info : NSDictionary = notification.userInfo!
-        var keyboardSize = (info[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.CGRectValue().size
-        var contentInsets : UIEdgeInsets = UIEdgeInsetsMake(0.0, 0.0, -keyboardSize!.height, 0.0)
+        let info : NSDictionary = notification.userInfo! as NSDictionary
+        let keyboardSize = (info[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue.size
+        let contentInsets : UIEdgeInsets = UIEdgeInsetsMake(0.0, 0.0, -keyboardSize!.height, 0.0)
         self.scrollView.contentInset = contentInsets
         self.scrollView.scrollIndicatorInsets = contentInsets
         self.view.endEditing(true)
-        self.scrollView.scrollEnabled = false
+        self.scrollView.isScrollEnabled = false
         
     }
     
  
-    func textFieldDidBeginEditing(textField: UITextField)
+    func textFieldDidBeginEditing(_ textField: UITextField)
     {
         activeField = textField
     }
     
-    func textFieldDidEndEditing(textField: UITextField)
+    func textFieldDidEndEditing(_ textField: UITextField)
     {
         activeField = nil
     }

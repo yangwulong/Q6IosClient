@@ -34,7 +34,7 @@ class PassCodeViewController: UIViewController , UITextFieldDelegate{
     var userInputPasscodeValue4 : String? = nil
     
     var pressKey : String = ""
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         
         activeTextField.text = ""
     }
@@ -68,11 +68,11 @@ class PassCodeViewController: UIViewController , UITextFieldDelegate{
     internal func setControlAppear()
     {
         
-        txtPassCode1.layer.addBorder(txtPassCode1.frame.width, edge: UIRectEdge.Bottom, color: UIColor.lightGrayColor(), thickness: 0.5)
+        txtPassCode1.layer.addBorder(SelfWidth: txtPassCode1.frame.width, edge: UIRectEdge.bottom, color: UIColor.lightGray, thickness: 0.5)
         
-        txtPassCode2.layer.addBorder(txtPassCode2.frame.width, edge: UIRectEdge.Bottom, color: UIColor.lightGrayColor(), thickness: 0.5)
-        txtPassCode3.layer.addBorder(txtPassCode3.frame.width, edge: UIRectEdge.Bottom, color: UIColor.lightGrayColor(), thickness: 0.5)
-        txtPassCode4.layer.addBorder(txtPassCode4.frame.width, edge: UIRectEdge.Bottom, color: UIColor.lightGrayColor(), thickness: 0.5)
+        txtPassCode2.layer.addBorder(SelfWidth: txtPassCode2.frame.width, edge: UIRectEdge.bottom, color: UIColor.lightGray, thickness: 0.5)
+        txtPassCode3.layer.addBorder(SelfWidth: txtPassCode3.frame.width, edge: UIRectEdge.bottom, color: UIColor.lightGray, thickness: 0.5)
+        txtPassCode4.layer.addBorder(SelfWidth: txtPassCode4.frame.width, edge: UIRectEdge.bottom, color: UIColor.lightGray, thickness: 0.5)
         //lblPassCode1.layer.addBorder(lblPassCode1.frame.width, edge: UIRectEdge.Bottom, color: UIColor.blueColor(), thickness: 0.5)
         // txtTest.layer.addBorder(txtTest.frame.width, edge: UIRectEdge.Bottom, color: UIColor.blueColor(), thickness: 0.5)
         
@@ -80,7 +80,7 @@ class PassCodeViewController: UIViewController , UITextFieldDelegate{
     
     
     
-    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
        
         
@@ -93,7 +93,8 @@ class PassCodeViewController: UIViewController , UITextFieldDelegate{
         //An expression works with Swift 2
         return (textField.text?.utf16.count ?? 0) + string.utf16.count - range.length <= TEXT_FIELD_LIMIT
     }
-    @IBAction func activeFieldEditingChanged(sender: AnyObject) {
+    @IBAction func activeFieldEditingChanged(_ sender: AnyObject) {
+    
         
         let textfield = sender as! UITextField
         
@@ -106,8 +107,10 @@ class PassCodeViewController: UIViewController , UITextFieldDelegate{
         }
         else if textfield.text?.length == 1 {
             
-            let txt = textfield.text! as String
-            userInputPasscodeValue1 = String(txt[0])
+          let  txt = textfield.text! as String
+          
+
+            userInputPasscodeValue1 = String(txt[txt.startIndex])
             txtPassCode1.text = userInputPasscodeValue1
             
             txtPassCode2.text = ""
@@ -118,7 +121,7 @@ class PassCodeViewController: UIViewController , UITextFieldDelegate{
         else if textfield.text?.length == 2 {
             
             let txt = textfield.text! as String
-            userInputPasscodeValue1 = String(txt[0])
+            userInputPasscodeValue1 = String(txt[txt.startIndex])
             txtPassCode1.text = userInputPasscodeValue1
             
             userInputPasscodeValue2 = String(txt[1])
@@ -131,7 +134,7 @@ class PassCodeViewController: UIViewController , UITextFieldDelegate{
         else if textfield.text?.length == 3 {
             
             let txt = textfield.text! as String
-            userInputPasscodeValue1 = String(txt[0])
+            userInputPasscodeValue1 = String(txt[txt.startIndex])
             txtPassCode1.text = userInputPasscodeValue1
             
             userInputPasscodeValue2 = String(txt[1])
@@ -146,7 +149,7 @@ class PassCodeViewController: UIViewController , UITextFieldDelegate{
         else if textfield.text?.length == 4 {
             
             let txt = textfield.text! as String
-            userInputPasscodeValue1 = String(txt[0])
+            userInputPasscodeValue1 = String(txt[txt.startIndex])
             txtPassCode1.text = userInputPasscodeValue1
             
             userInputPasscodeValue2 = String(txt[1])
@@ -168,9 +171,12 @@ class PassCodeViewController: UIViewController , UITextFieldDelegate{
             
             if self.ScreenMode == "ValidatePassCode" {
                 
-                ValidateTimeInputPassCode = userInputPasscodeValue1!  + userInputPasscodeValue2! + userInputPasscodeValue3! + userInputPasscodeValue4!
+                
+               //ValidateTimeInputPassCode = (userInputPasscodeValue1!).appending(userInputPasscodeValue2!).appending(userInputPasscodeValue3!).appending(userInputPasscodeValue4!)
                 
                 
+                ValidateTimeInputPassCode = String(userInputPasscodeValue1!) + String(userInputPasscodeValue2!) + String(userInputPasscodeValue3!) + String(userInputPasscodeValue4!)
+                print("ValidateTimeInputPassCode" + ValidateTimeInputPassCode)
                 if ValidateTimeInputPassCode.length == 4 {
                     
                     let q6DBLib = Q6DBLib()
@@ -178,8 +184,8 @@ class PassCodeViewController: UIViewController , UITextFieldDelegate{
                     // var passCode = userInfos["passCode"]
                     if userInfos["passCode"] == ValidateTimeInputPassCode {
                         
-                        if let tabViewController = storyboard!.instantiateViewControllerWithIdentifier("Q6TabViewController") as? UITabBarController {
-                            presentViewController(tabViewController, animated: true, completion: nil)
+                        if let tabViewController = storyboard!.instantiateViewController(withIdentifier: "Q6TabViewController") as? UITabBarController {
+                            present(tabViewController, animated: true, completion: nil)
                         }
                         
                         
@@ -189,7 +195,7 @@ class PassCodeViewController: UIViewController , UITextFieldDelegate{
                         //txtPassCode1.becomeFirstResponder()
                         
                    clearTextFields()
-                        Q6CommonLib.q6UIAlertPopupController("Error message", message: "Your PassCode is not right,please reenter again", viewController: self)
+                        Q6CommonLib.q6UIAlertPopupController(title: "Error message", message: "Your PassCode is not right,please reenter again", viewController: self)
                         clearTextFields()
                         
                         
@@ -204,7 +210,7 @@ class PassCodeViewController: UIViewController , UITextFieldDelegate{
             
             if self.ScreenMode == "ConfirmPassCode" {
                 
-                secondTimeInputPassCode = userInputPasscodeValue1!  + userInputPasscodeValue2! + userInputPasscodeValue3! + userInputPasscodeValue4!
+                secondTimeInputPassCode = (userInputPasscodeValue1!).appending(userInputPasscodeValue2!).appending(userInputPasscodeValue3!).appending(userInputPasscodeValue4!)
                 
                 
                 if secondTimeInputPassCode.length == 4 {
@@ -214,16 +220,16 @@ class PassCodeViewController: UIViewController , UITextFieldDelegate{
                     if firstTimeInputPassCode == secondTimeInputPassCode{
                         
                         let q6DBLib = Q6DBLib()
-                        q6DBLib.editPassCode(secondTimeInputPassCode)
+                        q6DBLib.editPassCode(PassCode: secondTimeInputPassCode)
                         
                         
-                        if let tabViewController = storyboard!.instantiateViewControllerWithIdentifier("Q6TabViewController") as? UITabBarController {
-                            presentViewController(tabViewController, animated: true, completion: nil)
+                        if let tabViewController = storyboard!.instantiateViewController(withIdentifier: "Q6TabViewController") as? UITabBarController {
+                            present(tabViewController, animated: true, completion: nil)
                         }
                     }
                     else {
                         setToCofirmationScreen()
-                        Q6CommonLib.q6UIAlertPopupController("Error Message", message: "Your PassCode is different to your first input, please input again", viewController: self)
+                        Q6CommonLib.q6UIAlertPopupController(title: "Error Message", message: "Your PassCode is different to your first input, please input again", viewController: self)
                         
                         ScreenMode = "CreatePassCode"
                         lblPassCodeScreenTitle.text = "Create Pass Code"
@@ -238,7 +244,7 @@ class PassCodeViewController: UIViewController , UITextFieldDelegate{
             
             if self.ScreenMode == "CreatePassCode" {
                 
-                firstTimeInputPassCode = userInputPasscodeValue1!  + userInputPasscodeValue2! + userInputPasscodeValue3! + userInputPasscodeValue4!
+                firstTimeInputPassCode = (userInputPasscodeValue1!).appending(userInputPasscodeValue2!).appending(userInputPasscodeValue3!).appending(userInputPasscodeValue4!)
                 
                 if firstTimeInputPassCode.length == 4 {
                     
@@ -319,7 +325,7 @@ class PassCodeViewController: UIViewController , UITextFieldDelegate{
             
             if self.ScreenMode == "ValidatePassCode" {
                 
-                ValidateTimeInputPassCode = userInputPasscodeValue1!  + userInputPasscodeValue2! + userInputPasscodeValue3! + userInputPasscodeValue4!
+                ValidateTimeInputPassCode = (userInputPasscodeValue1!).appending(userInputPasscodeValue2!).appending(userInputPasscodeValue3!).appending(userInputPasscodeValue4!)
                 
                 
                 if ValidateTimeInputPassCode.length == 4 {
@@ -329,8 +335,8 @@ class PassCodeViewController: UIViewController , UITextFieldDelegate{
                     // var passCode = userInfos["passCode"]
                     if userInfos["passCode"] == ValidateTimeInputPassCode {
                         
-                        if let tabViewController = storyboard!.instantiateViewControllerWithIdentifier("Q6TabViewController") as? UITabBarController {
-                            presentViewController(tabViewController, animated: true, completion: nil)
+                        if let tabViewController = storyboard!.instantiateViewController(withIdentifier: "Q6TabViewController") as? UITabBarController {
+                            present(tabViewController, animated: true, completion: nil)
                         }
                         
                         
@@ -338,7 +344,7 @@ class PassCodeViewController: UIViewController , UITextFieldDelegate{
                     }
                     else {
                         txtPassCode1.becomeFirstResponder()
-                        Q6CommonLib.q6UIAlertPopupController("Error message", message: "Your PassCode is not right,please reenter again", viewController: self)
+                        Q6CommonLib.q6UIAlertPopupController(title: "Error message", message: "Your PassCode is not right,please reenter again", viewController: self)
                         clearTextFields()
                         
                         
@@ -353,7 +359,7 @@ class PassCodeViewController: UIViewController , UITextFieldDelegate{
             
             if self.ScreenMode == "ConfirmPassCode" {
                 
-                secondTimeInputPassCode = userInputPasscodeValue1!  + userInputPasscodeValue2! + userInputPasscodeValue3! + userInputPasscodeValue4!
+                secondTimeInputPassCode = (userInputPasscodeValue1!).appending(userInputPasscodeValue2!).appending(userInputPasscodeValue3!).appending(userInputPasscodeValue4!)
                 
                 
                 if secondTimeInputPassCode.length == 4 {
@@ -363,16 +369,16 @@ class PassCodeViewController: UIViewController , UITextFieldDelegate{
                     if firstTimeInputPassCode == secondTimeInputPassCode{
                         
                         let q6DBLib = Q6DBLib()
-                        q6DBLib.editPassCode(secondTimeInputPassCode)
+                        q6DBLib.editPassCode(PassCode: secondTimeInputPassCode)
                         
                         
-                        if let tabViewController = storyboard!.instantiateViewControllerWithIdentifier("Q6TabViewController") as? UITabBarController {
-                            presentViewController(tabViewController, animated: true, completion: nil)
+                        if let tabViewController = storyboard!.instantiateViewController(withIdentifier: "Q6TabViewController") as? UITabBarController {
+                            present(tabViewController, animated: true, completion: nil)
                         }
                     }
                     else {
                         setToCofirmationScreen()
-                        Q6CommonLib.q6UIAlertPopupController("Error Message", message: "Your PassCode is different to your first input, please input again", viewController: self)
+                        Q6CommonLib.q6UIAlertPopupController(title: "Error Message", message: "Your PassCode is different to your first input, please input again", viewController: self)
                         
                         ScreenMode = "CreatePassCode"
                         lblPassCodeScreenTitle.text = "Create Pass Code"
@@ -387,7 +393,7 @@ class PassCodeViewController: UIViewController , UITextFieldDelegate{
             
             if self.ScreenMode == "CreatePassCode" {
                 
-                firstTimeInputPassCode = userInputPasscodeValue1!  + userInputPasscodeValue2! + userInputPasscodeValue3! + userInputPasscodeValue4!
+                firstTimeInputPassCode = (userInputPasscodeValue1!).appending(userInputPasscodeValue2!).appending(userInputPasscodeValue3!).appending(userInputPasscodeValue4!)
                 
                 if firstTimeInputPassCode.length == 4 {
                     
@@ -438,11 +444,11 @@ class PassCodeViewController: UIViewController , UITextFieldDelegate{
     }
     @IBAction func goBackToSignInScreen(sender: AnyObject) {
         
-        if let loginViewController = storyboard!.instantiateViewControllerWithIdentifier("Q6LoginViewController") as? LoginViewController {
+        if let loginViewController = storyboard!.instantiateViewController(withIdentifier: "Q6LoginViewController") as? LoginViewController {
             let q6DBLib = Q6DBLib()
             q6DBLib.deleteUserInfos()
             loginViewController.ScreenMode = "GoBackFromPassCodeScreen"
-            presentViewController(loginViewController, animated: true, completion: nil)
+            present(loginViewController, animated: true, completion: nil)
             
             
         }

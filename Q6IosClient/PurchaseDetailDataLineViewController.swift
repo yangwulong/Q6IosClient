@@ -23,14 +23,14 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
     weak var delegate : Q6GoBackFromView?
     var fromCell = String()
     
-    var selectedInventoryView = InventoryView?()
-    var selectedAccountView = AccountView?()
-    var selectedTaxCodeView = TaxCodeView?()
-    var supplier = Supplier?()
+    var selectedInventoryView:InventoryView?
+    var selectedAccountView:AccountView?
+    var selectedTaxCodeView:TaxCodeView?
+    var supplier:Supplier?
     
     var enableTaxCodeButton = true
     var reloadFromCell = ""
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         
     }
     override func viewDidLoad() {
@@ -48,7 +48,7 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
         // lblTotalLabel.font = UIFont.boldSystemFontOfSize(17.0)
         //lblTotalAmount.font = UIFont.boldSystemFontOfSize(17.0)
         
-        PurchaseDetailDataLineTableView.tableFooterView = UIView(frame: CGRectZero)
+        PurchaseDetailDataLineTableView.tableFooterView = UIView(frame: CGRect.zero)
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -56,12 +56,12 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
     }
     
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    private func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         
         // print("addItemsDic" + addItemsDic.count.description)
@@ -69,7 +69,7 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
         return 7
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var resuseIdentifier = String()
         //        if indexPath.row <= 8 {
         resuseIdentifier = originalRowsDic[indexPath.row]!
@@ -81,7 +81,7 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
         //        var screenSortLinesDetail = purchasesDetailScreenLinesDic[indexPath.row]  as ScreenSortLinesDetail
         //
         // resuseIdentifier = screenSortLinesDetail.PrototypeCellID
-        let cell = tableView.dequeueReusableCellWithIdentifier(resuseIdentifier, forIndexPath: indexPath) as! PurchaseDetailDataLineTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: resuseIdentifier, for: indexPath) as! PurchaseDetailDataLineTableViewCell
         //
         
         //
@@ -114,7 +114,7 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
         }
         if resuseIdentifier == "AccountCell" {
             
-            cell.accountButton.enabled = true
+            cell.accountButton.isEnabled = true
             enableTaxCodeButton = true
             if selectedInventoryView != nil {
                 
@@ -124,7 +124,7 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
                     purchasesTransactionsDetailView.AccountID = selectedInventoryView?.PurchaseAccountID
                     purchasesTransactionsDetailView.AccountNameWithAccountNo = (selectedInventoryView?.PurchaseAccountNameWithAccountNo)!
                     
-                    cell.accountButton.enabled = false
+                    cell.accountButton.isEnabled = false
                     
                     //enableTaxCodeButton = false
                 }
@@ -134,7 +134,7 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
                     purchasesTransactionsDetailView.AccountID = selectedInventoryView?.AssetAccountID
                     purchasesTransactionsDetailView.AccountNameWithAccountNo = (selectedInventoryView?.AssetAccountNameWithAccountNo)!
                     
-                    cell.accountButton.enabled = false
+                    cell.accountButton.isEnabled = false
                     // enableTaxCodeButton = false
                     
                 }
@@ -144,7 +144,7 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
             
             if purchasesTransactionsDetailView.InventoryID != nil {
                 
-               cell.accountButton.enabled = false
+               cell.accountButton.isEnabled = false
             }
             
             cell.lblAccountNameWithNo.text = purchasesTransactionsDetailView.AccountNameWithAccountNo
@@ -237,9 +237,9 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
             let strAmount = String(amount)
             if amount != 0 {
                 
-                if strAmount.containsString(".") == true {
+                if strAmount.contains(".") == true {
                     //Check decimal place whether less than 4
-                    let strsplit = strAmount.characters.split(("."))
+                    let strsplit = strAmount.characters.split(separator: ".")
                     let strLast = String(strsplit.last!)
                     
                     if strLast.length > 2 {
@@ -381,13 +381,13 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
         //return cell
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         _ = indexPath.row //2
         
         
         if originalRowsDic[indexPath.row] == "InventoryCell" {
             
-            performSegueWithIdentifier("showPurchaseDetailDataLineViewController", sender: "InventoryCell")
+            performSegue(withIdentifier: "showPurchaseDetailDataLineViewController", sender: "InventoryCell")
             
             
         }
@@ -396,7 +396,7 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
             
             if selectedInventoryView == nil && purchasesTransactionsDetailView.InventoryID == nil
             {
-                performSegueWithIdentifier("showAccount", sender: "AccountCell")
+                performSegue(withIdentifier: "showAccount", sender: "AccountCell")
                 
             }
         }
@@ -405,20 +405,20 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
         if originalRowsDic[indexPath.row] == "TaxCodeCell" {
             if enableTaxCodeButton == true
             {
-                performSegueWithIdentifier("showTaxCode", sender: "TaxCodeCell")
+                performSegue(withIdentifier: "showTaxCode", sender: "TaxCodeCell")
             }
             
             
         }
         if originalRowsDic[indexPath.row] == "DescriptionCell" {
             
-            performSegueWithIdentifier("showDescription", sender: "DescriptionCell")
+            performSegue(withIdentifier: "showDescription", sender: "DescriptionCell")
             
             
         }
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any!) {
         
         if sender is String {
             
@@ -427,7 +427,7 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
             
             if fromCell == "InventoryCell"
             {
-                let purchaseDetailDataLineInventorySearchViewController = segue.destinationViewController as! PurchaseDetailDataLineInventorySearchViewController
+                let purchaseDetailDataLineInventorySearchViewController = segue.destination as! PurchaseDetailDataLineInventorySearchViewController
                 purchaseDetailDataLineInventorySearchViewController.fromCell = "InventoryCell"
                 
                 purchaseDetailDataLineInventorySearchViewController.delegate = self
@@ -438,7 +438,7 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
             
             if fromCell == "AccountCell"
             {
-                let purchaseDetailDataLineAccountSearchViewController = segue.destinationViewController as! PurchaseDetailDataLineAccountSearchViewController
+                let purchaseDetailDataLineAccountSearchViewController = segue.destination as! PurchaseDetailDataLineAccountSearchViewController
                 
                 purchaseDetailDataLineAccountSearchViewController.fromCell = "AccountCell"
                 
@@ -449,7 +449,7 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
             
             if fromCell == "TaxCodeCell"
             {
-                let purchaseDetailDataLineTaxCodeSearchViewController = segue.destinationViewController as! PurchaseDetailDataLineTaxCodeSearchViewController
+                let purchaseDetailDataLineTaxCodeSearchViewController = segue.destination as! PurchaseDetailDataLineTaxCodeSearchViewController
                 
                 purchaseDetailDataLineTaxCodeSearchViewController.fromCell = "TaxCodeCell"
                 
@@ -457,7 +457,7 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
             }
             if fromCell == "DescriptionCell"
             {
-                let purchaseDetailDataLineDescription = segue.destinationViewController as! PurchaseDetailDataLineDescriptionViewController
+                let purchaseDetailDataLineDescription = segue.destination as! PurchaseDetailDataLineDescriptionViewController
                 
                 purchaseDetailDataLineDescription.fromCell = "DescriptionCell"
                 
@@ -489,10 +489,10 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
         selectedInventoryView = inventoryView
         
         reloadFromCell = "InventoryCell"
-        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+      DispatchQueue.main.async {
             self.PurchaseDetailDataLineTableView.reloadData()
             
-        })
+        }
     }
     func  sendGoBackFromPurchaseDetailDataLineDescriptionView(fromView : String ,forCell: String,Description: String)
     {
@@ -501,10 +501,10 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
         print("purchasesTransactionsDetailView.Description" + purchasesTransactionsDetailView.Description)
         
         reloadFromCell = "DescriptionCell"
-        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+         DispatchQueue.main.async {
             self.PurchaseDetailDataLineTableView.reloadData()
             
-        })
+        }
     }
     
     func  sendGoBackFromPurchaseDetailDataLineTaxCodeSearchView(fromView : String ,forCell: String,taxCodeView: TaxCodeView)
@@ -514,13 +514,14 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
         purchasesTransactionsDetailView.TaxCodeRate = taxCodeView.TaxRate
         selectedTaxCodeView = taxCodeView
         reloadFromCell = "TaxCodeCell"
-        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+        DispatchQueue.main.async {
             self.PurchaseDetailDataLineTableView.reloadData()
             
-        })
+        }
     }
     
-    @IBAction func unitPriceEditingChanged(sender: AnyObject) {
+    @IBAction func unitPriceEditingChanged(_ sender: AnyObject) {
+
         
         let UnitPriceTextField = sender as! UITextField
         let StrUnitPrice = UnitPriceTextField.text as String?
@@ -564,7 +565,7 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
             
         else {
             
-            if StrUnitPrice?.length > 0 {
+            if (StrUnitPrice?.length)! > 0 {
                 UnitPriceTextField.becomeFirstResponder()
                 //                Q6CommonLib.q6UIAlertPopupController("Information message", message: "You can only input decimal number here!", viewController: self)
                 
@@ -585,10 +586,10 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
             if UnitPrice >= 0 {
                 
                 
-                if StrUnitPrice?.containsString(".") == true {
+                if StrUnitPrice?.contains(".") == true {
                     //Check decimal place whether less than 4
-                    let strsplit = StrUnitPrice?.characters.split(("."))
-                    let strLast = String(strsplit?.last!)
+                    let strsplit = StrUnitPrice?.characters.split(separator: ".")
+                    let strLast = String(describing: strsplit?.last!)
                     
                     
                     if strLast.length > 4 {
@@ -610,7 +611,7 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
             }
             else {
                 UnitPriceTextField.becomeFirstResponder()
-                Q6CommonLib.q6UIAlertPopupController("Information message", message: "You can not input negative decimal number here!", viewController: self)
+                Q6CommonLib.q6UIAlertPopupController(title: "Information message", message: "You can not input negative decimal number here!", viewController: self)
                 
                 UnitPriceTextField.text = ""
                 purchasesTransactionsDetailView.UnitPrice = 0
@@ -619,9 +620,9 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
         }
         else {
             
-            if StrUnitPrice?.length > 0 {
+            if (StrUnitPrice?.length)! > 0 {
                 UnitPriceTextField.becomeFirstResponder()
-                Q6CommonLib.q6UIAlertPopupController("Information message", message: "You can only input decimal number here!", viewController: self)
+                Q6CommonLib.q6UIAlertPopupController(title: "Information message", message: "You can only input decimal number here!", viewController: self)
                 
                 UnitPriceTextField.text = ""
                 
@@ -634,7 +635,8 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
     
     
     
-    @IBAction func quantityEditingChanged(sender: AnyObject) {
+    @IBAction func quantityEditingChanged(_ sender: AnyObject) {
+
         
         let QuantityTextField = sender as! UITextField
         let StrQuantity = QuantityTextField.text as String?
@@ -700,10 +702,10 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
             if Quantity != 0 {
                 
                 
-                if StrQuantity?.containsString(".") == true {
+                if StrQuantity?.contains(".") == true {
                     //Check decimal place whether less than 4
-                    let strsplit = StrQuantity?.characters.split(("."))
-                    let strLast = String(strsplit?.last!)
+                    let strsplit = StrQuantity?.characters.split(separator: ".")
+                    let strLast = String(describing: strsplit?.last!)
                     
                     
                     if strLast.length > 4 {
@@ -725,7 +727,7 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
             }
             else {
                 QuantityTextField.becomeFirstResponder()
-                Q6CommonLib.q6UIAlertPopupController("Information message", message: "You can not input zero here!", viewController: self)
+                Q6CommonLib.q6UIAlertPopupController(title: "Information message", message: "You can not input zero here!", viewController: self)
                 
                 QuantityTextField.text = ""
                 purchasesTransactionsDetailView.Quantity = 0
@@ -734,9 +736,9 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
         }
         else {
             
-            if StrQuantity?.length > 0 {
+            if (StrQuantity?.length)! > 0 {
                 QuantityTextField.becomeFirstResponder()
-                Q6CommonLib.q6UIAlertPopupController("Information message", message: "You can only input decimal number here!", viewController: self)
+                Q6CommonLib.q6UIAlertPopupController(title: "Information message", message: "You can only input decimal number here!", viewController: self)
                 
                 QuantityTextField.text = ""
                 
@@ -750,10 +752,10 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
         purchasesTransactionsDetailView.Amount = purchasesTransactionsDetailView.UnitPrice * purchasesTransactionsDetailView.Quantity
         
         reloadFromCell = "calculateAmount"
-        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+       DispatchQueue.main.async {
             self.PurchaseDetailDataLineTableView.reloadData()
             
-        })
+        }
     }
     func  sendGoBackFromPurchaseDetailDataLineAccountSearchView(fromView : String ,forCell: String,accountView: AccountView)
     {
@@ -763,10 +765,10 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
         //   var taxCodeView = getTaxCodeByTaxCodeID()
         
         reloadFromCell = "AccountCell"
-        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+      DispatchQueue.main.async {
             self.PurchaseDetailDataLineTableView.reloadData()
             
-        })
+        }
     }
     
     
@@ -775,7 +777,7 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
         
     }
     @IBAction func CancelButtonClicked(sender: AnyObject) {
-        navigationController?.popViewControllerAnimated(true)
+        _ = navigationController?.popViewController(animated: true)
     }
     @IBAction func DoneButtonClicked(sender: AnyObject) {
         
@@ -783,11 +785,11 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
         {
             if validateIfPurchaseTransactionsDetailViewIsEmpty() == false {
                 calculateTaxAmount()
-                self.delegate?.sendGoBackFromPurchaseDetailDataLineView("PurchaseDetailDataLineViewController", forCell: "AddanItemCell", purchasesTransactionsDetailView: purchasesTransactionsDetailView)
-                navigationController?.popViewControllerAnimated(true)
+                self.delegate?.sendGoBackFromPurchaseDetailDataLineView(fromView: "PurchaseDetailDataLineViewController", forCell: "AddanItemCell", purchasesTransactionsDetailView: purchasesTransactionsDetailView)
+                _ = navigationController?.popViewController(animated: true)
             }
             else {
-                Q6CommonLib.q6UIAlertPopupController("Information message", message: "You haven't add a purchase detail data line!", viewController: self)
+                Q6CommonLib.q6UIAlertPopupController(title: "Information message", message: "You haven't add a purchase detail data line!", viewController: self)
             }
         }
         //        }
@@ -852,14 +854,14 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
         {
             if  purchasesTransactionsDetailView.Quantity > 0
             {
-                Q6CommonLib.q6UIAlertPopupController("Information message", message: "you can not input positive amount at quantity field when purchase type is DEBIT NOTE!", viewController: self)
+                Q6CommonLib.q6UIAlertPopupController(title: "Information message", message: "you can not input positive amount at quantity field when purchase type is DEBIT NOTE!", viewController: self)
                 return false
             }
         }
         else {
             if  purchasesTransactionsDetailView.Quantity < 0
             {
-                Q6CommonLib.q6UIAlertPopupController("Information message", message: "you can not input negative amount at quantity field when purchase type is QUOTE,ORDER ,BILL!", viewController: self)
+                Q6CommonLib.q6UIAlertPopupController(title: "Information message", message: "you can not input negative amount at quantity field when purchase type is QUOTE,ORDER ,BILL!", viewController: self)
                 return false
             }
             

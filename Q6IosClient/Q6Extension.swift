@@ -15,23 +15,23 @@ extension CALayer {
         let border = CALayer()
     
         switch edge {
-        case UIRectEdge.Top:
-            border.frame = CGRectMake(0, 0, CGRectGetHeight(self.frame), thickness)
+        case UIRectEdge.top:
+            border.frame = CGRect(x:0, y:0, width:self.frame.height, height:thickness)
             break
-        case UIRectEdge.Bottom:
-            border.frame = CGRectMake(0, CGRectGetHeight(self.frame) - thickness, SelfWidth, thickness)
+        case UIRectEdge.bottom:
+            border.frame = CGRect(x:0, y:self.frame.height - thickness, width:SelfWidth, height:thickness)
             break
-        case UIRectEdge.Left:
-            border.frame = CGRectMake(0, 0, thickness, CGRectGetHeight(self.frame))
+        case UIRectEdge.left:
+            border.frame = CGRect(x:0, y:0, width:thickness, height:self.frame.height)
             break
-        case UIRectEdge.Right:
-            border.frame = CGRectMake(CGRectGetWidth(self.frame) - thickness, 0, thickness, CGRectGetHeight(self.frame))
+        case UIRectEdge.right:
+            border.frame = CGRect(x:self.frame.width - thickness, y:0, width:thickness, height:self.frame.height)
             break
         default:
             break
         }
         
-        border.backgroundColor = color.CGColor;
+        border.backgroundColor = color.cgColor;
         
         self.addSublayer(border)
     }
@@ -59,7 +59,7 @@ extension String {
     func toDateTime() -> NSDate?
     {
         //Create Date Formatter
-        let dateFormatter = NSDateFormatter()
+        let dateFormatter = DateFormatter()
         
         //Specify Format of String to Parse
         dateFormatter.dateFormat = "yyyy-mm-dd"
@@ -67,8 +67,9 @@ extension String {
         //Parse into NSDate
         
        let str = self
-      var seperateStr = str.componentsSeparatedByString("T")
-        if let dateFromString : NSDate = dateFormatter.dateFromString(seperateStr[0]){
+      var seperateStr = str.components(separatedBy: "T")
+   
+        if let dateFromString : NSDate = dateFormatter.date(from: seperateStr[0]) as NSDate?{
             
             return dateFromString
         }
@@ -82,7 +83,7 @@ extension String {
     }
     
     subscript (index: Int) -> Character {
-        let charIndex = self.startIndex.advancedBy(index)
+        let charIndex = self.index(after: self.startIndex)
         return self[charIndex]
     }
     
@@ -90,14 +91,14 @@ extension String {
 
 extension NSDate {
     var formatted:String {
-        let formatter = NSDateFormatter()
+        let formatter = DateFormatter()
         formatter.dateFormat = "dd/MM/yyyy"
-        formatter.locale = NSLocale(localeIdentifier: "en_AU")
+        formatter.locale = NSLocale(localeIdentifier: "en_AU") as Locale!
         
 //        var todaysDate:NSDate = NSDate()
 //        var dateFormatter:NSDateFormatter = NSDateFormatter()
 //        dateFormatter.dateFormat = "dd/MM/yyyy"
-        let convertDate = formatter.stringFromDate(self)
+        let convertDate = formatter.string(from: self as Date)
         
         return convertDate
 }
@@ -106,11 +107,11 @@ extension NSDate {
         var isGreaterOrEqual = false
         
         //Compare Values
-        if self.compare(dateToCompare) == NSComparisonResult.OrderedDescending {
+        if self.compare(dateToCompare as Date) == ComparisonResult.orderedDescending {
             isGreaterOrEqual = true
         }
         //Compare Values
-        if self.compare(dateToCompare) == NSComparisonResult.OrderedSame {
+        if self.compare(dateToCompare as Date) == ComparisonResult.orderedSame {
             isGreaterOrEqual = true
         }
         

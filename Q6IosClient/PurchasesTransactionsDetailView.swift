@@ -10,19 +10,19 @@ import Foundation
 public class PurchasesTransactionsDetailView
 {
     
-    var PurchasesTransactionsDetailID  = NSUUID().UUIDString //:String =  NSUUID().UUIDString
-    var PurchasesTransactionsHeaderID = NSUUID().UUIDString
+    var PurchasesTransactionsDetailID  = NSUUID().uuidString //:String =  NSUUID().uuidString
+    var PurchasesTransactionsHeaderID = NSUUID().uuidString
     var Quantity:Double = 0
-    var InventoryID = String?()
+    var InventoryID:String?
     var InventoryName: String = ""
-    var AccountID = String?()
+    var AccountID:String?
     var AccountNameWithAccountNo:String = ""
-    var TaxCodeID = String?()
+    var TaxCodeID:String?
     var TaxCodeName = String()
-    var TaxCodeRate = Double?()
+    var TaxCodeRate:Double?
     var Description: String = ""
     var UnitPrice:Double = 0
-    var Discount = Double?()
+    var Discount:Double?
     var AmountWithoutTax: Double = 0
     var Amount: Double = 0
     var IsDeleted: Bool = false 

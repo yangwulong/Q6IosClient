@@ -20,13 +20,13 @@ public class InventoryView {
     var CategoryName = String()
     var AssetAccountNameWithAccountNo = String()
     var PurchaseDescription = String()
-    var PurchasePrice = Double?()
+    var PurchasePrice:Double?
     var IsPurchasePriceTaxInclusive = Bool()
     var PurchaseAccountNameWithAccountNo = String()
     var PurchaseTaxCodeName = String()
-    var MinQuantityForRestockingAlert = Double?()
+    var MinQuantityForRestockingAlert:Double?
     var SaleDescription = String()
-    var SellingPrice = Double?()
+    var SellingPrice:Double?
     var IsSalePriceTaxInclusive = Bool()
     var SaleTaxCodeName = String()
     var SaleAccountNameWithAccountNo = String()
@@ -37,14 +37,14 @@ public class InventoryView {
     var Committed = Double()
     var OnOrder = Double()
     var Available = Double()
-    var AssetAccountID = String?()
-    var PurchaseAccountID = String?()
-    var SaleAccountID = String?()
-    var PurchaseTaxCodeID = String?()
-    var PurchaseTaxCodeRate = Double?()
-    var PurchaseTaxCodePurpose = String?()
-    var SaleTaxCodeID = String?()
-    var SaleTaxCodeRate = Double?()
-    var SaleTaxCodePurpose = String?()
+    var AssetAccountID:String?
+    var PurchaseAccountID:String?
+    var SaleAccountID:String?
+    var PurchaseTaxCodeID:String?
+    var PurchaseTaxCodeRate:Double?
+    var PurchaseTaxCodePurpose:String?
+    var SaleTaxCodeID:String?
+    var SaleTaxCodeRate:Double?
+    var SaleTaxCodePurpose:String?
     
 }

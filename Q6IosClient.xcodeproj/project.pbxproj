@@ -435,6 +435,7 @@
 					19FD13211C9A134800E5C445 = {
 						CreatedOnToolsVersion = 7.2;
 						DevelopmentTeam = T7SSJ7K252;
+						LastSwiftMigration = 0800;
 					};
 				};
 			};
@@ -688,6 +689,7 @@
 				SWIFT_INCLUDE_PATHS = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Q6IosClient/Q6IosClient-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -705,6 +707,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Q6IosClient/Q6IosClient-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};

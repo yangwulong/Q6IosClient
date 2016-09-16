@@ -20,7 +20,7 @@ class DatePickerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        selectedDate = datePicker.date
+        selectedDate = datePicker.date as NSDate
         if( fromCell == "DueDateCell")
         {
 
@@ -38,22 +38,22 @@ class DatePickerViewController: UIViewController {
         
         let date = datePicker.date
         
-        print(date.formatted)
+        //print(date.formatted)
     }
   
     
     @IBAction func CancelButtonClicked(sender: AnyObject) {
         
-          self.navigationController?.popViewControllerAnimated(true)
+         _ = self.navigationController?.popViewController(animated: true)
     }
     @IBAction func DoneButtonClicked(sender: AnyObject) {
         
- selectedDate = datePicker.date
+ selectedDate = datePicker.date as NSDate
         
     
         
-        self.delegate?.sendGoBackFromDatePickerView("DatePickerViewController", forCell: fromCell, Date: selectedDate)
-        navigationController?.popViewControllerAnimated(true)
+        self.delegate?.sendGoBackFromDatePickerView(fromView: "DatePickerViewController", forCell: fromCell, Date: selectedDate)
+        _ = navigationController?.popViewController(animated: true)
         // navigationController?.popToRootViewControllerAnimated(true)
    
     }

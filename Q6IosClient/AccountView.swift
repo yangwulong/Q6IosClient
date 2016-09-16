@@ -37,10 +37,10 @@ public class AccountView {
     var IsSale = Bool()
     var IsSell = Bool()
     var OpeningBalance = Double()
-    var OpeningBalanceDate = NSDate?()
+    var OpeningBalanceDate:NSDate?
     var OpeningBalanceType = String()
     var SortNo = Int()
-    var TaxCodeID = String?()
+    var TaxCodeID:String?
     var TaxCodeName = String()
     var TaxRate = Double()
     var TaxCodePurpose = String()

@@ -13,7 +13,7 @@ public class SalesTransactionsListView
 {
     
     var SalesTransactionsHeaderID = String()
-    var Overdueby = String?()
+    var Overdueby:String?
     var CustomerID = String()
     var CustomerName = String()
     var ReferenceNo = String()
@@ -21,12 +21,12 @@ public class SalesTransactionsListView
     var SalesStatus = String()
     var SalesStatusString = String()
     var Memo = String()
-    var DueDate = NSDate?()
+    var DueDate:NSDate?
     var TransactionDate = NSDate()
     var TotalAmount = Double()
     var AmountDue = Double()
     var HasLinkedDoc = Bool()
-    var ClosedDate = NSDate?()
+    var ClosedDate:NSDate?
     var CustomerEmail = String()
     
 }

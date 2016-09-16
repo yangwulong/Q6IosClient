@@ -16,7 +16,7 @@ class AddImageViewController: UIViewController,UIImagePickerControllerDelegate,U
     @IBOutlet weak var UseExistingPhoto: UIButton!
     @IBOutlet weak var UseCameraButton: UIButton!
     var newMedia: Bool?
-    var attachedImage = UIImage?()
+    var attachedImage:UIImage?
      weak var delegate : Q6GoBackFromView?
     var fromCell = String()
     override func viewDidLoad() {
@@ -32,36 +32,36 @@ setControlAppear()
     func setControlAppear()
     {
         if imageView.image == nil {
-            lblInfo.hidden = false
+            lblInfo.isHidden = false
         }
         UseExistingPhoto.layer.cornerRadius = 2;
         UseExistingPhoto.layer.borderWidth = 0.1;
-        UseExistingPhoto.layer.borderColor = UIColor.blackColor().CGColor
+        UseExistingPhoto.layer.borderColor = UIColor.black.cgColor
         
         UseCameraButton.layer.cornerRadius = 2;
         UseCameraButton.layer.borderWidth = 0.1;
-        UseCameraButton.layer.borderColor = UIColor.blackColor().CGColor
+        UseCameraButton.layer.borderColor = UIColor.black.cgColor
     }
     @IBAction func UseExistingPhotoButtonClicked(sender: AnyObject) {
-        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.SavedPhotosAlbum){
+        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.savedPhotosAlbum){
             let imagePicker = UIImagePickerController()
             imagePicker.delegate = self
-            imagePicker.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
+            imagePicker.sourceType = UIImagePickerControllerSourceType.photoLibrary
         
             imagePicker.mediaTypes = [kUTTypeImage as String]
             imagePicker.allowsEditing = false
-            self.presentViewController(imagePicker, animated: true, completion: nil)
+            self.present(imagePicker, animated: true, completion: nil)
             newMedia = false
         }
     }
     @IBAction func UseCameraButtonClicked(sender: AnyObject) {
-        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera){
+        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera){
             
             let imagePicker = UIImagePickerController()
             imagePicker.delegate = self
-            imagePicker.sourceType = UIImagePickerControllerSourceType.Camera
+            imagePicker.sourceType = UIImagePickerControllerSourceType.camera
             imagePicker.allowsEditing = false
-            self.presentViewController(imagePicker,animated: true, completion: nil )
+            self.present(imagePicker,animated: true, completion: nil )
             newMedia = true
         }
     }
@@ -69,15 +69,14 @@ setControlAppear()
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    private func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+        
+        
     
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
-        
-        
-        
         let mediaType = info[UIImagePickerControllerMediaType] as! NSString
-        self.dismissViewControllerAnimated(true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
         
-        if mediaType.isEqualToString(kUTTypeImage as String) {
+        if mediaType.isEqual(to: kUTTypeImage as String) {
             
             let image = info[UIImagePickerControllerOriginalImage] as! UIImage
             
@@ -86,24 +85,26 @@ setControlAppear()
             attachedImage = image
            // let pngImageData = UIImagePNGRepresentation(image,1)
           let pngImageData = UIImageJPEGRepresentation(image, 1)
-     _ = pngImageData!.base64EncodedStringWithOptions(NSDataBase64EncodingOptions.Encoding64CharacterLineLength)
-            lblInfo.hidden = true
+  //   _ = pngImageData!.base64EncodedString(options: NSData.Base64EncodingOptions.Encoding64CharacterLineLength)
+            lblInfo.isHidden = true
             if newMedia == true {
-                UIImageWriteToSavedPhotosAlbum(image,self, #selector(AddImageViewController.image(_:didFinishSavingWithError:contextInfo:)), nil)
+//                UIImageWriteToSavedPhotosAlbum(image,self, Selector("image:didFinishSavingWithError:contextInfo:"), nil)
+                
+ UIImageWriteToSavedPhotosAlbum(image, self, #selector(AddImageViewController.image(_:didFinishSavingWithError:contextInfo:)), nil)
             }
         }
     }
     
-    func image(image:UIImage,didFinishSavingWithError error:NSErrorPointer,contextInfo:UnsafePointer<Void>){
+    func image(_ image:UIImage,didFinishSavingWithError error:NSErrorPointer,contextInfo:UnsafeRawPointer){
         
         if error != nil {
-            Q6CommonLib.q6UIAlertPopupController("Save Failed", message: "Failed to save image", viewController: self)
+            Q6CommonLib.q6UIAlertPopupController(title: "Save Failed", message: "Failed to save image", viewController: self)
         }
     }
 
     @IBAction func CancelButtonClicked(sender: AnyObject) {
         
-        navigationController?.popViewControllerAnimated(true)
+        _ = navigationController?.popViewController(animated: true)
         
     }
     @IBAction func DoneButtonClicked(sender: AnyObject) {
@@ -111,13 +112,13 @@ setControlAppear()
         if attachedImage != nil  {
             
           //  if checkImageFileSize(){
-            self.delegate?.sendGoBackFromAddImageView("AddImageViewController", forCell: "AddanImageCell", image: attachedImage!)
+            self.delegate?.sendGoBackFromAddImageView(fromView: "AddImageViewController", forCell: "AddanImageCell", image: attachedImage!)
         
-        navigationController?.popViewControllerAnimated(true)
+        _ = navigationController?.popViewController(animated: true)
            // }
         }
         else {
-            Q6CommonLib.q6UIAlertPopupController("Information message", message: "You haven't pick a photo", viewController: self) 
+            Q6CommonLib.q6UIAlertPopupController(title: "Information message", message: "You haven't pick a photo", viewController: self) 
         }
     }
     
@@ -136,7 +137,7 @@ setControlAppear()
         print("File Size" + FileSize.description)
         if FileSize > 2000000 {
             
-                  Q6CommonLib.q6UIAlertPopupController("Information message", message: "Your Photo size can not over 2 MB !", viewController: self)
+                  Q6CommonLib.q6UIAlertPopupController(title: "Information message", message: "Your Photo size can not over 2 MB !", viewController: self)
             return false
         }
         else {

@@ -16,7 +16,7 @@ class PickerViewViewController: UIViewController, UIPickerViewDataSource, UIPick
     weak var delegate : Q6GoBackFromView?
     var fromCell = String()
     var pickerDataSource = [String]()
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         //  self.view.transform = CGAffineTransformMakeTranslation(600, 0)
         
         if( fromCell == "PurchasesTypecell")
@@ -41,30 +41,30 @@ class PickerViewViewController: UIViewController, UIPickerViewDataSource, UIPick
         
     }
     @IBAction func CancelButtonClick(sender: AnyObject) {
-        self.navigationController?.popViewControllerAnimated(true)
+        _ = self.navigationController?.popViewController(animated: true)
         
         // navigationController?.popToRootViewControllerAnimated(true)
     }
     
     
     @IBAction func DonebuttonClick(sender: AnyObject) {
-        let selectedValue = pickerDataSource[pickerView.selectedRowInComponent(0)]
+        let selectedValue = pickerDataSource[pickerView.selectedRow(inComponent: 0)]
         
-        self.delegate?.sendGoBackFromPickerView("fromPickerViewViewController" ,forCell :fromCell,selectedValue: selectedValue)
+        self.delegate?.sendGoBackFromPickerView(fromView: "fromPickerViewViewController" ,forCell :fromCell,selectedValue: selectedValue)
         
-        navigationController?.popViewControllerAnimated(true)
+        _ = navigationController?.popViewController(animated: true)
         // navigationController?.popToRootViewControllerAnimated(true)
         print("PickView selected row" + selectedValue)
     }
-    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
     
-    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return pickerDataSource.count;
     }
     
-    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         print("row" + row.description)
         return pickerDataSource[row]
     }

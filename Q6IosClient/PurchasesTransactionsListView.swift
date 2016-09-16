@@ -11,7 +11,7 @@ public class PurchasesTransactionsListView
 {
 
     var PurchasesTransactionsHeaderID = String()
-    var Overdueby = String?()
+    var Overdueby:String?
     var SupplierID = String()
     var SupplierName = String()
     var ReferenceNo = String()
@@ -19,11 +19,11 @@ public class PurchasesTransactionsListView
     var PurchasesStatus = String()
     var PurchasesStatusString = String()
     var Memo = String()
-    var DueDate = NSDate?()
+    var DueDate:NSDate?
     var TransactionDate = NSDate()
     var TotalAmount = Double()
     var AmountDue = Double()
     var HasLinkedDoc = Bool()
-    var ClosedDate = NSDate?()
+    var ClosedDate:NSDate?
     
 }

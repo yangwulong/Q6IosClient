@@ -10,20 +10,20 @@ import Foundation
 
 public class SalesTransactionsDetail
 {
-    var AccountID = String?()
+    var AccountID:String?
     var Amount = Double()
-    var Description = String?()
+    var Description:String?
     var Discount :Double = 0
-    var InventoryID = String?()
+    var InventoryID:String?
     var IsDeleted: Bool = false
     var Quantity = Double()
     
-    var SalesTransactionsDetailID = NSUUID().UUIDString
-    var SalesTransactionsHeaderID = NSUUID().UUIDString
+    var SalesTransactionsDetailID = NSUUID().uuidString
+    var SalesTransactionsHeaderID = NSUUID().uuidString
     
     var SortNo = Int()
     
-    var TaxCodeID = String?()
+    var TaxCodeID:String?
     
     var UnitPrice = Double()
     

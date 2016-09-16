@@ -12,48 +12,48 @@ public class Customer {
     
     var CustomerID = String()
     var CustomerName:String = ""
-    var Title = String?()
+    var Title:String?
       var CreateDate = NSDate()
-    var FirstName = String?()
-    var LastName = String?()
-    var Email = String?()
-    var Phone = String?()
-    var Fax = String?()
-    var Memos = String?()
-    var BSBNumber = String?()
-    var BankAccountNumber = String?()
-    var BankAccountName = String?()
-    var StatementText = String?()
-    var PaymentMemos = String?()
-    var DefaultSalesAccountID = String?()
-    var DefaultSalesAccountNameWithAccountNo = String?()
-    var ABN = String?()
-    var DefaultSalesTaxCodeID = String?()
+    var FirstName:String?
+    var LastName:String?
+    var Email:String?
+    var Phone:String?
+    var Fax:String?
+    var Memos:String?
+    var BSBNumber:String?
+    var BankAccountNumber:String?
+    var BankAccountName:String?
+    var StatementText:String?
+    var PaymentMemos:String?
+    var DefaultSalesAccountID:String?
+    var DefaultSalesAccountNameWithAccountNo:String?
+    var ABN:String?
+    var DefaultSalesTaxCodeID:String?
     var DefaultSalesTaxCodeName = String()
     var DefaultSalesTaxCodeRate = Double()
     var DefaultSalesTaxCodePurpose = String()
     
     var DefaultSalesDiscount = Double()
-    var PhysicalAddress = String?()
-    var PhysicalAddressLine2 = String?()
-    var PhysicalCity = String?()
-    var PhysicalState = String?()
-    var PhysicalPostalCode = String?()
-    var PhysicalCountry = String?()
-    var IsSameAsPhysicalAddress = Bool?()
-    var PostalAddress = String?()
-    var PostalAddressLine2 = String?()
-    var PostalCity = String?()
-    var PostalState = String?()
-    var PostalPostalCode = String?()
-    var PostalCountry = String?()
-    var IsSameAsPostalAddress = Bool?()
-    var ShippingAddress = String?()
-    var ShippingAddressLine2 = String?()
-    var ShippingCity = String?()
-    var ShippingState = String?()
-    var ShippingPostalCode = String?()
-    var ShippingCountry = String?()
+    var PhysicalAddress:String?
+    var PhysicalAddressLine2:String?
+    var PhysicalCity:String?
+    var PhysicalState:String?
+    var PhysicalPostalCode:String?
+    var PhysicalCountry:String?
+    var IsSameAsPhysicalAddress:Bool?
+    var PostalAddress:String?
+    var PostalAddressLine2:String?
+    var PostalCity:String?
+    var PostalState:String?
+    var PostalPostalCode:String?
+    var PostalCountry:String?
+    var IsSameAsPostalAddress:Bool?
+    var ShippingAddress:String?
+    var ShippingAddressLine2:String?
+    var ShippingCity:String?
+    var ShippingState:String?
+    var ShippingPostalCode:String?
+    var ShippingCountry:String?
     var IsInactive = Bool()
     
     
@@ -96,7 +96,7 @@ public class Customer {
         self.ShippingState = ""
         self.StatementText = ""
         self.CustomerName = ""
-        self.CustomerID = NSUUID().UUIDString
+        self.CustomerID = NSUUID().uuidString
         self.Title = ""
     }
 }

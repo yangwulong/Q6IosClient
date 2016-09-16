@@ -104,7 +104,7 @@ public class Q6CommonLib{
         
     
         if context.canEvaluatePolicy(
-            LAPolicy.DeviceOwnerAuthenticationWithBiometrics,
+            LAPolicy.deviceOwnerAuthenticationWithBiometrics,
             error: &error) {
                 return true
         }
@@ -115,21 +115,21 @@ public class Q6CommonLib{
     }
     
     func  validateIfPassCodeExist() -> Bool {
-        let secret = "Device has passcode set?".dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)
-        let attributes = [kSecClass as String:kSecClassGenericPassword, kSecAttrService as String:"LocalDeviceServices", kSecAttrAccount as String:"NoAccount", kSecValueData as String:secret!, kSecAttrAccessible as String:kSecAttrAccessibleWhenPasscodeSetThisDeviceOnly]
+        let secret = "Device has passcode set?".data(using: String.Encoding.utf8, allowLossyConversion: false)
+        let attributes = [kSecClass as String:kSecClassGenericPassword, kSecAttrService as String:"LocalDeviceServices", kSecAttrAccount as String:"NoAccount", kSecValueData as String:secret!, kSecAttrAccessible as String:kSecAttrAccessibleWhenPasscodeSetThisDeviceOnly] as [String : Any]
         
-        let status = SecItemAdd(attributes, nil)
+        let status = SecItemAdd(attributes as CFDictionary, nil)
         if status == 0 {
-            SecItemDelete(attributes)
+            SecItemDelete(attributes as CFDictionary)
             return true
         }
         
         return false
     }
     func convertJSONToDictionary(text: String?) -> [String:AnyObject]? {
-        if let data = text!.dataUsingEncoding(NSUTF8StringEncoding) {
+        if let data = text!.data(using: String.Encoding.utf8) {
             do {
-                let json = try NSJSONSerialization.JSONObjectWithData(data, options: .MutableContainers) as? [String:AnyObject]
+                let json = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? [String:AnyObject]
                 return json
             } catch {
                 print("Something went wrong")
@@ -144,9 +144,9 @@ public class Q6CommonLib{
         
         do{
             
-            let jsonData = try NSJSONSerialization.dataWithJSONObject(dicData, options: [])
+            let jsonData = try JSONSerialization.data(withJSONObject: dicData, options: [])
             
-            let jsonString = NSString(data: jsonData, encoding: NSUTF8StringEncoding)! as String
+            let jsonString = NSString(data: jsonData, encoding: String.Encoding.utf8.rawValue)! as String
             returnString = jsonString
             
 //      print(jsonString)
@@ -174,21 +174,21 @@ public class Q6CommonLib{
         loginDetail["Password"] = userInfos["PassWord"]
         loginDetail["WebApiTOKEN"] = "91561308-B547-4B4E-8289-D5F0B23F0037"
         
-        let jasonLoginDeail = convertDictionaryToJSONData(loginDetail)
+        let jasonLoginDeail = convertDictionaryToJSONData(dicData: loginDetail as [String : AnyObject])
         
         
-       let EncodeAttachedURL = (jasonLoginDeail + attachedURL).stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())! as String
-     //   print("EncodeAttachedURL \(EncodeAttachedURL)")
+       let EncodeAttachedURL = (jasonLoginDeail + attachedURL).addingPercentEncoding(withAllowedCharacters: .urlHostAllowed )! as String
+   // print("EncodeAttachedURL \(EncodeAttachedURL)")
         
         
         let url : String = q6WebApiUrl + ModelName + "/" + ActionName + "?Jsonlogin="  + EncodeAttachedURL
        // var url : String = q6WebApiUrl + ModelName + "/" + ActionName + "?Jsonlogin=" + jasonLoginDeail + attachedURL
-        let configuration = NSURLSessionConfiguration .defaultSessionConfiguration()
-        let session = NSURLSession(configuration: configuration)
+        let configuration = URLSessionConfiguration .default
+        let session = URLSession(configuration: configuration)
         
         
-        let urlString : String = url.stringByReplacingOccurrencesOfString("\\", withString: "") as String
-//       print(" Original urlString: \(urlString)")
+        let urlString : String = url.replacingOccurrences(of: "\\", with: "") as String
+  //  print(" Original urlString: \(urlString)")
 //      urlString = urlString.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!
 //        
 //        
@@ -199,18 +199,18 @@ public class Q6CommonLib{
 // print("2 urlString: \(urlString)")
         
         //let url = NSURL(string: urlString as String)
-        let request : NSMutableURLRequest = NSMutableURLRequest(URL: NSURL(string: urlString )!)
+        let request : NSMutableURLRequest = NSMutableURLRequest(url: NSURL(string: urlString )! as URL)
        // request.URL = NSURL(string:urlString ) //NSURL(string: NSString(format: "%@", urlString) as String)
         
     
-        request.HTTPMethod = "GET"
+        request.httpMethod = "GET"
         request.timeoutInterval = 30
         
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         
-        let dataTask = session.dataTaskWithRequest(request) {
-            (let data: NSData?, let response: NSURLResponse?, let error: NSError?) -> Void in
+        let dataTask = session.dataTask(with: request as URLRequest) {
+            ( data: Data?, response: URLResponse?, error: Error?) -> Void in
             
             
             guard data != nil else {
@@ -229,7 +229,7 @@ public class Q6CommonLib{
             }
             
             // 1: Check HTTP Response for successful GET request
-            guard let httpResponse = response as? NSHTTPURLResponse, _ = data
+            guard let httpResponse = response as? HTTPURLResponse, let _ = data
                 else {
                     print("error: not a valid http response")
                     return
@@ -241,7 +241,7 @@ public class Q6CommonLib{
                 return
             }
             
-            self.completion(data, response: response, error: error)
+            self.completion(data: data as NSData?, response: response, error: error as NSError?)
 //            switch (httpResponse.statusCode)
 //            {
 //            case 200:
@@ -276,17 +276,17 @@ public class Q6CommonLib{
         
         
         // create the request & response
-        let request = NSMutableURLRequest(URL: NSURL(string: UrlString)!, cachePolicy: NSURLRequestCachePolicy.ReloadIgnoringLocalCacheData, timeoutInterval: 5)
+        let request = NSMutableURLRequest(url: NSURL(string: UrlString)! as URL, cachePolicy: NSURLRequest.CachePolicy.reloadIgnoringLocalCacheData, timeoutInterval: 5)
       //  var response: NSURLResponse?
         
         
         
         // create some JSON data and configure the request
-        let jsonString = convertDictionaryToJSONData(dicData)
+        let jsonString = convertDictionaryToJSONData(dicData: dicData)
         
        print(jsonString)
-        request.HTTPBody = jsonString.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)
-        request.HTTPMethod = "POST"
+        request.httpBody = jsonString.data(using: String.Encoding.utf8, allowLossyConversion: true)
+        request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
         
@@ -296,13 +296,13 @@ public class Q6CommonLib{
             // let jsonPost = try NSJSONSerialization.dataWithJSONObject(newPost, options: [])
             // postsUrlRequest.HTTPBody = jsonString.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)//jsonPost
             
-            let config = NSURLSessionConfiguration.defaultSessionConfiguration()
-            let session = NSURLSession(configuration: config)
+            let config = URLSessionConfiguration.default
+            let session = URLSession(configuration: config)
          
   
             
             
-            let task = session.dataTaskWithRequest(request, completionHandler: {
+            let task = session.dataTask(with: request as URLRequest, completionHandler: {
                 (data, response, error)  in
                 guard data != nil else {
                     print("Error: did not receive data")
@@ -320,7 +320,7 @@ public class Q6CommonLib{
                 }
            
        
-                self.completion(data, response: response, error: error)
+                self.completion(data: data as NSData?, response: response, error: error as NSError?)
                 // parse the result as JSON, since that's what the API provides
        
              
@@ -337,9 +337,9 @@ public class Q6CommonLib{
     }
 
  
-   public func completion(data:NSData?, response:NSURLResponse?, error:NSError?) {
+   public func completion(data:NSData?, response:URLResponse?, error:NSError?) {
         
-        self.delegate?.dataLoadCompletion(data, response: response, error: error)
+        self.delegate?.dataLoadCompletion(data: data, response: response, error: error)
      
         
     }
@@ -355,46 +355,101 @@ public class Q6CommonLib{
         
         let emailTest = NSPredicate(format: "SELF MATCHES %@", filterString)
         
-        return emailTest.evaluateWithObject(email)
+        return emailTest.evaluate(with: email)
     }
     
     public static func q6UIAlertPopupController(title: String?,message:String?,viewController: AnyObject?)
     {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
-       viewController!.presentViewController(alert, animated: true, completion: nil)
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
+       viewController!.present(alert, animated: true, completion: nil)
+        
+      
+        let delayTime = DispatchTime.now() + Double(Int64(1 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
         
         
-        let delayTime = dispatch_time(DISPATCH_TIME_NOW,
-                                      Int64(1 * Double(NSEC_PER_SEC)))
-        dispatch_after(delayTime, dispatch_get_main_queue()) {
-            viewController!.dismissViewControllerAnimated(true, completion: nil);
+ 
+        
+
+        DispatchQueue.main.asyncAfter(deadline: delayTime)
+        {
+            
+     
+            if  let v = viewController  {
+                viewController?.dismiss(animated: true, completion: nil)
+            }
+ 
+            
+            // self.navigationController!.popViewControllerAnimated(true)
+            // self.navigationController?.popToRootViewControllerAnimated(true)
         }
+        
+//        let delayTime = dispatch_time(DISPATCH_TIME_NOW,
+//                                      Int64(1 * Double(NSEC_PER_SEC)))
+//        dispatch_after(delayTime, dispatch_get_main_queue()) {
+//            viewController!.dismissViewControllerAnimated(true, completion: nil);
+//        }
     }
     
     public static func q6UIAlertPopupController(title: String?,message:String?,viewController: AnyObject? ,timeArrange: Double)
     {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
-        viewController!.presentViewController(alert, animated: true, completion: nil)
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
+        viewController!.present(alert, animated: true, completion: nil)
         
         
-        let delayTime = dispatch_time(DISPATCH_TIME_NOW,
-                                      Int64(timeArrange * Double(NSEC_PER_SEC)))
-        dispatch_after(delayTime, dispatch_get_main_queue()) {
-            viewController!.dismissViewControllerAnimated(true, completion: nil);
+//        let delayTime = dispatch_time(DISPATCH_TIME_NOW,
+//                                      Int64(timeArrange * Double(NSEC_PER_SEC)))
+//        dispatch_after(delayTime, dispatch_get_main_queue()) {
+//            viewController!.dismissViewControllerAnimated(true, completion: nil);
+//        }
+        
+        
+        let delayTime = DispatchTime.now() + Double(Int64(timeArrange * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
+        
+        
+        //                let delayTime = dispatch_time(dispatch_time_t(DISPATCH_TIME_NOW),
+        //                                              Int64(3 * Double(NSEC_PER_SEC)))
+        //                let delayTime2 = dispatch_time(DISPATCH_TIME_NOW,
+        //                                               Int64(4 * Double(NSEC_PER_SEC)))
+        
+        DispatchQueue.main.asyncAfter(deadline: delayTime)
+        {
+            
+            if  let v = viewController  {
+                viewController?.dismiss(animated: true, completion: nil)
+            }
+        
+            // self.navigationController!.popViewControllerAnimated(true)
+            // self.navigationController?.popToRootViewControllerAnimated(true)
         }
     }
     
     public static func q6UIAlertPopupControllerThenGoBack(title: String?,message:String?,viewController: AnyObject? ,timeArrange: Double ,navigationController: UINavigationController)
     {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
-        viewController!.presentViewController(alert, animated: true, completion: nil)
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
+        viewController!.present(alert, animated: true, completion: nil)
         
         
-        let delayTime = dispatch_time(DISPATCH_TIME_NOW,
-                                      Int64(timeArrange * Double(NSEC_PER_SEC)))
-        dispatch_after(delayTime, dispatch_get_main_queue()) {
-            viewController!.dismissViewControllerAnimated(true, completion: nil);
-             navigationController.popViewControllerAnimated(true)
+//        let delayTime = dispatch_time(DISPATCH_TIME_NOW,
+//                                      Int64(timeArrange * Double(NSEC_PER_SEC)))
+//        dispatch_after(delayTime, dispatch_get_main_queue()) {
+//            viewController!.dismissViewControllerAnimated(true, completion: nil);
+//             navigationController.popViewControllerAnimated(true)
+//        }
+        
+        
+        let delayTime = DispatchTime.now() + Double(Int64(timeArrange * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
+ 
+        
+        //                let delayTime = dispatch_time(dispatch_time_t(DISPATCH_TIME_NOW),
+        //                                              Int64(3 * Double(NSEC_PER_SEC)))
+        //                let delayTime2 = dispatch_time(DISPATCH_TIME_NOW,
+        //                                               Int64(4 * Double(NSEC_PER_SEC)))
+        
+        DispatchQueue.main.asyncAfter(deadline: delayTime)
+        {
+          //viewController?.dismiss(animated: <#T##Bool#>, completion: <#T##(() -> Void)?##(() -> Void)?##() -> Void#>)
+         viewController!.dismiss(animated:true, completion: nil);
+            navigationController.popViewController(animated: true)
         }
     }
     
@@ -404,28 +459,30 @@ public class Q6CommonLib{
         var addresses = [String]()
         
         // Get list of all interfaces on the local machine:
-        var ifaddr : UnsafeMutablePointer<ifaddrs> = nil
+        var ifaddr : UnsafeMutablePointer<ifaddrs>? = nil
         if getifaddrs(&ifaddr) == 0 {
             var ptr = ifaddr
             repeat{
                
-                let flags = Int32(ptr.memory.ifa_flags)
-                                var addr = ptr.memory.ifa_addr.memory
+                let flags = Int32((ptr?.pointee.ifa_flags)!)
+                                var addr = ptr?.pointee.ifa_addr.pointee
                 
                                 // Check for running IPv4, IPv6 interfaces. Skip the loopback interface.
                                 if (flags & (IFF_UP|IFF_RUNNING|IFF_LOOPBACK)) == (IFF_UP|IFF_RUNNING) {
-                                    if addr.sa_family == UInt8(AF_INET) || addr.sa_family == UInt8(AF_INET6) {
+                                    if addr?.sa_family == UInt8(AF_INET) || addr?.sa_family == UInt8(AF_INET6) {
                 
                                         // Convert interface address to a human readable string:
-                                        var hostname = [CChar](count: Int(NI_MAXHOST), repeatedValue: 0)
-                                        if (getnameinfo(&addr, socklen_t(addr.sa_len), &hostname, socklen_t(hostname.count),nil, socklen_t(0), NI_NUMERICHOST) == 0) {
-                                            if let address = String.fromCString(hostname) {
+                                        var hostname = [CChar](repeating: 0, count: Int(NI_MAXHOST))
+                                        if (getnameinfo(&addr!, socklen_t((addr?.sa_len)!), &hostname, socklen_t(hostname.count),nil, socklen_t(0), NI_NUMERICHOST) == 0) {
+                                            
+                                   //String(
+                                            if let address = String(validatingUTF8: hostname) {
                                                 addresses.append(address)
                                             }
                                         }
                                     }
                                 }
-                ptr = ptr.memory.ifa_next
+                ptr = ptr?.pointee.ifa_next
 
             }while (ptr != nil)
 //            // For each interface ...
@@ -474,10 +531,15 @@ public class Q6CommonLib{
 //        return isReachable && !needsConnection
         
         var zeroAddress = sockaddr_in()
-        zeroAddress.sin_len = UInt8(sizeofValue(zeroAddress))
+        zeroAddress.sin_len = UInt8(MemoryLayout.size(ofValue: zeroAddress))
         zeroAddress.sin_family = sa_family_t(AF_INET)
-        let defaultRouteReachability = withUnsafePointer(&zeroAddress) {
-            SCNetworkReachabilityCreateWithAddress(nil, UnsafePointer($0))
+//        let defaultRouteReachability = withUnsafePointer(to: &zeroAddress) {
+//            SCNetworkReachabilityCreateWithAddress(nil, UnsafePointer($0))
+//        }
+        let defaultRouteReachability = withUnsafePointer(to: &zeroAddress) {
+            $0.withMemoryRebound(to: sockaddr.self, capacity: 1) {zeroSockAddress in
+                SCNetworkReachabilityCreateWithAddress(nil, zeroSockAddress)
+            }
         }
         var flags = SCNetworkReachabilityFlags()
         if !SCNetworkReachabilityGetFlags(defaultRouteReachability!, &flags) {
@@ -518,90 +580,90 @@ public class Q6CommonLib{
         
   
     
-    func testTouchID()->(msg:String,err:String) {
-        
-        var msg: String = ""
-        var err: String = ""
-        let context = LAContext()
-        
-        var error: NSError?
-        
-        if context.canEvaluatePolicy(
-            LAPolicy.DeviceOwnerAuthenticationWithBiometrics,
-            error: &error) {
-                
-                context.evaluatePolicy(
-                    LAPolicy.DeviceOwnerAuthenticationWithBiometrics,
-                    localizedReason: "Access requires authentication",
-                    reply: {(success, error) in
-                        dispatch_async(dispatch_get_main_queue()) {
-                            
-                            if error != nil {
-                                
-                                switch error!.code {
-                                    
-                                case LAError.SystemCancel.rawValue:
-                                  
-                                    msg = "Session cancelled"
-                                    err = (error?.localizedDescription)!
-                                  
-                                    
-                                case LAError.UserCancel.rawValue:
-                                 
-                           
-                                     msg = "Please try again"
-                                     err = (error?.localizedDescription)!
-                                    
-                                case LAError.UserFallback.rawValue:
-                       
-                                    // Custom code to obtain password here
-                                    msg = "Authentication"
-                                    err = "Password option selected"
-                                    
-                                default:
-                           
-                                    msg = "Authentication failed"
-                                    err = (error?.localizedDescription)!
-                                }
-                                
-                            } else {
-                       
-                                msg = "Authentication Successful"
-                                err = "You now have full access"
-                            }
-                        }
-                })
-                
-                
-        } else {
-            // Device cannot use TouchID
-            switch error!.code{
-                
-            case LAError.TouchIDNotEnrolled.rawValue:
-                notifyUser("TouchID is not enrolled",
-                    err: error?.localizedDescription)
-                msg = "TouchID is not enrolled"
-                err = (error?.localizedDescription)!
-                
-            case LAError.PasscodeNotSet.rawValue:
-          
-                msg = "A passcode has not been set"
-                err = (error?.localizedDescription)!
-                
-            default:
-      
-                
-                msg = "TouchID not available"
-                err = (error?.localizedDescription)!
-                
-            }
-        }
-        return (msg ,err)
-    }
+//    func testTouchID()->(msg:String,err:String) {
+//        
+//        var msg: String = ""
+//        var err: String = ""
+//        let context = LAContext()
+//        
+//        var error: Error?
+//        
+//        if context.canEvaluatePolicy(
+//            LAPolicy.deviceOwnerAuthenticationWithBiometrics,
+//            error: &error) {
+//                
+//                context.evaluatePolicy(
+//                    LAPolicy.deviceOwnerAuthenticationWithBiometrics,
+//                    localizedReason: "Access requires authentication",
+//                    reply: {(success, error) in
+//                  DispatchQueue.main.async {
+//                            
+//                            if error != nil {
+//                                
+//                                switch error! {
+//                                    
+//                                case LAError.SystemCancel.rawValue:
+//                                  
+//                                    msg = "Session cancelled"
+//                                    err = (error?.localizedDescription)!
+//                                  
+//                                    
+//                                case LAError.UserCancel.rawValue:
+//                                 
+//                           
+//                                     msg = "Please try again"
+//                                     err = (error?.localizedDescription)!
+//                                    
+//                                case LAError.UserFallback.rawValue:
+//                       
+//                                    // Custom code to obtain password here
+//                                    msg = "Authentication"
+//                                    err = "Password option selected"
+//                                    
+//                                default:
+//                           
+//                                    msg = "Authentication failed"
+//                                    err = (error?.localizedDescription)!
+//                                }
+//                                
+//                            } else {
+//                       
+//                                msg = "Authentication Successful"
+//                                err = "You now have full access"
+//                            }
+//                        }
+//                })
+//                
+//                
+//        } else {
+//            // Device cannot use TouchID
+//            switch error!.code{
+//                
+//            case LAError.TouchIDNotEnrolled.rawValue:
+//                notifyUser("TouchID is not enrolled",
+//                    err: error?.localizedDescription)
+//                msg = "TouchID is not enrolled"
+//                err = (error?.localizedDescription)!
+//                
+//            case LAError.PasscodeNotSet.rawValue:
+//          
+//                msg = "A passcode has not been set"
+//                err = (error?.localizedDescription)!
+//                
+//            default:
+//      
+//                
+//                msg = "TouchID not available"
+//                err = (error?.localizedDescription)!
+//                
+//            }
+//        }
+//        return (msg ,err)
+//    }
     
     public static func popUpLoadingSign(parentView: UIViewController) {
         
-        let myActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
+        let myActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
         myActivityIndicator.center = parentView.view.center
         myActivityIndicator.startAnimating()
         parentView.view.addSubview(myActivityIndicator)

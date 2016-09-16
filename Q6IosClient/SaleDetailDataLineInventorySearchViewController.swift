@@ -30,7 +30,7 @@ class SaleDetailDataLineInventorySearchViewController:UIViewController ,Q6WebApi
     var pageSize: Int = 20
     var searchText: String = ""
     
-    var selectedInventoryView = InventoryView?()
+    var selectedInventoryView:InventoryView?
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -43,8 +43,8 @@ class SaleDetailDataLineInventorySearchViewController:UIViewController ,Q6WebApi
         let q6CommonLib = Q6CommonLib(myObject: self)
         
         
-        setAttachedURL("Sell",InventoryName: "" , IsLoadInactive:false,PageSize: pageSize,PageIndex: pageIndex )
-        q6CommonLib.Q6IosClientGetApi("Item", ActionName: "GetInventoryListView", attachedURL: attachedURL)
+        setAttachedURL(Property: "Sell",InventoryName: "" , IsLoadInactive:false,PageSize: pageSize,PageIndex: pageIndex )
+        q6CommonLib.Q6IosClientGetApi(ModelName: "Item", ActionName: "GetInventoryListView", attachedURL: attachedURL)
         
         
     }
@@ -60,29 +60,29 @@ class SaleDetailDataLineInventorySearchViewController:UIViewController ,Q6WebApi
         // Dispose of any resources that can be recreated.
     }
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    private func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return inventoryViewData.count
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let  cell = tableView.dequeueReusableCellWithIdentifier("InventoryCell", forIndexPath: indexPath) as! SaleDetailDataLineInventorySearchTableViewCell
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let  cell = tableView.dequeueReusableCell(withIdentifier: "InventoryCell", for: indexPath) as! SaleDetailDataLineInventorySearchTableViewCell
         
         cell.lblInventoryName.text = inventoryViewData[indexPath.row].InventoryName
         cell.lblInventoryID.text = inventoryViewData[indexPath.row].InventoryID
         
-        cell.lblInventoryID.hidden = true
+        cell.lblInventoryID.isHidden = true
         
         // Configure the cell...
         
         return cell
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
 //        
 //        let  cell = tableView.cellForRowAtIndexPath(indexPath) as! SaleDetailDataLineInventorySearchTableViewCell
@@ -94,7 +94,7 @@ class SaleDetailDataLineInventorySearchViewController:UIViewController ,Q6WebApi
         InventorySearchBox.resignFirstResponder()
         
     }
-    func dataLoadCompletion(data:NSData?, response:NSURLResponse?, error:NSError?) -> AnyObject
+    func dataLoadCompletion(data:NSData?, response:URLResponse?, error:NSError?) -> AnyObject
     {
         var postDicData :[String:AnyObject]
         
@@ -104,7 +104,7 @@ class SaleDetailDataLineInventorySearchViewController:UIViewController ,Q6WebApi
                 
                 selectedInventoryView = nil
             }
-            postDicData = try  NSJSONSerialization.JSONObjectWithData(data!, options: []) as! [String:AnyObject]
+            postDicData = try  JSONSerialization.jsonObject(with: data! as Data, options: []) as! [String:AnyObject]
             
             var returnData = postDicData["InventoryTreeList"] as! [[String : AnyObject]]
             print("returnDate Count" + returnData.count.description)
@@ -273,32 +273,34 @@ class SaleDetailDataLineInventorySearchViewController:UIViewController ,Q6WebApi
                 }
                 
                 inventoryViewData.append(inventoryView )
+            
                 //
                 //         printFields(purchasesTransactionListViewDataItem)
             }
             
             //            print("supplier Date Count" + supplierData.count.description)
             //
-            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+               inventoryViewData = inventoryViewData.sorted{$0.InventoryName < $1.InventoryName}
+           DispatchQueue.main.async {
                 self.InventoryListTableView.reloadData()
                 self.Q6ActivityIndicator.hidesWhenStopped = true
                 self.Q6ActivityIndicator.stopAnimating()
                 self.InventorySearchBox.resignFirstResponder()
                 
-            })
+            }
             
             
             
         } catch  {
             print("error parsing response from POST on /posts")
             
-            return ""
+            return "" as AnyObject
         }
         
-        return ""
+        return "" as AnyObject
     }
     
-    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         
         self.searchText = searchText
         
@@ -314,13 +316,13 @@ class SaleDetailDataLineInventorySearchViewController:UIViewController ,Q6WebApi
             
             dataRequestSource = "Search"
             
-            setAttachedURL("Sell",InventoryName: searchText , IsLoadInactive:false,PageSize: pageSize,PageIndex: pageIndex )
-            q6CommonLib.Q6IosClientGetApi("Item", ActionName: "GetInventoryListView", attachedURL: attachedURL)
+            setAttachedURL(Property: "Sell",InventoryName: searchText , IsLoadInactive:false,PageSize: pageSize,PageIndex: pageIndex )
+            q6CommonLib.Q6IosClientGetApi(ModelName: "Item", ActionName: "GetInventoryListView", attachedURL: attachedURL)
             
         }
     }
     
-    func searchBarSearchButtonClicked( searchBar: UISearchBar)
+    func searchBarSearchButtonClicked( _ searchBar: UISearchBar)
     {
         let q6CommonLib = Q6CommonLib(myObject: self)
         
@@ -329,21 +331,21 @@ class SaleDetailDataLineInventorySearchViewController:UIViewController ,Q6WebApi
         
         dataRequestSource = "Search"
         //  print("purchaseTransactionListdata count" + purchaseTransactionListData.count.description)
-        if InventorySearchBox.text?.length > 0 {
+        if (InventorySearchBox.text?.length)! > 0 {
             
             let inventoryName = self.InventorySearchBox.text!
             
             pageIndex = 1
             inventoryViewData.removeAll()
-            setAttachedURL("Sell",InventoryName: inventoryName , IsLoadInactive:false,PageSize: pageSize,PageIndex: pageIndex )
-            q6CommonLib.Q6IosClientGetApi("Item", ActionName: "GetInventoryListView", attachedURL: attachedURL)
+            setAttachedURL(Property: "Sell",InventoryName: inventoryName , IsLoadInactive:false,PageSize: pageSize,PageIndex: pageIndex )
+            q6CommonLib.Q6IosClientGetApi(ModelName: "Item", ActionName: "GetInventoryListView", attachedURL: attachedURL)
         }
         
         searchBar.resignFirstResponder()
         
     }
     
-    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         print("indexpath" + indexPath.row.description)
         if indexPath.row == pageIndex*(pageSize - 5 )
         {
@@ -353,25 +355,25 @@ class SaleDetailDataLineInventorySearchViewController:UIViewController ,Q6WebApi
             dataRequestSource = ""
             //q6CommonLib.Q6IosClientGetApi("Purchase", ActionName: "GetPurchasesTransactionsList", attachedURL: attachedURL)
             
-            setAttachedURL("Sell",InventoryName: searchText , IsLoadInactive:false,PageSize: pageSize,PageIndex: pageIndex )
-            q6CommonLib.Q6IosClientGetApi("Item", ActionName: "GetInventoryListView", attachedURL: attachedURL)
+            setAttachedURL(Property: "Sell",InventoryName: searchText , IsLoadInactive:false,PageSize: pageSize,PageIndex: pageIndex )
+            q6CommonLib.Q6IosClientGetApi(ModelName: "Item", ActionName: "GetInventoryListView", attachedURL: attachedURL)
         }
         
     }
     
     @IBAction func CancelButtonClicked(sender: AnyObject) {
-        navigationController?.popViewControllerAnimated(true)
+        _ = navigationController?.popViewController(animated: true)
     }
     @IBAction func DoneButtonClicked(sender: AnyObject) {
         
         if selectedInventoryView != nil {
             
             //  self.delegate?.sendGoBackFromContactSearchView("ContactSearchViewController" ,forCell :fromCell,Contact: selectedSuplier!)
-            self.delegate?.sendGoBackFromSaleDetailDataLineInventorySearchView("SaleDetailDataLineInventorySearchViewController", forCell: "InventoryCell", inventoryView: selectedInventoryView!)
-            navigationController?.popViewControllerAnimated(true)
+            self.delegate?.sendGoBackFromSaleDetailDataLineInventorySearchView(fromView: "SaleDetailDataLineInventorySearchViewController", forCell: "InventoryCell", inventoryView: selectedInventoryView!)
+            _ = navigationController?.popViewController(animated: true)
         }
         else{
-            Q6CommonLib.q6UIAlertPopupController("Information message", message: "You haven't select a Inventory", viewController: self)
+            Q6CommonLib.q6UIAlertPopupController(title: "Information message", message: "You haven't select a Inventory", viewController: self)
         }
     }
     /*

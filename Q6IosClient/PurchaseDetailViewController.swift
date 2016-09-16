@@ -32,7 +32,7 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
     
     var supplier = Supplier()
     
-    var attachedimage = UIImage?()
+    var attachedimage:UIImage?
     
     @IBOutlet weak var navigationBar: UINavigationBar!
     var webAPICallAction: String = ""
@@ -42,7 +42,7 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
     var isPreLoad = false
     var CompanyID = String()
   weak var delegate2 : Q6GoBackFromViewTwo?
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         
        
         
@@ -61,16 +61,16 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
         
         if operationType == "Edit"
         {
-            purchaseDetailTableView.hidden = true
+            purchaseDetailTableView.isHidden = true
             Q6ActivityIndicatorView.startAnimating()
             let q6CommonLib = Q6CommonLib(myObject: self)
             
             let attachedURL = "&PurchasesTransactionsHeaderID=" + purchasesTransactionHeader.PurchasesTransactionsHeaderID
             isPreLoad = true
-            q6CommonLib.Q6IosClientGetApi("Purchase", ActionName: "GetPurchasesTransactionsByID", attachedURL: attachedURL)
+            q6CommonLib.Q6IosClientGetApi(ModelName: "Purchase", ActionName: "GetPurchasesTransactionsByID", attachedURL: attachedURL)
         }
         else {
-              Q6ActivityIndicatorView.hidden = true
+              Q6ActivityIndicatorView.isHidden = true
             // Uncomment the following line to preserve selection between presentations
             // self.clearsSelectionOnViewWillAppear = false
             
@@ -98,7 +98,7 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
         let q6CommonLib = Q6CommonLib(myObject: self)
         webAPICallAction = "InternalUserLogin"
         isPreLoad = true
-        q6CommonLib.Q6IosClientPostAPI("Q6",ActionName: "InternalUserLogin", dicData:dicData)
+        q6CommonLib.Q6IosClientPostAPI(ModeName: "Q6",ActionName: "InternalUserLogin", dicData:dicData as [String : AnyObject])
         
     }
     func setScreenSortLines()
@@ -148,7 +148,7 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
         // lblTotalLabel.font = UIFont.boldSystemFontOfSize(17.0)
         //lblTotalAmount.font = UIFont.boldSystemFontOfSize(17.0)
         
-        purchaseDetailTableView.tableFooterView = UIView(frame: CGRectZero)
+        purchaseDetailTableView.tableFooterView = UIView(frame: CGRect.zero)
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -157,12 +157,12 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
     
     // MARK: - Table view data source
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    private func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         
         // print("addItemsDic" + addItemsDic.count.description)
@@ -171,7 +171,7 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
     }
     
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var resuseIdentifier = String()
         //        if indexPath.row <= 8 {
         //       resuseIdentifier = originalRowsDic[indexPath.row]!
@@ -183,7 +183,7 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
         let screenSortLinesDetail = purchasesDetailScreenLinesDic[indexPath.row]  as ScreenSortLinesDetail
         
         resuseIdentifier = screenSortLinesDetail.PrototypeCellID
-        let cell = tableView.dequeueReusableCellWithIdentifier(resuseIdentifier, forIndexPath: indexPath) as! PurchaseDetailTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: resuseIdentifier, for: indexPath) as! PurchaseDetailTableViewCell
         
         
         if resuseIdentifier == "PurchasesTypecell" {
@@ -191,7 +191,7 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
             cell.lblPurchasesType.text = purchasesTransactionHeader.PurchasesType
             
             if operationType != "Create"{
-                cell.PurchasesTypeButton.enabled = false
+                cell.PurchasesTypeButton.isEnabled = false
             }
             // lblTotalLabel.font = UIFont.boldSystemFontOfSize(17.0)
             //lblTotalAmount.font = UIFont.boldSystemFontOfSize(17.0)
@@ -201,7 +201,7 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
             cell.lblSupplierName.text = supplier.SupplierName
             
             if operationType != "Create" {
-                cell.SupplierButton.enabled = false
+                cell.SupplierButton.isEnabled = false
                 
             }
             
@@ -237,7 +237,7 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
                 
                 
                 
-                cell.AddDeleteButton.setImage(image, forState: .Normal)
+                cell.AddDeleteButton.setImage(image, for: .normal)
                 cell.LineDescription.text = purchasesDetailScreenLinesDic[indexPath.row].LineDescription
                 
             }
@@ -251,7 +251,7 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
                 // cell.AddDeleteButton = UIButton(type: .System) as UIButton
                 
                 
-                cell.AddDeleteButton.setImage(image, forState: .Normal)
+                cell.AddDeleteButton.setImage(image, for: .normal)
                 cell.LineDescription.text = "Add an Item"
                 
                 
@@ -286,8 +286,8 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
         }
         if resuseIdentifier == "TotalCell" {
             
-            cell.lblTotalAmountLabel.font = UIFont.boldSystemFontOfSize(17.0)
-            cell.lblTotalAmount.font = UIFont.boldSystemFontOfSize(17.0)
+            cell.lblTotalAmountLabel.font = UIFont.boldSystemFont(ofSize: 17.0)
+            cell.lblTotalAmount.font = UIFont.boldSystemFont(ofSize: 17.0)
             
             var totalAmount: Double = 0
             for i in 0 ..< purchasesDetailScreenLinesDic.count
@@ -314,11 +314,11 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
             
             if attachedimage != nil {
                 
-                cell.AddRemoveImageButton.setImage(UIImage(named: "Minus-25.png"), forState: UIControlState.Normal)
+                cell.AddRemoveImageButton.setImage(UIImage(named: "Minus-25.png"), for: UIControlState.normal)
                 cell.lblAddImageLabel.text = "Has a linked image!"
             }
             else{
-                cell.AddRemoveImageButton.setImage(UIImage(named: "plus.png"), forState: UIControlState.Normal)
+                cell.AddRemoveImageButton.setImage(UIImage(named: "plus.png"), for: UIControlState.normal)
                 cell.lblAddImageLabel.text = "Add an image"
             }
             
@@ -359,7 +359,7 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
         //return cell
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 //        let row = indexPath.row //2
         
         print("Selected Row" + indexPath.row.description)
@@ -367,7 +367,7 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
         print("screenSortLinesDetail.PrototypeCellID" + screenSortLinesDetail.PrototypeCellID)
         if screenSortLinesDetail.PrototypeCellID == "PurchasesTypecell" && operationType == "Create" {
             
-            performSegueWithIdentifier("showPickerView", sender: "PurchasesTypecell")
+            performSegue(withIdentifier: "showPickerView", sender: "PurchasesTypecell")
             
             
         }
@@ -388,7 +388,7 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
             
             
             
-            self.performSegueWithIdentifier("showContactSearch", sender: "SupplierCell")
+            self.performSegue(withIdentifier: "showContactSearch", sender: "SupplierCell")
             
             
             
@@ -397,10 +397,10 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
         }
         if screenSortLinesDetail.PrototypeCellID == "DueDateCell" {
             if purchasesTransactionHeader.SupplierID.length != 0 {
-                performSegueWithIdentifier("showDueDate", sender: "DueDateCell")
+                performSegue(withIdentifier: "showDueDate", sender: "DueDateCell")
             }
             else{
-                Q6CommonLib.q6UIAlertPopupController("Information", message: "A Supplier must be seleted!", viewController: self)
+                Q6CommonLib.q6UIAlertPopupController(title: "Information", message: "A Supplier must be seleted!", viewController: self)
             }
             
             
@@ -411,10 +411,10 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
         if screenSortLinesDetail.PrototypeCellID == "AddanImageCell" {
             
             if purchasesTransactionHeader.SupplierID.length != 0 {
-                performSegueWithIdentifier("showPhoto", sender: "AddanImageCell")
+                performSegue(withIdentifier: "showPhoto", sender: "AddanImageCell")
             }
             else{
-                Q6CommonLib.q6UIAlertPopupController("Information", message: "A Supplier must be seleted!", viewController: self)
+                Q6CommonLib.q6UIAlertPopupController(title: "Information", message: "A Supplier must be seleted!", viewController: self)
             }
             
         }
@@ -423,10 +423,10 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
             
             if purchasesTransactionHeader.SupplierID.length != 0 {
                 addItemRowIndex = indexPath.row
-                performSegueWithIdentifier("showItemDetail", sender: "AddanItemCell")
+                performSegue(withIdentifier: "showItemDetail", sender: "AddanItemCell")
             }
             else{
-                Q6CommonLib.q6UIAlertPopupController("Information", message: "A Supplier must be seleted!", viewController: self)
+                Q6CommonLib.q6UIAlertPopupController(title: "Information", message: "A Supplier must be seleted!", viewController: self)
             }
             
             
@@ -436,10 +436,10 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
         
         if screenSortLinesDetail.PrototypeCellID == "TransactionDateCell" {
             if purchasesTransactionHeader.SupplierID.length != 0 {
-                performSegueWithIdentifier("showTransactionDate", sender: "TransactionDateCell")
+                performSegue(withIdentifier: "showTransactionDate", sender: "TransactionDateCell")
             }
             else{
-                Q6CommonLib.q6UIAlertPopupController("Information", message: "A Supplier must be seleted!", viewController: self)
+                Q6CommonLib.q6UIAlertPopupController(title: "Information", message: "A Supplier must be seleted!", viewController: self)
             }
             
             
@@ -447,10 +447,10 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
         
         if screenSortLinesDetail.PrototypeCellID == "MemoCell" {
             if purchasesTransactionHeader.SupplierID.length != 0 {
-                performSegueWithIdentifier("showMemo", sender: "MemoCell")
+                performSegue(withIdentifier: "showMemo", sender: "MemoCell")
             }
             else{
-                Q6CommonLib.q6UIAlertPopupController("Information", message: "A Supplier must be seleted!", viewController: self)
+                Q6CommonLib.q6UIAlertPopupController(title: "Information", message: "A Supplier must be seleted!", viewController: self)
             }
             
             
@@ -467,7 +467,7 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
     }
     
     
-    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         
         if purchasesDetailScreenLinesDic[indexPath.row].isAdded == true {
             return true
@@ -485,14 +485,14 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
         }
     }
     
-    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if (editingStyle == UITableViewCellEditingStyle.Delete) {
+    func tableView(_ commitforRowAttableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if (editingStyle == UITableViewCellEditingStyle.delete) {
             
             if purchasesDetailScreenLinesDic[indexPath.row].isAdded == true
             {
                 
                 print("indexPath.row delete" + indexPath.row.description)
-                purchasesDetailScreenLinesDic.removeAtIndex(indexPath.row)
+                purchasesDetailScreenLinesDic.remove(at: indexPath.row)
                 
                 
                 for i in 0 ..< purchasesDetailScreenLinesDic.count
@@ -507,10 +507,10 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
                     print("purchasesDetailScreenLinesDic[i].LineDescription"  + purchasesDetailScreenLinesDic[i].LineDescription)
                     
                 }
-                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+              DispatchQueue.main.async {
                     self.purchaseDetailTableView.reloadData()
                     
-                })
+                }
                 
                 
                 
@@ -521,17 +521,17 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
                     
                     attachedimage = nil
                 }
-                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+              DispatchQueue.main.async {
                     self.purchaseDetailTableView.reloadData()
                     
-                })
+                }
               
             }
             // handle delete (by removing the data from your array and updating the tableview)
         }
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any!) {
         
         if sender is String {
             
@@ -543,7 +543,7 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
             
             if fromCell == "PurchasesTypecell"
             {
-                let pickerViewController = segue.destinationViewController as! PickerViewViewController
+                let pickerViewController = segue.destination as! PickerViewViewController
                 pickerViewController.fromCell = "PurchasesTypecell"
                 
                 pickerViewController.delegate = self
@@ -551,7 +551,7 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
             if fromCell == "SupplierCell"
             {
                 
-                let contactSearchViewController = segue.destinationViewController as! SupplierSearchViewController
+                let contactSearchViewController = segue.destination as! SupplierSearchViewController
                 contactSearchViewController.fromCell = "SupplierCell"
                 contactSearchViewController.delegate = self
                 contactSearchViewController.hasAddedItemLine = hasAddedItemLine
@@ -561,7 +561,7 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
             if fromCell == "DueDateCell"
             {
                 
-                let datePickerViewController = segue.destinationViewController as! DatePickerViewController
+                let datePickerViewController = segue.destination as! DatePickerViewController
                 datePickerViewController.fromCell = "DueDateCell"
                 datePickerViewController.delegate = self
                 
@@ -569,7 +569,7 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
             
             if fromCell == "AddanItemCell"
             {
-                let purchaseDetailDataLineViewController = segue.destinationViewController as! PurchaseDetailDataLineViewController
+                let purchaseDetailDataLineViewController = segue.destination as! PurchaseDetailDataLineViewController
                 purchaseDetailDataLineViewController.fromCell = "AddanItemCell"
                 
                 purchaseDetailDataLineViewController.supplier = supplier
@@ -584,7 +584,7 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
             
             if fromCell == "AddanImageCell"
             {
-                let addImageViewController = segue.destinationViewController as! AddImageViewController
+                let addImageViewController = segue.destination as! AddImageViewController
                 addImageViewController.fromCell = "AddanImageCell"
                 
                 if attachedimage != nil
@@ -597,7 +597,7 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
             if fromCell == "TransactionDateCell"
             {
                 
-                let datePickerViewController = segue.destinationViewController as! DatePickerViewController
+                let datePickerViewController = segue.destination as! DatePickerViewController
                 datePickerViewController.fromCell = "TransactionDateCell"
                 datePickerViewController.delegate = self
                 
@@ -606,7 +606,7 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
             if fromCell == "MemoCell"
             {
                 
-                let purchaseDetailMemoViewController = segue.destinationViewController as! PurchaseDetailMemoViewController
+                let purchaseDetailMemoViewController = segue.destination as! PurchaseDetailMemoViewController
                 purchaseDetailMemoViewController.fromCell = "MemoCell"
                 
                 purchaseDetailMemoViewController.delegate = self
@@ -626,7 +626,7 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
         
         if validateQuantityValue()&&validateDate()&&validateIfPurchaseDetailIsNotEmpty()
         {
-            Q6ActivityIndicatorView.hidden = false 
+            Q6ActivityIndicatorView.isHidden = false 
             Q6ActivityIndicatorView.startAnimating()
             
             purchasesTransactionHeader.TaxTotal = purchasesTransactionHeader.TotalAmount - purchasesTransactionHeader.SubTotal
@@ -652,19 +652,19 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
             
             var LoginDetailDicData = [String:AnyObject]()
             
-            LoginDetailDicData["Email"] = userInfos["LoginEmail"]!
-            LoginDetailDicData["Password"] = userInfos["PassWord"]!
-            LoginDetailDicData["CompanyID"] = userInfos["CompanyID"]!
-            LoginDetailDicData["WebApiTOKEN"] = Q6CommonLib.getQ6WebAPIToken()
+            LoginDetailDicData["Email"] = userInfos["LoginEmail"]! as AnyObject?
+            LoginDetailDicData["Password"] = userInfos["PassWord"]! as AnyObject?
+            LoginDetailDicData["CompanyID"] = userInfos["CompanyID"]! as AnyObject?
+            LoginDetailDicData["WebApiTOKEN"] = Q6CommonLib.getQ6WebAPIToken() as AnyObject?
             
-            dicData["LoginDetail"] = LoginDetailDicData
+            dicData["LoginDetail"] = LoginDetailDicData as AnyObject?
             
             if attachedimage != nil {
                 purchasesTransactionHeader.HasLinkedDoc = true
                 
-                let UploadedDocuments = getImageFileDataDic(attachedimage!)
+                let UploadedDocuments = getImageFileDataDic(image: attachedimage!)
                 
-                dicData["UploadedDocuments"] = UploadedDocuments
+                dicData["UploadedDocuments"] = UploadedDocuments as AnyObject?
             }
             else{
                 dicData["UploadedDocuments"] = nil
@@ -676,26 +676,26 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
             
             let purchasesTransactionsHeaderDic =   convertpurchasesTransactionsHeaderToArray()
             
-            dicData["PurchasesTransactionsDetail"] = purchasesTransactionsDetailDataDic
-            dicData["PurchasesTransactionsHeader"] = purchasesTransactionsHeaderDic
+            dicData["PurchasesTransactionsDetail"] = purchasesTransactionsDetailDataDic as AnyObject?
+            dicData["PurchasesTransactionsHeader"] = purchasesTransactionsHeaderDic as AnyObject?
             dicData["RecurringTemplateList"] = nil
             
-            dicData["NeedValidate"] = false
+            dicData["NeedValidate"] = false as AnyObject?
             var purchasesTransactionsParameter = [String: AnyObject]()
             
-            purchasesTransactionsParameter["PurchasesTransactionsParameter"] = dicData
+            purchasesTransactionsParameter["PurchasesTransactionsParameter"] = dicData as AnyObject?
      
             isPreLoad = false
             
             if operationType == "Create" {
-              q6CommonLib.Q6IosClientPostAPI("Purchase",ActionName: "AddPurchase", dicData:dicData)
+              q6CommonLib.Q6IosClientPostAPI(ModeName: "Purchase",ActionName: "AddPurchase", dicData:dicData)
             }
             else if operationType == "Edit"{
-                q6CommonLib.Q6IosClientPostAPI("Purchase",ActionName: "EditPurchase", dicData:dicData)
+                q6CommonLib.Q6IosClientPostAPI(ModeName: "Purchase",ActionName: "EditPurchase", dicData:dicData)
             }
            
-            btnSaveButton.enabled = false
-            btnCancelButton.enabled = false
+            btnSaveButton.isEnabled = false
+            btnCancelButton.isEnabled = false
             
         }
     }
@@ -712,8 +712,8 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
         print("File Size" + FileSize.description)
         let HasLinkedTransaction = false
       
-        let TransactionType = String?()
-        let UploadedBy = String?()
+        let TransactionType:String? = nil
+        let UploadedBy:String? = nil
         
         let UploadedDate = NSDate().description
         let UploadedDocumentsID = "{00000000-0000-0000-0000-000000000000}"
@@ -727,18 +727,18 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
             i = 1
         }
         let imageData = UIImageJPEGRepresentation(image, i)
-        let File = imageData!.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
+        let File = imageData!.base64EncodedString(options: NSData.Base64EncodingOptions(rawValue: 0))
         
         var dicData = [String: AnyObject]()
         
-        dicData["File"] = File
-        dicData["FileName"] = FileName
-        dicData["FileSize"] = FileSize
-        dicData["HasLinkedTransaction"] = HasLinkedTransaction
-        dicData["TransactionType"] = TransactionType
-        dicData["UploadedBy"] = UploadedBy
-        dicData["UploadedDate"] = UploadedDate
-        dicData["UploadedDocumentsID"] = UploadedDocumentsID
+        dicData["File"] = File as AnyObject?
+        dicData["FileName"] = FileName as AnyObject?
+        dicData["FileSize"] = FileSize as AnyObject?
+        dicData["HasLinkedTransaction"] = HasLinkedTransaction as AnyObject?
+        dicData["TransactionType"] = TransactionType as AnyObject?
+        dicData["UploadedBy"] = UploadedBy as AnyObject?
+        dicData["UploadedDate"] = UploadedDate as AnyObject?
+        dicData["UploadedDocumentsID"] = UploadedDocumentsID as AnyObject?
         
         return dicData
         //  print("size of image in KB: %f ", imageSize / 1024)
@@ -750,19 +750,19 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
         let PurchasesTransactionsHeaderID  = purchasesTransactionHeader.PurchasesTransactionsHeaderID
         
         if operationType == "Create" {
-            dicData["PurchasesTransactionsHeaderID"] = "{00000000-0000-0000-0000-000000000000}"
+            dicData["PurchasesTransactionsHeaderID"] = "{00000000-0000-0000-0000-000000000000}" as AnyObject?
         }
         else {
-            dicData["PurchasesTransactionsHeaderID"] = PurchasesTransactionsHeaderID
+            dicData["PurchasesTransactionsHeaderID"] = PurchasesTransactionsHeaderID as AnyObject?
         }
-        dicData["ReferenceNo"] = purchasesTransactionHeader.ReferenceNo
+        dicData["ReferenceNo"] = purchasesTransactionHeader.ReferenceNo as AnyObject?
         
-        dicData["PurchasesType"] = purchasesTransactionHeader.PurchasesType
-        dicData["PurchasesStatus"] = purchasesTransactionHeader.PurchasesStatus
-        dicData["TransactionDate"] = purchasesTransactionHeader.TransactionDate.description
+        dicData["PurchasesType"] = purchasesTransactionHeader.PurchasesType as AnyObject?
+        dicData["PurchasesStatus"] = purchasesTransactionHeader.PurchasesStatus as AnyObject?
+        dicData["TransactionDate"] = purchasesTransactionHeader.TransactionDate.description as AnyObject?
         
         print("purchasesTransactionHeader.TransactionDate.description" + purchasesTransactionHeader.TransactionDate.description)
-        dicData["CreateTime"] = purchasesTransactionHeader.CreateTime.description
+        dicData["CreateTime"] = purchasesTransactionHeader.CreateTime.description as AnyObject?
         
 //        var LastModifiedTime = NSDate()
 //        let dateFormatter = NSDateFormatter()
@@ -774,27 +774,27 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
 //        print("strLastModifiedTime" + strLastModifiedTime)
         
         if operationType == "Create" {
-            dicData["LastModifiedTime"] = purchasesTransactionHeader.CreateTime.description
+            dicData["LastModifiedTime"] = purchasesTransactionHeader.CreateTime.description as AnyObject?
         }
         else{
-        dicData["LastModifiedTime"] = purchasesTransactionHeader.LastModifiedTime
+        dicData["LastModifiedTime"] = purchasesTransactionHeader.LastModifiedTime as AnyObject?
         }
 
-        dicData["SupplierID"] = purchasesTransactionHeader.SupplierID
-        dicData["ShipToAddress"] = purchasesTransactionHeader.ShipToAddress
-        dicData["SupplierInv"] = purchasesTransactionHeader.SupplierInv
-        dicData["Memo"] = purchasesTransactionHeader.Memo
+        dicData["SupplierID"] = purchasesTransactionHeader.SupplierID as AnyObject?
+        dicData["ShipToAddress"] = purchasesTransactionHeader.ShipToAddress as AnyObject?
+        dicData["SupplierInv"] = purchasesTransactionHeader.SupplierInv as AnyObject?
+        dicData["Memo"] = purchasesTransactionHeader.Memo as AnyObject?
         
-        dicData["ClosedDate"] = purchasesTransactionHeader.ClosedDate?.description
-        dicData["SubTotal"] = purchasesTransactionHeader.SubTotal
-        dicData["TaxTotal"] = purchasesTransactionHeader.TaxTotal
-        dicData["TotalAmount"] = purchasesTransactionHeader.TotalAmount
-        dicData["DueDate"] = purchasesTransactionHeader.DueDate?.description
-        dicData["TaxInclusive"] = purchasesTransactionHeader.TaxInclusive
-        dicData["IsDeleted"] = purchasesTransactionHeader.IsDeleted
-        dicData["IsCreatedByRecurring"] = purchasesTransactionHeader.IsCreatedByRecurring
-        dicData["RecurringTemplateID"] = purchasesTransactionHeader.RecurringTemplateID
-        dicData["HasLinkedDoc"] = purchasesTransactionHeader.HasLinkedDoc
+        dicData["ClosedDate"] = purchasesTransactionHeader.ClosedDate?.description as AnyObject?
+        dicData["SubTotal"] = purchasesTransactionHeader.SubTotal as AnyObject?
+        dicData["TaxTotal"] = purchasesTransactionHeader.TaxTotal as AnyObject?
+        dicData["TotalAmount"] = purchasesTransactionHeader.TotalAmount as AnyObject?
+        dicData["DueDate"] = purchasesTransactionHeader.DueDate?.description as AnyObject?
+        dicData["TaxInclusive"] = purchasesTransactionHeader.TaxInclusive as AnyObject?
+        dicData["IsDeleted"] = purchasesTransactionHeader.IsDeleted as AnyObject?
+        dicData["IsCreatedByRecurring"] = purchasesTransactionHeader.IsCreatedByRecurring as AnyObject?
+        dicData["RecurringTemplateID"] = purchasesTransactionHeader.RecurringTemplateID as AnyObject?
+        dicData["HasLinkedDoc"] = purchasesTransactionHeader.HasLinkedDoc as AnyObject?
         
         return dicData
         
@@ -813,10 +813,10 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
                 
                 let PurchasesTransactionsDetailID = purchasesTransactionsDetailData[i].PurchasesTransactionsDetailID
                 if operationType == "Create"{
-                    data["PurchasesTransactionsDetailID"] = "{00000000-0000-0000-0000-000000000000}"
+                    data["PurchasesTransactionsDetailID"] = "{00000000-0000-0000-0000-000000000000}" as AnyObject?
                 }
                 else {
-                    data["PurchasesTransactionsDetailID"] = PurchasesTransactionsDetailID
+                    data["PurchasesTransactionsDetailID"] = PurchasesTransactionsDetailID as AnyObject?
                 }
                 
                 
@@ -824,24 +824,24 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
                 let PurchasesTransactionsHeaderID = purchasesTransactionsDetailData[i].PurchasesTransactionsHeaderID
                 
                 if operationType == "Create" {
-                    data["PurchasesTransactionsHeaderID"] = "{00000000-0000-0000-0000-000000000000}"
+                    data["PurchasesTransactionsHeaderID"] = "{00000000-0000-0000-0000-000000000000}" as AnyObject?
                 }
                 else {
-                    data["PurchasesTransactionsHeaderID"] = PurchasesTransactionsHeaderID
+                    data["PurchasesTransactionsHeaderID"] = PurchasesTransactionsHeaderID as AnyObject?
                 }
-                data["Quantity"] = purchasesTransactionsDetailData[i].Quantity
+                data["Quantity"] = purchasesTransactionsDetailData[i].Quantity as AnyObject?
                 
-                data["InventoryID"] = purchasesTransactionsDetailData[i].InventoryID
-                data["AccountID"] = purchasesTransactionsDetailData[i].AccountID
-                data["TaxCodeID"] = purchasesTransactionsDetailData[i].TaxCodeID
-                data["Description"] = purchasesTransactionsDetailData[i].Description
+                data["InventoryID"] = purchasesTransactionsDetailData[i].InventoryID as AnyObject?
+                data["AccountID"] = purchasesTransactionsDetailData[i].AccountID as AnyObject?
+                data["TaxCodeID"] = purchasesTransactionsDetailData[i].TaxCodeID as AnyObject?
+                data["Description"] = purchasesTransactionsDetailData[i].Description as AnyObject?
                 
-                data["UnitPrice"] = purchasesTransactionsDetailData[i].UnitPrice
-                data["Discount"] = purchasesTransactionsDetailData[i].Discount
-                data["Amount"] = purchasesTransactionsDetailData[i].Amount
+                data["UnitPrice"] = purchasesTransactionsDetailData[i].UnitPrice as AnyObject?
+                data["Discount"] = purchasesTransactionsDetailData[i].Discount as AnyObject?
+                data["Amount"] = purchasesTransactionsDetailData[i].Amount as AnyObject?
                 
-                data["IsDeleted"] = purchasesTransactionsDetailData[i].IsDeleted
-                data["SortNo"] = purchasesTransactionsDetailData[i].SortNo
+                data["IsDeleted"] = purchasesTransactionsDetailData[i].IsDeleted as AnyObject?
+                data["SortNo"] = purchasesTransactionsDetailData[i].SortNo as AnyObject?
                 
                 dicData.append(data)
                 
@@ -858,7 +858,7 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
         copyFromPurchasesTransactionDetailViewToPurchasesTransactionDetail()
         if purchasesTransactionsDetailData.count <= 0
         {
-            Q6CommonLib.q6UIAlertPopupController("Information message", message: "You need to add at least one data line before you save purchase transaction !", viewController: self)
+            Q6CommonLib.q6UIAlertPopupController(title: "Information message", message: "You need to add at least one data line before you save purchase transaction !", viewController: self)
             
             IsNotEmpty = false
         }
@@ -874,7 +874,7 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
             if purchasesTransactionHeader.DueDate == nil
             {
                 
-                Q6CommonLib.q6UIAlertPopupController("Information message", message: "Due Date can not be empty if purchase type is Bill!", viewController: self)
+                Q6CommonLib.q6UIAlertPopupController(title: "Information message", message: "Due Date can not be empty if purchase type is Bill!", viewController: self)
                 isValid = false
             }
         }
@@ -884,10 +884,10 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
             let DueDate = purchasesTransactionHeader.DueDate
             let TransactionDate = purchasesTransactionHeader.TransactionDate
             
-            let isEalierOrEqual = (DueDate?.isLaterOrEqualThanDate(TransactionDate))! as Bool
+            let isEalierOrEqual = (DueDate?.isLaterOrEqualThanDate(dateToCompare: TransactionDate))! as Bool
             
             if isEalierOrEqual == false {
-                Q6CommonLib.q6UIAlertPopupController("Information message", message: "Due Date can not be later than TransactionDate!", viewController: self)
+                Q6CommonLib.q6UIAlertPopupController(title: "Information message", message: "Due Date can not be later than TransactionDate!", viewController: self)
                 isValid = false
             }
         }
@@ -906,7 +906,7 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
                 {
                     if  purchasesTransactionsDetailView!.Quantity > 0
                     {
-                        Q6CommonLib.q6UIAlertPopupController("Information message", message: "you can not input positive amount at quantity field when purchase type is DEBIT NOTE!", viewController: self)
+                        Q6CommonLib.q6UIAlertPopupController(title: "Information message", message: "you can not input positive amount at quantity field when purchase type is DEBIT NOTE!", viewController: self)
                         isValid = false
                         
                     }
@@ -923,7 +923,7 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
                 {
                     if  purchasesTransactionsDetailView!.Quantity < 0
                     {
-                        Q6CommonLib.q6UIAlertPopupController("Information message", message: "you can not input negative amount at quantity field when purchase type is QUOTE,ORDER ,BILL!", viewController: self)
+                        Q6CommonLib.q6UIAlertPopupController(title: "Information message", message: "you can not input negative amount at quantity field when purchase type is QUOTE,ORDER ,BILL!", viewController: self)
                         isValid = false
                     }
                 }
@@ -999,7 +999,7 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
         screenSortLinesDetail.purchasesTransactionsDetailView = purchasesTransactionsDetailList[i]
         screenSortLinesDetail.PrototypeCellID = "AddanItemCell"
         
-        purchasesDetailScreenLinesDic.insert(screenSortLinesDetail, atIndex: screenSortLinesDetail.ID)
+        purchasesDetailScreenLinesDic.insert(screenSortLinesDetail, at: screenSortLinesDetail.ID)
        
         
         }
@@ -1051,7 +1051,7 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
 //        parentVC.fromView = "PurchaseDetailViewController"
         
        // navigationController?.popToRootViewControllerAnimated(true)
-           self.navigationController?.popViewControllerAnimated(true)
+           _ = self.navigationController?.popViewController(animated: true)
     }
     //    func performFromRightToLeft(sourceViewController :AnyObject , destinationViewController: AnyObject)
     //    {
@@ -1074,7 +1074,7 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
     //    }
     func searchLastAddedIndexInPurchaseDetailScreenLinesDic() -> Int? {
         
-        var indexPath = Int?()
+        var indexPath:Int?
         
         
         for index in 0 ..< purchasesDetailScreenLinesDic.count {
@@ -1109,10 +1109,10 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
                 purchasesTransactionHeader.PurchasesType = selectedValue
                 
                 
-                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+               DispatchQueue.main.async {
                     self.purchaseDetailTableView.reloadData()
                     
-                })
+                }
                 
             }
         }
@@ -1128,10 +1128,10 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
                 supplier = Contact
                 
                 print("purchasesTransactionHeader.SupplierID" + purchasesTransactionHeader.SupplierID)
-                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+             DispatchQueue.main.async {
                     self.purchaseDetailTableView.reloadData()
                     
-                })
+                }
             }
         }
         
@@ -1145,10 +1145,10 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
                 
                 
                 
-                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+             DispatchQueue.main.async {
                     self.purchaseDetailTableView.reloadData()
                     
-                })
+                }
                 
             }
             
@@ -1157,10 +1157,10 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
                 
                 
                 
-                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+               DispatchQueue.main.async {
                     self.purchaseDetailTableView.reloadData()
                     
-                })
+                }
                 
             }
             
@@ -1179,20 +1179,20 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
             screenSortLinesDetail.LineDescription = purchasesTransactionsDetailView.InventoryName + " " + purchasesTransactionsDetailView.AccountNameWithAccountNo
             screenSortLinesDetail.PrototypeCellID = "AddanItemCell"
             screenSortLinesDetail.purchasesTransactionsDetailView = purchasesTransactionsDetailView
-            purchasesDetailScreenLinesDic.insert(screenSortLinesDetail, atIndex: addItemRowIndex)
+            purchasesDetailScreenLinesDic.insert(screenSortLinesDetail, at: addItemRowIndex)
             
-            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+           DispatchQueue.main.async {
                 self.purchaseDetailTableView.reloadData()
                 
-            })
+            }
         }
         else{
             purchasesDetailScreenLinesDic[addItemRowIndex].LineDescription = purchasesTransactionsDetailView.InventoryName + " " + purchasesTransactionsDetailView.AccountNameWithAccountNo
             purchasesDetailScreenLinesDic[addItemRowIndex].purchasesTransactionsDetailView = purchasesTransactionsDetailView
-            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+          DispatchQueue.main.async {
                 self.purchaseDetailTableView.reloadData()
                 
-            })
+            }
         }
     }
     func sendGoBackFromPurchaseDetailDataLineInventorySearchView(fromView:String,forCell:String,inventoryView: InventoryView){
@@ -1221,16 +1221,16 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
                 
                 
                 
-                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+            DispatchQueue.main.async {
                     self.purchaseDetailTableView.reloadData()
                     
-                })
+                }
                 
             }
         }
     }
     
-    func dataLoadCompletion(data:NSData?, response:NSURLResponse?, error:NSError?) -> AnyObject
+    func dataLoadCompletion(data:NSData?, response:URLResponse?, error:NSError?) -> AnyObject
     {
         if operationType == "Edit" && isPreLoad == true {
             
@@ -1241,15 +1241,15 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
                 //                    supplierData.removeAll()
                 //                    selectedSuplier = nil
                 //                }
-                postDicData = try  NSJSONSerialization.JSONObjectWithData(data!, options: []) as! [String:AnyObject]
+                postDicData = try  JSONSerialization.jsonObject(with: data! as Data, options: []) as! [String:AnyObject]
                 
                 let returnPurchasesTransactionHeaderData = postDicData["PurchasesTransactionsHeader"]  as? [String:AnyObject]
                 
                 if returnPurchasesTransactionHeaderData != nil {
                     
-                    let purchasesTransactionsHeaderView =   initialPurchasepurchasesTransactionsHeaderView(returnPurchasesTransactionHeaderData!)
+                    let purchasesTransactionsHeaderView =   initialPurchasepurchasesTransactionsHeaderView(returnPurchasesTransactionHeaderData: returnPurchasesTransactionHeaderData!)
                     
-                    copyFromPurchasesTransactionsHeaderViewToPurchasesTransactionsHeader(purchasesTransactionsHeaderView)
+                    copyFromPurchasesTransactionsHeaderViewToPurchasesTransactionsHeader(purchasesTransactionsHeaderView: purchasesTransactionsHeaderView)
                   
                   
                 }
@@ -1259,27 +1259,27 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
                 
                 if returnPurchasesTransactionsDetailListData != nil {
                    
-             let purchasesTransactionsDetailView =    initialPurchasepurchasesTransactionsDetailListView(returnPurchasesTransactionsDetailListData!)
+             let purchasesTransactionsDetailView =    initialPurchasepurchasesTransactionsDetailListView(returnPurchasesTransactionDetailListData: returnPurchasesTransactionsDetailListData!)
                     
-                       copyFromPurchasesTransactionDetailViewToPurchasesTransactionDetailForEdit(purchasesTransactionsDetailView)
+                       copyFromPurchasesTransactionDetailViewToPurchasesTransactionDetailForEdit(purchasesTransactionsDetailList: purchasesTransactionsDetailView)
                     
                     
-                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                  DispatchQueue.main.async {
                         self.purchaseDetailTableView.reloadData()
 //                        self.Q6ActivityIndicatorView.hidesWhenStopped = true
 //                        self.Q6ActivityIndicatorView.stopAnimating()
 //                        self.ContactSearchBox.resignFirstResponder()
                         
-                        self.purchaseDetailTableView.hidden = false
+                        self.purchaseDetailTableView.isHidden = false
                         self.Q6ActivityIndicatorView.hidesWhenStopped = true
                         self.Q6ActivityIndicatorView.stopAnimating()
-                    })
+                    }
                     
                 }
             } catch  {
                 print("error parsing response from POST on /posts")
                 
-                return ""
+                return "" as AnyObject
             }
             
             
@@ -1292,7 +1292,7 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
             var postDicData :[String:AnyObject]
             var IsLoginSuccessed : Bool
             do {
-                postDicData = try  NSJSONSerialization.JSONObjectWithData(data!, options: []) as! [String:AnyObject]
+                postDicData = try  JSONSerialization.jsonObject(with: data! as Data, options: []) as! [String:AnyObject]
                 
                 
                 IsLoginSuccessed = postDicData["IsSuccessed"] as! Bool
@@ -1377,7 +1377,7 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
             } catch  {
                 print("error parsing response from POST on /posts")
                 
-                return ""
+                return "" as AnyObject
             }
         }
         
@@ -1387,7 +1387,7 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
             var IsSuccessed : Bool?
             var Message: String?
             do {
-                postDicData = try  NSJSONSerialization.JSONObjectWithData(data!, options: []) as! [String:AnyObject]
+                postDicData = try  JSONSerialization.jsonObject(with: data! as Data, options: []) as! [String:AnyObject]
                 
                 IsSuccessed = postDicData["IsSuccessed"] as? Bool
                 Message = postDicData["Message"] as? String
@@ -1404,26 +1404,52 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
                    // Q6CommonLib.q6UIAlertPopupControllerThenGoBack("Information message", message: "Save Successfully!", viewController: self,timeArrange:3,navigationController: nav!)
                     
                     
-                    let alert = UIAlertController(title: "Information message", message: "Save Successfully!", preferredStyle: UIAlertControllerStyle.Alert)
-                   self.presentViewController(alert, animated: true, completion: nil)
+                    let alert = UIAlertController(title: "Information message", message: "Save Successfully!", preferredStyle: UIAlertControllerStyle.alert)
+                   self.present(alert, animated: true, completion: nil)
                     
                     
-                    let delayTime = dispatch_time(DISPATCH_TIME_NOW,
-                                                  Int64(3 * Double(NSEC_PER_SEC)))
-                    let delayTime2 = dispatch_time(DISPATCH_TIME_NOW,
-                                                  Int64(4 * Double(NSEC_PER_SEC)))
-                    dispatch_after(delayTime, dispatch_get_main_queue()) {
-                        self.dismissViewControllerAnimated(true, completion: nil);
-                      // self.navigationController!.popViewControllerAnimated(true)
-                       // self.navigationController?.popToRootViewControllerAnimated(true)
-                    }
+//                    let delayTime = dispatch_time(DISPATCH_TIME_NOW,
+//                                                  Int64(3 * Double(NSEC_PER_SEC)))
+//                    let delayTime2 = dispatch_time(DISPATCH_TIME_NOW,
+//                                                  Int64(4 * Double(NSEC_PER_SEC)))
+//                    dispatch_after(delayTime, dispatch_get_main_queue()) {
+//                        self.dismissViewControllerAnimated(true, completion: nil);
+//                      // self.navigationController!.popViewControllerAnimated(true)
+//                       // self.navigationController?.popToRootViewControllerAnimated(true)
+//                    }
+//                    
+//                  
+//                    dispatch_after(delayTime2, dispatch_get_main_queue()) {
+//                       // self.dismissViewControllerAnimated(true, completion: nil);
+//                        
+//            self.delegate2?.sendGoBackFromPurchaseDetailView("PurchaseDetailView", fromButton: "Save")
+//                        self.navigationController!.popViewControllerAnimated(true)
+//                        // self.navigationController?.popToRootViewControllerAnimated(true)
+//                    }
                     
-                  
-                    dispatch_after(delayTime2, dispatch_get_main_queue()) {
-                       // self.dismissViewControllerAnimated(true, completion: nil);
+                    
+                    let delayTime = DispatchTime.now() + Double(Int64(3 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
+                    
+                    let delayTime2 = DispatchTime.now() + Double(Int64(4 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
+                    
+                    
+                    //                let delayTime = dispatch_time(dispatch_time_t(DISPATCH_TIME_NOW),
+                    //                                              Int64(3 * Double(NSEC_PER_SEC)))
+                    //                let delayTime2 = dispatch_time(DISPATCH_TIME_NOW,
+                    //                                               Int64(4 * Double(NSEC_PER_SEC)))
+                    
+                    DispatchQueue.main.asyncAfter(deadline: delayTime)
+                    {
+                        self.dismiss(animated: true, completion: nil);
                         
-            self.delegate2?.sendGoBackFromPurchaseDetailView("PurchaseDetailView", fromButton: "Save")
-                        self.navigationController!.popViewControllerAnimated(true)
+                        // self.navigationController!.popViewControllerAnimated(true)
+                        // self.navigationController?.popToRootViewControllerAnimated(true)
+                    }
+                    DispatchQueue.main.asyncAfter(deadline: delayTime2)
+                    { // self.dismissViewControllerAnimated(true, completion: nil);
+                        
+                        self.delegate2?.sendGoBackFromPurchaseDetailView(fromView: "PurchaseDetailView", fromButton: "Save")
+                        self.navigationController!.popViewController(animated: true)
                         // self.navigationController?.popToRootViewControllerAnimated(true)
                     }
                     //self.navigationController!.popViewControllerAnimated(true)
@@ -1437,28 +1463,28 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
                 }
                 else {
                     
-                    btnSaveButton.enabled = true
-                    btnCancelButton.enabled = true 
+                    btnSaveButton.isEnabled = true
+                    btnCancelButton.isEnabled = true 
                     var txtmessage = " Save Fail! \n"
                     
                     if Message != nil {
                         txtmessage = txtmessage + Message!
                     }
-                    Q6CommonLib.q6UIAlertPopupController("Information message", message: txtmessage, viewController: self, timeArrange:2)
+                    Q6CommonLib.q6UIAlertPopupController(title: "Information message", message: txtmessage, viewController: self, timeArrange:2)
                 }
                 
             } catch  {
                 print("error parsing response from POST on /posts")
-                btnSaveButton.enabled = false
-                btnCancelButton.enabled = false
-                return ""
+                btnSaveButton.isEnabled = false
+                btnCancelButton.isEnabled = false
+                return "" as AnyObject
             }
             
             
         }
         
         //
-        return ""
+        return "" as AnyObject
     }
     
     func initialPurchasepurchasesTransactionsDetailListView(returnPurchasesTransactionDetailListData : [[String: AnyObject]]) ->[PurchasesTransactionsDetailView]
@@ -1538,10 +1564,10 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
         if DueDate != nil {
             print("DueDate" + DueDate!)
             
-            let dateFormatter = NSDateFormatter()
-            dateFormatter.timeZone = NSTimeZone(name: "UTC")
+            let dateFormatter = DateFormatter()
+            dateFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone!
             dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
-            purchasesTransactionsHeaderView.DueDate = dateFormatter.dateFromString(DueDate!)
+            purchasesTransactionsHeaderView.DueDate = dateFormatter.date(from: DueDate!) as NSDate?
         }
         else{
         purchasesTransactionsHeaderView.DueDate = nil
@@ -1613,10 +1639,10 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
         let TransactionDate  = returnPurchasesTransactionHeaderData!["TransactionDate"] as! String
         
         
-        let dateFormatter2 = NSDateFormatter()
-        dateFormatter2.timeZone = NSTimeZone(name: "UTC")
+        let dateFormatter2 = DateFormatter()
+        dateFormatter2.timeZone = NSTimeZone(name: "UTC") as TimeZone!
         dateFormatter2.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
-        purchasesTransactionsHeaderView.TransactionDate = dateFormatter2.dateFromString(TransactionDate)!
+        purchasesTransactionsHeaderView.TransactionDate = dateFormatter2.date(from: TransactionDate)! as NSDate
         
         purchasesTransactionsHeaderView.UploadedDocumentsID = returnPurchasesTransactionHeaderData!["UploadedDocumentsID"] as? String
         
@@ -1625,8 +1651,8 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
             let imageDataStr = purchasesTransactionsHeaderView.LinkDocumentFile
             
             
-            let imageData = NSData(base64EncodedString: imageDataStr!, options: NSDataBase64DecodingOptions(rawValue: 0))
-            attachedimage = UIImage(data: imageData!)
+            let imageData = NSData(base64Encoded: imageDataStr!, options: NSData.Base64DecodingOptions(rawValue: 0))
+            attachedimage = UIImage(data: imageData! as Data)
             print("purchasesTransactionsHeaderView.UploadedDocumentsID" + purchasesTransactionsHeaderView.UploadedDocumentsID!)
         }
         else {
@@ -1652,7 +1678,8 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
         purchasesTransactionHeader.ReferenceNo = purchasesTransactionsHeaderView.ReferenceNo
         
         
-        dispatch_async(dispatch_get_main_queue()) {
+        DispatchQueue.main.async {
+
        self.navigationBar.topItem?.title = self.purchasesTransactionHeader.ReferenceNo
         }
    
@@ -1671,10 +1698,11 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
     {
         purchasesTransactionHeader.Memo = Memo
         
-        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+        DispatchQueue.main.async {
+
             self.purchaseDetailTableView.reloadData()
             
-        })
+        }
         
     }
   

@@ -24,7 +24,7 @@ class SendEmailViewController: UIViewController, UITableViewDelegate ,UITableVie
     var isPreLoad = false
   
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         
         email.TransactionID = salesTransactionHeader.SalesTransactionsHeaderID
         let q6CommonLib = Q6CommonLib(myObject: self)
@@ -33,7 +33,7 @@ class SendEmailViewController: UIViewController, UITableViewDelegate ,UITableVie
         
         print("CustomerID " + salesTransactionHeader.CustomerID)
         isPreLoad = true
-        q6CommonLib.Q6IosClientGetApi("Sale", ActionName: "GetCustomerByID", attachedURL: attachedURL)
+        q6CommonLib.Q6IosClientGetApi(ModelName: "Sale", ActionName: "GetCustomerByID", attachedURL: attachedURL)
         
         
     }
@@ -50,19 +50,19 @@ SendEmailTableView.delegate = self
         // lblTotalLabel.font = UIFont.boldSystemFontOfSize(17.0)
         //lblTotalAmount.font = UIFont.boldSystemFontOfSize(17.0)
         
-        SendEmailTableView.tableFooterView = UIView(frame: CGRectZero)
+        SendEmailTableView.tableFooterView = UIView(frame: CGRect.zero)
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    private func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         
         // print("addItemsDic" + addItemsDic.count.description)
@@ -70,7 +70,7 @@ SendEmailTableView.delegate = self
         return 4
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var resuseIdentifier = String()
         //        if indexPath.row <= 8 {
         //       resuseIdentifier = originalRowsDic[indexPath.row]!
@@ -89,7 +89,7 @@ SendEmailTableView.delegate = self
         //             resuseIdentifier = originalRowsDic[5]!
         //        }
         
-        let cell = tableView.dequeueReusableCellWithIdentifier(resuseIdentifier, forIndexPath: indexPath) as! SendEmailTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: resuseIdentifier, for: indexPath) as! SendEmailTableViewCell
         
         if resuseIdentifier == "FromCell" {
             
@@ -124,9 +124,9 @@ SendEmailTableView.delegate = self
         
         return cell
     }
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.row == 3{
-            let screenSize: CGRect = UIScreen.mainScreen().bounds
+            let screenSize: CGRect = UIScreen.main.bounds
             let screenHeight = screenSize.height
             return screenHeight - 3*40
         }
@@ -155,14 +155,14 @@ SendEmailTableView.delegate = self
     @IBAction func SendButtonClicked(sender: AnyObject) {
         
         if email.FromEmail.length == 0  {
-           Q6CommonLib.q6UIAlertPopupController("Information Message", message: "From Email can not be empty", viewController: self, timeArrange: 2)
+           Q6CommonLib.q6UIAlertPopupController(title: "Information Message", message: "From Email can not be empty", viewController: self, timeArrange: 2)
         }
         else if email.ToEmail.length == 0 {
-          Q6CommonLib.q6UIAlertPopupController("Information Message", message: "To Email can not be empty", viewController: self, timeArrange: 2)
+          Q6CommonLib.q6UIAlertPopupController(title: "Information Message", message: "To Email can not be empty", viewController: self, timeArrange: 2)
         }
         else if email.SubjectName.length == 0 {
            
-            Q6CommonLib.q6UIAlertPopupController("Information Message", message: "Subject Name can not be empty", viewController: self, timeArrange: 2)
+            Q6CommonLib.q6UIAlertPopupController(title: "Information Message", message: "Subject Name can not be empty", viewController: self, timeArrange: 2)
             
         }
         else {
@@ -187,37 +187,37 @@ SendEmailTableView.delegate = self
             
             var LoginDetailDicData = [String:AnyObject]()
             
-            LoginDetailDicData["Email"] = userInfos["LoginEmail"]!
-            LoginDetailDicData["Password"] = userInfos["PassWord"]!
-            LoginDetailDicData["CompanyID"] = userInfos["CompanyID"]!
-            LoginDetailDicData["WebApiTOKEN"] = Q6CommonLib.getQ6WebAPIToken()
+            LoginDetailDicData["Email"] = userInfos["LoginEmail"]! as AnyObject?
+            LoginDetailDicData["Password"] = userInfos["PassWord"]! as AnyObject?
+            LoginDetailDicData["CompanyID"] = userInfos["CompanyID"]! as AnyObject?
+            LoginDetailDicData["WebApiTOKEN"] = Q6CommonLib.getQ6WebAPIToken() as AnyObject?
             
-            dicData["LoginDetail"] = LoginDetailDicData
+            dicData["LoginDetail"] = LoginDetailDicData as AnyObject?
             
-            dicData["TransactionID"] = email.TransactionID
-            dicData["SenderName"] = email.SenderName
-            dicData["FromEmail"] = email.FromEmail
-            dicData["ToEmail"] = email.ToEmail
-            dicData["CcEmail"] = email.CcEmail
-            dicData["BccEmail"] = email.BccEmail
-            dicData["BodyMessage"] = email.BodyMessage
-            dicData["ModuleName"] = email.ModuleName
-            dicData["SubjectName"] = email.SubjectName
-            dicData["SendMeACopy"] = email.SendMeACopy
+            dicData["TransactionID"] = email.TransactionID as AnyObject?
+            dicData["SenderName"] = email.SenderName as AnyObject?
+            dicData["FromEmail"] = email.FromEmail as AnyObject?
+            dicData["ToEmail"] = email.ToEmail as AnyObject?
+            dicData["CcEmail"] = email.CcEmail as AnyObject?
+            dicData["BccEmail"] = email.BccEmail as AnyObject?
+            dicData["BodyMessage"] = email.BodyMessage as AnyObject?
+            dicData["ModuleName"] = email.ModuleName as AnyObject?
+            dicData["SubjectName"] = email.SubjectName as AnyObject?
+            dicData["SendMeACopy"] = email.SendMeACopy as AnyObject?
         
             isPreLoad = false
-             q6CommonLib.Q6IosClientPostAPI("Email",ActionName: "SendEmail", dicData:dicData)
+             q6CommonLib.Q6IosClientPostAPI(ModeName: "Email",ActionName: "SendEmail", dicData:dicData)
             
-            btnSendEmail.enabled = false
-            btnCancel.enabled = false
+            btnSendEmail.isEnabled = false
+            btnCancel.isEnabled = false
             
         }
     }
     @IBAction func CancelButtonClicked(sender: AnyObject) {
         
-        navigationController?.popViewControllerAnimated(true)
+        _ = navigationController?.popViewController(animated: true)
     }
-    func dataLoadCompletion(data:NSData?, response:NSURLResponse?, error:NSError?) -> AnyObject
+    func dataLoadCompletion(data:NSData?, response:URLResponse?, error:NSError?) -> AnyObject
     {
         
         var postDicData :[String:AnyObject]
@@ -226,7 +226,7 @@ SendEmailTableView.delegate = self
         {
         do {
             
-            postDicData = try  NSJSONSerialization.JSONObjectWithData(data!, options: []) as! [String:AnyObject]
+            postDicData = try  JSONSerialization.jsonObject(with: data! as Data, options: []) as! [String:AnyObject]
             
             let returnData = postDicData["Customer"] as! [String : AnyObject]
             print("returnDate Count" + returnData.count.description)
@@ -235,7 +235,7 @@ SendEmailTableView.delegate = self
             email.ToEmail = dataItem["Email"] as! String
             
             
-            dispatch_async(dispatch_get_main_queue()) {
+           DispatchQueue.main.async {
                 
                 self.SendEmailTableView.reloadData()
                 self.Q6ActivityIndicatorView.hidesWhenStopped = true
@@ -246,65 +246,86 @@ SendEmailTableView.delegate = self
         catch  {
             print("error parsing response from POST on /posts")
             
-            return ""
+            return "" as AnyObject
         }
         }
         else if isPreLoad == false {
             
             do {
                 
-                postDicData = try  NSJSONSerialization.JSONObjectWithData(data!, options: []) as! [String:AnyObject]
+                postDicData = try  JSONSerialization.jsonObject(with: data! as Data, options: []) as! [String:AnyObject]
                 
                 let IsSuccessed = postDicData["IsSuccessed"] as! Bool
                 
                 if IsSuccessed == true {
                    
                     
-                    let alert = UIAlertController(title: "Information message", message: "Send  Successfully!", preferredStyle: UIAlertControllerStyle.Alert)
+                    let alert = UIAlertController(title: "Information message", message: "Send  Successfully!", preferredStyle: UIAlertControllerStyle.alert)
                     
                     
-                    dispatch_async(dispatch_get_main_queue()) {
+                   DispatchQueue.main.async {
                         
-                        self.presentViewController(alert, animated: true, completion: nil)
+                        self.present(alert, animated: true, completion: nil)
                         
                     }
-                    let delayTime = dispatch_time(DISPATCH_TIME_NOW,
-                                                  Int64(3 * Double(NSEC_PER_SEC)))
-                    let delayTime2 = dispatch_time(DISPATCH_TIME_NOW,
-                                                   Int64(4 * Double(NSEC_PER_SEC)))
-                    dispatch_after(delayTime, dispatch_get_main_queue()) {
-                        self.dismissViewControllerAnimated(true, completion: nil);
+//                    let delayTime = dispatch_time(DISPATCH_TIME_NOW,
+//                                                  Int64(3 * Double(NSEC_PER_SEC)))
+//                    let delayTime2 = dispatch_time(DISPATCH_TIME_NOW,
+//                                                   Int64(4 * Double(NSEC_PER_SEC)))
+//                    dispatch_after(delayTime, dispatch_get_main_queue()) {
+//                        self.dismissViewControllerAnimated(true, completion: nil);
+//                        
+//                        // self.navigationController!.popViewControllerAnimated(true)
+//                        // self.navigationController?.popToRootViewControllerAnimated(true)
+//                    }
+//                    dispatch_after(delayTime2, dispatch_get_main_queue()) {
+//                        // self.dismissViewControllerAnimated(true, completion: nil);
+//                        self.navigationController!.popViewControllerAnimated(true)
+//                        // self.navigationController?.popToRootViewControllerAnimated(true)
+//                    }
+                    
+                    
+                    
+                    let delayTime = DispatchTime.now() + Double(Int64(3 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
+                    let delayTime2 = DispatchTime.now() + Double(Int64(4 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
+                    
+                    //                let delayTime = dispatch_time(dispatch_time_t(DISPATCH_TIME_NOW),
+                    //                                              Int64(3 * Double(NSEC_PER_SEC)))
+                    //                let delayTime2 = dispatch_time(DISPATCH_TIME_NOW,
+                    //                                               Int64(4 * Double(NSEC_PER_SEC)))
+                    
+                    DispatchQueue.main.asyncAfter(deadline: delayTime)
+                    {
+                       self.dismiss(animated: true, completion: nil);
                         
                         // self.navigationController!.popViewControllerAnimated(true)
                         // self.navigationController?.popToRootViewControllerAnimated(true)
                     }
-                    dispatch_after(delayTime2, dispatch_get_main_queue()) {
-                        // self.dismissViewControllerAnimated(true, completion: nil);
-                        self.navigationController!.popViewControllerAnimated(true)
-                        // self.navigationController?.popToRootViewControllerAnimated(true)
+                    DispatchQueue.main.asyncAfter(deadline: delayTime2)
+                    { // self.dismissViewControllerAnimated(true, completion: nil);
+                   self.navigationController!.popViewController(animated: true)
                     }
 
                     
                 }
                 else {
                  
-                    let alert = UIAlertController(title: "Information message", message: "Send Fail!", preferredStyle: UIAlertControllerStyle.Alert)
+                    let alert = UIAlertController(title: "Information message", message: "Send Fail!", preferredStyle: UIAlertControllerStyle.alert)
                     
                     
-                    dispatch_async(dispatch_get_main_queue()) {
+                  DispatchQueue.main.async {
                         
-                        self.presentViewController(alert, animated: true, completion: nil)
+                        self.present(alert, animated: true, completion: nil)
                         
                     }
                     
-                    let delayTime = dispatch_time(DISPATCH_TIME_NOW,
-                                                  Int64(3 * Double(NSEC_PER_SEC)))
+                 let delayTime = DispatchTime.now() + Double(Int64(3 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
            
-                    dispatch_after(delayTime, dispatch_get_main_queue()) {
-                        self.dismissViewControllerAnimated(true, completion: nil);
+                            DispatchQueue.main.asyncAfter(deadline: delayTime) {
+                        self.dismiss(animated: true, completion: nil);
                         
-                        self.btnSendEmail.enabled = true
-                        self.btnCancel.enabled = true
+                        self.btnSendEmail.isEnabled = true
+                        self.btnCancel.isEnabled = true
                         // self.navigationController!.popViewControllerAnimated(true)
                         // self.navigationController?.popToRootViewControllerAnimated(true)
                     }
@@ -313,12 +334,12 @@ SendEmailTableView.delegate = self
             catch  {
                 print("error parsing response from POST on /posts")
                 
-                return ""
+                return "" as AnyObject
             }
                 
         }
         
-        return ""
+        return "" as AnyObject
     }
     func  sendGoBackFromPickerView(fromView : String ,forCell: String,selectedValue : String)
     {}

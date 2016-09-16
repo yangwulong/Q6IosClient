@@ -16,18 +16,18 @@ class ContactViewController: UIViewController, UITableViewDelegate ,UITableViewD
     var Memo = UITextView()
     var OperationType = String()
     var ContactType = String()
-    var ContactID = String?()
+    var ContactID:String?
     var isPreLoad = false
     var supplier = Supplier()
     var customer = Customer()
-    var CallButton = UIButton?()
+    var CallButton:UIButton?
     @IBOutlet weak var Q6ActivityIndicatorView: UIActivityIndicatorView!
     @IBOutlet weak var ContactTableView: UITableView!
     
     @IBOutlet weak var navigationBar: UINavigationBar!
     
     weak var delegate2: Q6GoBackFromViewTwo?
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         Q6ActivityIndicatorView.hidesWhenStopped = true
         Q6ActivityIndicatorView.stopAnimating()
         if ContactType == "Supplier"
@@ -49,7 +49,7 @@ class ContactViewController: UIViewController, UITableViewDelegate ,UITableViewD
                 
                 let attachedURL = "&SupplierID=" + ContactID!
                 isPreLoad = true
-                q6CommonLib.Q6IosClientGetApi("Purchase", ActionName: "GetSupplierByID", attachedURL: attachedURL)
+                q6CommonLib.Q6IosClientGetApi(ModelName: "Purchase", ActionName: "GetSupplierByID", attachedURL: attachedURL)
                 
             }
             
@@ -62,7 +62,7 @@ class ContactViewController: UIViewController, UITableViewDelegate ,UITableViewD
                 
                 let attachedURL = "&CustomerID=" + ContactID!
                 isPreLoad = true
-                q6CommonLib.Q6IosClientGetApi("Sale", ActionName: "GetCustomerByID", attachedURL: attachedURL)
+                q6CommonLib.Q6IosClientGetApi(ModelName: "Sale", ActionName: "GetCustomerByID", attachedURL: attachedURL)
                 
             }
         }
@@ -84,19 +84,19 @@ class ContactViewController: UIViewController, UITableViewDelegate ,UITableViewD
         // lblTotalLabel.font = UIFont.boldSystemFontOfSize(17.0)
         //lblTotalAmount.font = UIFont.boldSystemFontOfSize(17.0)
         
-        ContactTableView.tableFooterView = UIView(frame: CGRectZero)
+        ContactTableView.tableFooterView = UIView(frame: CGRect.zero)
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    private func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         
         // print("addItemsDic" + addItemsDic.count.description)
@@ -105,7 +105,7 @@ class ContactViewController: UIViewController, UITableViewDelegate ,UITableViewD
     }
     
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var resuseIdentifier = String()
         
         resuseIdentifier = originalRowsDic[indexPath.row]!
@@ -116,7 +116,7 @@ class ContactViewController: UIViewController, UITableViewDelegate ,UITableViewD
         //             resuseIdentifier = originalRowsDic[5]!
         //        }
         
-        let cell = tableView.dequeueReusableCellWithIdentifier(resuseIdentifier, forIndexPath: indexPath) as! ContactViewTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: resuseIdentifier, for: indexPath) as! ContactViewTableViewCell
         if resuseIdentifier == "MemoCell" {
             
             Memo = cell.lblMemo
@@ -137,20 +137,20 @@ class ContactViewController: UIViewController, UITableViewDelegate ,UITableViewD
             if ContactType == "Supplier"{
                  cell.txtPhone.text = supplier.Phone
                 if supplier.Phone?.length == 0 {
-                    CallButton?.enabled = false
+                    CallButton?.isEnabled = false
                 }
                 else {
-                    CallButton?.enabled = true
+                    CallButton?.isEnabled = true
                 }
             }
             
             if ContactType == "Customer"{
                 cell.txtPhone.text = customer.Phone
                 if customer.Phone?.length == 0 {
-                    CallButton?.enabled = false
+                    CallButton?.isEnabled = false
                 }
                 else {
-                    CallButton?.enabled = true
+                    CallButton?.isEnabled = true
                 }
             }
           
@@ -184,7 +184,7 @@ class ContactViewController: UIViewController, UITableViewDelegate ,UITableViewD
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         if indexPath.row == 3{
-            let screenSize: CGRect = UIScreen.mainScreen().bounds
+            let screenSize: CGRect = UIScreen.main.bounds
             let screenHeight = screenSize.height
             return screenHeight - 3*40
         }
@@ -192,7 +192,7 @@ class ContactViewController: UIViewController, UITableViewDelegate ,UITableViewD
             return 40
         }
     }
-    func dataLoadCompletion(data:NSData?, response:NSURLResponse?, error:NSError?) -> AnyObject
+    func dataLoadCompletion(data:NSData?, response:URLResponse?, error:NSError?) -> AnyObject
     {
         
         if isPreLoad == true && OperationType == "Edit" && ContactType == "Supplier" {
@@ -202,7 +202,7 @@ class ContactViewController: UIViewController, UITableViewDelegate ,UITableViewD
             
             do {
             
-                postDicData = try  NSJSONSerialization.JSONObjectWithData(data!, options: []) as! [String:AnyObject]
+                postDicData = try  JSONSerialization.jsonObject(with: data! as Data, options: []) as! [String:AnyObject]
                 
                 let returnData = postDicData["Supplier"] as! [String : AnyObject]
                 print("returnDate Count" + returnData.count.description)
@@ -215,7 +215,7 @@ class ContactViewController: UIViewController, UITableViewDelegate ,UITableViewD
                 
                     
                     let CreateDate = dataItem["CreateDate"] as? String
-                    //                var convertDueDate = NSDate?()
+                    //                var convertDueDate:NSDate?
                     //                if dueDate != nil {
                     //                print("dueDate sss" + dueDate!)
                     //
@@ -294,8 +294,8 @@ class ContactViewController: UIViewController, UITableViewDelegate ,UITableViewD
                      supplier.Title = dataItem["Title"] as? String
                      //supplier.SupplierName = dataItem["SupplierName"] as! String
                 
-                dispatch_async(dispatch_get_main_queue()) {
-                    
+                DispatchQueue.main.async {
+            
                 self.ContactTableView.reloadData()
                 self.Q6ActivityIndicatorView.hidesWhenStopped = true
                 self.Q6ActivityIndicatorView.stopAnimating()
@@ -305,7 +305,7 @@ class ContactViewController: UIViewController, UITableViewDelegate ,UITableViewD
             catch  {
                 print("error parsing response from POST on /posts")
                 
-                return ""
+                return "" as AnyObject
             }
         }
         else if isPreLoad == true && OperationType == "Edit" && ContactType == "Customer" {
@@ -315,7 +315,7 @@ class ContactViewController: UIViewController, UITableViewDelegate ,UITableViewD
             
             do {
                 
-                postDicData = try  NSJSONSerialization.JSONObjectWithData(data!, options: []) as! [String:AnyObject]
+                postDicData = try  JSONSerialization.jsonObject(with: data! as Data, options: []) as! [String:AnyObject]
                 
                 let returnData = postDicData["Customer"] as! [String : AnyObject]
                 print("returnDate Count" + returnData.count.description)
@@ -328,7 +328,7 @@ class ContactViewController: UIViewController, UITableViewDelegate ,UITableViewD
                 
                 
                 let CreateDate = dataItem["CreateDate"] as? String
-                //                var convertDueDate = NSDate?()
+                //                var convertDueDate:NSDate?
                 //                if dueDate != nil {
                 //                print("dueDate sss" + dueDate!)
                 //
@@ -406,7 +406,8 @@ class ContactViewController: UIViewController, UITableViewDelegate ,UITableViewD
                 customer.Title = dataItem["Title"] as? String
                 //supplier.SupplierName = dataItem["SupplierName"] as! String
                 
-                dispatch_async(dispatch_get_main_queue()) {
+                DispatchQueue.main.async {
+              
                     
                     self.ContactTableView.reloadData()
                     self.Q6ActivityIndicatorView.hidesWhenStopped = true
@@ -417,7 +418,7 @@ class ContactViewController: UIViewController, UITableViewDelegate ,UITableViewD
             catch  {
                 print("error parsing response from POST on /posts")
                 
-                return ""
+                return "" as AnyObject
             }
         }
 
@@ -425,7 +426,7 @@ class ContactViewController: UIViewController, UITableViewDelegate ,UITableViewD
         var postDicData :[String:AnyObject]
         var _ : Bool
         do {
-            postDicData = try  NSJSONSerialization.JSONObjectWithData(data!, options: []) as! [String:AnyObject]
+            postDicData = try  JSONSerialization.jsonObject(with: data! as Data, options: []) as! [String:AnyObject]
             
             
             let IsSuccessed = postDicData["IsSuccessed"] as! Bool
@@ -433,52 +434,67 @@ class ContactViewController: UIViewController, UITableViewDelegate ,UITableViewD
             
             if IsSuccessed == true {
                 
-                dispatch_async(dispatch_get_main_queue()) {
+               DispatchQueue.main.async {
                     
                     // let all subview control resignfirstresponse()
                     self.view.endEditing(true)
-                    
+                
                 }
                 
                 _ = navigationController
                 // Q6CommonLib.q6UIAlertPopupControllerThenGoBack("Information message", message: "Save Successfully!", viewController: self,timeArrange:3,navigationController: nav!)
                 
                 
-                let alert = UIAlertController(title: "Information message", message: "Save Successfully!", preferredStyle: UIAlertControllerStyle.Alert)
+                let alert = UIAlertController(title: "Information message", message: "Save Successfully!", preferredStyle: UIAlertControllerStyle.alert)
                 
                 
-                dispatch_async(dispatch_get_main_queue()) {
+                DispatchQueue.main.async {
                     
-                    self.presentViewController(alert, animated: true, completion: nil)
+                    self.present(alert, animated: true, completion: nil)
                     
                 }
-                let delayTime = dispatch_time(DISPATCH_TIME_NOW,
-                                              Int64(3 * Double(NSEC_PER_SEC)))
-                let delayTime2 = dispatch_time(DISPATCH_TIME_NOW,
-                                               Int64(4 * Double(NSEC_PER_SEC)))
-                dispatch_after(delayTime, dispatch_get_main_queue()) {
-                    self.dismissViewControllerAnimated(true, completion: nil);
+                
+//                let when = DispatchTime.now() + seconds
+//                DispatchQueue.main.asyncAfter(deadline: when){
+//                    // Your code with delay
+//                }
+//                DispatchQueue.main.asyncAfter(deadline: <#T##DispatchTime#>, execute: <#T##DispatchWorkItem#>)
+                let delayTime = DispatchTime.now() + Double(Int64(3 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
+                
+                
+                let delayTime2 = DispatchTime.now() + Double(Int64(4 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
+                
+                
+//                let delayTime = dispatch_time(dispatch_time_t(DISPATCH_TIME_NOW),
+//                                              Int64(3 * Double(NSEC_PER_SEC)))
+//                let delayTime2 = dispatch_time(DISPATCH_TIME_NOW,
+//                                               Int64(4 * Double(NSEC_PER_SEC)))
+                
+                DispatchQueue.main.asyncAfter(deadline: delayTime)
+                {
+                    self.dismiss(animated: true, completion: nil);
                     
                     // self.navigationController!.popViewControllerAnimated(true)
                     // self.navigationController?.popToRootViewControllerAnimated(true)
                 }
-                dispatch_after(delayTime2, dispatch_get_main_queue()) {
-                    // self.dismissViewControllerAnimated(true, completion: nil);
-                    self.delegate2?.sendGoBackContactDetailView("ContactViewController", fromButton: "Save")
-                    self.navigationController!.popViewControllerAnimated(true)
+           DispatchQueue.main.asyncAfter(deadline: delayTime2)
+           { // self.dismissViewControllerAnimated(true, completion: nil);
+                    self.delegate2?.sendGoBackContactDetailView(fromView: "ContactViewController", fromButton: "Save")
+                    self.navigationController!.popViewController(animated: true)
                     // self.navigationController?.popToRootViewControllerAnimated(true)
                 }
                 
             }else {
                 
-                let alert = UIAlertController(title: "Information message", message: "Save Fail!", preferredStyle: UIAlertControllerStyle.Alert)
+                let alert = UIAlertController(title: "Information message", message: "Save Fail!", preferredStyle: UIAlertControllerStyle.alert)
                 
                 
-                dispatch_async(dispatch_get_main_queue()) {
+                DispatchQueue.main.async {
                     
-                    self.presentViewController(alert, animated: true, completion: nil)
-                    self.btnSaveButton.enabled = true
-                    self.btnCancelButton.enabled = true
+                    
+                    self.present(alert, animated: true, completion: nil)
+                    self.btnSaveButton.isEnabled = true
+                    self.btnCancelButton.isEnabled = true
                     
                 }
                 
@@ -487,13 +503,13 @@ class ContactViewController: UIViewController, UITableViewDelegate ,UITableViewD
             }
         } catch  {
             print("error parsing response from POST on /posts")
-            btnSaveButton.enabled = true
-            btnCancelButton.enabled = true
-            return ""
+            btnSaveButton.isEnabled = true
+            btnCancelButton.isEnabled = true
+            return "" as AnyObject
         }
         
         }
-        return ""
+        return "" as AnyObject
     }
     
     @IBAction func SaveButtonClick(sender: AnyObject) {
@@ -520,13 +536,13 @@ class ContactViewController: UIViewController, UITableViewDelegate ,UITableViewD
         
         var LoginDetailDicData = [String:AnyObject]()
         
-        LoginDetailDicData["Email"] = userInfos["LoginEmail"]!
-        LoginDetailDicData["Password"] = userInfos["PassWord"]!
-        LoginDetailDicData["CompanyID"] = userInfos["CompanyID"]!
-        LoginDetailDicData["WebApiTOKEN"] = Q6CommonLib.getQ6WebAPIToken()
+        LoginDetailDicData["Email"] = userInfos["LoginEmail"]! as AnyObject?
+        LoginDetailDicData["Password"] = userInfos["PassWord"]! as AnyObject?
+        LoginDetailDicData["CompanyID"] = userInfos["CompanyID"]! as AnyObject?
+        LoginDetailDicData["WebApiTOKEN"] = Q6CommonLib.getQ6WebAPIToken() as AnyObject?
         
-        dicData["LoginDetail"] = LoginDetailDicData
-        dicData["NeedValidate"] = false
+        dicData["LoginDetail"] = LoginDetailDicData as AnyObject?
+        dicData["NeedValidate"] = false as AnyObject?
         
        
         
@@ -534,25 +550,25 @@ class ContactViewController: UIViewController, UITableViewDelegate ,UITableViewD
             
             if supplier.SupplierName.length == 0 {
                 
-                Q6CommonLib.q6UIAlertPopupController("Information Message", message:" Supplier Name can not be empty!", viewController: self)
+                Q6CommonLib.q6UIAlertPopupController(title: "Information Message", message:" Supplier Name can not be empty!", viewController: self)
             }
-            else if supplier.Email?.length>0 &&  Q6CommonLib.isEmailAddressValid(supplier.Email!) == false {
-                 Q6CommonLib.q6UIAlertPopupController("Information Message", message:" Email Address is not valid !", viewController: self)
+            else if (supplier.Email?.length)!>0 &&  Q6CommonLib.isEmailAddressValid(email: supplier.Email!) == false {
+                 Q6CommonLib.q6UIAlertPopupController(title: "Information Message", message:" Email Address is not valid !", viewController: self)
             }
-            else {dicData["Supplier"] = convertSupplierToArray()
+            else {dicData["Supplier"] = convertSupplierToArray() as AnyObject?
                 
                 
             if OperationType == "Create" {
                 
-                  q6CommonLib.Q6IosClientPostAPI("Purchase",ActionName: "AddSupplier", dicData:dicData)
+                  q6CommonLib.Q6IosClientPostAPI(ModeName: "Purchase",ActionName: "AddSupplier", dicData:dicData)
             }
             else if OperationType == "Edit" {
                 
-                    q6CommonLib.Q6IosClientPostAPI("Purchase",ActionName: "EditSupplier", dicData:dicData)
+                    q6CommonLib.Q6IosClientPostAPI(ModeName: "Purchase",ActionName: "EditSupplier", dicData:dicData)
                 }
                 
-                btnSaveButton.enabled = false
-                btnCancelButton.enabled = false
+                btnSaveButton.isEnabled = false
+                btnCancelButton.isEnabled = false
             }
         }
         
@@ -561,84 +577,84 @@ class ContactViewController: UIViewController, UITableViewDelegate ,UITableViewD
             
             if customer.CustomerName.length == 0 {
                 
-                Q6CommonLib.q6UIAlertPopupController("Information Message", message:" Customer Name can not be empty!", viewController: self)
+                Q6CommonLib.q6UIAlertPopupController(title: "Information Message", message:" Customer Name can not be empty!", viewController: self)
             }
-            else if customer.Email?.length>0 &&  Q6CommonLib.isEmailAddressValid(customer.Email!) == false {
-                Q6CommonLib.q6UIAlertPopupController("Information Message", message:" Email Address is not valid !", viewController: self)
+            else if (customer.Email?.length)!>0 &&  Q6CommonLib.isEmailAddressValid(email: customer.Email!) == false {
+                Q6CommonLib.q6UIAlertPopupController(title: "Information Message", message:" Email Address is not valid !", viewController: self)
             }
             else {
-                dicData["Customer"] = convertCustomerToArray()
+                dicData["Customer"] = convertCustomerToArray() as AnyObject?
                 
                 
                 if OperationType == "Create" {
                     
-                    q6CommonLib.Q6IosClientPostAPI("Sale",ActionName: "AddCustomer", dicData:dicData)
+                    q6CommonLib.Q6IosClientPostAPI(ModeName: "Sale",ActionName: "AddCustomer", dicData:dicData)
                 }
                 else if OperationType == "Edit" {
                     
-                    q6CommonLib.Q6IosClientPostAPI("Sale",ActionName: "EditCustomer", dicData:dicData)
+                    q6CommonLib.Q6IosClientPostAPI(ModeName: "Sale",ActionName: "EditCustomer", dicData:dicData)
                 }
-                btnSaveButton.enabled = false
-                btnCancelButton.enabled = false
+                btnSaveButton.isEnabled = false
+                btnCancelButton.isEnabled = false
             }
         }
        
     }
 
     @IBAction func CancelButtonClick(sender: AnyObject) {
-        self.navigationController!.popViewControllerAnimated(true)
+        self.navigationController!.popViewController(animated: true)
     }
     
     func convertSupplierToArray() -> [String: AnyObject]
     {
         var dicData = [String: AnyObject]()
         
-       dicData["ABN"] =  supplier.ABN
-        dicData["BankAccountName"] =  supplier.BankAccountName
+       dicData["ABN"] =  supplier.ABN as AnyObject?
+        dicData["BankAccountName"] =  supplier.BankAccountName as AnyObject?
         
-        dicData["BankAccountNumber"] =  supplier.BankAccountNumber
+        dicData["BankAccountNumber"] =  supplier.BankAccountNumber as AnyObject?
         
-        dicData["BSBNumber"] =  supplier.BSBNumber
-        dicData["CreateDate"] =  supplier.CreateDate.description
-        dicData["DefaultPurchasesAccountID"] =  supplier.DefaultPurchasesAccountID
+        dicData["BSBNumber"] =  supplier.BSBNumber as AnyObject?
+        dicData["CreateDate"] =  supplier.CreateDate.description as AnyObject?
+        dicData["DefaultPurchasesAccountID"] =  supplier.DefaultPurchasesAccountID as AnyObject?
        // dicData["DefaultPurchasesAccountNameWithAccountNo"] =  supplier.DefaultPurchasesAccountNameWithAccountNo
-        dicData["DefaultPurchasesTaxCodeID"] =  supplier.DefaultPurchasesTaxCodeID
-        dicData["Email"] =  supplier.Email
-        dicData["Fax"] =  supplier.Fax
-        dicData["FirstName"] =  supplier.FirstName
-        dicData["IsInactive"] =  supplier.IsInactive
+        dicData["DefaultPurchasesTaxCodeID"] =  supplier.DefaultPurchasesTaxCodeID as AnyObject?
+        dicData["Email"] =  supplier.Email as AnyObject?
+        dicData["Fax"] =  supplier.Fax as AnyObject?
+        dicData["FirstName"] =  supplier.FirstName as AnyObject?
+        dicData["IsInactive"] =  supplier.IsInactive as AnyObject?
         
-        dicData["IsSameAsPhysicalAddress"] =  supplier.IsSameAsPhysicalAddress
-        dicData["IsSameAsPostalAddress"] =  supplier.IsSameAsPostalAddress
-        dicData["LastName"] =  supplier.LastName
-        dicData["Memos"] =  supplier.Memos
-        dicData["PaymentMemos"] =  supplier.PaymentMemos
-        dicData["Phone"] =  supplier.Phone
-        dicData["PhysicalAddress"] =  supplier.PhysicalAddress
-        dicData["PhysicalAddressLine2"] =  supplier.PhysicalAddressLine2
-        dicData["PhysicalCity"] =  supplier.PhysicalCity
-        dicData["PhysicalCountry"] =  supplier.PhysicalCountry
-        dicData["PhysicalState"] =  supplier.PhysicalState
-         dicData["PhysicalPostalCode"] =  supplier.PhysicalPostalCode
+        dicData["IsSameAsPhysicalAddress"] =  supplier.IsSameAsPhysicalAddress as AnyObject?
+        dicData["IsSameAsPostalAddress"] =  supplier.IsSameAsPostalAddress as AnyObject?
+        dicData["LastName"] =  supplier.LastName as AnyObject?
+        dicData["Memos"] =  supplier.Memos as AnyObject?
+        dicData["PaymentMemos"] =  supplier.PaymentMemos as AnyObject?
+        dicData["Phone"] =  supplier.Phone as AnyObject?
+        dicData["PhysicalAddress"] =  supplier.PhysicalAddress as AnyObject?
+        dicData["PhysicalAddressLine2"] =  supplier.PhysicalAddressLine2 as AnyObject?
+        dicData["PhysicalCity"] =  supplier.PhysicalCity as AnyObject?
+        dicData["PhysicalCountry"] =  supplier.PhysicalCountry as AnyObject?
+        dicData["PhysicalState"] =  supplier.PhysicalState as AnyObject?
+         dicData["PhysicalPostalCode"] =  supplier.PhysicalPostalCode as AnyObject?
         
-        dicData["PostalAddress"] =  supplier.PostalAddress
-        dicData["PostalAddressLine2"] =  supplier.PostalAddressLine2
-        dicData["PostalCity"] =  supplier.PostalCity
-        dicData["PostalCountry"] =  supplier.PostalCountry
-        dicData["PostalState"] =  supplier.PostalState
-        dicData["PostalPostalCode"] =  supplier.PostalPostalCode
+        dicData["PostalAddress"] =  supplier.PostalAddress as AnyObject?
+        dicData["PostalAddressLine2"] =  supplier.PostalAddressLine2 as AnyObject?
+        dicData["PostalCity"] =  supplier.PostalCity as AnyObject?
+        dicData["PostalCountry"] =  supplier.PostalCountry as AnyObject?
+        dicData["PostalState"] =  supplier.PostalState as AnyObject?
+        dicData["PostalPostalCode"] =  supplier.PostalPostalCode as AnyObject?
         
-        dicData["ShippingAddress"] =  supplier.ShippingAddress
-        dicData["ShippingAddressLine2"] =  supplier.ShippingAddressLine2
-        dicData["ShippingCity"] =  supplier.ShippingCity
-        dicData["ShippingCountry"] =  supplier.ShippingCountry
-        dicData["ShippingState"] =  supplier.ShippingState
-         dicData["ShippingPostalCode"] =  supplier.ShippingPostalCode
+        dicData["ShippingAddress"] =  supplier.ShippingAddress as AnyObject?
+        dicData["ShippingAddressLine2"] =  supplier.ShippingAddressLine2 as AnyObject?
+        dicData["ShippingCity"] =  supplier.ShippingCity as AnyObject?
+        dicData["ShippingCountry"] =  supplier.ShippingCountry as AnyObject?
+        dicData["ShippingState"] =  supplier.ShippingState as AnyObject?
+         dicData["ShippingPostalCode"] =  supplier.ShippingPostalCode as AnyObject?
         
-        dicData["StatementText"] =  supplier.StatementText
-        dicData["SupplierID"] =  supplier.SupplierID
-        dicData["SupplierName"] =  supplier.SupplierName
-        dicData["Title"] =  supplier.Title
+        dicData["StatementText"] =  supplier.StatementText as AnyObject?
+        dicData["SupplierID"] =  supplier.SupplierID as AnyObject?
+        dicData["SupplierName"] =  supplier.SupplierName as AnyObject?
+        dicData["Title"] =  supplier.Title as AnyObject?
         
         return dicData
     }
@@ -647,52 +663,52 @@ class ContactViewController: UIViewController, UITableViewDelegate ,UITableViewD
     {
         var dicData = [String: AnyObject]()
         
-        dicData["ABN"] =  customer.ABN
-        dicData["BankAccountName"] =  customer.BankAccountName
+        dicData["ABN"] =  customer.ABN as AnyObject?
+        dicData["BankAccountName"] =  customer.BankAccountName as AnyObject?
         
-        dicData["BankAccountNumber"] =  customer.BankAccountNumber
+        dicData["BankAccountNumber"] =  customer.BankAccountNumber as AnyObject?
         
-        dicData["BSBNumber"] =  customer.BSBNumber
+        dicData["BSBNumber"] =  customer.BSBNumber as AnyObject?
       //  dicData["CreateDate"] =  customer.CreateDate.description
-        dicData["DefaultSalesAccountID"] =  customer.DefaultSalesAccountID
-     dicData["DefaultSalesDiscount"] =  customer.DefaultSalesDiscount
-        dicData["DefaultSalesTaxCodeID"] =  customer.DefaultSalesTaxCodeID
-        dicData["Email"] =  customer.Email
-        dicData["Fax"] =  customer.Fax
-        dicData["FirstName"] =  customer.FirstName
-        dicData["IsInactive"] =  customer.IsInactive
+        dicData["DefaultSalesAccountID"] =  customer.DefaultSalesAccountID as AnyObject?
+     dicData["DefaultSalesDiscount"] =  customer.DefaultSalesDiscount as AnyObject?
+        dicData["DefaultSalesTaxCodeID"] =  customer.DefaultSalesTaxCodeID as AnyObject?
+        dicData["Email"] =  customer.Email as AnyObject?
+        dicData["Fax"] =  customer.Fax as AnyObject?
+        dicData["FirstName"] =  customer.FirstName as AnyObject?
+        dicData["IsInactive"] =  customer.IsInactive as AnyObject?
         
-        dicData["IsSameAsPhysicalAddress"] =  customer.IsSameAsPhysicalAddress
-        dicData["IsSameAsPostalAddress"] =  customer.IsSameAsPostalAddress
-        dicData["LastName"] =  customer.LastName
-        dicData["Memos"] =  customer.Memos
-        dicData["PaymentMemos"] =  customer.PaymentMemos
-        dicData["Phone"] =  customer.Phone
-        dicData["PhysicalAddress"] =  customer.PhysicalAddress
-        dicData["PhysicalAddressLine2"] =  customer.PhysicalAddressLine2
-        dicData["PhysicalCity"] =  customer.PhysicalCity
-        dicData["PhysicalCountry"] =  customer.PhysicalCountry
-        dicData["PhysicalState"] =  customer.PhysicalState
-        dicData["PhysicalPostalCode"] =  customer.PhysicalPostalCode
+        dicData["IsSameAsPhysicalAddress"] =  customer.IsSameAsPhysicalAddress as AnyObject?
+        dicData["IsSameAsPostalAddress"] =  customer.IsSameAsPostalAddress as AnyObject?
+        dicData["LastName"] =  customer.LastName as AnyObject?
+        dicData["Memos"] =  customer.Memos as AnyObject?
+        dicData["PaymentMemos"] =  customer.PaymentMemos as AnyObject?
+        dicData["Phone"] =  customer.Phone as AnyObject?
+        dicData["PhysicalAddress"] =  customer.PhysicalAddress as AnyObject?
+        dicData["PhysicalAddressLine2"] =  customer.PhysicalAddressLine2 as AnyObject?
+        dicData["PhysicalCity"] =  customer.PhysicalCity as AnyObject?
+        dicData["PhysicalCountry"] =  customer.PhysicalCountry as AnyObject?
+        dicData["PhysicalState"] =  customer.PhysicalState as AnyObject?
+        dicData["PhysicalPostalCode"] =  customer.PhysicalPostalCode as AnyObject?
         
-        dicData["PostalAddress"] =  customer.PostalAddress
-        dicData["PostalAddressLine2"] =  customer.PostalAddressLine2
-        dicData["PostalCity"] =  customer.PostalCity
-        dicData["PostalCountry"] =  customer.PostalCountry
-        dicData["PostalState"] =  customer.PostalState
-        dicData["PostalPostalCode"] =  customer.PostalPostalCode
+        dicData["PostalAddress"] =  customer.PostalAddress as AnyObject?
+        dicData["PostalAddressLine2"] =  customer.PostalAddressLine2 as AnyObject?
+        dicData["PostalCity"] =  customer.PostalCity as AnyObject?
+        dicData["PostalCountry"] =  customer.PostalCountry as AnyObject?
+        dicData["PostalState"] =  customer.PostalState as AnyObject?
+        dicData["PostalPostalCode"] =  customer.PostalPostalCode as AnyObject?
         
-        dicData["ShippingAddress"] =  customer.ShippingAddress
-        dicData["ShippingAddressLine2"] =  customer.ShippingAddressLine2
-        dicData["ShippingCity"] =  customer.ShippingCity
-        dicData["ShippingCountry"] =  customer.ShippingCountry
-        dicData["ShippingState"] =  customer.ShippingState
-        dicData["ShippingPostalCode"] =  customer.ShippingPostalCode
+        dicData["ShippingAddress"] =  customer.ShippingAddress as AnyObject?
+        dicData["ShippingAddressLine2"] =  customer.ShippingAddressLine2 as AnyObject?
+        dicData["ShippingCity"] =  customer.ShippingCity as AnyObject?
+        dicData["ShippingCountry"] =  customer.ShippingCountry as AnyObject?
+        dicData["ShippingState"] =  customer.ShippingState as AnyObject?
+        dicData["ShippingPostalCode"] =  customer.ShippingPostalCode as AnyObject?
         
-        dicData["StatementText"] =  customer.StatementText
-        dicData["CustomerID"] =  customer.CustomerID
-        dicData["CustomerName"] =  customer.CustomerName
-        dicData["Title"] =  customer.Title
+        dicData["StatementText"] =  customer.StatementText as AnyObject?
+        dicData["CustomerID"] =  customer.CustomerID as AnyObject?
+        dicData["CustomerName"] =  customer.CustomerName as AnyObject?
+        dicData["Title"] =  customer.Title as AnyObject?
         
         return dicData
     }
@@ -714,10 +730,10 @@ class ContactViewController: UIViewController, UITableViewDelegate ,UITableViewD
         
         if CallButton != nil {
             if txtPhone.text?.length == 0 {
-                CallButton?.enabled = false
+                CallButton?.isEnabled = false
             }
             else {
-                CallButton?.enabled = true
+                CallButton?.isEnabled = true
             }
         }
         if ContactType == "Supplier"
@@ -747,7 +763,7 @@ class ContactViewController: UIViewController, UITableViewDelegate ,UITableViewD
         
     }
     
-    func textViewDidChange(textView: UITextView) { //Handle the text changes here
+    func textViewDidChange(_ textView: UITextView) { //Handle the text changes here
       
         if ContactType == "Supplier"{
             supplier.Memos = Memo.text
@@ -761,12 +777,12 @@ class ContactViewController: UIViewController, UITableViewDelegate ,UITableViewD
         if ContactType == "Supplier"
         {
             if let url = NSURL(string: "tel://\(supplier.Phone!)") {
-                UIApplication.sharedApplication().openURL(url)
+                UIApplication.shared.openURL(url as URL)
             }
         }
         else {
             if let url = NSURL(string: "tel://\(customer.Phone!)") {
-                UIApplication.sharedApplication().openURL(url)
+                UIApplication.shared.openURL(url as URL)
             }
         }
     }

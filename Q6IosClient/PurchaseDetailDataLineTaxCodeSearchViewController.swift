@@ -24,7 +24,7 @@ class PurchaseDetailDataLineTaxCodeSearchViewController:UIViewController, Q6WebA
     var pageIndex: Int = 1
     var pageSize: Int = 1000
     
-    var selectedTaxCodeView = TaxCodeView?()
+    var selectedTaxCodeView:TaxCodeView?
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -38,8 +38,8 @@ class PurchaseDetailDataLineTaxCodeSearchViewController:UIViewController, Q6WebA
         
         let q6CommonLib = Q6CommonLib(myObject: self)
         
-        setAttachedURL("", TaxCodeType:"PayTax",IsLoadInactive:false,PageSize: pageSize,PageIndex: pageIndex)
-        q6CommonLib.Q6IosClientGetApi("Company", ActionName: "GetTaxCodeList", attachedURL: attachedURL)
+        setAttachedURL(TaxCodeName: "", TaxCodeType:"PayTax",IsLoadInactive:false,PageSize: pageSize,PageIndex: pageIndex)
+        q6CommonLib.Q6IosClientGetApi(ModelName: "Company", ActionName: "GetTaxCodeList", attachedURL: attachedURL)
         
     }
 
@@ -48,7 +48,7 @@ class PurchaseDetailDataLineTaxCodeSearchViewController:UIViewController, Q6WebA
         
         taxCodeSearchBox.layer.cornerRadius = 2;
         taxCodeSearchBox.layer.borderWidth = 0.1;
-        taxCodeSearchBox.layer.borderColor = UIColor.blackColor().CGColor
+        taxCodeSearchBox.layer.borderColor = UIColor.black.cgColor
     }
     
     //TaxCodeType All ,CollectTax ,PayTax
@@ -61,17 +61,17 @@ class PurchaseDetailDataLineTaxCodeSearchViewController:UIViewController, Q6WebA
         // Dispose of any resources that can be recreated.
     }
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    private func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return taxCodeViewData.count
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let  cell = tableView.dequeueReusableCellWithIdentifier("TaxCodeCell", forIndexPath: indexPath) as! PurchaseDetailDataLineTaxCodeSearchTableViewCell
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let  cell = tableView.dequeueReusableCell(withIdentifier: "TaxCodeCell", for: indexPath) as! PurchaseDetailDataLineTaxCodeSearchTableViewCell
         
         cell.lblTaxCodeName.text = taxCodeViewData[indexPath.row].TaxCodeName
         
@@ -90,7 +90,7 @@ class PurchaseDetailDataLineTaxCodeSearchViewController:UIViewController, Q6WebA
         return cell
     }
  
-    func dataLoadCompletion(data:NSData?, response:NSURLResponse?, error:NSError?) -> AnyObject
+    func dataLoadCompletion(data:NSData?, response:URLResponse?, error:NSError?) -> AnyObject
     {
         var postDicData :[String:AnyObject]
         
@@ -99,7 +99,7 @@ class PurchaseDetailDataLineTaxCodeSearchViewController:UIViewController, Q6WebA
                 taxCodeViewData.removeAll()
               selectedTaxCodeView = nil 
             }
-            postDicData = try  NSJSONSerialization.JSONObjectWithData(data!, options: []) as! [String:AnyObject]
+            postDicData = try  JSONSerialization.jsonObject(with: data! as Data, options: []) as! [String:AnyObject]
             
             var returnData = postDicData["TaxCodeList"] as! [[String : AnyObject]]
             print("returnDate Count" + returnData.count.description)
@@ -125,48 +125,48 @@ class PurchaseDetailDataLineTaxCodeSearchViewController:UIViewController, Q6WebA
 //
 //            print("supplier Date Count" + supplierData.count.description)
 //            
-            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+            DispatchQueue.main.async {
                 self.TaxCodeTableView.reloadData()
                 self.Q6ActivityIndicator.hidesWhenStopped = true
                 self.Q6ActivityIndicator.stopAnimating()
                 self.taxCodeSearchBox.resignFirstResponder()
                 
-            })
+            }
 //
 //            
 //            
         } catch  {
             print("error parsing response from POST on /posts")
             
-            return ""
+            return "" as AnyObject
         }
         
-        return ""
+        return "" as AnyObject
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
 selectedTaxCodeView = taxCodeViewData[indexPath.row]
         taxCodeSearchBox.resignFirstResponder()
     }
     @IBAction func CancelButtonClicked(sender: AnyObject) {
         
-           navigationController?.popViewControllerAnimated(true)
+           _ = navigationController?.popViewController(animated: true)
     }
     @IBAction func DoneButtonClicked(sender: AnyObject) {
         
         if selectedTaxCodeView == nil {
             
-            Q6CommonLib.q6UIAlertPopupController("Error message", message: "You haven't select a TaxCode", viewController: self)
+            Q6CommonLib.q6UIAlertPopupController(title: "Error message", message: "You haven't select a TaxCode", viewController: self)
         }
         else{
             
-        self.delegate?.sendGoBackFromPurchaseDetailDataLineTaxCodeSearchView("PurchaseDetailDataLineTaxCodeSearchViewController", forCell: "TaxCodeCell", taxCodeView: selectedTaxCodeView!)
-        navigationController?.popViewControllerAnimated(true)
+        self.delegate?.sendGoBackFromPurchaseDetailDataLineTaxCodeSearchView(fromView: "PurchaseDetailDataLineTaxCodeSearchViewController", forCell: "TaxCodeCell", taxCodeView: selectedTaxCodeView!)
+        _ = navigationController?.popViewController(animated: true)
         }
     }
     
-    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         
         self.searchText = searchText
         
@@ -182,13 +182,13 @@ selectedTaxCodeView = taxCodeViewData[indexPath.row]
             
             dataRequestSource = "Search"
             
-            setAttachedURL(searchText, TaxCodeType:"PayTax",IsLoadInactive:false,PageSize: pageSize,PageIndex: pageIndex)
-            q6CommonLib.Q6IosClientGetApi("Company", ActionName: "GetTaxCodeList", attachedURL: attachedURL)
+            setAttachedURL(TaxCodeName: searchText, TaxCodeType:"PayTax",IsLoadInactive:false,PageSize: pageSize,PageIndex: pageIndex)
+            q6CommonLib.Q6IosClientGetApi(ModelName: "Company", ActionName: "GetTaxCodeList", attachedURL: attachedURL)
             
         }
     }
     
-    func searchBarSearchButtonClicked( searchBar: UISearchBar)
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar)
     {
        
         
@@ -198,8 +198,8 @@ selectedTaxCodeView = taxCodeViewData[indexPath.row]
         
         let q6CommonLib = Q6CommonLib(myObject: self)
         
-        setAttachedURL(searchText, TaxCodeType:"PayTax",IsLoadInactive:false,PageSize: pageSize,PageIndex: pageIndex)
-        q6CommonLib.Q6IosClientGetApi("Company", ActionName: "GetTaxCodeList", attachedURL: attachedURL)
+        setAttachedURL(TaxCodeName: searchText, TaxCodeType:"PayTax",IsLoadInactive:false,PageSize: pageSize,PageIndex: pageIndex)
+        q6CommonLib.Q6IosClientGetApi(ModelName: "Company", ActionName: "GetTaxCodeList", attachedURL: attachedURL)
         taxCodeSearchBox.resignFirstResponder()
         
     }

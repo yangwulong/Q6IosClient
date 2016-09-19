@@ -277,7 +277,7 @@ class ContactSearchViewController: UIViewController , Q6WebApiProtocol,UITableVi
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
     tableView.deselectRow(at: indexPath as IndexPath, animated: true)
     }
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     
     print("selected indexpath" + indexPath.row.description)
     _ = tableView.cellForRow(at: indexPath as IndexPath) as! ContactSearchViewTableViewCell
@@ -288,7 +288,7 @@ class ContactSearchViewController: UIViewController , Q6WebApiProtocol,UITableVi
     ContactSearchBox.resignFirstResponder()
     }
     
-    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
     print("indexpath" + indexPath.row.description)
     if indexPath.row == pageIndex*(pageSize - 5 )
     {

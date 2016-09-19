@@ -8,7 +8,7 @@
 
 import UIKit
 import MobileCoreServices
-class AddImageViewController: UIViewController,UIImagePickerControllerDelegate,UINavigationControllerDelegate {
+ class AddImageViewController: UIViewController,UIImagePickerControllerDelegate,UINavigationControllerDelegate {
 
    
     @IBOutlet weak var lblInfo: UILabel!
@@ -25,6 +25,8 @@ setControlAppear()
         
         if attachedImage != nil {
             imageView.image = attachedImage
+            lblInfo.isHidden = true
+            
         }
         // Do any additional setup after loading the view.
     }
@@ -51,6 +53,8 @@ setControlAppear()
             imagePicker.mediaTypes = [kUTTypeImage as String]
             imagePicker.allowsEditing = false
             self.present(imagePicker, animated: true, completion: nil)
+        
+       
             newMedia = false
         }
     }
@@ -69,7 +73,7 @@ setControlAppear()
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    private func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         
         
     
@@ -83,8 +87,9 @@ setControlAppear()
             imageView.image = image
             
             attachedImage = image
+          
            // let pngImageData = UIImagePNGRepresentation(image,1)
-          let pngImageData = UIImageJPEGRepresentation(image, 1)
+          _ = UIImageJPEGRepresentation(image, 1)
   //   _ = pngImageData!.base64EncodedString(options: NSData.Base64EncodingOptions.Encoding64CharacterLineLength)
             lblInfo.isHidden = true
             if newMedia == true {

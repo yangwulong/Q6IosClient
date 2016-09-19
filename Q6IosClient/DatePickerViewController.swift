@@ -36,7 +36,7 @@ class DatePickerViewController: UIViewController {
     
     @IBAction func datePickerValueChanged(sender: AnyObject) {
         
-        let date = datePicker.date
+        _ = datePicker.date
         
         //print(date.formatted)
     }

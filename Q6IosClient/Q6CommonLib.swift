@@ -339,7 +339,7 @@ public class Q6CommonLib{
  
    public func completion(data:NSData?, response:URLResponse?, error:NSError?) {
         
-        self.delegate?.dataLoadCompletion(data: data, response: response, error: error)
+      _ =  self.delegate?.dataLoadCompletion(data: data, response: response, error: error)
      
         
     }
@@ -374,7 +374,7 @@ public class Q6CommonLib{
         {
             
      
-            if  let v = viewController  {
+            if  viewController != nil  {
                 viewController?.dismiss(animated: true, completion: nil)
             }
  
@@ -414,7 +414,7 @@ public class Q6CommonLib{
         DispatchQueue.main.asyncAfter(deadline: delayTime)
         {
             
-            if  let v = viewController  {
+            if  viewController != nil  {
                 viewController?.dismiss(animated: true, completion: nil)
             }
         

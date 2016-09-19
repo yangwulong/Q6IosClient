@@ -83,7 +83,7 @@ class SaleDetailMemoViewController: UIViewController ,UITextViewDelegate{
         // Dispose of any resources that can be recreated.
     }
     
-    func textViewDidBeginEditing(textView: UITextView) {
+    func textViewDidBeginEditing(_ textView: UITextView) {
         if textView.textColor == UIColor.lightGray && textView.text == "Memo" {
             textView.text = ""
             textView.textColor = UIColor.black
@@ -92,7 +92,7 @@ class SaleDetailMemoViewController: UIViewController ,UITextViewDelegate{
         memoTextView.selectedTextRange = memoTextView.textRange(from: memoTextView.beginningOfDocument, to: memoTextView.beginningOfDocument)
     }
     
-    func textViewDidEndEditing(textView: UITextView) {
+    func textViewDidEndEditing(_ textView: UITextView) {
         //        if textView.text.isEmpty {
         //            textView.text = "Description"
         //            textView.textColor = UIColor.lightGrayColor()
@@ -130,7 +130,7 @@ class SaleDetailMemoViewController: UIViewController ,UITextViewDelegate{
     //        return true
     //    }
     
-    func textViewDidChangeSelection(textView: UITextView) {
+    func textViewDidChangeSelection(_ textView: UITextView) {
         //        if self.view.window != nil {
         //           // print("textView 's length" + textView.text.length.description)
         //            if textView.textColor == UIColor.lightGrayColor() {

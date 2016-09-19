@@ -178,7 +178,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate,Q6WebApiProtoco
     @IBAction func txtLoginEmailExit(sender: AnyObject) {
         
         
-        validaUserInput()
+       _ = validaUserInput()
     }
     
     func validaUserInput() -> Bool

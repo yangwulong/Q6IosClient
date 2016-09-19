@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="NI2-kR-kKG">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="NI2-kR-kKG">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--Contact-->
@@ -15,11 +16,10 @@
                         <viewControllerLayoutGuide type="bottom" id="ryl-iL-C7m"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="ds5-er-wGW">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QR9-as-ik7">
-                                <rect key="frame" x="0.0" y="22" width="600" height="44"/>
                                 <items>
                                     <navigationItem id="1JY-mz-s4N">
                                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="pKu-VN-MwG">
@@ -31,52 +31,47 @@
                                 </items>
                             </navigationBar>
                             <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="ZDZ-rL-n4N">
-                                <rect key="frame" x="0.0" y="67" width="600" height="44"/>
-                                <color key="barTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="barTintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="ora-2o-FCn">
-                                <rect key="frame" x="40" y="118" width="520" height="29"/>
                                 <segments>
                                     <segment title="Supplier"/>
                                     <segment title="Customer"/>
                                 </segments>
                                 <connections>
-                                    <action selector="ContactSegmentedControlAction:" destination="kV2-fq-eaY" eventType="valueChanged" id="cVs-rj-952"/>
+                                    <action selector="ContactSegmentedControlActionWithSender:" destination="kV2-fq-eaY" eventType="valueChanged" id="ciL-Py-FyE"/>
                                 </connections>
                             </segmentedControl>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Bhl-Hx-HMq">
-                                <rect key="frame" x="0.0" y="154" width="600" height="397"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ContactSearchPrototypeCell" id="OJv-fH-ir1" customClass="ContactSearchViewTableViewCell" customModule="Q6IosClient" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="28" width="383" height="44"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="OJv-fH-ir1" id="cRu-0L-97a">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                            <frame key="frameInset" width="383" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hd4-ei-dnE">
-                                                    <rect key="frame" x="13" y="8" width="558" height="27.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="64W-iw-CXI">
-                                                    <rect key="frame" x="591" y="8" width="1" height="27.5"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="1" id="LY7-Of-zGS"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bmd-t4-wLi">
-                                                    <rect key="frame" x="575" y="8" width="16" height="27.5"/>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bmd-t4-wLi">
                                                     <state key="normal" image="resultset_next"/>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1gG-yl-jEG">
-                                                    <rect key="frame" x="469" y="9" width="46" height="30"/>
+                                                    <frame key="frameInset" minX="469" minY="9" width="46" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <connections>
                                                         <segue destination="6kD-Lr-rDK" kind="show" identifier="editContact" id="WB6-KB-rqu"/>
                                                     </connections>
@@ -108,11 +103,9 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="otP-2S-Fb8">
-                                <rect key="frame" x="290" y="290" width="20" height="20"/>
-                            </activityIndicatorView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="otP-2S-Fb8"/>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="ZDZ-rL-n4N" secondAttribute="trailing" constant="-20" id="7y4-aK-Mhk"/>
                             <constraint firstItem="otP-2S-Fb8" firstAttribute="centerY" secondItem="ds5-er-wGW" secondAttribute="centerY" id="8OZ-Ze-NTJ"/>
@@ -156,49 +149,45 @@
                         <viewControllerLayoutGuide type="bottom" id="b06-px-sN1"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="6DQ-V3-zsT">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hJh-2e-Y0I">
-                                <rect key="frame" x="0.0" y="8" width="600" height="44"/>
                                 <items>
                                     <navigationItem title="Supplier" id="AQ2-7p-CLe">
                                         <barButtonItem key="leftBarButtonItem" title="Cancel" id="jm2-Cw-ZSo">
                                             <connections>
-                                                <action selector="CancelButtonClick:" destination="6kD-Lr-rDK" id="hrv-Zx-GMG"/>
+                                                <action selector="CancelButtonClickWithSender:" destination="6kD-Lr-rDK" id="anH-Gq-aEV"/>
                                             </connections>
                                         </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" title="Save" id="LBG-iM-vza">
                                             <connections>
-                                                <action selector="SaveButtonClick:" destination="6kD-Lr-rDK" id="2dR-BY-3uc"/>
+                                                <action selector="SaveButtonClickWithSender:" destination="6kD-Lr-rDK" id="NUU-Jb-qpi"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
                                 </items>
                             </navigationBar>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="kzH-km-f8Z">
-                                <rect key="frame" x="0.0" y="54" width="590" height="497"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="kzH-km-f8Z">
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ContactNameCell" id="l5I-rp-lbZ" customClass="ContactViewTableViewCell" customModule="Q6IosClient" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="590" height="44"/>
+                                        <rect key="frame" x="0.0" y="28" width="373" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="l5I-rp-lbZ" id="fw3-iL-LDU">
-                                            <rect key="frame" x="0.0" y="0.0" width="590" height="43.5"/>
+                                            <frame key="frameInset" width="373" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RIT-uY-lqS">
-                                                    <rect key="frame" x="8" y="8" width="50" height="27"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="textColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Xba-YL-AF8">
-                                                    <rect key="frame" x="63" y="8" width="519" height="27"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                     <connections>
-                                                        <action selector="contactNameEditingChanged:" destination="6kD-Lr-rDK" eventType="editingChanged" id="5qL-4P-Kkf"/>
+                                                        <action selector="contactNameEditingChanged:" destination="6kD-Lr-rDK" eventType="editingChanged" id="ePj-Tv-XB8"/>
                                                     </connections>
                                                 </textField>
                                             </subviews>
@@ -218,31 +207,28 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PhoneCell" id="VYA-lA-nRn" customClass="ContactViewTableViewCell" customModule="Q6IosClient" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="72" width="590" height="44"/>
+                                        <rect key="frame" x="0.0" y="72" width="373" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="VYA-lA-nRn" id="ybu-0r-mst">
-                                            <rect key="frame" x="0.0" y="0.0" width="590" height="43.5"/>
+                                            <frame key="frameInset" width="373" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Phone:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1qp-ha-Rif">
-                                                    <rect key="frame" x="8" y="8" width="53.5" height="24"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="textColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YhA-MP-DAg">
-                                                    <rect key="frame" x="552" y="8" width="30" height="27.5"/>
                                                     <state key="normal" title="Call"/>
                                                     <connections>
-                                                        <action selector="CallButtonClick:" destination="6kD-Lr-rDK" eventType="touchUpInside" id="SLV-C3-kV1"/>
+                                                        <action selector="CallButtonClickWithSender:" destination="6kD-Lr-rDK" eventType="touchUpInside" id="OF6-pu-UgK"/>
                                                     </connections>
                                                 </button>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="l3F-U2-72l">
-                                                    <rect key="frame" x="66.5" y="8" width="483" height="27.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
                                                     <connections>
-                                                        <action selector="phoneEditingChanged:" destination="6kD-Lr-rDK" eventType="editingChanged" id="5Ux-5k-mzJ"/>
+                                                        <action selector="phoneEditingChanged:" destination="6kD-Lr-rDK" eventType="editingChanged" id="JjZ-1J-aSr"/>
                                                     </connections>
                                                 </textField>
                                             </subviews>
@@ -275,24 +261,22 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="EmailCell" id="FAw-GI-BK0" customClass="ContactViewTableViewCell" customModule="Q6IosClient" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="116" width="590" height="44"/>
+                                        <rect key="frame" x="0.0" y="116" width="373" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="FAw-GI-BK0" id="T0B-DV-7qE">
-                                            <rect key="frame" x="0.0" y="0.0" width="590" height="43.5"/>
+                                            <frame key="frameInset" width="373" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mcF-Ce-Y09">
-                                                    <rect key="frame" x="8" y="8" width="45.5" height="27"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="textColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2Pu-cU-HOj">
-                                                    <rect key="frame" x="58" y="8" width="523.5" height="27.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
                                                     <connections>
-                                                        <action selector="emailEditingChanged:" destination="6kD-Lr-rDK" eventType="editingChanged" id="hu0-MM-ZW1"/>
+                                                        <action selector="phoneEditingChanged:" destination="6kD-Lr-rDK" eventType="editingChanged" id="yHV-Sn-B8d"/>
                                                     </connections>
                                                 </textField>
                                             </subviews>
@@ -311,21 +295,19 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleAspectFit" selectionStyle="default" indentationWidth="10" reuseIdentifier="MemoCell" rowHeight="250" id="aUO-Yo-sCB" customClass="ContactViewTableViewCell" customModule="Q6IosClient" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="160" width="590" height="250"/>
+                                        <rect key="frame" x="0.0" y="160" width="373" height="250"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="aUO-Yo-sCB" id="Gjb-mA-Huh">
-                                            <rect key="frame" x="0.0" y="0.0" width="590" height="249.5"/>
+                                            <frame key="frameInset" width="373" height="249"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Memo:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kOH-Qg-OhY">
-                                                    <rect key="frame" x="8" y="8" width="53" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="textColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Zen-rl-maC">
-                                                    <rect key="frame" x="66" y="8" width="516" height="233.5"/>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                 </textView>
@@ -346,11 +328,9 @@
                                 </prototypes>
                                 <sections/>
                             </tableView>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="zlC-jn-51W">
-                                <rect key="frame" x="290" y="290" width="20" height="20"/>
-                            </activityIndicatorView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="zlC-jn-51W"/>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="hJh-2e-Y0I" firstAttribute="leading" secondItem="6DQ-V3-zsT" secondAttribute="leadingMargin" constant="-20" id="9zk-kA-1Fh"/>
                             <constraint firstItem="hJh-2e-Y0I" firstAttribute="top" secondItem="6DQ-V3-zsT" secondAttribute="topMargin" constant="8" id="Mqc-FG-nug"/>

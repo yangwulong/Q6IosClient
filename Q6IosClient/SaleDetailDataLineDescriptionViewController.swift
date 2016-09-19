@@ -128,7 +128,7 @@ class SaleDetailDataLineDescriptionViewController: UIViewController ,UITextViewD
     //        return true
     //    }
     
-    func textViewDidChangeSelection(textView: UITextView) {
+    func textViewDidChangeSelection(_ textView: UITextView) {
         //        if self.view.window != nil {
         //           // print("textView 's length" + textView.text.length.description)
         //            if textView.textColor == UIColor.lightGrayColor() {

@@ -182,7 +182,7 @@ class ContactViewController: UIViewController, UITableViewDelegate ,UITableViewD
         return cell
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.row == 3{
             let screenSize: CGRect = UIScreen.main.bounds
             let screenHeight = screenSize.height
@@ -712,8 +712,8 @@ class ContactViewController: UIViewController, UITableViewDelegate ,UITableViewD
         
         return dicData
     }
-    @IBAction func contactNameEditingChanged(sender: AnyObject) {
-        
+    @IBAction func contactNameEditingChanged(_ sender: AnyObject) {
+ 
         let txtContactName = sender as! UITextField
         
         if ContactType == "Supplier"
@@ -725,7 +725,8 @@ class ContactViewController: UIViewController, UITableViewDelegate ,UITableViewD
             customer.CustomerName = txtContactName.text!
         }
     }
-    @IBAction func phoneEditingChanged(sender: AnyObject) {
+    @IBAction func phoneEditingChanged(_ sender: AnyObject) {
+
         let txtPhone = sender as! UITextField
         
         if CallButton != nil {

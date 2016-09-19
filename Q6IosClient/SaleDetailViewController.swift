@@ -496,7 +496,7 @@ class SaleDetailViewController: UIViewController, UITableViewDelegate ,UITableVi
     }
     
     
-    func tableView(_ tableView: UITableView, canEditRowAt indexPath: NSIndexPath) -> Bool {
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         
         if salesDetailScreenLinesDic[indexPath.row].isAdded == true {
             return true
@@ -514,7 +514,7 @@ class SaleDetailViewController: UIViewController, UITableViewDelegate ,UITableVi
         }
     }
     
-    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if (editingStyle == UITableViewCellEditingStyle.delete) {
             
             if salesDetailScreenLinesDic[indexPath.row].isAdded == true
@@ -1082,7 +1082,7 @@ class SaleDetailViewController: UIViewController, UITableViewDelegate ,UITableVi
         //            presentViewController(saleViewController, animated: true, completion: nil)
         //        }
         //navigationController?.popViewControllerAnimated(true)
-        navigationController?.popToRootViewController(animated: true)
+       _ = navigationController?.popToRootViewController(animated: true)
     }
     //    func performFromRightToLeft(sourceViewController :AnyObject , destinationViewController: AnyObject)
     //    {

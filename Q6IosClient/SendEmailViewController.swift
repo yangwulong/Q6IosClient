@@ -134,20 +134,23 @@ SendEmailTableView.delegate = self
             return 40
         }
     }
-    @IBAction func FromEditingChanged(sender: AnyObject) {
+    @IBAction func FromEditingChanged(_ sender: AnyObject) {
+
         let txtFrom = sender as! UITextField
         email.FromEmail = txtFrom.text!
     }
-    @IBAction func ToEditingChanged(sender: AnyObject) {
+    @IBAction func ToEditingChanged(_ sender: AnyObject) {
+ 
         
         let txtTo = sender as! UITextField
         email.ToEmail = txtTo.text!
     }
-    @IBAction func SubjectEditingChanged(sender: AnyObject) {
+    @IBAction func SubjectEditingChanged(_ sender: AnyObject) {
+   
         let txtSubject = sender as! UITextField
         email.SubjectName = txtSubject.text!
     }
-    func textViewDidChange(textView: UITextView) { //Handle the text changes here
+    func textViewDidChange(_ textView: UITextView) { //Handle the text changes here
         
       email.BodyMessage = textView.text
     }

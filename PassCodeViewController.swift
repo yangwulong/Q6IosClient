@@ -220,7 +220,7 @@ class PassCodeViewController: UIViewController , UITextFieldDelegate{
                     if firstTimeInputPassCode == secondTimeInputPassCode{
                         
                         let q6DBLib = Q6DBLib()
-                        q6DBLib.editPassCode(PassCode: secondTimeInputPassCode)
+                      _ =  q6DBLib.editPassCode(PassCode: secondTimeInputPassCode)
                         
                         
                         if let tabViewController = storyboard!.instantiateViewController(withIdentifier: "Q6TabViewController") as? UITabBarController {
@@ -369,7 +369,7 @@ class PassCodeViewController: UIViewController , UITextFieldDelegate{
                     if firstTimeInputPassCode == secondTimeInputPassCode{
                         
                         let q6DBLib = Q6DBLib()
-                        q6DBLib.editPassCode(PassCode: secondTimeInputPassCode)
+                       _ = q6DBLib.editPassCode(PassCode: secondTimeInputPassCode)
                         
                         
                         if let tabViewController = storyboard!.instantiateViewController(withIdentifier: "Q6TabViewController") as? UITabBarController {
@@ -446,7 +446,7 @@ class PassCodeViewController: UIViewController , UITextFieldDelegate{
         
         if let loginViewController = storyboard!.instantiateViewController(withIdentifier: "Q6LoginViewController") as? LoginViewController {
             let q6DBLib = Q6DBLib()
-            q6DBLib.deleteUserInfos()
+           _ = q6DBLib.deleteUserInfos()
             loginViewController.ScreenMode = "GoBackFromPassCodeScreen"
             present(loginViewController, animated: true, completion: nil)
             

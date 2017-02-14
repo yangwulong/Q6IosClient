@@ -14,7 +14,7 @@ class TabBarViewController: UITabBarController {
  
     override func viewDidLoad() {
         super.viewDidLoad()
-var dd = toPass
+_ = toPass
         // Do any additional setup after loading the view.
     }
 

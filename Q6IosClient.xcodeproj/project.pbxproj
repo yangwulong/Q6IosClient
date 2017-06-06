@@ -442,7 +442,7 @@
 				TargetAttributes = {
 					19FD13211C9A134800E5C445 = {
 						CreatedOnToolsVersion = 7.2;
-						DevelopmentTeam = T7SSJ7K252;
+						DevelopmentTeam = FUTHQM4F2Z;
 						LastSwiftMigration = 0800;
 					};
 				};
@@ -694,6 +694,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEFINES_MODULE = NO;
+				DEVELOPMENT_TEAM = FUTHQM4F2Z;
 				INFOPLIST_FILE = Q6IosClient/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = au.com.q6.Q6IosClient;
@@ -714,6 +715,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEFINES_MODULE = NO;
+				DEVELOPMENT_TEAM = FUTHQM4F2Z;
 				INFOPLIST_FILE = Q6IosClient/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = au.com.q6.Q6IosClient;

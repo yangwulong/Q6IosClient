@@ -6,9 +6,9 @@
 //  Copyright © 2017年 q6. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
-enum DueDateType: Int {
+public enum DueDateType: Int {
     case ofTheFollowingMonth = 1
     case daysAfterTheInvoiceDate
     case daysAfterTheEndOfTheInvoiceMonth

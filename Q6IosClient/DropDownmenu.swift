@@ -8,19 +8,19 @@
 
 import UIKit
 
-protocol DropDownmenuDelegate: NSObjectProtocol {
+public protocol DropDownmenuDelegate: NSObjectProtocol {
     
     func dropDownmenuSelected(text: String)
 }
 
-enum DircetionType {
+public enum DircetionType {
     case up
     case down
 }
 
 class DropDownmenu: UIView, UITableViewDataSource, UITableViewDelegate {
     
-    weak var delegate: DropDownmenuDelegate?
+    public weak var delegate: DropDownmenuDelegate?
     
     private var animationDirection = DircetionType.up
     private lazy var tableView = UITableView()

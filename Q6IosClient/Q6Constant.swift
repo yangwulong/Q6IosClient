@@ -6,9 +6,9 @@
 //  Copyright © 2017年 q6. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
-let ofTheFollowingMonth = "of the following month"
-let daysAfterTheInvoiceDate = "days after the invoice date"
-let daysAfterTheEndOfTheInvoiceMonth = "day(s) after the end of the invoice month"
-let ofTheCurrentMonth = "of the current month"
+public let ofTheFollowingMonth = "of the following month"
+public let daysAfterTheInvoiceDate = "days after the invoice date"
+public let daysAfterTheEndOfTheInvoiceMonth = "day(s) after the end of the invoice month"
+public let ofTheCurrentMonth = "of the current month"

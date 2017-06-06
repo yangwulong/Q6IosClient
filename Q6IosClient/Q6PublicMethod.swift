@@ -8,7 +8,7 @@
 
 import UIKit
 
-func ofTheCurrentMonth(days: Int, transactionDate: NSDate) -> NSDate? {
+public func ofTheCurrentMonth(days: Int, transactionDate: NSDate) -> NSDate? {
     
     let calendar = Calendar.current
     
@@ -23,12 +23,12 @@ func ofTheCurrentMonth(days: Int, transactionDate: NSDate) -> NSDate? {
     return date
 }
 
-func ofTheFollowingMonth(days: Int, createDate: NSDate) ->  NSDate? {
+public func ofTheFollowingMonth(days: Int, createDate: NSDate) ->  NSDate? {
     
     return ofTheMonth(day: days, date: createDate)
 }
 
-func daysAfterTheInvoiceDate(days: Int, transactionDate: NSDate) -> NSDate {
+public func daysAfterTheInvoiceDate(days: Int, transactionDate: NSDate) -> NSDate {
     
     let dueDate = transactionDate.addingTimeInterval(TimeInterval(60 * 60 * 24 * days))
     
@@ -37,7 +37,7 @@ func daysAfterTheInvoiceDate(days: Int, transactionDate: NSDate) -> NSDate {
     return dueDate
 }
 
-func daysAfterTheEndOfTheInvoiceMonth(days: Int, transactionDate: NSDate) -> NSDate? {
+public func daysAfterTheEndOfTheInvoiceMonth(days: Int, transactionDate: NSDate) -> NSDate? {
     
     return ofTheMonth(day: days, date: transactionDate)
 }

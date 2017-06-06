@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ContactViewController: UIViewController, UITableViewDelegate ,UITableViewDataSource,Q6GoBackFromView, Q6WebApiProtocol ,UITextViewDelegate, DropDownmenuDelegate {
+class ContactViewController: UIViewController, UITableViewDelegate ,UITableViewDataSource, Q6GoBackFromView, Q6WebApiProtocol, UITextViewDelegate, DropDownmenuDelegate {
     var originalRowsDic: [Int: String] = [0: "ContactNameCell", 1: "PhoneCell",2: "EmailCell", 3: "DueDateCell", 4: "MemoCell"]
     
     @IBOutlet weak var btnSaveButton: UIBarButtonItem!

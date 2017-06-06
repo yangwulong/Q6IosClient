@@ -67,7 +67,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate,Q6WebApiProtoco
         super.viewDidLoad()
         setControlAppear()
         txtLoginPassword.delegate = self
-       txtLoginEmail.delegate = self
+        txtLoginEmail.delegate = self
         let q6IosClientDB = Q6DBLib()
         
         q6IosClientDB.createDB()
@@ -92,16 +92,11 @@ class LoginViewController: UIViewController, UITextFieldDelegate,Q6WebApiProtoco
         
         q6IosClientDB.createDB()
         
-        
-        
         let loginStatus = q6IosClientDB.validateLoginStatus()
         
         if loginStatus == true && ScreenMode == "" {
             
-            
-            
             if let passCodeViewController = storyboard!.instantiateViewController(withIdentifier: "Q6PassCodeViewController") as? PassCodeViewController {
-                
                 
                 passCodeViewController.ScreenMode = "ValidatePassCode"
                 
@@ -147,7 +142,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate,Q6WebApiProtoco
                 let q6CommonLib = Q6CommonLib(myObject: self)
                 
                 
-                var dicData=[String:String]()
+                var dicData=[String: String]()
                 dicData["WebApiTOKEN"]=Q6CommonLib.getQ6WebAPIToken()
                 dicData["LoginUserName"]=txtLoginEmail.text
                 dicData["Password"]=txtLoginPassword.text
@@ -194,15 +189,15 @@ class LoginViewController: UIViewController, UITextFieldDelegate,Q6WebApiProtoco
     func setControlAppear()
     {
         
-        txtLoginEmail.layer.cornerRadius = 2;
-        txtLoginEmail.layer.borderWidth = 0.1;
-        txtLoginEmail.layer.borderColor = UIColor.black.cgColor
+//        txtLoginEmail.layer.cornerRadius = 2;
+//        txtLoginEmail.layer.borderWidth = 0.1;
+//        txtLoginEmail.layer.borderColor = UIColor.black.cgColor
+//        
+//        txtLoginPassword.layer.cornerRadius = 2;
+//        txtLoginPassword.layer.borderWidth = 0.1;
+//        txtLoginPassword.layer.borderColor = UIColor.black.cgColor
         
-        txtLoginPassword.layer.cornerRadius = 2;
-        txtLoginPassword.layer.borderWidth = 0.1;
-        txtLoginPassword.layer.borderColor = UIColor.black.cgColor
-        
-        btnSignIn.layer.cornerRadius = 2;
+        btnSignIn.layer.cornerRadius = 5;
         btnSignIn.layer.borderWidth = 0.1;
         btnSignIn.layer.borderColor = UIColor.black.cgColor
     }
@@ -214,62 +209,60 @@ class LoginViewController: UIViewController, UITextFieldDelegate,Q6WebApiProtoco
     func dataLoadCompletion(data:NSData?, response:URLResponse?, error:NSError?) -> AnyObject
     {
         
-        
-        
         var postDicData :[String:AnyObject]?
-        var IsLoginSuccessed : Bool
+//        var IsLoginSuccessed : Bool = false
         do {
             postDicData = try  JSONSerialization.jsonObject(with: data! as Data, options: []) as? [String:AnyObject]
-            
+            print("postDictData: \(postDicData!)")
             if postDicData != nil {
-            IsLoginSuccessed = postDicData!["IsSuccessed"] as! Bool
+            let IsLoginSuccessed = (postDicData!["IsSuccessed"] as! NSString).boolValue
             
-            
-            if IsLoginSuccessed == true {
-                
-            
-                var returnValue = postDicData!["ReturnValue"]! as! Dictionary<String, AnyObject>
-                
-                let companyID = returnValue["CompanyID"] as! String
-                let LoginFirstName = returnValue["LoginFirstName"] as! String
-                let LoginLastName = returnValue["LoginLastName"] as! String
-    
-                
-                let q6DBLib = Q6DBLib()
-                
-                
-                q6DBLib.addUserInfos(LoginEmail: txtLoginEmail.text!, PassWord: txtLoginPassword.text!, LoginStatus: "Login",CompanyID: companyID ,LoginFirstName: LoginFirstName ,LoginLastName: LoginLastName)
-                //Set any attributes of the view controller before it is displayed, this is where you would set the category text in your code.
-                
-                let passCode = q6DBLib.getUserPassCode()
-                
-                
-                
-                if let passCodeViewController = storyboard!.instantiateViewController(withIdentifier: "Q6PassCodeViewController") as? PassCodeViewController {
+                if IsLoginSuccessed == true {
                     
-                    if passCode == nil {
+                    
+                    var returnValue = postDicData!["ReturnValue"]! as! Dictionary<String, AnyObject>
+                    
+                    let companyID = returnValue["CompanyID"] as! String
+                    let LoginFirstName = returnValue["LoginFirstName"] as! String
+                    let LoginLastName = returnValue["LoginLastName"] as! String
+                    
+                    
+                    let q6DBLib = Q6DBLib()
+                    
+                    
+                    q6DBLib.addUserInfos(LoginEmail: txtLoginEmail.text!, PassWord: txtLoginPassword.text!, LoginStatus: "Login",CompanyID: companyID ,LoginFirstName: LoginFirstName ,LoginLastName: LoginLastName)
+                    //Set any attributes of the view controller before it is displayed, this is where you would set the category text in your code.
+                    
+                    let passCode = q6DBLib.getUserPassCode()
+                    
+                    if let passCodeViewController = storyboard!.instantiateViewController(withIdentifier: "Q6PassCodeViewController") as? PassCodeViewController {
                         
-                        passCodeViewController.ScreenMode = "CreatePassCode"
-                    }
-                    else if passCode != nil {
-                        if passCode!.length == 0
-                        {
+                        if passCode == nil {
+                            
                             passCodeViewController.ScreenMode = "CreatePassCode"
+                        } else if passCode != nil {
+                            
+                            if passCode!.length == 0 {
+                                passCodeViewController.ScreenMode = "CreatePassCode"
+                            }
+                            
+                        } else {
+                            
+                            passCodeViewController.ScreenMode = "ValidatePassCode"
                         }
+                        
+                        present(passCodeViewController, animated: true, completion: nil)
                     }
-                    else {
-                        passCodeViewController.ScreenMode = "ValidatePassCode"
-                    }
-                    present(passCodeViewController, animated: true, completion: nil)
+                    
+                }else {
+                    
+                    activityIndicatorViewStop()
+                    Q6CommonLib.q6UIAlertPopupController(title: "Information Message", message: "Login fail ,Please check your login name ,password!", viewController: self)
                 }
-                
-            }else {
-                
-                Q6CommonLib.q6UIAlertPopupController(title: "Information Message", message: "Login fail ,Please check your login name ,password!", viewController: self)
-            }
             }
             else {
                 
+                activityIndicatorViewStop()
                 Q6CommonLib.q6UIAlertPopupController(title: "Information Message", message: "Login fail ,Please check your login name ,password!", viewController: self)
             }
             
@@ -278,15 +271,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate,Q6WebApiProtoco
             
             Q6CommonLib.q6UIAlertPopupController(title: "Information Message", message: "Login fail ,Please check your login name ,password!", viewController: self)
             
-            DispatchQueue.main.async {
-
-                
-                self.Q6ActivityIndicatorView.hidesWhenStopped = true
-                self.Q6ActivityIndicatorView.stopAnimating()
-                
-            }
+            activityIndicatorViewStop()
             
-           
             print("error parsing response from POST on /posts")
             
             return "" as AnyObject
@@ -294,6 +280,16 @@ class LoginViewController: UIViewController, UITextFieldDelegate,Q6WebApiProtoco
         
         //
         return "" as AnyObject
+    }
+    
+    private func activityIndicatorViewStop() {
+        DispatchQueue.main.async {
+            
+            
+            self.Q6ActivityIndicatorView.hidesWhenStopped = true
+            self.Q6ActivityIndicatorView.stopAnimating()
+            
+        }
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

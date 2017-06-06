@@ -192,8 +192,8 @@ public class Q6CommonLib{
 //      urlString = urlString.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!
 //        
 //        
-//       print("urlString: \(urlString)")
-//        
+       print("urlString: \(urlString)")
+//
 //       urlString = url.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())!
 //    
 // print("2 urlString: \(urlString)")
@@ -219,12 +219,12 @@ public class Q6CommonLib{
             }
             guard error == nil else {
                 print("error calling GET on /posts/1")
-                print(error)
+                print("\(String(describing: error))")
                 return
             }
             guard response != nil else {
                 print("error calling response")
-                print(error)
+                print("\(String(describing: error))")
                 return
             }
             
@@ -274,23 +274,18 @@ public class Q6CommonLib{
         
         let UrlString = q6WebApiUrl + ModeName + "/"  + ActionName;
         
-        
+        print("urlString: \(UrlString)")
         // create the request & response
         let request = NSMutableURLRequest(url: NSURL(string: UrlString)! as URL, cachePolicy: NSURLRequest.CachePolicy.reloadIgnoringLocalCacheData, timeoutInterval: 5)
       //  var response: NSURLResponse?
         
-        
-        
         // create some JSON data and configure the request
         let jsonString = convertDictionaryToJSONData(dicData: dicData)
         
-       print(jsonString)
+        print(jsonString)
         request.httpBody = jsonString.data(using: String.Encoding.utf8, allowLossyConversion: true)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        
-        
-        
 
         do {
             // let jsonPost = try NSJSONSerialization.dataWithJSONObject(newPost, options: [])
@@ -299,9 +294,6 @@ public class Q6CommonLib{
             let config = URLSessionConfiguration.default
             let session = URLSession(configuration: config)
          
-  
-            
-            
             let task = session.dataTask(with: request as URLRequest, completionHandler: {
                 (data, response, error)  in
                 guard data != nil else {
@@ -310,21 +302,18 @@ public class Q6CommonLib{
                 }
                 guard error == nil else {
                     print("error calling GET on /posts/1")
-                    print(error)
+                    print("\(String(describing: error))")
                     return
                 }
                 guard response != nil else {
                     print("error calling response")
-                    print(error)
+                    print("\(String(describing: error))")
                     return
                 }
            
        
                 self.completion(data: data as NSData?, response: response, error: error as NSError?)
                 // parse the result as JSON, since that's what the API provides
-       
-             
-
             })
             
             
@@ -341,9 +330,7 @@ public class Q6CommonLib{
         
       _ =  self.delegate?.dataLoadCompletion(data: data, response: response, error: error)
      
-        
     }
-    
     
     
     public static func isEmailAddressValid(email: String) -> Bool {
@@ -352,7 +339,6 @@ public class Q6CommonLib{
         
         filterString = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}"
      
-        
         let emailTest = NSPredicate(format: "SELF MATCHES %@", filterString)
         
         return emailTest.evaluate(with: email)
@@ -361,15 +347,11 @@ public class Q6CommonLib{
     public static func q6UIAlertPopupController(title: String?,message:String?,viewController: AnyObject?)
     {
         let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
-       viewController!.present(alert, animated: true, completion: nil)
+        viewController!.present(alert, animated: true, completion: nil)
         
-      
         let delayTime = DispatchTime.now() + Double(Int64(1 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
+        print(delayTime)
         
-        
- 
-        
-
         DispatchQueue.main.asyncAfter(deadline: delayTime)
         {
             

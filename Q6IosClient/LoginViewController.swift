@@ -1,4 +1,4 @@
-
+// ziliang
 //  LoginViewController.swift
 //  Q6IosClient
 //
@@ -6,7 +6,6 @@
 //  Copyright © 2016 q6. All rights reserved.
 //2
 import UIKit
-
 
 class LoginViewController: UIViewController, UITextFieldDelegate,Q6WebApiProtocol {
     
@@ -23,10 +22,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate,Q6WebApiProtoco
     var ScreenMode : String = ""
     
     override func viewWillAppear(_ animated: Bool) {
-        //        var q6CommonLib = Q6CommonLib()
-        //        q6CommonLib.testTouchID()
-       
-      
         
         let bounds = UIScreen.main.bounds
         let width = bounds.size.width
@@ -154,12 +149,11 @@ class LoginViewController: UIViewController, UITextFieldDelegate,Q6WebApiProtoco
                 
                 //  Q6ActivityIndicatorView.startAnimating()
                 // Q6CommonLib.popUpLoadingSign(self)
-            }
-            else{
+            } else{
                 
             }
-        }
-        else{
+            
+        } else{
             
         }
     }

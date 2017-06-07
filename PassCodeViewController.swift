@@ -51,7 +51,6 @@ class PassCodeViewController: UIViewController , UITextFieldDelegate{
         //txtPassCode1.becomeFirstResponder()
         activeTextField.becomeFirstResponder()
         
-        
         if ScreenMode == "ValidatePassCode" {
             
             lblPassCodeScreenTitle.text = "Validate Pass Code"
@@ -82,8 +81,6 @@ class PassCodeViewController: UIViewController , UITextFieldDelegate{
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
-       
-        
         //Detect Delete key press
         if (range.length == 1 && string.isEmpty){
             print("Press delete key")
@@ -94,7 +91,6 @@ class PassCodeViewController: UIViewController , UITextFieldDelegate{
         return (textField.text?.utf16.count ?? 0) + string.utf16.count - range.length <= TEXT_FIELD_LIMIT
     }
     @IBAction func activeFieldEditingChanged(_ sender: AnyObject) {
-    
         
         let textfield = sender as! UITextField
         
@@ -104,12 +100,11 @@ class PassCodeViewController: UIViewController , UITextFieldDelegate{
             txtPassCode2.text = ""
             txtPassCode3.text = ""
             txtPassCode4.text = ""
-        }
-        else if textfield.text?.length == 1 {
             
-          let  txt = textfield.text! as String
-          
-
+        } else if textfield.text?.length == 1 {
+            
+            let  txt = textfield.text! as String
+            
             userInputPasscodeValue1 = String(txt[txt.startIndex])
             txtPassCode1.text = userInputPasscodeValue1
             
@@ -117,8 +112,7 @@ class PassCodeViewController: UIViewController , UITextFieldDelegate{
             txtPassCode3.text = ""
             txtPassCode4.text = ""
             
-        }
-        else if textfield.text?.length == 2 {
+        } else if textfield.text?.length == 2 {
             
             let txt = textfield.text! as String
             userInputPasscodeValue1 = String(txt[txt.startIndex])
@@ -145,8 +139,7 @@ class PassCodeViewController: UIViewController , UITextFieldDelegate{
             
        
             txtPassCode4.text = ""
-        }
-        else if textfield.text?.length == 4 {
+        } else if textfield.text?.length == 4 {
             
             let txt = textfield.text! as String
             userInputPasscodeValue1 = String(txt[txt.startIndex])
@@ -160,8 +153,6 @@ class PassCodeViewController: UIViewController , UITextFieldDelegate{
             
             userInputPasscodeValue4 = String(txt[3])
             txtPassCode4.text = userInputPasscodeValue4
-            
-            
             
         }
         
@@ -190,8 +181,7 @@ class PassCodeViewController: UIViewController , UITextFieldDelegate{
                         
                         
                         
-                    }
-                    else {
+                    } else {
                         //txtPassCode1.becomeFirstResponder()
                         
                    clearTextFields()
@@ -320,8 +310,6 @@ class PassCodeViewController: UIViewController , UITextFieldDelegate{
         
         print( "Current Screen Mode '\(self.ScreenMode)'")
         if userInputPasscodeValue1 != nil && userInputPasscodeValue2 != nil && userInputPasscodeValue3 != nil && userInputPasscodeValue4 != nil {
-            
-            
             
             if self.ScreenMode == "ValidatePassCode" {
                 

@@ -105,7 +105,6 @@ class CustomerSearchViewController: UIViewController , Q6WebApiProtocol,UITableV
             print("returnDate Count" + returnData.count.description)
             
             for i in 0  ..< returnData.count {
-                
                 //
                 //                print("no i =" + i.description)
                 var dataItem = returnData[i]
@@ -124,15 +123,20 @@ class CustomerSearchViewController: UIViewController , Q6WebApiProtocol,UITableV
                 
                 customer.DefaultSalesTaxCodeID = dataItem["DefaultSalesTaxCodeID"]  as? String
                 
+                if let defaultDueDate = dataItem["DefaultDueDate"], let defaultDueDateOption = dataItem["DefaultDueDateOption"] {
+                    
+                    customer.DefaultDueDateOption = (defaultDueDateOption as? Int) ?? 0
+                    customer.DefaultDueDate = (defaultDueDate as? Int) ?? 0
+                    
+                }
+                
                 customer.DefaultSalesAccountNameWithAccountNo = dataItem["DefaultSalesAccountNameWithAccountNo"] as? String
                 
                 customer.DefaultSalesTaxCodeName = dataItem["DefaultSalesTaxCodeName"] as! String
                 
-                
                 customer.DefaultSalesTaxCodeRate = dataItem["DefaultSalesTaxCodeRate"] as! Double
                 
                 customer.DefaultSalesTaxCodePurpose = dataItem["DefaultSalesTaxCodePurpose"] as! String
-                
                 
                 
                 if  customer.DefaultSalesAccountNameWithAccountNo != nil {
@@ -166,7 +170,7 @@ class CustomerSearchViewController: UIViewController , Q6WebApiProtocol,UITableV
         return "" as AnyObject
     }
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath as IndexPath, animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         

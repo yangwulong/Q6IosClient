@@ -76,9 +76,9 @@ setControlAppear()
         cell.lblSupplierID.isHidden = true
         
       
-           cell.lblSupplierName.text =  supplierData[indexPath.row].SupplierName
+        cell.lblSupplierName.text =  supplierData[indexPath.row].SupplierName
        
-  cell.lblSupplierID.text =  supplierData[indexPath.row].SupplierID
+        cell.lblSupplierID.text =  supplierData[indexPath.row].SupplierID
       
         // Configure the cell...
         
@@ -103,37 +103,36 @@ setControlAppear()
             
             var returnData = postDicData["SupplierList"] as! [[String : AnyObject]]
             print("returnDate Count" + returnData.count.description)
-      
+            
+            print(returnData[0])
             for i in 0  ..< returnData.count {
                 
-//                
-//                print("no i =" + i.description)
-           var dataItem = returnData[i]
-                
+                var dataItem = returnData[i]
                 let supplier = Supplier()
                 supplier.SupplierID = dataItem["SupplierID"] as! String
                 
-               // print("SupplierID" + supplier.SupplierID)
-                
                 supplier.SupplierName = dataItem["SupplierName"] as! String
-              //   print("SupplierName" + supplier.SupplierName)
 
                 
                 supplier.DefaultPurchasesAccountID = dataItem["DefaultPurchasesAccountID"]  as? String
                 
                 
-                 supplier.DefaultPurchasesTaxCodeID = dataItem["DefaultPurchasesTaxCodeID"]  as? String
+                supplier.DefaultPurchasesTaxCodeID = dataItem["DefaultPurchasesTaxCodeID"]  as? String
                 
                 supplier.DefaultPurchasesAccountNameWithAccountNo = dataItem["DefaultPurchasesAccountNameWithAccountNo"] as? String
                 
-                 supplier.DefaultPurchasesTaxCodeName = dataItem["DefaultPurchasesTaxCodeName"] as! String
+                supplier.DefaultPurchasesTaxCodeName = dataItem["DefaultPurchasesTaxCodeName"] as! String
                 
+                if let defaultDueDate = dataItem["DefaultDueDate"], let defaultDueDateOption = dataItem["DefaultDueDateOption"] {
+                    
+                    supplier.DefaultDueDateOption = (defaultDueDateOption as? Int) ?? 0
+                    supplier.DefaultDueDate = (defaultDueDate as? Int) ?? 0
+                    
+                }
                 
-                  supplier.DefaultPurchasesTaxCodeRate = dataItem["DefaultPurchasesTaxCodeRate"] as! Double
+                supplier.DefaultPurchasesTaxCodeRate = dataItem["DefaultPurchasesTaxCodeRate"] as! Double
                 
                 supplier.DefaultPurchasesTaxCodePurpose = dataItem["DefaultPurchasesTaxCodePurpose"] as! String
-                
-       
                 
                 if  supplier.DefaultPurchasesAccountNameWithAccountNo != nil {
                     
@@ -242,7 +241,6 @@ setControlAppear()
         
             self.delegate?.sendGoBackFromSupplierSearchView(fromView: "SupplierSearchViewController" ,forCell :fromCell,Contact: selectedSuplier!)
 //        
-            
             _ = navigationController?.popViewController(animated: true)
    
         }

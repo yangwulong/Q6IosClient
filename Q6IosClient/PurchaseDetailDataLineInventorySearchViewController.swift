@@ -84,10 +84,9 @@ class PurchaseDetailDataLineInventorySearchViewController:UIViewController ,Q6We
     
     func tableView(_ didSelectRowAttableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        
        // let  cell = tableView.cellForRowAtIndexPath(indexPath) as! PurchaseDetailDataLineInventorySearchTableViewCell
         
-       selectedInventoryView = inventoryViewData[indexPath.row]
+        selectedInventoryView = inventoryViewData[indexPath.row]
         InventorySearchBox.resignFirstResponder()
   
     }

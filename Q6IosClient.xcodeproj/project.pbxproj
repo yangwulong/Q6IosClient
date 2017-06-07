@@ -93,6 +93,10 @@
 		19FD13321C9A134800E5C445 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 19FD13301C9A134800E5C445 /* LaunchScreen.storyboard */; };
 		19FD133B1C9A186300E5C445 /* Q6CommonLib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19FD133A1C9A186300E5C445 /* Q6CommonLib.swift */; };
 		19FD133E1C9A4D0A00E5C445 /* InternalUserLoginParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19FD133D1C9A4D0A00E5C445 /* InternalUserLoginParameter.swift */; };
+		847EF7B81EE7ACA600AE811A /* Q6Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847EF7B51EE7AC8900AE811A /* Q6Constant.swift */; };
+		847EF7B91EE7ACA600AE811A /* Q6Enum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847EF7B71EE7AC8900AE811A /* Q6Enum.swift */; };
+		847EF7BA1EE7ACA600AE811A /* Q6PublicMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847EF7B61EE7AC8900AE811A /* Q6PublicMethod.swift */; };
+		847EF7BB1EE7ACA600AE811A /* DropDownmenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847EF7B41EE7AC7D00AE811A /* DropDownmenu.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -191,6 +195,10 @@
 		19FD13331C9A134800E5C445 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		19FD133A1C9A186300E5C445 /* Q6CommonLib.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Q6CommonLib.swift; sourceTree = "<group>"; };
 		19FD133D1C9A4D0A00E5C445 /* InternalUserLoginParameter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InternalUserLoginParameter.swift; sourceTree = "<group>"; };
+		847EF7B41EE7AC7D00AE811A /* DropDownmenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropDownmenu.swift; sourceTree = "<group>"; };
+		847EF7B51EE7AC8900AE811A /* Q6Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Q6Constant.swift; sourceTree = "<group>"; };
+		847EF7B61EE7AC8900AE811A /* Q6PublicMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Q6PublicMethod.swift; sourceTree = "<group>"; };
+		847EF7B71EE7AC8900AE811A /* Q6Enum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Q6Enum.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -359,6 +367,7 @@
 				195AD4A71CB35DAF002F2DD7 /* TabBarViewController.swift */,
 				19F9B5731CB21D7600571B9D /* PassCodeViewController.swift */,
 				199F0CD21CA0BE0C00301EC4 /* LoginViewController.swift */,
+				847EF7B41EE7AC7D00AE811A /* DropDownmenu.swift */,
 				19FD132E1C9A134800E5C445 /* Assets.xcassets */,
 				19FD13301C9A134800E5C445 /* LaunchScreen.storyboard */,
 				19FD13331C9A134800E5C445 /* Info.plist */,
@@ -369,6 +378,9 @@
 		19FD13391C9A184400E5C445 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				847EF7B51EE7AC8900AE811A /* Q6Constant.swift */,
+				847EF7B71EE7AC8900AE811A /* Q6Enum.swift */,
+				847EF7B61EE7AC8900AE811A /* Q6PublicMethod.swift */,
 				19FD133A1C9A186300E5C445 /* Q6CommonLib.swift */,
 				19691E8E1C9F8AE200E009A7 /* Q6Protocol.swift */,
 				197398171CA1004D0079332D /* Q6IosClient-Bridging-Header.h */,
@@ -478,6 +490,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				847EF7B81EE7ACA600AE811A /* Q6Constant.swift in Sources */,
+				847EF7B91EE7ACA600AE811A /* Q6Enum.swift in Sources */,
+				847EF7BA1EE7ACA600AE811A /* Q6PublicMethod.swift in Sources */,
+				847EF7BB1EE7ACA600AE811A /* DropDownmenu.swift in Sources */,
 				19C4FC8F1CD86BD4004A1449 /* PurchaseDetailTableViewCell.swift in Sources */,
 				19B87D571CDAFF580048AAFB /* Supplier.swift in Sources */,
 				19DE52DB1CEC21170050A62D /* PurchaseDetailDataLineAccountSearchViewController.swift in Sources */,

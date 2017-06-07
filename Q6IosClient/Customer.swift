@@ -20,6 +20,10 @@ public class Customer {
     var Phone:String?
     var Fax:String?
     var Memos:String?
+    
+    var DefaultDueDate = Int()
+    var DefaultDueDateOption = Int()
+    
     var BSBNumber:String?
     var BankAccountNumber:String?
     var BankAccountName:String?
@@ -66,6 +70,8 @@ public class Customer {
         self.DefaultSalesAccountID = nil
         self.DefaultSalesTaxCodeID = nil
         self.DefaultSalesDiscount = 0
+        self.DefaultDueDate = 0
+        self.DefaultDueDateOption = 0
         self.Email = ""
         self.Fax = ""
         self.FirstName = ""

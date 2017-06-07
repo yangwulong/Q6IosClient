@@ -787,8 +787,8 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
                 calculateTaxAmount()
                 self.delegate?.sendGoBackFromPurchaseDetailDataLineView(fromView: "PurchaseDetailDataLineViewController", forCell: "AddanItemCell", purchasesTransactionsDetailView: purchasesTransactionsDetailView)
                 _ = navigationController?.popViewController(animated: true)
-            }
-            else {
+                
+            } else {
                 Q6CommonLib.q6UIAlertPopupController(title: "Information message", message: "You haven't add a purchase detail data line!", viewController: self)
             }
         }
@@ -876,8 +876,9 @@ class PurchaseDetailDataLineViewController: UIViewController, UITableViewDelegat
             
             isEmpty = true
         }
-        if purchasesTransactionsDetailView.Amount == 0
-        {
+        
+        if purchasesTransactionsDetailView.Amount == 0 {
+            
             isEmpty = true
         }
         

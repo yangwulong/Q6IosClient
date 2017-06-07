@@ -12,7 +12,7 @@ public class Supplier {
     
     var SupplierID = String()
     var SupplierName:String = ""
-     var CreateDate = NSDate()
+    var CreateDate = NSDate()
     var Title:String?
     var FirstName:String?
     var LastName:String?
@@ -32,6 +32,8 @@ public class Supplier {
     var DefaultPurchasesTaxCodeName = String()
     var DefaultPurchasesTaxCodeRate = Double()
     var DefaultPurchasesTaxCodePurpose = String()
+    var DefaultDueDate = Int()
+    var DefaultDueDateOption = Int()
     var PhysicalAddress:String?
     var PhysicalAddressLine2:String?
     var PhysicalCity:String?
@@ -62,6 +64,8 @@ public class Supplier {
         self.CreateDate = NSDate()
         self.DefaultPurchasesAccountID = nil
         self.DefaultPurchasesTaxCodeID = nil
+        self.DefaultDueDate = 0
+        self.DefaultDueDateOption = 0
         self.Email = ""
         self.Fax = ""
         self.FirstName = ""

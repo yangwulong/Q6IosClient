@@ -212,21 +212,25 @@ class SaleDetailViewController: UIViewController, UITableViewDelegate ,UITableVi
                     
                     let dueDate = ofTheFollowingMonth(days: customer.DefaultDueDate, createDate: salesTransactionHeader.CreateTime)
                     cell.lblDueDate.text = dueDate?.formatted
+                    salesTransactionHeader.DueDate = dueDate
                     
                 }else if customer.DefaultDueDateOption == DueDateType.daysAfterTheInvoiceDate.rawValue {
                     
                     let dueDate = daysAfterTheInvoiceDate(days: customer.DefaultDueDate, transactionDate: salesTransactionHeader.TransactionDate)
                     cell.lblDueDate.text = dueDate.formatted
+                    salesTransactionHeader.DueDate = dueDate
                     
                 }else if customer.DefaultDueDateOption == DueDateType.daysAfterTheEndOfTheInvoiceMonth.rawValue {
                     
                     let dueDate = daysAfterTheEndOfTheInvoiceMonth(days: customer.DefaultDueDate, transactionDate: salesTransactionHeader.TransactionDate)
                     cell.lblDueDate.text = dueDate?.formatted
+                    salesTransactionHeader.DueDate = dueDate
                     
                 }else if customer.DefaultDueDateOption == DueDateType.ofTheCurrentMonth.rawValue {
                     
                     let dueDate = ofTheCurrentMonth(days: customer.DefaultDueDate, transactionDate: salesTransactionHeader.TransactionDate)
                     cell.lblDueDate.text = dueDate?.formatted
+                    salesTransactionHeader.DueDate = dueDate
                 }
             }
         }

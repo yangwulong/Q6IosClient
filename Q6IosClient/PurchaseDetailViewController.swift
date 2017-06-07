@@ -216,21 +216,25 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
                     
                     let dueDate = ofTheFollowingMonth(days: supplier.DefaultDueDate, createDate: purchasesTransactionHeader.CreateTime)
                     cell.lblDueDate.text = dueDate?.formatted
+                    purchasesTransactionHeader.DueDate = dueDate
                     
                 }else if supplier.DefaultDueDateOption == DueDateType.daysAfterTheInvoiceDate.rawValue {
                     
                     let dueDate = daysAfterTheInvoiceDate(days: supplier.DefaultDueDate, transactionDate: purchasesTransactionHeader.TransactionDate)
                     cell.lblDueDate.text = dueDate.formatted
+                    purchasesTransactionHeader.DueDate = dueDate
                     
                 }else if supplier.DefaultDueDateOption == DueDateType.daysAfterTheEndOfTheInvoiceMonth.rawValue {
                     
                     let dueDate = daysAfterTheEndOfTheInvoiceMonth(days: supplier.DefaultDueDate, transactionDate: purchasesTransactionHeader.TransactionDate)
                     cell.lblDueDate.text = dueDate?.formatted
+                    purchasesTransactionHeader.DueDate = dueDate
                     
                 }else if supplier.DefaultDueDateOption == DueDateType.ofTheCurrentMonth.rawValue {
                     
                     let dueDate = ofTheCurrentMonth(days: supplier.DefaultDueDate, transactionDate: purchasesTransactionHeader.TransactionDate)
                     cell.lblDueDate.text = dueDate?.formatted
+                    purchasesTransactionHeader.DueDate = dueDate
                 }
             }
             

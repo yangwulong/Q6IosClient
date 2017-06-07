@@ -9,6 +9,7 @@
 import UIKit
 
 public enum DueDateType: Int {
+    
     case ofTheFollowingMonth = 1
     case daysAfterTheInvoiceDate
     case daysAfterTheEndOfTheInvoiceMonth

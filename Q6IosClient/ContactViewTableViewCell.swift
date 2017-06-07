@@ -16,9 +16,12 @@ class ContactViewTableViewCell: UITableViewCell {
     @IBOutlet weak var lblMemo: UITextView!
     @IBOutlet weak var txtContactName: UITextField!
     @IBOutlet weak var lblContactName: UILabel!
+    @IBOutlet weak var txtDueDate: UITextField!
+    @IBOutlet weak var btnDueDate: UIButton!
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        self.selectionStyle = .none
+        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

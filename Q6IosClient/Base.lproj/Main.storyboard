@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="1dE-fY-gch">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.17" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="1dE-fY-gch">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.14"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -33,7 +33,7 @@
                                             <constraint firstAttribute="height" constant="167" id="HZF-1d-Vqe"/>
                                         </constraints>
                                     </imageView>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email Address" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uN4-cr-eBi">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="ziliangcai@uniware.com.au" borderStyle="roundedRect" placeholder="Email Address" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uN4-cr-eBi">
                                         <rect key="frame" x="46.5" y="232" width="250" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="250" id="ffP-bv-b6J"/>
@@ -41,7 +41,7 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="emailAddress"/>
                                     </textField>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5xt-al-87T">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="test123#" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5xt-al-87T">
                                         <rect key="frame" x="46.5" y="262.5" width="250" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="250" id="Mw2-pA-Y2Y"/>
@@ -302,12 +302,12 @@
                                 </items>
                             </navigationBar>
                             <searchBar contentMode="redraw" preservesSuperviewLayoutMargins="YES" placeholder="ReferenceNO,Supplier,Memo,Amount" translatesAutoresizingMaskIntoConstraints="NO" id="jDC-7C-Cq5">
-                                <rect key="frame" x="2" y="66" width="371" height="44"/>
+                                <rect key="frame" x="2" y="66" width="371" height="56"/>
                                 <color key="barTintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="65" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="sbk-yv-iYT">
-                                <rect key="frame" x="17" y="111" width="341" height="506"/>
+                                <rect key="frame" x="17" y="123" width="341" height="494"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="PurchasePototypeCELL" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PurchasePototypeCELL" id="xzE-tu-0At" customClass="PurchaseTableViewCell" customModule="Q6IosClient" customModuleProvider="target">
@@ -443,7 +443,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aB1-0F-ldT">
-                                <rect key="frame" x="-4" y="14" width="383" height="44"/>
+                                <rect key="frame" x="-4" y="34" width="383" height="44"/>
                                 <items>
                                     <navigationItem id="L2H-vu-1I2">
                                         <barButtonItem key="leftBarButtonItem" title="Cancel" id="gC5-eH-Xgs">
@@ -521,7 +521,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="gjm-oj-kFX">
-                                <rect key="frame" x="-4" y="101" width="383" height="517"/>
+                                <rect key="frame" x="-4" y="113" width="383" height="505"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SupplierSearchPrototypeCell" id="XzK-ZW-jeL" customClass="SupplierSearchTableViewCell" customModule="Q6IosClient" customModuleProvider="target">
@@ -574,7 +574,7 @@
                                 <rect key="frame" x="177.5" y="323.5" width="20" height="20"/>
                             </activityIndicatorView>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fvj-Yd-Bu6">
-                                <rect key="frame" x="-4" y="8" width="383" height="44"/>
+                                <rect key="frame" x="-4" y="28" width="383" height="44"/>
                                 <items>
                                     <navigationItem id="bWZ-QJ-cca">
                                         <barButtonItem key="leftBarButtonItem" title="Cancel" id="Fau-KP-iFZ">
@@ -591,7 +591,7 @@
                                 </items>
                             </navigationBar>
                             <searchBar contentMode="redraw" placeholder="Supplier Name" translatesAutoresizingMaskIntoConstraints="NO" id="Akl-ec-SRf">
-                                <rect key="frame" x="2" y="56" width="371" height="44"/>
+                                <rect key="frame" x="2" y="56" width="371" height="56"/>
                                 <color key="barTintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
@@ -733,7 +733,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0qp-jz-sQo">
-                                <rect key="frame" x="-4" y="8" width="383" height="44"/>
+                                <rect key="frame" x="-4" y="28" width="383" height="44"/>
                                 <items>
                                     <navigationItem id="EJI-Vw-YYG">
                                         <barButtonItem key="leftBarButtonItem" title="Cancel" id="LEj-OA-1cE">
@@ -750,12 +750,12 @@
                                 </items>
                             </navigationBar>
                             <searchBar contentMode="redraw" placeholder="Account No,Account Name" translatesAutoresizingMaskIntoConstraints="NO" id="Pfn-fU-msd">
-                                <rect key="frame" x="2" y="54" width="371" height="44"/>
+                                <rect key="frame" x="2" y="74" width="371" height="56"/>
                                 <color key="barTintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="WYB-ef-Gmr">
-                                <rect key="frame" x="-4" y="98" width="383" height="520"/>
+                                <rect key="frame" x="-4" y="130" width="383" height="488"/>
                                 <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="AccountNameCell" id="vre-Jl-uDp" customClass="PurchaseDetailDataLineAccountSearchTableViewCell" customModule="Q6IosClient" customModuleProvider="target">
@@ -828,7 +828,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1u7-ha-GSn">
-                                <rect key="frame" x="-4" y="8" width="383" height="44"/>
+                                <rect key="frame" x="-4" y="28" width="383" height="44"/>
                                 <items>
                                     <navigationItem id="xKs-pK-oEa">
                                         <barButtonItem key="leftBarButtonItem" title="Cancel" id="3oS-Cp-fCZ">
@@ -845,7 +845,7 @@
                                 </items>
                             </navigationBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="uDe-EQ-EKW">
-                                <rect key="frame" x="-4" y="57" width="383" height="561"/>
+                                <rect key="frame" x="-4" y="77" width="383" height="541"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="InventoryCell" selectionStyle="default" indentationWidth="10" reuseIdentifier="InventoryCell" id="E2F-J6-dgn" customClass="PurchaseDetailDataLineTableViewCell" customModule="Q6IosClient" customModuleProvider="target">
@@ -1238,7 +1238,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Y5n-vW-LB7">
-                                <rect key="frame" x="-4" y="8" width="383" height="44"/>
+                                <rect key="frame" x="-4" y="28" width="383" height="44"/>
                                 <items>
                                     <navigationItem id="TcC-oT-CAi">
                                         <barButtonItem key="leftBarButtonItem" title="Cancel" id="F2j-ke-CJf">
@@ -1255,7 +1255,7 @@
                                 </items>
                             </navigationBar>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="H1K-eY-67B">
-                                <rect key="frame" x="2" y="52" width="371" height="333.5"/>
+                                <rect key="frame" x="2" y="72" width="371" height="333.5"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -1310,12 +1310,12 @@
                                 </items>
                             </navigationBar>
                             <searchBar contentMode="redraw" placeholder="Inventory Name" translatesAutoresizingMaskIntoConstraints="NO" id="yn1-6D-4u0">
-                                <rect key="frame" x="2" y="68" width="371" height="44"/>
+                                <rect key="frame" x="2" y="68" width="371" height="56"/>
                                 <color key="barTintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="TWm-lC-dtY">
-                                <rect key="frame" x="-4" y="114" width="383" height="504"/>
+                                <rect key="frame" x="-4" y="126" width="383" height="492"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="InventoryCell" id="cwy-Vb-XSf" customClass="PurchaseDetailDataLineInventorySearchTableViewCell" customModule="Q6IosClient" customModuleProvider="target">
@@ -1416,7 +1416,7 @@
                                 </items>
                             </navigationBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Z8E-NN-dM6">
-                                <rect key="frame" x="-4" y="114" width="383" height="504"/>
+                                <rect key="frame" x="-4" y="126" width="383" height="492"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TaxCodeCell" id="1Ta-Xo-XDN" customClass="PurchaseDetailDataLineTaxCodeSearchTableViewCell" customModule="Q6IosClient" customModuleProvider="target">
@@ -1462,7 +1462,7 @@
                                 <rect key="frame" x="177.5" y="323.5" width="20" height="20"/>
                             </activityIndicatorView>
                             <searchBar contentMode="redraw" placeholder="TaxCode Name" translatesAutoresizingMaskIntoConstraints="NO" id="NCI-jT-ORb">
-                                <rect key="frame" x="2" y="68" width="371" height="44"/>
+                                <rect key="frame" x="2" y="68" width="371" height="56"/>
                                 <color key="barTintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
@@ -1728,7 +1728,7 @@
                                                     <state key="normal" image="resultset_next"/>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TestSupplier1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wdh-BT-3gt">
-                                                    <rect key="frame" x="158" y="8" width="103.5" height="27.5"/>
+                                                    <rect key="frame" x="158" y="8" width="103" height="27.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.42878054789999998" green="0.67319670919999997" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -1983,7 +1983,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="03/05/2016" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wZS-r3-zZ4">
-                                                    <rect key="frame" x="158" y="8" width="90.5" height="27.5"/>
+                                                    <rect key="frame" x="158" y="8" width="90" height="27.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.42878054789999998" green="0.67319670919999997" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -2138,7 +2138,7 @@
                                 </constraints>
                             </activityIndicatorView>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="in2-9w-RA5">
-                                <rect key="frame" x="-4" y="8" width="383" height="44"/>
+                                <rect key="frame" x="-4" y="28" width="383" height="44"/>
                                 <items>
                                     <navigationItem id="9f6-gW-Kc9">
                                         <barButtonItem key="leftBarButtonItem" title="Cancel" id="xyM-hA-usj">

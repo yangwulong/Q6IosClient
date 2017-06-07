@@ -295,7 +295,6 @@ class SalesViewController: UIViewController, Q6WebApiProtocol,UITableViewDelegat
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        tableView.deselectRow(at: indexPath, animated: true)
         selectedRowNo = indexPath.row
         
         self.performSegue(withIdentifier: "editSaleDetail", sender: "SalePototypeCELL")

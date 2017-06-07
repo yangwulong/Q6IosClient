@@ -76,6 +76,10 @@ extension String {
         else {
             return nil
         }
+     
+      
+        
+
     }
     
     subscript (index: Int) -> Character {
@@ -86,20 +90,10 @@ extension String {
 }
 
 extension NSDate {
-    
-    private var formatter: DateFormatter {
-       
+    var formatted:String {
         let formatter = DateFormatter()
         formatter.dateFormat = "dd/MM/yyyy"
         formatter.locale = NSLocale(localeIdentifier: "en_AU") as Locale!
-        
-        return formatter
-    }
-    
-    var formatted:String {
-//        let formatter = DateFormatter()
-//        formatter.dateFormat = "dd/MM/yyyy"
-//        formatter.locale = NSLocale(localeIdentifier: "en_AU") as Locale!
         
 //        var todaysDate:NSDate = NSDate()
 //        var dateFormatter:NSDateFormatter = NSDateFormatter()
@@ -107,8 +101,7 @@ extension NSDate {
         let convertDate = formatter.string(from: self as Date)
         
         return convertDate
-    }
-    
+}
     func isLaterOrEqualThanDate(dateToCompare: NSDate) -> Bool {
         //Declare Variables
         var isGreaterOrEqual = false
@@ -124,28 +117,6 @@ extension NSDate {
         
         //Return Result
         return isGreaterOrEqual
-    }
-    
-    func getMonth() -> Int {
-        
-        let calendar = NSCalendar.current
-        
-        //这里注意 swift要用[,]这样方式写
-        
-        let com = calendar.dateComponents([.year,. month, .day], from: self as Date)
-        
-        return com.month ?? 0
-    }
-    
-    func getYear() -> Int {
-        
-        let calendar = NSCalendar.current
-        
-        //这里注意 swift要用[,]这样方式写
-        
-        let com = calendar.dateComponents([.year,. month, .day], from: self as Date)
-        
-        return com.year ?? 0
     }
     
     

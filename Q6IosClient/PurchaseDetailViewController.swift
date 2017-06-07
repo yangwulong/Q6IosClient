@@ -10,6 +10,7 @@ import UIKit
 
 class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITableViewDataSource,Q6GoBackFromView, Q6WebApiProtocol {
     
+    
     @IBOutlet weak var btnCancelButton: UIBarButtonItem!
     @IBOutlet weak var btnSaveButton: UIBarButtonItem!
     @IBOutlet weak var Q6ActivityIndicatorView: UIActivityIndicatorView!
@@ -40,9 +41,10 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
     var addItemRowIndex: Int = 0
     var isPreLoad = false
     var CompanyID = String()
-    weak var delegate2 : Q6GoBackFromViewTwo?
-    
+  weak var delegate2 : Q6GoBackFromViewTwo?
     override func viewWillAppear(_ animated: Bool) {
+        
+       
         
         print("PurchaseDetailViewController" + operationType)
     }
@@ -148,6 +150,10 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
         
         purchaseDetailTableView.tableFooterView = UIView(frame: CGRect.zero)
     }
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
     
     // MARK: - Table view data source
     
@@ -210,34 +216,13 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
                 
                 
                 cell.lblDueDate.text = purchasesTransactionHeader.DueDate!.formatted
-                
-            }else {
-                
-                if supplier.DefaultDueDateOption == DueDateType.ofTheFollowingMonth.rawValue {
-                    
-                    let dueDate = ofTheFollowingMonth(days: supplier.DefaultDueDate, createDate: purchasesTransactionHeader.CreateTime)
-                    cell.lblDueDate.text = dueDate?.formatted
-                    purchasesTransactionHeader.DueDate = dueDate
-                    
-                }else if supplier.DefaultDueDateOption == DueDateType.daysAfterTheInvoiceDate.rawValue {
-                    
-                    let dueDate = daysAfterTheInvoiceDate(days: supplier.DefaultDueDate, transactionDate: purchasesTransactionHeader.TransactionDate)
-                    cell.lblDueDate.text = dueDate.formatted
-                    purchasesTransactionHeader.DueDate = dueDate
-                    
-                }else if supplier.DefaultDueDateOption == DueDateType.daysAfterTheEndOfTheInvoiceMonth.rawValue {
-                    
-                    let dueDate = daysAfterTheEndOfTheInvoiceMonth(days: supplier.DefaultDueDate, transactionDate: purchasesTransactionHeader.TransactionDate)
-                    cell.lblDueDate.text = dueDate?.formatted
-                    purchasesTransactionHeader.DueDate = dueDate
-                    
-                }else if supplier.DefaultDueDateOption == DueDateType.ofTheCurrentMonth.rawValue {
-                    
-                    let dueDate = ofTheCurrentMonth(days: supplier.DefaultDueDate, transactionDate: purchasesTransactionHeader.TransactionDate)
-                    cell.lblDueDate.text = dueDate?.formatted
-                    purchasesTransactionHeader.DueDate = dueDate
-                }
             }
+            
+            
+            //
+            
+            
+            
             
         }
         
@@ -246,6 +231,11 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
             if purchasesDetailScreenLinesDic[indexPath.row].isAdded == true {
                 
                 let image = UIImage(named: "Minus-25") as UIImage?
+                
+                
+                
+                
+                
                 
                 cell.AddDeleteButton.setImage(image, for: .normal)
                 cell.LineDescription.text = purchasesDetailScreenLinesDic[indexPath.row].LineDescription
@@ -372,8 +362,6 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 //        let row = indexPath.row //2
         
-        tableView.deselectRow(at: indexPath, animated: true)
-        
         print("Selected Row" + indexPath.row.description)
         let screenSortLinesDetail = purchasesDetailScreenLinesDic[indexPath.row]  as ScreenSortLinesDetail
         print("screenSortLinesDetail.PrototypeCellID" + screenSortLinesDetail.PrototypeCellID)
@@ -396,16 +384,29 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
                 }
             }
             
+            
+            
+            
+            
             self.performSegue(withIdentifier: "showContactSearch", sender: "SupplierCell")
+            
+            
+            
+            
             
         }
         if screenSortLinesDetail.PrototypeCellID == "DueDateCell" {
             if purchasesTransactionHeader.SupplierID.length != 0 {
                 performSegue(withIdentifier: "showDueDate", sender: "DueDateCell")
-            } else{
+            }
+            else{
                 Q6CommonLib.q6UIAlertPopupController(title: "Information", message: "A Supplier must be seleted!", viewController: self)
             }
+            
+            
         }
+        
+        
         
         if screenSortLinesDetail.PrototypeCellID == "AddanImageCell" {
             
@@ -465,23 +466,21 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
         // navigationItem.title = order
     }
     
+    
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         
         if purchasesDetailScreenLinesDic[indexPath.row].isAdded == true {
-            
             return true
-            
-        } else if purchasesDetailScreenLinesDic[indexPath.row].PrototypeCellID == "AddanImageCell" {
-            
+        }
+        else if purchasesDetailScreenLinesDic[indexPath.row].PrototypeCellID == "AddanImageCell"
+        {
             if attachedimage != nil {
                 
                 return true
             }
-            
             return false
-            
-        } else {
-            
+        }
+        else {
             return false
         }
     }
@@ -538,6 +537,8 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
             
             let fromCell = sender as! String
             //        if let fromCell = sender as? String {
+            
+            
             
             
             if fromCell == "PurchasesTypecell"
@@ -622,6 +623,7 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
     @IBAction func SaveButtonClick(sender: AnyObject) {
         
       
+        
         if validateQuantityValue()&&validateDate()&&validateIfPurchaseDetailIsNotEmpty()
         {
             Q6ActivityIndicatorView.isHidden = false 
@@ -643,6 +645,10 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
             LoginDetail.Password = userInfos["PassWord"]!
             LoginDetail.ClientIP = Q6CommonLib.getIPAddresses()
             LoginDetail.WebApiTOKEN = Q6CommonLib.getQ6WebAPIToken()
+            
+           
+            
+ 
             
             var LoginDetailDicData = [String:AnyObject]()
             
@@ -1120,7 +1126,6 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
                 purchasesTransactionHeader.SupplierID = Contact.SupplierID
                
                 supplier = Contact
-                print("dueDate: \(supplier.DefaultDueDate) ==== dueDateOption: \(supplier.DefaultDueDateOption)")
                 
                 print("purchasesTransactionHeader.SupplierID" + purchasesTransactionHeader.SupplierID)
              DispatchQueue.main.async {
@@ -1137,6 +1142,8 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
         if fromView == "DatePickerViewController" {
             if forCell == "DueDateCell" {
                 purchasesTransactionHeader.DueDate = Date
+                
+                
                 
              DispatchQueue.main.async {
                     self.purchaseDetailTableView.reloadData()
@@ -1288,7 +1295,7 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
                 postDicData = try  JSONSerialization.jsonObject(with: data! as Data, options: []) as! [String:AnyObject]
                 
                 
-                IsLoginSuccessed = (postDicData["IsSuccessed"] as! NSString).boolValue
+                IsLoginSuccessed = postDicData["IsSuccessed"] as! Bool
                 
                 
                 if IsLoginSuccessed == true {
@@ -1476,6 +1483,7 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
             
         }
         
+        //
         return "" as AnyObject
     }
     
@@ -1536,8 +1544,9 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
                 
             }
     
-            purchasesTransactionsDetailViewList.append(purchasesTransactionsDetailView)
+       purchasesTransactionsDetailViewList.append(purchasesTransactionsDetailView)
             
+           
         }
         
        return purchasesTransactionsDetailViewList
@@ -1547,6 +1556,8 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
         
         let purchasesTransactionsHeaderView = PurchasesTransactionsHeaderView()
         purchasesTransactionsHeaderView.ClosedDate = returnPurchasesTransactionHeaderData!["ClosedDate"] as? NSDate
+        
+        
         
         let DueDate = returnPurchasesTransactionHeaderData!["DueDate"] as? String
         
@@ -1710,8 +1721,7 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
     
     func  sendGoBackFromSaleDetailMemoView(fromView : String ,forCell: String,Memo: String)
     {}
-    
-    func  sendGoBackFromCustomerSearchView(fromView : String ,forCell: String,Contact: Customer)
+      func  sendGoBackFromCustomerSearchView(fromView : String ,forCell: String,Contact: Customer)
       {}
   
     //    func dataLoadCompletion(data:NSData?, response:NSURLResponse?, error:NSError?) -> AnyObject
@@ -1726,7 +1736,7 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
     //            postDicData = try  NSJSONSerialization.JSONObjectWithData(data!, options: []) as! [String:AnyObject]
     //
     ////
-    ////            IsLoginSuccessed = (postDicData["IsSuccessed"] as! NSString).boolValue
+    ////            IsLoginSuccessed = postDicData["IsSuccessed"] as! Bool
     ////
     ////
     ////            if IsLoginSuccessed == true {
@@ -1772,5 +1782,49 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
     //        //
     //        return ""
     //    }
+    /*
+     // Override to support conditional editing of the table view.
+     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+     // Return false if you do not want the specified item to be editable.
+     return true
+     }
+     */
+    
+    /*
+     // Override to support editing the table view.
+     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+     if editingStyle == .Delete {
+     // Delete the row from the data source
+     tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+     } else if editingStyle == .Insert {
+     // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+     }    
+     }
+     */
+    
+    /*
+     // Override to support rearranging the table view.
+     override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
+     
+     }
+     */
+    
+    /*
+     // Override to support conditional rearranging of the table view.
+     override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+     // Return false if you do not want the item to be re-orderable.
+     return true
+     }
+     */
+    
+    /*
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+     // Get the new view controller using segue.destinationViewController.
+     // Pass the selected object to the new view controller.
+     }
+     */
     
 }

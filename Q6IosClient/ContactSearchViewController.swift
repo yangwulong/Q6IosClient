@@ -13,6 +13,9 @@ class ContactSearchViewController: UIViewController , Q6WebApiProtocol,UITableVi
 
     @IBOutlet weak var ContactSearchBox: UISearchBar!
 
+
+  
+    
     var pageIndex: Int = 1
     var pageSize: Int = 20
     var searchText: String = ""
@@ -72,11 +75,12 @@ class ContactSearchViewController: UIViewController , Q6WebApiProtocol,UITableVi
     
     // Do any additional setup after loading the view.
     }
-    func setControlAppear() {
+    func setControlAppear()
+    {
     
-        ContactSearchBox.layer.cornerRadius = 2;
-        ContactSearchBox.layer.borderWidth = 0.1;
-        ContactSearchBox.layer.borderColor = UIColor.black.cgColor
+    ContactSearchBox.layer.cornerRadius = 2;
+    ContactSearchBox.layer.borderWidth = 0.1;
+    ContactSearchBox.layer.borderColor = UIColor.black.cgColor
         
         if ContactSegmentedControl.selectedSegmentIndex == 0 {
             ContactSearchBox.placeholder = "Supplier Name"
@@ -127,14 +131,17 @@ class ContactSearchViewController: UIViewController , Q6WebApiProtocol,UITableVi
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let  cell = tableView.dequeueReusableCell(withIdentifier: "ContactSearchPrototypeCell", for: indexPath) as! ContactSearchViewTableViewCell
-        
-        cell.lblContactID.isHidden = true
-        
-        cell.lblContactName.text =  contactData[indexPath.row].ContactName
-        cell.lblContactID.text =  contactData[indexPath.row].ContactID
-        
-        return cell
+    let  cell = tableView.dequeueReusableCell(withIdentifier: "ContactSearchPrototypeCell", for: indexPath) as! ContactSearchViewTableViewCell
+    
+    cell.lblContactID.isHidden = true
+    
+    
+    cell.lblContactName.text =  contactData[indexPath.row].ContactName
+    cell.lblContactID.text =  contactData[indexPath.row].ContactID
+    
+    // Configure the cell...
+    
+    return cell
     }
     
     func setAttachedURL(SearchText: String , IsLoadInactive:Bool,PageSize: Int,PageIndex: Int )
@@ -145,121 +152,127 @@ class ContactSearchViewController: UIViewController , Q6WebApiProtocol,UITableVi
     func dataLoadCompletion(data:NSData?, response:URLResponse?, error:NSError?) -> AnyObject
     {
         let selecedSegmentIndex: Int = ContactSegmentedControl.selectedSegmentIndex
-        var postDicData :[String:AnyObject]?
+    var postDicData :[String:AnyObject]?
+    
+    do {
+    if dataRequestSource == "Search" {
+    contactData.removeAll()
+    selectedContact = nil
+    }
+      
+    postDicData = try  JSONSerialization.jsonObject(with: data! as Data, options: []) as? [String:AnyObject]
+   
+        if postDicData != nil {
         
-        do {
-        if dataRequestSource == "Search" {
-        contactData.removeAll()
-        selectedContact = nil
-        }
-          
-        postDicData = try  JSONSerialization.jsonObject(with: data! as Data, options: []) as? [String:AnyObject]
-       
-            if postDicData != nil {
+            var returnData:[[String : AnyObject]]?
+        
+        if selecedSegmentIndex == 0 {
+       let tempReturnData = postDicData!["SupplierList"] as? [[String : AnyObject]]
             
-                var returnData:[[String : AnyObject]]?
-            
-            if selecedSegmentIndex == 0 {
-           let tempReturnData = postDicData!["SupplierList"] as? [[String : AnyObject]]
-                
-                if tempReturnData != nil {
-                    returnData = tempReturnData
-                }
+            if tempReturnData != nil {
+                returnData = tempReturnData
             }
-            else {
-                let tempReturnData = postDicData!["CustomerList"] as? [[String : AnyObject]]
-                if tempReturnData != nil {
-                    returnData = tempReturnData
-                }
+        }
+        else {
+            let tempReturnData = postDicData!["CustomerList"] as? [[String : AnyObject]]
+            if tempReturnData != nil {
+                returnData = tempReturnData
+            }
 
-            }
-       
-                if returnData != nil {
-        
-                    for i in 0  ..< returnData!.count {
-        
-                        var dataItem = returnData![i]
-                        print("dataItem: \(dataItem)")
-                        let contact = Contact()
-                        if selecedSegmentIndex == 0 {
-                            let ContactID = dataItem["SupplierID"] as? String
-                
-                            if ContactID != nil {
-                                contact.ContactID = ContactID!
-                            }
-                
-                            let ContactName = dataItem["SupplierName"] as? String
-                
-                            if ContactName != nil {
-                                contact.ContactName = ContactName!
-                            }
-                        } else {
-                            
-                            let ContactID = dataItem["CustomerID"] as? String
-                
-                            if ContactID != nil {
-                                contact.ContactID = ContactID!
-                            }
-                
-                            let ContactName = dataItem["CustomerName"] as? String
-                
-                            if ContactName != nil {
-                                contact.ContactName = ContactName!
-                            }
-            }
-        
-        
-    //    supplier.DefaultPurchasesAccountID = dataItem["DefaultPurchasesAccountID"]  as? String
-    //    
-    //    
-    //    supplier.DefaultPurchasesTaxCodeID = dataItem["DefaultPurchasesTaxCodeID"]  as? String
-    //    
-    //    supplier.DefaultPurchasesAccountNameWithAccountNo = dataItem["DefaultPurchasesAccountNameWithAccountNo"] as? String
-    //    
-    //    supplier.DefaultPurchasesTaxCodeName = dataItem["DefaultPurchasesTaxCodeName"] as! String
-    //    
-    //    
-    //    supplier.DefaultPurchasesTaxCodeRate = dataItem["DefaultPurchasesTaxCodeRate"] as! Double
-    //    
-    //    supplier.DefaultPurchasesTaxCodePurpose = dataItem["DefaultPurchasesTaxCodePurpose"] as! String
-        
-        
-        
-    //    if  supplier.DefaultPurchasesAccountNameWithAccountNo != nil {
-    //    
-    //    print(" supplier.DefaultPurchasesAccountNameWithAccountNO" +  supplier.DefaultPurchasesAccountNameWithAccountNo!)
-    //    
-    //    }
-        contactData.append(contact)
-                    }
-        //
-        //                printFields(purchasesTransactionListViewDataItem)
         }
+   
+            if returnData != nil {
+    
+    for i in 0  ..< returnData!.count {
+    
+    //
+    //                print("no i =" + i.description)
+    var dataItem = returnData![i]
+    
+    let contact = Contact()
         
-     //swift3
-                DispatchQueue.main.async {
-                    self.ContactTableView.reloadData()
-                    self.Q6ActivityIndicatorView.hidesWhenStopped = true
-                    self.Q6ActivityIndicatorView.stopAnimating()
-                    self.ContactSearchBox.resignFirstResponder()
+        if selecedSegmentIndex == 0
+        {
+            let ContactID = dataItem["SupplierID"] as? String
+            
+            if ContactID != nil {
+                contact.ContactID = ContactID!
+            }
+            
+            let ContactName = dataItem["SupplierName"] as? String
+            
+            if ContactName != nil {
+                contact.ContactName = ContactName!
+            }
+    //   print("SupplierName" + supplier.SupplierName)
+        }
+        else
+        {
+            let ContactID = dataItem["CustomerID"] as? String
+            
+            if ContactID != nil {
+                contact.ContactID = ContactID!
+            }
+            
+            let ContactName = dataItem["CustomerName"] as? String
+            
+            if ContactName != nil {
+                contact.ContactName = ContactName!
+            }
+        }
+    
+    
+//    supplier.DefaultPurchasesAccountID = dataItem["DefaultPurchasesAccountID"]  as? String
+//    
+//    
+//    supplier.DefaultPurchasesTaxCodeID = dataItem["DefaultPurchasesTaxCodeID"]  as? String
+//    
+//    supplier.DefaultPurchasesAccountNameWithAccountNo = dataItem["DefaultPurchasesAccountNameWithAccountNo"] as? String
+//    
+//    supplier.DefaultPurchasesTaxCodeName = dataItem["DefaultPurchasesTaxCodeName"] as! String
+//    
+//    
+//    supplier.DefaultPurchasesTaxCodeRate = dataItem["DefaultPurchasesTaxCodeRate"] as! Double
+//    
+//    supplier.DefaultPurchasesTaxCodePurpose = dataItem["DefaultPurchasesTaxCodePurpose"] as! String
+    
+    
+    
+//    if  supplier.DefaultPurchasesAccountNameWithAccountNo != nil {
+//    
+//    print(" supplier.DefaultPurchasesAccountNameWithAccountNO" +  supplier.DefaultPurchasesAccountNameWithAccountNo!)
+//    
+//    }
+    contactData.append(contact)
                 }
-    //    dispatch_async(dispatch_get_main_queue(), { () -> Void in
-    //    self.ContactTableView.reloadData()
-    //    self.Q6ActivityIndicatorView.hidesWhenStopped = true
-    //    self.Q6ActivityIndicatorView.stopAnimating()
-    //    self.ContactSearchBox.resignFirstResponder()
-    //    
-    //    })
-        
-        
+    //
+    //                printFields(purchasesTransactionListViewDataItem)
+    }
+    
+ //swift3
+            DispatchQueue.main.async {
+                self.ContactTableView.reloadData()
+                self.Q6ActivityIndicatorView.hidesWhenStopped = true
+                self.Q6ActivityIndicatorView.stopAnimating()
+                self.ContactSearchBox.resignFirstResponder()
             }
-        } catch  {
-        print("error parsing response from POST on /posts")
-        
-        return "" as AnyObject
+//    dispatch_async(dispatch_get_main_queue(), { () -> Void in
+//    self.ContactTableView.reloadData()
+//    self.Q6ActivityIndicatorView.hidesWhenStopped = true
+//    self.Q6ActivityIndicatorView.stopAnimating()
+//    self.ContactSearchBox.resignFirstResponder()
+//    
+//    })
+    
+    
         }
-        
-        return "" as AnyObject
+    } catch  {
+    print("error parsing response from POST on /posts")
+    
+    return "" as AnyObject
+    }
+    
+    return "" as AnyObject
     }
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
     tableView.deselectRow(at: indexPath as IndexPath, animated: true)

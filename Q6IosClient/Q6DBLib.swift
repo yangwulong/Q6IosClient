@@ -27,7 +27,7 @@ public class Q6DBLib{
             
            
             if q6IosClientDB == nil {
-                print("Error:\(String(describing: q6IosClientDB?.lastErrorMessage()))")
+                print("Error:\(q6IosClientDB?.lastErrorMessage())")
             }
             
             if (q6IosClientDB?.open())!
@@ -40,7 +40,7 @@ public class Q6DBLib{
                     let sql_stmt = "CREATE TABLE IF NOT EXISTS UserInfos (ID INTEGER  PRIMARY  KEY , LogInEmail,PassWord, LoginStatus,PassCode,CompanyID,LoginFirstName,LoginLastName)"
                     if !(q6IosClientDB?.executeStatements(sql_stmt))!
                     {
-                       print("Error:\(String(describing: q6IosClientDB?.lastErrorMessage()))")
+                       print("Error:\(q6IosClientDB?.lastErrorMessage())")
                 
                      }
             
@@ -61,7 +61,7 @@ public class Q6DBLib{
                 q6IosClientDB?.close()
 
             } else {
-                print("Error:\(String(describing: q6IosClientDB?.lastErrorMessage()))")
+                print("Error:\(q6IosClientDB?.lastErrorMessage())")
             }
         }
         
@@ -87,14 +87,14 @@ public class Q6DBLib{
             let result = q6IosClientDB?.executeUpdate(insertSQL, withArgumentsIn: nil)
             
             if !result! {
-                print ("Error: \(String(describing: q6IosClientDB?.lastErrorMessage()))")
+                print ("Error: \(q6IosClientDB?.lastErrorMessage())")
             } else{
                 print ("Sucess: add UserInfos")
             }
             }
         }
         else{
-                   print ("Error: \(String(describing: q6IosClientDB?.lastErrorMessage()))")
+                   print ("Error: \(q6IosClientDB?.lastErrorMessage())")
         }
          q6IosClientDB?.close()
     }
@@ -196,7 +196,7 @@ public class Q6DBLib{
     
     public  func validateLoginStatus() ->Bool
     {
-//        var userLoginData = [String:String]()
+        var userLoginData = [String:String]()
         let filemgr = FileManager.default
         let dirPaths = filemgr.urls(for: .documentDirectory, in: .userDomainMask)
         
@@ -204,8 +204,8 @@ public class Q6DBLib{
         
         databasePath = dirPaths[0].appendingPathComponent("Q6IosClientDB.db").path as NSString
         
-        let dd = databasePath as String
-        let q6IosClientDB = FMDatabase(path: dd)
+        var dd = databasePath as String
+        let q6IosClientDB = FMDatabase(path: databasePath as String)
         
         if (q6IosClientDB?.open())! {
             let querySQL = "SELECT LoginStatus FROM UserInfos"
@@ -269,7 +269,7 @@ public class Q6DBLib{
             let result = q6IosClientDB?.executeUpdate(updateSQL, withArgumentsIn: nil)
             
             if !result! {
-                print ("Error: \(String(describing: q6IosClientDB?.lastErrorMessage()))")
+                print ("Error: \(q6IosClientDB?.lastErrorMessage())")
             } else{
                 print ("Sucess: update PassCode")
                 isUpdated = true
@@ -277,7 +277,7 @@ public class Q6DBLib{
         }
     }
     else{
-        print ("Error: \(String(describing: q6IosClientDB?.lastErrorMessage()))")
+        print ("Error: \(q6IosClientDB?.lastErrorMessage())")
     }
     q6IosClientDB?.close()
     
@@ -309,7 +309,7 @@ public func deleteUserInfos() -> Bool
                 let result = q6IosClientDB?.executeUpdate(updateSQL, withArgumentsIn: nil)
                 
                 if !result! {
-                    print ("Error: \(String(describing: q6IosClientDB?.lastErrorMessage()))")
+                    print ("Error: \(q6IosClientDB?.lastErrorMessage())")
                 } else{
                     print ("Sucess: delete PassCode")
                     isUpdateSuccessed = true
@@ -317,7 +317,7 @@ public func deleteUserInfos() -> Bool
             }
         }
         else{
-            print ("Error: \(String(describing: q6IosClientDB?.lastErrorMessage()))")
+            print ("Error: \(q6IosClientDB?.lastErrorMessage())")
         }
         q6IosClientDB?.close()
         

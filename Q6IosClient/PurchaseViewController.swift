@@ -31,12 +31,17 @@ class PurchaseViewController: UIViewController, Q6WebApiProtocol,UITableViewDele
         //  self.navigationController?.navigationBar.hidden = true
         //    Q6ActivityIndicatorView.center = purchaseTableView.center
         
+        
+        
     }
     override func viewDidAppear(_ animated: Bool) {
 
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        
         
         // Do any additional setup after loading the view.
         
@@ -254,7 +259,6 @@ class PurchaseViewController: UIViewController, Q6WebApiProtocol,UITableViewDele
             print("ClosedDate nil")
         }
     }
-    // MARK: Table view data source
     private func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
@@ -285,9 +289,9 @@ class PurchaseViewController: UIViewController, Q6WebApiProtocol,UITableViewDele
     }
     
     
+    
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        tableView.deselectRow(at: indexPath, animated: true)
         
         selectedRowNo = indexPath.row
         
@@ -318,7 +322,7 @@ class PurchaseViewController: UIViewController, Q6WebApiProtocol,UITableViewDele
             purchaseDetailViewController.operationType = operationType.Create
             print("purchaseDetailViewController.operationType" + purchaseDetailViewController.operationType)
             purchaseDetailViewController.delegate2 = self
-            // purchaseDetailDataLineInventorySearchViewController.delegate = self
+            //            purchaseDetailDataLineInventorySearchViewController.delegate = self
             
         }
         if segue.identifier == "editPurchaseDetail" {

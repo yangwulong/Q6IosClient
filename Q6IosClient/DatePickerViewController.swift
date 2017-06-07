@@ -48,7 +48,9 @@ class DatePickerViewController: UIViewController {
     }
     @IBAction func DoneButtonClicked(sender: AnyObject) {
         
-        selectedDate = datePicker.date as NSDate
+ selectedDate = datePicker.date as NSDate
+        
+    
         
         self.delegate?.sendGoBackFromDatePickerView(fromView: "DatePickerViewController", forCell: fromCell, Date: selectedDate)
         _ = navigationController?.popViewController(animated: true)

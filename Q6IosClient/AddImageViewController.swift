@@ -73,8 +73,10 @@ setControlAppear()
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         
+        
+    
         let mediaType = info[UIImagePickerControllerMediaType] as! NSString
         self.dismiss(animated: true, completion: nil)
         
@@ -85,15 +87,15 @@ setControlAppear()
             imageView.image = image
             
             attachedImage = image
-            
-            // let pngImageData = UIImagePNGRepresentation(image,1)
-            _ = UIImageJPEGRepresentation(image, 1)
-            //   _ = pngImageData!.base64EncodedString(options: NSData.Base64EncodingOptions.Encoding64CharacterLineLength)
+          
+           // let pngImageData = UIImagePNGRepresentation(image,1)
+          _ = UIImageJPEGRepresentation(image, 1)
+  //   _ = pngImageData!.base64EncodedString(options: NSData.Base64EncodingOptions.Encoding64CharacterLineLength)
             lblInfo.isHidden = true
             if newMedia == true {
-                //                UIImageWriteToSavedPhotosAlbum(image,self, Selector("image:didFinishSavingWithError:contextInfo:"), nil)
+//                UIImageWriteToSavedPhotosAlbum(image,self, Selector("image:didFinishSavingWithError:contextInfo:"), nil)
                 
-                UIImageWriteToSavedPhotosAlbum(image, self, #selector(AddImageViewController.image(_:didFinishSavingWithError:contextInfo:)), nil)
+ UIImageWriteToSavedPhotosAlbum(image, self, #selector(AddImageViewController.image(_:didFinishSavingWithError:contextInfo:)), nil)
             }
         }
     }

@@ -107,16 +107,15 @@ class PurchaseDetailDataLineInventorySearchViewController:UIViewController ,Q6We
             
             for i in 0  ..< returnData.count {
                 
-                //                //
-                //                //                print("no i =" + i.description)
                 var dataItem = returnData[i]
-                //
-             let inventoryView = InventoryView()
+                
+                let inventoryView = InventoryView()
+                
                 inventoryView.InventoryID = dataItem["InventoryID"] as! String
                 
                 inventoryView.InventoryName = dataItem["InventoryName"] as! String
                 
-               print("inventoryView.InventoryName " + inventoryView.InventoryName )
+                print("inventoryView.InventoryName " + inventoryView.InventoryName )
                 
                 inventoryView.IsBuy = dataItem["IsBuy"] as! Bool
                 inventoryView.IsSell = dataItem["IsSell"] as! Bool
@@ -156,24 +155,22 @@ class PurchaseDetailDataLineInventorySearchViewController:UIViewController ,Q6We
                     print("nil")
                 }
                 
-              inventoryView.IsPurchasePriceTaxInclusive = dataItem["IsPurchasePriceTaxInclusive"] as! Bool
-           
+                inventoryView.IsPurchasePriceTaxInclusive = dataItem["IsPurchasePriceTaxInclusive"] as! Bool
                 
-                inventoryView.PurchaseAccountNameWithAccountNo = dataItem["PurchaseAccountNameWithAccountNo"] as! String
+                inventoryView.PurchaseAccountNameWithAccountNo = dataItem["PurchaseAccountNameWithAccountNo"] as? String ?? ""
+                
                 print("inventoryView.PurchaseAccountNameWithAccountNo" + inventoryView.PurchaseAccountNameWithAccountNo)
                 
-                inventoryView.PurchaseTaxCodeName = dataItem["PurchaseTaxCodeName"] as! String
+                inventoryView.PurchaseTaxCodeName = dataItem["PurchaseTaxCodeName"] as? String ?? ""
                 print("inventoryView.PurchaseTaxCodeName" + inventoryView.PurchaseTaxCodeName)
                 
              
-                inventoryView.PurchaseAccountNameWithAccountNo = dataItem["PurchaseAccountNameWithAccountNo"] as! String
+                inventoryView.PurchaseAccountNameWithAccountNo = dataItem["PurchaseAccountNameWithAccountNo"] as? String ?? ""
                 print("inventoryView.PurchaseAccountNameWithAccountNo" + inventoryView.PurchaseAccountNameWithAccountNo)
                 
                 let MinQuantityForRestockingAlert = dataItem["MinQuantityForRestockingAlert"] as? Double
                 if MinQuantityForRestockingAlert != nil {
                     inventoryView.MinQuantityForRestockingAlert = MinQuantityForRestockingAlert!
-                    
-            
                     
                 }
                 

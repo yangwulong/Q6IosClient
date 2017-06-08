@@ -6,6 +6,8 @@
 //  Copyright © 2016 q6. All rights reserved.
 //1
 
+// ziliang
+
 import UIKit
 
 class PassCodeViewController: UIViewController , UITextFieldDelegate{
@@ -26,7 +28,7 @@ class PassCodeViewController: UIViewController , UITextFieldDelegate{
     var firstTimeInputPassCode : String = ""
     var secondTimeInputPassCode: String = ""
     var ValidateTimeInputPassCode: String = ""
-    //1 CreatePassCode ,2 ConfirmPassCode ,3 ValidatePassCode
+    
     var ScreenMode : String = ""
     var userInputPasscodeValue1 : String? = nil
     var userInputPasscodeValue2 : String? = nil
@@ -46,9 +48,7 @@ class PassCodeViewController: UIViewController , UITextFieldDelegate{
         self.txtPassCode2.delegate = self
         self.txtPassCode3.delegate = self
         self.txtPassCode4.delegate = self
-      
-        // Do any additional setup after loading the view.
-        //txtPassCode1.becomeFirstResponder()
+        
         activeTextField.becomeFirstResponder()
         
         if ScreenMode == "ValidatePassCode" {

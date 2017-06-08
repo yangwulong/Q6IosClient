@@ -1,12 +1,14 @@
-//08/6/2017
+// ziliangcai
+//
 //  LoginViewController.swift
 //  Q6IosClient
 //
 //  Created by yang wulong on 22/03/2016.
 //  Copyright © 2016 q6. All rights reserved.
-//2
+//  2
 import UIKit
 
+// ziliang
 
 class LoginViewController: UIViewController, UITextFieldDelegate,Q6WebApiProtocol {
     
@@ -23,18 +25,13 @@ class LoginViewController: UIViewController, UITextFieldDelegate,Q6WebApiProtoco
     var ScreenMode : String = ""
     
     override func viewWillAppear(_ animated: Bool) {
-        //        var q6CommonLib = Q6CommonLib()
-        //        q6CommonLib.testTouchID()
-       
       
-        
         let bounds = UIScreen.main.bounds
         let width = bounds.size.width
         
        
         let height = bounds.size.height
         
-      //  scrollView.contentSize = CGSizeMake(200, self.view.frame.size.height)
         scrollView.frame.size = CGSize(width:width, height:height)
         scrollView.contentSize = CGSize(width:width, height:height)
         txtLoginEmail.frame.size.width = width - 50
@@ -230,7 +227,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate,Q6WebApiProtoco
                     let q6DBLib = Q6DBLib()
                     
                     
-                    q6DBLib.addUserInfos(LoginEmail: txtLoginEmail.text ?? "", PassWord: txtLoginPassword.text ?? "", LoginStatus: "Login",CompanyID: companyID ,LoginFirstName: LoginFirstName ,LoginLastName: LoginLastName)
+                    q6DBLib.addUserInfos(LoginEmail: txtLoginEmail.text!, PassWord: txtLoginPassword.text!, LoginStatus: "Login",CompanyID: companyID ,LoginFirstName: LoginFirstName ,LoginLastName: LoginLastName)
                     //Set any attributes of the view controller before it is displayed, this is where you would set the category text in your code.
                     
                     let passCode = q6DBLib.getUserPassCode()

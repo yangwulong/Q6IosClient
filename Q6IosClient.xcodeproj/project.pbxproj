@@ -96,7 +96,7 @@
 		841D67C51EE7891F00E6B374 /* Q6Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841D67C21EE788ED00E6B374 /* Q6Constant.swift */; };
 		841D67C61EE7891F00E6B374 /* Q6Enum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841D67C31EE788ED00E6B374 /* Q6Enum.swift */; };
 		841D67C71EE7891F00E6B374 /* Q6PublicMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841D67C11EE788ED00E6B374 /* Q6PublicMethod.swift */; };
-		841D67C81EE7891F00E6B374 /* DropDownmenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841D67C41EE788F500E6B374 /* DropDownmenu.swift */; };
+		842167EE1EE8E99A009362D5 /* DropDownmenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845674A11EE8E93B008D5EE9 /* DropDownmenu.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -198,7 +198,7 @@
 		841D67C11EE788ED00E6B374 /* Q6PublicMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Q6PublicMethod.swift; sourceTree = "<group>"; };
 		841D67C21EE788ED00E6B374 /* Q6Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Q6Constant.swift; sourceTree = "<group>"; };
 		841D67C31EE788ED00E6B374 /* Q6Enum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Q6Enum.swift; sourceTree = "<group>"; };
-		841D67C41EE788F500E6B374 /* DropDownmenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropDownmenu.swift; sourceTree = "<group>"; };
+		845674A11EE8E93B008D5EE9 /* DropDownmenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropDownmenu.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -367,7 +367,6 @@
 				195AD4A71CB35DAF002F2DD7 /* TabBarViewController.swift */,
 				19F9B5731CB21D7600571B9D /* PassCodeViewController.swift */,
 				199F0CD21CA0BE0C00301EC4 /* LoginViewController.swift */,
-				841D67C41EE788F500E6B374 /* DropDownmenu.swift */,
 				19FD132E1C9A134800E5C445 /* Assets.xcassets */,
 				19FD13301C9A134800E5C445 /* LaunchScreen.storyboard */,
 				19FD13331C9A134800E5C445 /* Info.plist */,
@@ -378,6 +377,7 @@
 		19FD13391C9A184400E5C445 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				845674A11EE8E93B008D5EE9 /* DropDownmenu.swift */,
 				841D67C21EE788ED00E6B374 /* Q6Constant.swift */,
 				841D67C31EE788ED00E6B374 /* Q6Enum.swift */,
 				841D67C11EE788ED00E6B374 /* Q6PublicMethod.swift */,
@@ -490,10 +490,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				842167EE1EE8E99A009362D5 /* DropDownmenu.swift in Sources */,
 				841D67C51EE7891F00E6B374 /* Q6Constant.swift in Sources */,
 				841D67C61EE7891F00E6B374 /* Q6Enum.swift in Sources */,
 				841D67C71EE7891F00E6B374 /* Q6PublicMethod.swift in Sources */,
-				841D67C81EE7891F00E6B374 /* DropDownmenu.swift in Sources */,
 				19C4FC8F1CD86BD4004A1449 /* PurchaseDetailTableViewCell.swift in Sources */,
 				19B87D571CDAFF580048AAFB /* Supplier.swift in Sources */,
 				19DE52DB1CEC21170050A62D /* PurchaseDetailDataLineAccountSearchViewController.swift in Sources */,

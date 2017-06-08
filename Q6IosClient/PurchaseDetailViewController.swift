@@ -210,27 +210,32 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
                 
                 
                 cell.lblDueDate.text = purchasesTransactionHeader.DueDate!.formatted
+                
             }else {
                 
                 if supplier.DefaultDueDateOption == DueDateType.ofTheFollowingMonth.rawValue {
                     
                     let dueDate = ofTheFollowingMonth(days: supplier.DefaultDueDate, createDate: purchasesTransactionHeader.CreateTime)
                     cell.lblDueDate.text = dueDate?.formatted
+                    purchasesTransactionHeader.DueDate = dueDate
                     
                 }else if supplier.DefaultDueDateOption == DueDateType.daysAfterTheInvoiceDate.rawValue {
                     
                     let dueDate = daysAfterTheInvoiceDate(days: supplier.DefaultDueDate, transactionDate: purchasesTransactionHeader.TransactionDate)
                     cell.lblDueDate.text = dueDate.formatted
+                    purchasesTransactionHeader.DueDate = dueDate
                     
                 }else if supplier.DefaultDueDateOption == DueDateType.daysAfterTheEndOfTheInvoiceMonth.rawValue {
                     
                     let dueDate = daysAfterTheEndOfTheInvoiceMonth(days: supplier.DefaultDueDate, transactionDate: purchasesTransactionHeader.TransactionDate)
                     cell.lblDueDate.text = dueDate?.formatted
+                    purchasesTransactionHeader.DueDate = dueDate
                     
                 }else if supplier.DefaultDueDateOption == DueDateType.ofTheCurrentMonth.rawValue {
                     
                     let dueDate = ofTheCurrentMonth(days: supplier.DefaultDueDate, transactionDate: purchasesTransactionHeader.TransactionDate)
                     cell.lblDueDate.text = dueDate?.formatted
+                    purchasesTransactionHeader.DueDate = dueDate
                 }
             }
             
@@ -617,7 +622,6 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
     @IBAction func SaveButtonClick(sender: AnyObject) {
         
       
-        
         if validateQuantityValue()&&validateDate()&&validateIfPurchaseDetailIsNotEmpty()
         {
             Q6ActivityIndicatorView.isHidden = false 
@@ -1133,8 +1137,6 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
         if fromView == "DatePickerViewController" {
             if forCell == "DueDateCell" {
                 purchasesTransactionHeader.DueDate = Date
-                
-                
                 
              DispatchQueue.main.async {
                     self.purchaseDetailTableView.reloadData()

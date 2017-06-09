@@ -356,14 +356,14 @@
 			isa = PBXGroup;
 			children = (
 				19FD133C1C9A4CDE00E5C445 /* Model */,
-				19B478CD1D10D4D500BA1E4E /* Contact */,
 				19FD13391C9A184400E5C445 /* Common */,
 				19B87D551CDAFE220048AAFB /* Purchases */,
+				19D009E11D07D21800217C6A /* Sales */,
+				19B478CD1D10D4D500BA1E4E /* Contact */,
 				19FD13251C9A134800E5C445 /* AppDelegate.swift */,
 				19DDD7B11CB7701900FC32A5 /* Main.storyboard */,
 				19B478CB1D10D37600BA1E4E /* Contact.storyboard */,
 				19D009E61D07D88300217C6A /* Sales.storyboard */,
-				19D009E11D07D21800217C6A /* Sales */,
 				195AD4A71CB35DAF002F2DD7 /* TabBarViewController.swift */,
 				19F9B5731CB21D7600571B9D /* PassCodeViewController.swift */,
 				199F0CD21CA0BE0C00301EC4 /* LoginViewController.swift */,
@@ -446,7 +446,7 @@
 				TargetAttributes = {
 					19FD13211C9A134800E5C445 = {
 						CreatedOnToolsVersion = 7.2;
-						DevelopmentTeam = T7SSJ7K252;
+						DevelopmentTeam = FUTHQM4F2Z;
 						LastSwiftMigration = 0900;
 					};
 				};
@@ -702,6 +702,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEFINES_MODULE = NO;
+				DEVELOPMENT_TEAM = FUTHQM4F2Z;
 				INFOPLIST_FILE = Q6IosClient/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = au.com.q6.Q6IosClient;
@@ -722,6 +723,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEFINES_MODULE = NO;
+				DEVELOPMENT_TEAM = FUTHQM4F2Z;
 				INFOPLIST_FILE = Q6IosClient/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = au.com.q6.Q6IosClient;

@@ -231,7 +231,6 @@ public class Q6DBLib{
         
         databasePath = dirPaths[0].appendingPathComponent("Q6IosClientDB.db").path as NSString
         
-        
         let q6IosClientDB = FMDatabase(path: databasePath as String)
         
         if (q6IosClientDB?.open())! {
@@ -241,8 +240,6 @@ public class Q6DBLib{
             if results?.next() == true {
                 
                 userPassCode = results?.string(forColumn: "PassCode")
-            
-                
             }
         }
         return userPassCode

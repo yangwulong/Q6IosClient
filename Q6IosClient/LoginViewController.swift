@@ -29,7 +29,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate,Q6WebApiProtoco
         let bounds = UIScreen.main.bounds
         let width = bounds.size.width
         
-       
         let height = bounds.size.height
         
         scrollView.frame.size = CGSize(width:width, height:height)
@@ -100,8 +99,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate,Q6WebApiProtoco
                 present(passCodeViewController, animated: true, completion: nil)
             }
             ScreenMode = ""
-            
-            
         }
         
     }
@@ -126,8 +123,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate,Q6WebApiProtoco
         insideSignIn()
    
     }
-    func insideSignIn()
-    {
+    func insideSignIn() {
         
         let isInputValid = validaUserInput()
         
@@ -137,7 +133,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate,Q6WebApiProtoco
             
             if isConnectedToNetwork == true {
                 let q6CommonLib = Q6CommonLib(myObject: self)
-                
                 
                 var dicData=[String: String]()
                 dicData["WebApiTOKEN"]=Q6CommonLib.getQ6WebAPIToken()
@@ -226,8 +221,10 @@ class LoginViewController: UIViewController, UITextFieldDelegate,Q6WebApiProtoco
                     
                     let q6DBLib = Q6DBLib()
                     
-                    
-                    q6DBLib.addUserInfos(LoginEmail: txtLoginEmail.text!, PassWord: txtLoginPassword.text!, LoginStatus: "Login",CompanyID: companyID ,LoginFirstName: LoginFirstName ,LoginLastName: LoginLastName)
+                    DispatchQueue.main.async {
+                        
+                        q6DBLib.addUserInfos(LoginEmail: self.txtLoginEmail.text!, PassWord: self.txtLoginPassword.text!, LoginStatus: "Login", CompanyID: companyID ,LoginFirstName: LoginFirstName ,LoginLastName: LoginLastName)
+                    }
                     //Set any attributes of the view controller before it is displayed, this is where you would set the category text in your code.
                     
                     let passCode = q6DBLib.getUserPassCode()
@@ -280,8 +277,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate,Q6WebApiProtoco
     }
     
     private func activityIndicatorViewStop() {
+        
         DispatchQueue.main.async {
-            
             
             self.Q6ActivityIndicatorView.hidesWhenStopped = true
             self.Q6ActivityIndicatorView.stopAnimating()
@@ -295,9 +292,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate,Q6WebApiProtoco
         return true;
     }
     
-//    override func viewWillAppear(animated: Bool) {
-//        registerForKeyboardNotifications()
-//    }
     override open func viewWillDisappear(_ animated: Bool) {
         deregisterFromKeyboardNotifications()
     }

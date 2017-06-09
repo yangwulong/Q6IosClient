@@ -57,15 +57,8 @@ class PassCodeViewController: UIViewController , UITextFieldDelegate{
         }
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
-    
-    
-    internal func setControlAppear()
-    {
+    internal func setControlAppear() {
         
         txtPassCode1.layer.addBorder(SelfWidth: txtPassCode1.frame.width, edge: UIRectEdge.bottom, color: UIColor.lightGray, thickness: 0.5)
         

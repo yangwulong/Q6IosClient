@@ -222,7 +222,7 @@ class SaleDetailDataLineViewController: UIViewController, UITableViewDelegate ,U
                 
                 if strAmount.contains(".") == true {
                     //Check decimal place whether less than 4
-                    let strsplit = strAmount.characters.split(separator: ".")
+                    let strsplit = strAmount.split(separator: ".")
                     let strLast = String(strsplit.last!)
                     
                     if strLast.length > 2 {
@@ -574,7 +574,7 @@ class SaleDetailDataLineViewController: UIViewController, UITableViewDelegate ,U
                 
                 if StrUnitPrice?.contains(".") == true {
                     //Check decimal place whether less than 4
-                    let strsplit = StrUnitPrice?.characters.split(separator: ".")
+                    let strsplit = StrUnitPrice?.split(separator: ".")
                     let strLast = String(describing: strsplit?.last!)
                     
                     
@@ -690,7 +690,7 @@ class SaleDetailDataLineViewController: UIViewController, UITableViewDelegate ,U
                 
                 if StrQuantity?.contains(".") == true {
                     //Check decimal place whether less than 4
-                    let strsplit = StrQuantity?.characters.split(separator: ".")
+                    let strsplit = StrQuantity?.split(separator: ".")
                     let strLast = String(describing: strsplit?.last!)
                     
                     

@@ -315,11 +315,11 @@ class SaleDetailViewController: UIViewController, UITableViewDelegate ,UITableVi
             
             if attachedimage != nil {
                 
-                cell.AddRemoveImageButton.setImage(UIImage(named: "Minus-25.png"), for: UIControlState.normal)
+                cell.AddRemoveImageButton.setImage(UIImage(named: "Minus-25.png"), for: UIControl.State.normal)
                 cell.lblAddImageLabel.text = "Has a linked image!"
             }
             else{
-                cell.AddRemoveImageButton.setImage(UIImage(named: "plus.png"), for: UIControlState.normal)
+                cell.AddRemoveImageButton.setImage(UIImage(named: "plus.png"), for: UIControl.State.normal)
                 cell.lblAddImageLabel.text = "Add an image"
             }
             
@@ -505,8 +505,8 @@ class SaleDetailViewController: UIViewController, UITableViewDelegate ,UITableVi
         }
     }
     
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if (editingStyle == UITableViewCellEditingStyle.delete) {
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if (editingStyle == UITableViewCell.EditingStyle.delete) {
             
             if salesDetailScreenLinesDic[indexPath.row].isAdded == true
             {
@@ -729,7 +729,7 @@ class SaleDetailViewController: UIViewController, UITableViewDelegate ,UITableVi
         
         let FileName = "AttachedPhoneImage"
         //
-        let imgData: NSData = NSData(data: UIImageJPEGRepresentation((image), 1)!)
+        let imgData: NSData = NSData(data: (image).jpegData(compressionQuality: 1)!)
         // var imgData: NSData = UIImagePNGRepresentation(image)
         // you can also replace UIImageJPEGRepresentation with UIImagePNGRepresentation.
         let FileSize: Int = imgData.length
@@ -750,7 +750,7 @@ class SaleDetailViewController: UIViewController, UITableViewDelegate ,UITableVi
         else {
             i = 1
         }
-        let imageData = UIImageJPEGRepresentation(image, i)
+        let imageData = image.jpegData(compressionQuality: i)
         let File = imageData!.base64EncodedString(options: NSData.Base64EncodingOptions(rawValue: 0))
         
         var dicData = [String: AnyObject]()
@@ -1421,10 +1421,12 @@ class SaleDetailViewController: UIViewController, UITableViewDelegate ,UITableVi
                     
                     _ = navigationController
                     // Q6CommonLib.q6UIAlertPopupControllerThenGoBack("Information message", message: "Save Successfully!", viewController: self,timeArrange:3,navigationController: nav!)
+                    DispatchQueue.main.async {
+
+                        let alert = UIAlertController(title: "Information message", message: "Save Successfully!", preferredStyle: UIAlertController.Style.alert)
+                        self.present(alert, animated: true, completion: nil)
+                    }
                     
-                    
-                    let alert = UIAlertController(title: "Information message", message: "Save Successfully!", preferredStyle: UIAlertControllerStyle.alert)
-                    self.present(alert, animated: true, completion: nil)
                     
                     
                     
@@ -1588,7 +1590,7 @@ class SaleDetailViewController: UIViewController, UITableViewDelegate ,UITableVi
             print("DueDate" + DueDate!)
             
             let dateFormatter = DateFormatter()
-            dateFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone!
+            dateFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone?
             dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
             salesTransactionsHeaderView.DueDate = dateFormatter.date(from: DueDate!) as NSDate?
         }
@@ -1663,7 +1665,7 @@ class SaleDetailViewController: UIViewController, UITableViewDelegate ,UITableVi
         
         
         let dateFormatter2 = DateFormatter()
-        dateFormatter2.timeZone = NSTimeZone(name: "UTC") as TimeZone!
+        dateFormatter2.timeZone = NSTimeZone(name: "UTC") as TimeZone?
         dateFormatter2.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
         salesTransactionsHeaderView.TransactionDate = dateFormatter2.date(from: TransactionDate)! as NSDate
         

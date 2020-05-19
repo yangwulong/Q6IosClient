@@ -100,6 +100,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate,Q6WebApiProtoco
                 
                 passCodeViewController.ScreenMode = "ValidatePassCode"
                 
+                  passCodeViewController.modalPresentationStyle = .fullScreen
                 present(passCodeViewController, animated: true, completion: nil)
             }
             ScreenMode = ""
@@ -251,19 +252,29 @@ class LoginViewController: UIViewController, UITextFieldDelegate,Q6WebApiProtoco
                             passCodeViewController.ScreenMode = "ValidatePassCode"
                         }
                         
-                        present(passCodeViewController, animated: true, completion: nil)
+                        DispatchQueue.main.async {
+                            passCodeViewController.modalPresentationStyle = .fullScreen
+                            self.present(passCodeViewController, animated: true, completion: nil)
+                        }
+                       
                     }
                     
                 }else {
                     
                     activityIndicatorViewStop()
-                    Q6CommonLib.q6UIAlertPopupController(title: "Information Message", message: "Login fail ,Please check your login name ,password!", viewController: self)
+                    DispatchQueue.main.async {
+                      Q6CommonLib.q6UIAlertPopupController(title: "Information Message", message: "Login fail ,Please check your login name ,password!", viewController: self)
+                    }
+                    
                 }
             }
             else {
                 
                 activityIndicatorViewStop()
-                Q6CommonLib.q6UIAlertPopupController(title: "Information Message", message: "Login fail ,Please check your login name ,password!", viewController: self)
+                DispatchQueue.main.async {
+                 Q6CommonLib.q6UIAlertPopupController(title: "Information Message", message: "Login fail ,Please check your login name ,password!", viewController: self)
+                }
+               
             }
             
             
@@ -309,8 +320,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate,Q6WebApiProtoco
     {
        
         //Adding notifies on keyboard appearing
-        NotificationCenter.default.addObserver(self, selector: #selector(LoginViewController.keyboardWasShown(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(LoginViewController.keyboardWillBeHidden(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(LoginViewController.keyboardWasShown(_:)), name: NSNotification.Name.UIResponder.keyboardWillShowNotification, object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(LoginViewController.keyboardWillBeHidden(_:)), name: NSNotification.Name.UIResponder.keyboardWillHideNotification, object: nil)
         
 //        //Adding notifies on keyboard appearing
 //        NotificationCenter.default.addObserver(self, selector: Selector("keyboardWasShown:"), name: NSNotification.Name.UIKeyboardDidShow, object: nil)
@@ -321,8 +332,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate,Q6WebApiProtoco
     func deregisterFromKeyboardNotifications()
     {
         //Removing notifies on keyboard appearing
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+//        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIResponder.keyboardWillShowNotification, object: nil)
+//        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     func keyboardWasShown(_ notification: NSNotification)
@@ -330,8 +341,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate,Q6WebApiProtoco
         //Need to calculate keyboard exact size due to Apple suggestions
         self.scrollView.isScrollEnabled = true
         let info : NSDictionary = notification.userInfo! as NSDictionary
-        let keyboardSize = (info[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue.size
-        let contentInsets : UIEdgeInsets = UIEdgeInsetsMake(0.0, 0.0, keyboardSize!.height, 0.0)
+        let keyboardSize = (info[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue.size
+        let contentInsets : UIEdgeInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: keyboardSize!.height, right: 0.0)
         
         self.scrollView.contentInset = contentInsets
         self.scrollView.scrollIndicatorInsets = contentInsets
@@ -350,12 +361,12 @@ class LoginViewController: UIViewController, UITextFieldDelegate,Q6WebApiProtoco
     }
     
     
-    func keyboardWillBeHidden(_ notification: NSNotification)
+    @objc func keyboardWillBeHidden(_ notification: NSNotification)
     {
         //Once keyboard disappears, restore original positions
         let info : NSDictionary = notification.userInfo! as NSDictionary
-        let keyboardSize = (info[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue.size
-        let contentInsets : UIEdgeInsets = UIEdgeInsetsMake(0.0, 0.0, -keyboardSize!.height, 0.0)
+        let keyboardSize = (info[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue.size
+        let contentInsets : UIEdgeInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: -keyboardSize!.height, right: 0.0)
         self.scrollView.contentInset = contentInsets
         self.scrollView.scrollIndicatorInsets = contentInsets
         self.view.endEditing(true)

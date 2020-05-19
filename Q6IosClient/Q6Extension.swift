@@ -41,7 +41,8 @@ extension CALayer {
 
 extension String {
     var length: Int {
-        return characters.count
+       // return characters.count
+        return self.count
     }
     
     func toBool() -> Bool {
@@ -91,7 +92,8 @@ extension NSDate {
        
         let formatter = DateFormatter()
         formatter.dateFormat = "dd/MM/yyyy"
-        formatter.locale = NSLocale(localeIdentifier: "en_AU") as Locale!
+        formatter.locale = NSLocale(localeIdentifier: "en_AU") as Locale?
+        
         
         return formatter
     }

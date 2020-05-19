@@ -587,7 +587,7 @@ class ContactViewController: UIViewController, UITableViewDelegate ,UITableViewD
                 _ = navigationController
                 // Q6CommonLib.q6UIAlertPopupControllerThenGoBack("Information message", message: "Save Successfully!", viewController: self,timeArrange:3,navigationController: nav!)
                                 
-                let alert = UIAlertController(title: "Information message", message: "Save Successfully!", preferredStyle: UIAlertControllerStyle.alert)
+                let alert = UIAlertController(title: "Information message", message: "Save Successfully!", preferredStyle: UIAlertController.Style.alert)
                 
                 DispatchQueue.main.async {
                     
@@ -625,7 +625,7 @@ class ContactViewController: UIViewController, UITableViewDelegate ,UITableViewD
                 
             }else {
                 
-                let alert = UIAlertController(title: "Information message", message: "Save Fail: \(String(describing: postDicData["Message"]!))", preferredStyle: UIAlertControllerStyle.alert)
+                let alert = UIAlertController(title: "Information message", message: "Save Fail: \(String(describing: postDicData["Message"]!))", preferredStyle: UIAlertController.Style.alert)
                 
                 DispatchQueue.main.async {
                     

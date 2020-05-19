@@ -319,11 +319,11 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
             
             if attachedimage != nil {
                 
-                cell.AddRemoveImageButton.setImage(UIImage(named: "Minus-25.png"), for: UIControlState.normal)
+                cell.AddRemoveImageButton.setImage(UIImage(named: "Minus-25.png"), for: UIControl.State.normal)
                 cell.lblAddImageLabel.text = "Has a linked image!"
             }
             else{
-                cell.AddRemoveImageButton.setImage(UIImage(named: "plus.png"), for: UIControlState.normal)
+                cell.AddRemoveImageButton.setImage(UIImage(named: "plus.png"), for: UIControl.State.normal)
                 cell.lblAddImageLabel.text = "Add an image"
             }
             
@@ -481,8 +481,8 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
         }
     }
     
-    func tableView(_ commitforRowAttableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if (editingStyle == UITableViewCellEditingStyle.delete) {
+    func tableView(_ commitforRowAttableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if (editingStyle == UITableViewCell.EditingStyle.delete) {
             
             if purchasesDetailScreenLinesDic[indexPath.row].isAdded == true
             {
@@ -695,7 +695,7 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
         
         let FileName = "AttachedPhoneImage"
         //
-        let imgData: NSData = NSData(data: UIImageJPEGRepresentation((image), 1)!)
+        let imgData: NSData = NSData(data: (image).jpegData(compressionQuality: 1)!)
         // var imgData: NSData = UIImagePNGRepresentation(image)
         // you can also replace UIImageJPEGRepresentation with UIImagePNGRepresentation.
         let FileSize: Int = imgData.length
@@ -716,7 +716,7 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
         else {
             i = 1
         }
-        let imageData = UIImageJPEGRepresentation(image, i)
+        let imageData = image.jpegData(compressionQuality: i)
         let File = imageData!.base64EncodedString(options: NSData.Base64EncodingOptions(rawValue: 0))
         
         var dicData = [String: AnyObject]()
@@ -1393,10 +1393,12 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
                     
                  //   var nav = navigationController
                    // Q6CommonLib.q6UIAlertPopupControllerThenGoBack("Information message", message: "Save Successfully!", viewController: self,timeArrange:3,navigationController: nav!)
-                    
-                    
-                    let alert = UIAlertController(title: "Information message", message: "Save Successfully!", preferredStyle: UIAlertControllerStyle.alert)
-                   self.present(alert, animated: true, completion: nil)
+                    DispatchQueue.main.async {
+                         let alert = UIAlertController(title: "Information message", message: "Save Successfully!", preferredStyle: UIAlertController.Style.alert)
+                        self.present(alert, animated: true, completion: nil)
+                         
+
+                    }
                     
                     
 //                    let delayTime = dispatch_time(DISPATCH_TIME_NOW,
@@ -1552,7 +1554,7 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
             print("DueDate" + DueDate!)
             
             let dateFormatter = DateFormatter()
-            dateFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone!
+            dateFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone?
             dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
             purchasesTransactionsHeaderView.DueDate = dateFormatter.date(from: DueDate!) as NSDate?
         }
@@ -1627,7 +1629,7 @@ class PurchaseDetailViewController: UIViewController, UITableViewDelegate ,UITab
         
         
         let dateFormatter2 = DateFormatter()
-        dateFormatter2.timeZone = NSTimeZone(name: "UTC") as TimeZone!
+        dateFormatter2.timeZone = NSTimeZone(name: "UTC") as TimeZone?
         dateFormatter2.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
         purchasesTransactionsHeaderView.TransactionDate = dateFormatter2.date(from: TransactionDate)! as NSDate
         

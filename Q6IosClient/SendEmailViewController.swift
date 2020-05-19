@@ -263,7 +263,7 @@ SendEmailTableView.delegate = self
                 if IsSuccessed == true {
                    
                     
-                    let alert = UIAlertController(title: "Information message", message: "Send  Successfully!", preferredStyle: UIAlertControllerStyle.alert)
+                    let alert = UIAlertController(title: "Information message", message: "Send  Successfully!", preferredStyle: UIAlertController.Style.alert)
                     
                     
                    DispatchQueue.main.async {
@@ -313,7 +313,7 @@ SendEmailTableView.delegate = self
                 }
                 else {
                  
-                    let alert = UIAlertController(title: "Information message", message: "Send Fail!", preferredStyle: UIAlertControllerStyle.alert)
+                    let alert = UIAlertController(title: "Information message", message: "Send Fail!", preferredStyle: UIAlertController.Style.alert)
                     
                     
                   DispatchQueue.main.async {

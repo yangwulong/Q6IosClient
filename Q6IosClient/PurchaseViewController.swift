@@ -315,6 +315,7 @@ class PurchaseViewController: UIViewController, Q6WebApiProtocol,UITableViewDele
             let operationType = OperationType()
             
             let purchaseDetailViewController = segue.destination as! PurchaseDetailViewController
+            purchaseDetailViewController.modalPresentationStyle = .fullScreen
             purchaseDetailViewController.operationType = operationType.Create
             print("purchaseDetailViewController.operationType" + purchaseDetailViewController.operationType)
             purchaseDetailViewController.delegate2 = self
@@ -326,6 +327,7 @@ class PurchaseViewController: UIViewController, Q6WebApiProtocol,UITableViewDele
             let operationType = OperationType()
             
             let purchaseDetailViewController = segue.destination as! PurchaseDetailViewController
+             purchaseDetailViewController.modalPresentationStyle = .fullScreen
             purchaseDetailViewController.operationType = operationType.Edit
             purchaseDetailViewController.purchasesTransactionHeader.PurchasesTransactionsHeaderID = purchaseTransactionListData[selectedRowNo].PurchasesTransactionsHeaderID
             

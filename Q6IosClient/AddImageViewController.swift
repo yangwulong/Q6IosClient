@@ -45,10 +45,10 @@ setControlAppear()
         UseCameraButton.layer.borderColor = UIColor.black.cgColor
     }
     @IBAction func UseExistingPhotoButtonClicked(sender: AnyObject) {
-        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.savedPhotosAlbum){
+        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.savedPhotosAlbum){
             let imagePicker = UIImagePickerController()
             imagePicker.delegate = self
-            imagePicker.sourceType = UIImagePickerControllerSourceType.photoLibrary
+            imagePicker.sourceType = UIImagePickerController.SourceType.photoLibrary
         
             imagePicker.mediaTypes = [kUTTypeImage as String]
             imagePicker.allowsEditing = false
@@ -59,11 +59,11 @@ setControlAppear()
         }
     }
     @IBAction func UseCameraButtonClicked(sender: AnyObject) {
-        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera){
+        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.camera){
             
             let imagePicker = UIImagePickerController()
             imagePicker.delegate = self
-            imagePicker.sourceType = UIImagePickerControllerSourceType.camera
+            imagePicker.sourceType = UIImagePickerController.SourceType.camera
             imagePicker.allowsEditing = false
             self.present(imagePicker,animated: true, completion: nil )
             newMedia = true
@@ -75,19 +75,19 @@ setControlAppear()
     }
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         
-        let mediaType = info[UIImagePickerControllerMediaType] as! NSString
+        let mediaType = info[UIImagePickerController.InfoKey.mediaType.rawValue] as! NSString
         self.dismiss(animated: true, completion: nil)
         
         if mediaType.isEqual(to: kUTTypeImage as String) {
             
-            let image = info[UIImagePickerControllerOriginalImage] as! UIImage
+            let image = info[UIImagePickerController.InfoKey.originalImage.rawValue] as! UIImage
             
             imageView.image = image
             
             attachedImage = image
             
             // let pngImageData = UIImagePNGRepresentation(image,1)
-            _ = UIImageJPEGRepresentation(image, 1)
+            _ = image.jpegData(compressionQuality: 1)
             //   _ = pngImageData!.base64EncodedString(options: NSData.Base64EncodingOptions.Encoding64CharacterLineLength)
             lblInfo.isHidden = true
             if newMedia == true {
@@ -98,7 +98,7 @@ setControlAppear()
         }
     }
     
-    func image(_ image:UIImage,didFinishSavingWithError error:NSErrorPointer,contextInfo:UnsafeRawPointer){
+    @objc func image(_ image:UIImage,didFinishSavingWithError error:NSErrorPointer,contextInfo:UnsafeRawPointer){
         
         if error != nil {
             Q6CommonLib.q6UIAlertPopupController(title: "Save Failed", message: "Failed to save image", viewController: self)
@@ -129,7 +129,7 @@ setControlAppear()
     {
         
         
-        let imgData: NSData = NSData(data: UIImageJPEGRepresentation((attachedImage)!, 1)!)
+        let imgData: NSData = NSData(data: (attachedImage)!.jpegData(compressionQuality: 1)!)
         
         // var imgData: NSData = UIImagePNGRepresentation(image)
         // you can also replace UIImageJPEGRepresentation with UIImagePNGRepresentation.

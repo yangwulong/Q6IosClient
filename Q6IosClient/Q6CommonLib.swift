@@ -346,7 +346,7 @@ public class Q6CommonLib{
     
     public static func q6UIAlertPopupController(title: String?,message:String?,viewController: AnyObject?)
     {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
         viewController!.present(alert, animated: true, completion: nil)
         
         let delayTime = DispatchTime.now() + Double(Int64(1 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
@@ -374,8 +374,11 @@ public class Q6CommonLib{
     
     public static func q6UIAlertPopupController(title: String?,message:String?,viewController: AnyObject? ,timeArrange: Double)
     {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
-        viewController!.present(alert, animated: true, completion: nil)
+        DispatchQueue.main.async {
+            let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
+                 viewController!.present(alert, animated: true, completion: nil)
+        }
+     
         
         
 //        let delayTime = dispatch_time(DISPATCH_TIME_NOW,
@@ -407,7 +410,7 @@ public class Q6CommonLib{
     
     public static func q6UIAlertPopupControllerThenGoBack(title: String?,message:String?,viewController: AnyObject? ,timeArrange: Double ,navigationController: UINavigationController)
     {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
         viewController!.present(alert, animated: true, completion: nil)
         
         
@@ -645,7 +648,7 @@ public class Q6CommonLib{
     
     public static func popUpLoadingSign(parentView: UIViewController) {
         
-        let myActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
+        let myActivityIndicator = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.gray)
         myActivityIndicator.center = parentView.view.center
         myActivityIndicator.startAnimating()
         parentView.view.addSubview(myActivityIndicator)

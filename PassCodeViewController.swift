@@ -176,6 +176,7 @@ class PassCodeViewController: UIViewController , UITextFieldDelegate{
                     if userInfos["passCode"] == ValidateTimeInputPassCode {
                         
                         if let tabViewController = storyboard!.instantiateViewController(withIdentifier: "Q6TabViewController") as? UITabBarController {
+                            tabViewController.modalPresentationStyle = .fullScreen
                             present(tabViewController, animated: true, completion: nil)
                         }
                         
@@ -436,6 +437,7 @@ class PassCodeViewController: UIViewController , UITextFieldDelegate{
             let q6DBLib = Q6DBLib()
            _ = q6DBLib.deleteUserInfos()
             loginViewController.ScreenMode = "GoBackFromPassCodeScreen"
+            loginViewController.modalPresentationStyle = .fullScreen
             present(loginViewController, animated: true, completion: nil)
             
             
